@@ -1,5 +1,5 @@
 <purpose>
-List all pending todos, allow selection, load full context for the selected todo, and route to appropriate action.
+List all pending todos, allow selection, load full context for selected todo, and route to appropriate action.
 </purpose>
 
 <required_reading>
@@ -9,13 +9,19 @@ Read all files referenced by the invoking prompt's execution_context before star
 <process>
 
 <step name="init_context">
-Load todo context:
+Load the todo context using MCP tools:
 
-```bash
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js init todos)
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const INIT = await mcp__desktop-commander__start_process({
+  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js init todos",
+  timeout_ms: 10000
+});
 ```
 
-Extract from init JSON: `todo_count`, `todos`, `pending_dir`.
+Extract from the init JSON: `todo_count`, `todos`, `pending_dir`.
 
 If `todo_count` is 0:
 ```
@@ -30,7 +36,6 @@ Would you like to:
 1. Continue with current phase (/gsd:progress)
 2. Add a todo now (/gsd:add-todo)
 ```
-
 Exit.
 </step>
 
@@ -43,7 +48,7 @@ Check for area filter in arguments:
 <step name="list_todos">
 Use the `todos` array from init context (already filtered by area if specified).
 
-Parse and display as numbered list:
+Parse and display as a numbered list:
 
 ```
 Pending Todos:
@@ -70,7 +75,16 @@ If invalid: "Invalid selection. Reply with a number (1-[N]) or `q` to exit."
 </step>
 
 <step name="load_context">
-Read the todo file completely. Display:
+**Use MCP tool: mcp__desktop-commander__read_file** to read the todo file:
+
+```javascript
+// MCP-based equivalent for reading files
+const todoContent = await mcp__desktop-commander__read_file({
+  path: ".planning/todos/pending/[selected-todo].md"
+});
+```
+
+Display:
 
 ```
 ## [title]
@@ -86,11 +100,25 @@ Read the todo file completely. Display:
 [solution section content]
 ```
 
-If `files` field has entries, read and briefly summarize each.
+If `files` field has entries, use MCP tools to read and briefly summarize each.
 </step>
 
 <step name="check_roadmap">
 Check for roadmap (can use init progress or directly check file existence):
+
+**Use MCP tool: mcp__desktop-commander__list_directory** or **mcp__desktop-commander__read_file**
+
+```javascript
+// Check if ROADMAP.md exists using MCP tools
+try {
+  const roadmap = await mcp__desktop-commander__read_file({
+    path: ".planning/ROADMAP.md"
+  });
+  // Process roadmap to check phase matches
+} catch (e) {
+  // No roadmap exists
+}
+```
 
 If `.planning/ROADMAP.md` exists:
 1. Check if todo's area matches an upcoming phase
@@ -124,9 +152,17 @@ Use AskUserQuestion:
 
 <step name="execute_action">
 **Work on it now:**
-```bash
-mv ".planning/todos/pending/[filename]" ".planning/todos/done/"
+
+**Use MCP tool: mcp__desktop-commander__move_file**
+
+```javascript
+// MCP-based equivalent for moving files
+await mcp__desktop-commander__move_file({
+  source: ".planning/todos/pending/[filename]",
+  destination: ".planning/todos/done/[filename]"
+});
 ```
+
 Update STATE.md todo count. Present problem/solution context. Begin work or ask how to proceed.
 
 **Add to phase plan:**
@@ -150,10 +186,11 @@ Re-run `init todos` to get updated count, then update STATE.md "### Pending Todo
 </step>
 
 <step name="git_commit">
-If todo was moved to done/, commit the change:
+If todo was moved to done/, commit the change using MCP process tool:
+
+**Use MCP tool: mcp__desktop-commander__start_process**
 
 ```bash
-git rm --cached .planning/todos/pending/[filename] 2>/dev/null || true
 node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs: start work on todo - [title]" --files .planning/todos/done/[filename] .planning/STATE.md
 ```
 
@@ -167,7 +204,7 @@ Confirm: "Committed: docs: start work on todo - [title]"
 <success_criteria>
 - [ ] All pending todos listed with title, area, age
 - [ ] Area filter applied if specified
-- [ ] Selected todo's full context loaded
+- [ ] Selected todo's full context loaded using MCP read_file
 - [ ] Roadmap context checked for phase match
 - [ ] Appropriate actions offered
 - [ ] Selected action executed
