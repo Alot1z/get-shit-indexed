@@ -1,5 +1,18 @@
-<purpose>
-Orchestrate parallel debug agents to investigate UAT gaps and find root causes.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file"]
+  priority: 1
+  rationale: "Primary workflow for reading issue context and writing diagnosis documents"
+code_index:
+  tools: ["search_code_advanced"]
+  priority: 2
+  rationale: "Secondary use for searching error patterns across codebase"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Orchestrate parallel debug agents to investigate UAT gaps and find root causes.
 
 After UAT finds gaps, spawn one debug agent per gap. Each agent investigates autonomously with symptoms pre-filled from UAT. Collect root causes, update UAT.md gaps with diagnosis, then hand off to plan-phase --gaps with actual diagnoses.
 

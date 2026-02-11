@@ -1,5 +1,18 @@
-<purpose>
-Remove a future phase from the roadmap and renumber all subsequent phases to close the gap. Updates ROADMAP.md, deletes phase directory, and commits changes.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "start_process"]
+  priority: 1
+  rationale: "Primary workflow for reading roadmap, writing updates, and running git commands"
+code_index:
+  tools: ["find_files"]
+  priority: 2
+  rationale: "Secondary use for discovering phase files to remove"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Remove a future phase from the roadmap and renumber all subsequent phases to close the gap. Updates ROADMAP.md, deletes phase directory, and commits changes.
 </purpose>
 
 <required_reading>

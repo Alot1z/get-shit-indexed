@@ -1,5 +1,18 @@
-<purpose>
-Create all phases necessary to close gaps identified by `/gsd:audit-milestone`. Reads MILESTONE-AUDIT.md, groups gaps into logical phases, creates phase entries in ROADMAP.md, and offers to plan each phase. One command creates all fix phases — no manual `/gsd:add-phase` per gap.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file"]
+  priority: 1
+  rationale: "Primary workflow for reading milestone plans and writing gap analysis"
+code_index:
+  tools: ["find_files"]
+  priority: 2
+  rationale: "Secondary use for discovering phase plans to analyze"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Create all phases necessary to close gaps identified by `/gsd:audit-milestone`. Reads MILESTONE-AUDIT.md, groups gaps into logical phases, creates phase entries in ROADMAP.md, and offers to plan each phase. One command creates all fix phases — no manual `/gsd:add-phase` per gap.
 </purpose>
 
 <required_reading>

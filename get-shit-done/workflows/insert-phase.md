@@ -1,5 +1,18 @@
-<purpose>
-Insert a decimal phase for urgent work discovered mid-milestone between existing integer phases. Uses decimal numbering (72.1, 72.2, etc.) to preserve the logical sequence of planned phases while accommodating urgent insertions without renumbering the entire roadmap.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "list_directory"]
+  priority: 1
+  rationale: "Primary workflow for reading roadmap, writing updated files, and listing phase directories"
+code_index:
+  tools: ["find_files"]
+  priority: 2
+  rationale: "Secondary use for discovering phase files in target directory"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Insert a decimal phase for urgent work discovered mid-milestone between existing integer phases. Uses decimal numbering (72.1, 72.2, etc.) to preserve the logical sequence of planned phases while accommodating urgent insertions without renumbering the entire roadmap.
 </purpose>
 
 <required_reading>

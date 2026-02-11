@@ -1,5 +1,18 @@
-<purpose>
-Resume work from a previous session that used `.continue-here.md` handoff file. Loads complete state, finds where left off, and continues execution. Orchestrator stays lean — delegates to subagents.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "start_process"]
+  priority: 1
+  rationale: "Primary workflow for reading state, writing updates, and running git/analysis commands"
+code_index:
+  tools: ["search_code_advanced"]
+  priority: 2
+  rationale: "Secondary use for searching project context during resumption"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Resume work from a previous session that used `.continue-here.md` handoff file. Loads complete state, finds where left off, and continues execution. Orchestrator stays lean — delegates to subagents.
 </purpose>
 
 <required_reading>

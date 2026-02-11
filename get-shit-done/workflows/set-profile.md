@@ -1,5 +1,14 @@
-<purpose>
-Quick switch model profile for GSD agents without navigating full settings menu. Direct command: `/gsd:set-profile [quality|balanced|budget]` sets all agents at once.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file"]
+  priority: 1
+  rationale: "Primary workflow for reading and writing config files"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Quick switch model profile for GSD agents without navigating full settings menu. Direct command: `/gsd:set-profile [quality|balanced|budget]` sets all agents at once.
 </purpose>
 
 <required_reading>

@@ -1,5 +1,18 @@
-<purpose>
-Research how to implement a phase. Spawns gsd-phase-researcher with phase context.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "start_process"]
+  priority: 1
+  rationale: "Primary workflow for reading context, writing research results, and running analysis commands"
+code_index:
+  tools: ["search_code_advanced", "find_files"]
+  priority: 2
+  rationale: "Secondary use for searching codebase patterns and discovering relevant files"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Research how to implement a phase. Spawns gsd-phase-researcher with phase context.
 
 Standalone research command. For most workflows, use `/gsd:plan-phase` which integrates research automatically.
 </purpose>

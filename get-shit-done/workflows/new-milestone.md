@@ -1,5 +1,18 @@
-<purpose>
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "list_directory", "create_directory"]
+  priority: 1
+  rationale: "Primary workflow for reading roadmap, writing milestone files, listing phases, and creating directories"
+code_index:
+  tools: ["find_files"]
+  priority: 2
+  rationale: "Secondary use for discovering existing phase directories"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
 
+<purpose>
 Start a new milestone cycle for an existing project. Loads project context, gathers milestone goals (from MILESTONE-CONTEXT.md or conversation), updates PROJECT.md and STATE.md, optionally runs parallel research, defines scoped requirements with REQ-IDs, spawns the roadmapper to create phased execution plan, and commits all artifacts. Brownfield equivalent of new-project.
 
 </purpose>
