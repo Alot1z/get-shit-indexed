@@ -2,7 +2,7 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2025-02-11)
+See: .planning/PROJECT.md (updated 2026-02-11)
 
 **Core value:** Token-efficient, reliable GSD workflows that leverage all three MCP servers (DC + CI + CG) using proven tool chain patterns.
 **Current focus:** Phase 1 - MCP Foundation
@@ -10,27 +10,27 @@ See: .planning/PROJECT.md (updated 2025-02-11)
 ## Current Position
 
 Phase: 1 of 8 (MCP Foundation)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-02-11 — Completed plan 01-02: Golden Pattern
+Plan: 3 of 3 in current phase
+Status: Phase complete
+Last activity: 2026-02-11 — Completed plan 01-03: Tool Priority Rules
 
-Progress: [████░░░░░░░] 67%
+Progress: [████████░░░░░] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 16 min
-- Total execution time: 0.5 hours
+- Total plans completed: 3
+- Average duration: 15 min
+- Total execution time: 0.8 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-mcp-foundation | 2 | 3 | 16min |
+| 01-mcp-foundation | 3 | 3 | 15min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (20min), 01-01 (12min)
+- Last 5 plans: 01-03 (8min), 01-02 (20min), 01-01 (12min)
 - Trend: Stable performance
 
 *Updated after each plan completion*
@@ -54,6 +54,11 @@ Recent decisions affecting current work:
 - Decision tree enables workflow authors to select optimal pattern without memorizing all 24 patterns
 - CI-only fallback documented for when CodeGraphContext is unavailable
 
+**From 01-03 (Tool Priority Rules):**
+- Tool priority rules (Skills > MCP > Native) established as mandatory for all GSD operations
+- Token savings metrics (80-90%) documented to justify tool priority enforcement
+- Plan template includes <tool_priority> section to guide authors toward MCP tools
+
 ### Pending Todos
 
 [From .planning/todos/pending/ — ideas captured during sessions]
@@ -69,5 +74,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-11
-Stopped at: Completed plan 01-02: Golden Pattern
+Stopped at: Completed plan 01-03: Tool Priority Rules
 Resume file: None
