@@ -6,6 +6,20 @@ Each agent has fresh context, explores a specific focus area, and **writes docum
 Output: .planning/codebase/ folder with 7 structured documents about the codebase state.
 </purpose>
 
+<code_index_mcp>
+desktop_commander:
+  tools: ["list_directory", "read_file", "write_file", "start_process"]
+  priority: 1
+  rationale: "Primary workflow for file system operations - listing directories, reading/writing files, spawning subprocesses for agent tracking"
+code_index:
+  tools: ["find_files"]
+  priority: 2
+  rationale: "Secondary use for discovering specific file patterns in codebase (e.g., finding all test files)"
+native:
+  priority: 3
+  rationale: "Fallback only - all operations use MCP tools for 80-90% token savings"
+</code_index_mcp>
+
 <philosophy>
 **Why dedicated mapper agents:**
 - Fresh context per domain (no token contamination)
