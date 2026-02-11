@@ -2,6 +2,20 @@
 Create executable phase prompts (PLAN.md files) for a roadmap phase with integrated research and verification. Default flow: Research (if needed) -> Plan -> Verify -> Done. Orchestrates gsd-phase-researcher, gsd-planner, and gsd-plan-checker agents with a revision loop (max 3 iterations).
 </purpose>
 
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "list_directory", "create_directory"]
+  priority: 1
+  rationale: "Primary workflow for reading context files, writing plan documents, and managing planning directory structure"
+code_index:
+  tools: ["search_code_advanced", "find_files", "get_file_summary"]
+  priority: 1
+  rationale: "Co-primary workflow for searching existing plans, discovering files, and getting file metadata during planning"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
 <required_reading>
 **Use MCP tools for reading files:**
 
