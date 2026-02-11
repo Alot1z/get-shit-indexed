@@ -1,5 +1,18 @@
-<purpose>
-Join the GSD Discord community. Get help, share what you're building, stay updated. Connect with other GSD users.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "list_directory"]
+  priority: 1
+  rationale: "Primary workflow for reading phase summaries, writing transition notes, and listing next phase files"
+code_index:
+  tools: ["find_files"]
+  priority: 2
+  rationale: "Secondary use for discovering phase directories and summary files"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Join the GSD Discord community. Get help, share what you're building, stay updated. Connect with other GSD users.
 </purpose>
 
 <required_reading>

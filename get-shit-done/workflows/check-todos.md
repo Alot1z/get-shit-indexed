@@ -1,5 +1,14 @@
-<purpose>
-List all pending todos, allow selection, load full context for selected todo, and route to appropriate action.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "list_directory"]
+  priority: 1
+  rationale: "Primary workflow for reading todos, writing status, and listing pending todos"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>List all pending todos, allow selection, load full context for selected todo, and route to appropriate action.
 </purpose>
 
 <required_reading>

@@ -1,5 +1,14 @@
-<purpose>
-Configure workflow toggles and model profile interactively. Changes mode (interactive/yolo), depth (quick/standard/comprehensive), parallelization, and model assignments for planning agents.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file"]
+  priority: 1
+  rationale: "Primary workflow for reading and writing configuration"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Configure workflow toggles and model profile interactively. Changes mode (interactive/yolo), depth (quick/standard/comprehensive), parallelization, and model assignments for planning agents.
 </purpose>
 
 <required_reading>

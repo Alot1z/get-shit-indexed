@@ -1,5 +1,18 @@
-<purpose>
-Execute all plans in a phase using wave-based parallel execution. Orchestrator stays lean — delegates plan execution to subagents.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "start_process"]
+  priority: 1
+  rationale: "Primary workflow for reading plans, writing execution state, and spawning subagent processes"
+code_index:
+  tools: ["search_code_advanced"]
+  priority: 2
+  rationale: "Secondary use for searching plan patterns and task definitions"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Execute all plans in a phase using wave-based parallel execution. Orchestrator stays lean — delegates plan execution to subagents.
 </purpose>
 
 <core_principle>

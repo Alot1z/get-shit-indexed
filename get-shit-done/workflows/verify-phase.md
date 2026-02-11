@@ -1,5 +1,18 @@
-<purpose>
-Validate built features through conversational UAT. Extracts testable deliverables from SUMMARY.md files, presents tests one at a time (yes/no responses), automatically diagnoses failures and creates fix plans. Ready for re-execution if issues found.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "list_directory"]
+  priority: 1
+  rationale: "Primary workflow for reading phase plans, writing verification results, and listing deliverables"
+code_index:
+  tools: ["search_code_advanced", "find_files"]
+  priority: 2
+  rationale: "Secondary use for searching success criteria and finding deliverable files"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Validate built features through conversational UAT. Extracts testable deliverables from SUMMARY.md files, presents tests one at a time (yes/no responses), automatically diagnoses failures and creates fix plans. Ready for re-execution if issues found.
 </purpose>
 
 <required_reading>

@@ -2,6 +2,16 @@
 Display the complete GSD command reference. Output ONLY the reference content. Do NOT add project-specific analysis, git status, next-step suggestions, or any commentary beyond the reference.
 </purpose>
 
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file"]
+  priority: 1
+  rationale: "Primary workflow for reading help reference content - minimal tool usage"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
 <reference>
 # GSD Command Reference
 

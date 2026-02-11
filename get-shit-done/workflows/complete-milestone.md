@@ -1,5 +1,18 @@
-<purpose>
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "list_directory"]
+  priority: 1
+  rationale: "Primary workflow for reading roadmap, writing milestone status, and listing phase directories"
+code_index:
+  tools: ["find_files"]
+  priority: 2
+  rationale: "Secondary use for finding all phase SUMMARY.md files"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
 
+<purpose>
 Mark a shipped version (v1.0, v1.1, v2.0) as complete. Creates historical record in MILESTONES.md, performs full PROJECT.md evolution review, reorganizes ROADMAP.md with milestone groupings, and tags the release in git.
 
 </purpose>

@@ -2,6 +2,20 @@
 Add a new integer phase to the end of the current milestone in the roadmap. Automatically calculates the next phase number, creates the phase directory, and updates the roadmap structure.
 </purpose>
 
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "list_directory", "create_directory"]
+  priority: 1
+  rationale: "Primary workflow for reading roadmap, writing phase files, creating directories, and listing contents"
+code_index:
+  tools: ["find_files"]
+  priority: 2
+  rationale: "Secondary use for discovering existing phase files and planning documents"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
 <required_reading>
 Read all files referenced by the invoking prompt's execution_context before starting.
 </required_reading>

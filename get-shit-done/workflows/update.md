@@ -1,5 +1,18 @@
-<purpose>
-Update GSD to latest version and show changelog preview. Checks installed vs latest version comparison and displays changelog entries for versions user may have missed. Better than raw `npx get-shit-done-cc@latest` — has intelligent checks and confirmation.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "start_process"]
+  priority: 1
+  rationale: "Primary workflow for reading state, writing updates, and running upgrade commands"
+code_index:
+  tools: ["find_files"]
+  priority: 2
+  rationale: "Secondary use for discovering workflow and template files during update"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Update GSD to latest version and show changelog preview. Checks installed vs latest version comparison and displays changelog entries for versions user may have missed. Better than raw `npx get-shit-done-cc@latest` — has intelligent checks and confirmation.
 </purpose>
 
 <required_reading>

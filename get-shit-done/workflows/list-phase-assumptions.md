@@ -1,5 +1,14 @@
-<purpose>
-Surface Claude's assumptions about a phase before planning, enabling users to correct misconceptions early.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file"]
+  priority: 1
+  rationale: "Primary workflow for reading phase plans and writing assumption lists"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Surface Claude's assumptions about a phase before planning, enabling users to correct misconceptions early.
 
 Key difference from discuss-phase: This is ANALYSIS of what Claude thinks, not INTAKE of what user knows. No file output - purely conversational to prompt discussion.
 </purpose>

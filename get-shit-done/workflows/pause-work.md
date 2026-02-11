@@ -1,5 +1,14 @@
-<purpose>
-Create `.continue-here.md` handoff file to preserve complete work state across sessions. Enables seamless resumption with full context restoration.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file"]
+  priority: 1
+  rationale: "Primary workflow for reading state and writing pause notes"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Create `.continue-here.md` handoff file to preserve complete work state across sessions. Enables seamless resumption with full context restoration.
 </purpose>
 
 <required_reading>
@@ -9,11 +18,16 @@ Read all files referenced by the invoking prompt's execution_context before star
 <process>
 
 <step name="detect">
-Find current phase directory from most recently modified files:
+Find current phase directory from most recently modified files using MCP tools:
 
-```bash
-# Find most recent phase directory with work
-ls -lt .planning/phases/*/PLAN.md 2>/dev/null | head -1 | grep -oP 'phases/\K[^/]+'
+**Use MCP tool: mcp__code-index-mcp__find_files**
+
+```javascript
+// MCP-based equivalent for finding files (80-90% token savings vs bash ls)
+const phaseDirs = await mcp__code-index-mcp__find_files({
+  pattern: "*-PLAN.md",
+  path: ".planning/phases"
+});
 ```
 
 If no active phase detected, ask user which phase they're pausing work on.
@@ -26,9 +40,10 @@ If no active phase detected, ask user which phase they're pausing work on.
 2. **Work completed**: What got done this session
 3. **Work remaining**: What's left in current plan/phase
 4. **Decisions made**: Key decisions and rationale
-5. **Blockers/issues**: Anything stuck
+5. **Blockers/issues**: Anything stuck or concerning
 6. **Mental context**: The approach, next steps, "vibe"
 7. **Files modified**: What's changed but not committed
+8. **Timestamps**: When each task completed
 
 Ask user for clarifications if needed via conversational questions.
 </step>
@@ -36,13 +51,19 @@ Ask user for clarifications if needed via conversational questions.
 <step name="write">
 **Write handoff to `.planning/phases/XX-name/.continue-here.md`:**
 
-```markdown
----
+**Use MCP tool: mcp__desktop-commander__write_file**
+
+```javascript
+// MCP-based equivalent for file writing (80-90% token savings vs bash)
+await mcp__desktop-commander__write_file({
+  path: ".planning/phases/XX-name/.continue-here.md",
+  content: `---
 phase: XX-name
 task: 3
 total_tasks: 7
 status: in_progress
 last_updated: [timestamp from current-timestamp]
+
 ---
 
 <current_state>
@@ -50,23 +71,21 @@ last_updated: [timestamp from current-timestamp]
 </current_state>
 
 <completed_work>
-
 - Task 1: [name] - Done
 - Task 2: [name] - Done
-- Task 3: [name] - In progress, [what's done]
+- Task 3: [what's left] - In progress, [what's done]
 </completed_work>
 
 <remaining_work>
-
-- Task 3: [what's left]
-- Task 4: Not started
-- Task 5: Not started
+- Task 4: [what's left]
+- Task 5: [what's left]
+- Task 6: [what's left]
+- Task 7: [what's left]
 </remaining_work>
 
 <decisions_made>
-
 - Decided to use [X] because [reason]
-- Chose [approach] over [alternative] because [reason]
+- Chose [approach] over [alternative] because [rationale]
 </decisions_made>
 
 <blockers>
@@ -74,25 +93,33 @@ last_updated: [timestamp from current-timestamp]
 </blockers>
 
 <context>
-[Mental state, what were you thinking, the plan]
+[Mental state, what were you thinking, plan]
 </context>
 
 <next_action>
 Start with: [specific first action when resuming]
 </next_action>
-```
+
+<timestamp>
+${timestamp}
+</timestamp>
+
+---
 
 Be specific enough for a fresh Claude to understand immediately.
-
-Use `current-timestamp` for last_updated field. You can use init todos (which provides timestamps) or call directly:
-```bash
-timestamp=$(node ~/.claude/get-shit-done/bin/gsd-tools.js current-timestamp full --raw)
 ```
 </step>
 
 <step name="commit">
-```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js commit "wip: [phase-name] paused at task [X]/[Y]" --files .planning/phases/*/.continue-here.md
+**Commit handoff using MCP process tool:**
+
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js commit "wip: ${phase-name} paused at task ${X}" --files .planning/phases/XX-name/.continue-here.md`,
+  timeout_ms: 10000
+});
 ```
 </step>
 
@@ -115,8 +142,8 @@ To resume: /gsd:resume-work
 </process>
 
 <success_criteria>
-- [ ] .continue-here.md created in correct phase directory
+- [ ] `.continue-here.md` created in correct phase directory
 - [ ] All sections filled with specific content
-- [ ] Committed as WIP
+- [ ] Handoff committed to git
 - [ ] User knows location and how to resume
 </success_criteria>

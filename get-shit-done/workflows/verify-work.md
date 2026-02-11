@@ -1,5 +1,18 @@
-<purpose>
-Manual testing workflow for when automated UAT isn't enough. Runs verification directly with user driving tests. Same output as verify-work but user controls pace and what to test.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "start_process"]
+  priority: 1
+  rationale: "Primary workflow for reading phase documents, writing verification results, and running analysis commands"
+code_index:
+  tools: ["search_code_advanced", "find_files"]
+  priority: 2
+  rationale: "Secondary use for searching success criteria and finding deliverable files"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Manual testing workflow for when automated UAT isn't enough. Runs verification directly with user driving tests. Same output as verify-work but user controls pace and what to test.
 </purpose>
 
 <required_reading>

@@ -1,5 +1,18 @@
-<purpose>
-Execute small, ad-hoc tasks with GSD guarantees (atomic commits, STATE.md tracking) while skipping optional agents (research, plan-checker, verifier). Quick mode lives in `.planning/quick/` separate from planned phases. Uses same executor and planner agents but streamlined flow.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "start_process"]
+  priority: 1
+  rationale: "Primary workflow for reading project files, writing quick outputs, and running status checks"
+code_index:
+  tools: ["find_files"]
+  priority: 2
+  rationale: "Secondary use for discovering project structure quickly"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Execute small, ad-hoc tasks with GSD guarantees (atomic commits, STATE.md tracking) while skipping optional agents (research, plan-checker, verifier). Quick mode lives in `.planning/quick/` separate from planned phases. Uses same executor and planner agents but streamlined flow.
 </purpose>
 
 <required_reading>

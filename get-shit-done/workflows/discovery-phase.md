@@ -1,5 +1,18 @@
-<purpose>
-Execute discovery at appropriate depth level.
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "list_directory"]
+  priority: 1
+  rationale: "Primary workflow for reading requirements, writing discovery documents, and listing project files"
+code_index:
+  tools: ["search_code_advanced", "find_files"]
+  priority: 2
+  rationale: "Secondary use for searching codebase patterns and discovering relevant files"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Execute discovery at appropriate depth level.
 Produces DISCOVERY.md (for Level 2-3) that informs PLAN.md creation.
 
 Called from plan-phase.md's mandatory_discovery step with a depth parameter.

@@ -2,6 +2,20 @@
 Check project progress, summarize recent work and what's ahead, then intelligently route to next action — either executing an existing plan or creating a next one. Provides situational awareness before continuing work.
 </purpose>
 
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "start_process"]
+  priority: 1
+  rationale: "Primary workflow for reading state/roadmap, writing summaries, and running status commands"
+code_index:
+  tools: ["find_files", "get_file_summary"]
+  priority: 2
+  rationale: "Secondary use for listing phase directories and getting file metadata"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
 <required_reading>
 **Use MCP tools to read project state:**
 
