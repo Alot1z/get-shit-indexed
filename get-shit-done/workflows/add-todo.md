@@ -9,27 +9,55 @@ Read all files referenced by the invoking prompt's execution_context before star
 <process>
 
 <step name="init_context">
-Load todo context:
+Load the todo context using MCP tools:
 
-```bash
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js init todos)
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const INIT = await mcp__desktop-commander__start_process({
+  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js init todos",
+  timeout_ms: 10000
+});
 ```
 
-Extract from init JSON: `commit_docs`, `date`, `timestamp`, `todo_count`, `todos`, `pending_dir`, `todos_dir_exists`.
+Extract from the init JSON: `commit_docs`, `date`, `timestamp`, `todo_count`, `todos`, `pending_dir`, `todos_dir_exists`.
 
-Ensure directories exist:
-```bash
-mkdir -p .planning/todos/pending .planning/todos/done
+**Use MCP tool: mcp__desktop-commander__list_directory** to ensure directories exist:
+
+```javascript
+// MCP-based equivalent for checking directory structure
+const pendingDir = await mcp__desktop-commander__list_directory({
+  path: ".planning/todos/pending",
+  depth: 1
+});
+
+const doneDir = await mcp__desktop-commander__list_directory({
+  path: ".planning/todos/done",
+  depth: 1
+});
+
+// Create directories if needed using MCP tool
+if (!pendingDir.ok) {
+  await mcp__desktop-commander__create_directory({
+    path: ".planning/todos/pending"
+  });
+}
+if (!doneDir.ok) {
+  await mcp__desktop-commander__create_directory({
+    path: ".planning/todos/done"
+  });
+}
 ```
 
-Note existing areas from the todos array for consistency in infer_area step.
+Note existing areas from the todos array for consistency in the infer_area step.
 </step>
 
 <step name="extract_content">
 **With arguments:** Use as the title/focus.
 - `/gsd:add-todo Add auth token refresh` → title = "Add auth token refresh"
 
-**Without arguments:** Analyze recent conversation to extract:
+**Without arguments:** Analyze the recent conversation to extract:
 - The specific problem, idea, or task discussed
 - Relevant file paths mentioned
 - Technical details (error messages, line numbers, constraints)
@@ -42,7 +70,7 @@ Formulate:
 </step>
 
 <step name="infer_area">
-Infer area from file paths:
+Infer the area from file paths:
 
 | Path pattern | Area |
 |--------------|------|
@@ -56,40 +84,56 @@ Infer area from file paths:
 | `scripts/*`, `bin/*` | `tooling` |
 | No files or unclear | `general` |
 
-Use existing area from step 2 if similar match exists.
+Use existing area from step 2 if a similar match exists.
 </step>
 
 <step name="check_duplicates">
-```bash
-# Search for key words from title in existing todos
-grep -l -i "[key words from title]" .planning/todos/pending/*.md 2>/dev/null
+**Use MCP tool: mcp__code-index-mcp__search_code_advanced** to search for existing todos
+
+```javascript
+// MCP-based equivalent for searching todos (80-90% token savings vs grep)
+const results = await mcp__code-index-mcp__search_code_advanced({
+  pattern: "[key words from title]",
+  path: ".planning/todos/pending",
+  filePattern: "*.md",
+  contextLines: 2
+});
 ```
 
-If potential duplicate found:
-1. Read the existing todo
-2. Compare scope
+If a potential duplicate is found:
+1. Read the existing todo using mcp__desktop-commander__read_file
+2. Compare the scope
 
 If overlapping, use AskUserQuestion:
 - header: "Duplicate?"
 - question: "Similar todo exists: [title]. What would you like to do?"
 - options:
-  - "Skip" — keep existing todo
-  - "Replace" — update existing with new context
-  - "Add anyway" — create as separate todo
+  - "Skip" — keep the existing todo
+  - "Replace" — update the existing with new context
+  - "Add anyway" — create as a separate todo
 </step>
 
 <step name="create_file">
 Use values from init context: `timestamp` and `date` are already available.
 
-Generate slug for the title:
-```bash
-slug=$(node ~/.claude/get-shit-done/bin/gsd-tools.js generate-slug "$title" --raw)
+Generate a slug for the title using MCP process tool:
+
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+const slug = await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js generate-slug "$title" --raw`,
+  timeout_ms: 10000
+});
 ```
 
-Write to `.planning/todos/pending/${date}-${slug}.md`:
+**Use MCP tool: mcp__desktop-commander__write_file** to write the todo:
 
-```markdown
----
+```javascript
+// MCP-based equivalent for file writing
+await mcp__desktop-commander__write_file({
+  path: `.planning/todos/pending/${date}-${slug}.md`,
+  content: `---
 created: [timestamp]
 title: [title]
 area: [area]
@@ -104,6 +148,8 @@ files:
 ## Solution
 
 [approach hints or "TBD"]
+`
+});
 ```
 </step>
 
@@ -112,10 +158,28 @@ If `.planning/STATE.md` exists:
 
 1. Use `todo_count` from init context (or re-run `init todos` if count changed)
 2. Update "### Pending Todos" under "## Accumulated Context"
+
+**Use MCP tools: mcp__desktop-commander__read_file and mcp__desktop-commander__edit_block**
+
+```javascript
+// Read and update STATE.md
+const stateContent = await mcp__desktop-commander__read_file({
+  path: ".planning/STATE.md"
+});
+
+// Use edit_block to update the todo count section
+await mcp__desktop-commander__edit_block({
+  file_path: ".planning/STATE.md",
+  old_string: "### Pending Todos\n[existing content]",
+  new_string: "### Pending Todos\n[updated content with new count]"
+});
+```
 </step>
 
 <step name="git_commit">
-Commit the todo and any updated state:
+Commit the todo and any updated state using MCP process tool:
+
+**Use MCP tool: mcp__desktop-commander__start_process**
 
 ```bash
 node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs: capture todo - [title]" --files .planning/todos/pending/[filename] .planning/STATE.md

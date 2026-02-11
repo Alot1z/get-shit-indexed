@@ -39,8 +39,14 @@ When a milestone completes:
 
 **Use `roadmap analyze` for comprehensive readiness check:**
 
-```bash
-ROADMAP=$(node ~/.claude/get-shit-done/bin/gsd-tools.js roadmap analyze)
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const ROADMAP = await mcp__desktop-commander__start_process({
+  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js roadmap analyze",
+  timeout_ms: 15000
+});
 ```
 
 This returns all phases with plan/summary counts and disk status. Use this to verify:
@@ -64,8 +70,13 @@ Total: {phase_count} phases, {total_plans} plans, all complete
 
 <config-check>
 
-```bash
-cat .planning/config.json 2>/dev/null
+**Use MCP tool: mcp__desktop-commander__read_file**
+
+```javascript
+// MCP-based equivalent for reading config
+const config = await mcp__desktop-commander__read_file({
+  path: ".planning/config.json"
+});
 ```
 
 </config-check>
@@ -99,14 +110,36 @@ Wait for confirmation.
 
 <step name="gather_stats">
 
-Calculate milestone statistics:
+Calculate milestone statistics using MCP process tools:
 
-```bash
-git log --oneline --grep="feat(" | head -20
-git diff --stat FIRST_COMMIT..LAST_COMMIT | tail -1
-find . -name "*.swift" -o -name "*.ts" -o -name "*.py" | xargs wc -l 2>/dev/null
-git log --format="%ai" FIRST_COMMIT | tail -1
-git log --format="%ai" LAST_COMMIT | head -1
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent for git and file stats
+const gitLog = await mcp__desktop-commander__start_process({
+  command: "git log --oneline --grep=\"feat(\" | head -20",
+  timeout_ms: 10000
+});
+
+const gitDiff = await mcp__desktop-commander__start_process({
+  command: "git diff --stat FIRST_COMMIT..LAST_COMMIT | tail -1",
+  timeout_ms: 10000
+});
+
+const loc = await mcp__desktop-commander__start_process({
+  command: "find . -name \"*.swift\" -o -name \"*.ts\" -o -name \"*.py\" | xargs wc -l 2>/dev/null",
+  timeout_ms: 10000
+});
+
+const gitStart = await mcp__desktop-commander__start_process({
+  command: "git log --format=\"%ai\" FIRST_COMMIT | tail -1",
+  timeout_ms: 10000
+});
+
+const gitEnd = await mcp__desktop-commander__start_process({
+  command: "git log --format=\"%ai\" LAST_COMMIT | head -1",
+  timeout_ms: 10000
+});
 ```
 
 Present:
@@ -126,13 +159,19 @@ Milestone Stats:
 
 <step name="extract_accomplishments">
 
-Extract one-liners from SUMMARY.md files using summary-extract:
+Extract one-liners from SUMMARY.md files using MCP process tool:
 
-```bash
-# For each phase in milestone, extract one-liner
-for summary in .planning/phases/*-*/*-SUMMARY.md; do
-  node ~/.claude/get-shit-done/bin/gsd-tools.js summary-extract "$summary" --fields one_liner | jq -r '.one_liner'
-done
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent for summary extraction
+for (const summary of summaryFiles) {
+  const result = await mcp__desktop-commander__start_process({
+    command: `node ~/.claude/get-shit-done/bin/gsd-tools.js summary-extract "${summary}" --fields one_liner --raw`,
+    timeout_ms: 10000
+  });
+  // Parse result for one_liner
+}
 ```
 
 Extract 4-6 key accomplishments. Present:
@@ -153,17 +192,25 @@ Key accomplishments for this milestone:
 **Note:** MILESTONES.md entry is now created automatically by `gsd-tools milestone complete` in the archive_milestone step. The entry includes version, date, phase/plan/task counts, and accomplishments extracted from SUMMARY.md files.
 
 If additional details are needed (e.g., user-provided "Delivered" summary, git range, LOC stats), add them manually after the CLI creates the base entry.
-
 </step>
 
 <step name="evolve_project_full_review">
 
 Full PROJECT.md evolution review at milestone completion.
 
-Read all phase summaries:
+**Use MCP tools to read all phase summaries:**
 
-```bash
-cat .planning/phases/*-*/*-SUMMARY.md
+**Use MCP tool: mcp__desktop-commander__read_file** or **mcp__desktop-commander__read_multiple_files**
+
+```javascript
+// MCP-based equivalent for reading multiple files
+const summaries = await mcp__desktop-commander__read_multiple_files({
+  paths: [
+    ".planning/phases/01-*/01-*-SUMMARY.md",
+    ".planning/phases/02-*/02-*-SUMMARY.md",
+    // etc.
+  ]
+});
 ```
 
 **Full review checklist:**
@@ -205,7 +252,9 @@ cat .planning/phases/*-*/*-SUMMARY.md
 6. **Constraints check:**
    - Any constraints changed during development? Update as needed
 
-Update PROJECT.md inline. Update "Last updated" footer:
+**Use MCP tool: mcp__desktop-commander__edit_block** to update PROJECT.md inline.
+
+Update "Last updated" footer:
 
 ```markdown
 ---
@@ -236,7 +285,6 @@ Real-time sync that feels instant.
 - [ ] Canvas drawing tools
 - [ ] Real-time sync < 500ms
 - [ ] User authentication
-- [ ] Export to PNG
 
 ### Out of Scope
 
@@ -297,7 +345,9 @@ Initial user testing showed demand for shape tools.
 
 <step name="reorganize_roadmap">
 
-Update `.planning/ROADMAP.md` — group completed milestone phases:
+Update `.planning/ROADMAP.md` — group completed milestone phases.
+
+**Use MCP tool: mcp__desktop-commander__read_file** and **mcp__desktop-commander__edit_block**
 
 ```markdown
 # Roadmap: [Project Name]
@@ -336,15 +386,20 @@ Update `.planning/ROADMAP.md` — group completed milestone phases:
 | 5. Security Audit | v1.1      | 0/1            | Not started | -          |
 | 6. Hardening      | v1.1      | 0/2            | Not started | -          |
 ```
-
 </step>
 
 <step name="archive_milestone">
 
 **Delegate archival to gsd-tools:**
 
-```bash
-ARCHIVE=$(node ~/.claude/get-shit-done/bin/gsd-tools.js milestone complete "v[X.Y]" --name "[Milestone Name]")
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const ARCHIVE = await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js milestone complete "v[X.Y]" --name "[Milestone Name]"`,
+  timeout_ms: 15000
+});
 ```
 
 The CLI handles:
@@ -373,7 +428,9 @@ After archival, the AI still handles:
 
 After `milestone complete` has archived, reorganize ROADMAP.md with milestone groupings, then delete originals:
 
-**Reorganize ROADMAP.md** — group completed milestone phases:
+**Reorganize ROADMAP.md** — group completed milestone phases.
+
+**Use MCP tool: mcp__desktop-commander__write_file**
 
 ```markdown
 # Roadmap: [Project Name]
@@ -394,18 +451,28 @@ After `milestone complete` has archived, reorganize ROADMAP.md with milestone gr
 </details>
 ```
 
-**Then delete originals:**
+**Then delete originals using MCP process tool:**
 
-```bash
-rm .planning/ROADMAP.md
-rm .planning/REQUIREMENTS.md
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent for file deletion
+await mcp__desktop-commander__start_process({
+  command: "rm .planning/ROADMAP.md",
+  timeout_ms: 5000
+});
+
+await mcp__desktop-commander__start_process({
+  command: "rm .planning/REQUIREMENTS.md",
+  timeout_ms: 5000
+});
 ```
 
 </step>
 
 <step name="update_state">
 
-Most STATE.md updates were handled by `milestone complete`, but verify and update remaining fields:
+Most STATE.md updates were handled by `milestone complete`, but verify and update remaining fields.
 
 **Project Reference:**
 
@@ -429,10 +496,13 @@ See: .planning/PROJECT.md (updated [today])
 
 Check branching strategy and offer merge options.
 
-Use `init milestone-op` for context, or load config directly:
+**Use MCP tool: mcp__desktop-commander__start_process** for context, or load config directly:
 
-```bash
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js init execute-phase "1")
+```javascript
+const INIT = await mcp__desktop-commander__start_process({
+  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js init execute-phase \"1\"",
+  timeout_ms: 10000
+});
 ```
 
 Extract `branching_strategy`, `phase_branch_template`, `milestone_branch_template` from init JSON.
@@ -441,16 +511,34 @@ Extract `branching_strategy`, `phase_branch_template`, `milestone_branch_templat
 
 **For "phase" strategy:**
 
-```bash
-BRANCH_PREFIX=$(echo "$PHASE_BRANCH_TEMPLATE" | sed 's/{.*//')
-PHASE_BRANCHES=$(git branch --list "${BRANCH_PREFIX}*" 2>/dev/null | sed 's/^\*//' | tr -d ' ')
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+const BRANCH_PREFIX = await mcp__desktop-commander__start_process({
+  command: `echo "$PHASE_BRANCH_TEMPLATE" | sed 's/{.*//'`,
+  timeout_ms: 5000
+});
+
+const PHASE_BRANCHES = await mcp__desktop-commander__start_process({
+  command: `git branch --list "${BRANCH_PREFIX}*" 2>/dev/null | sed 's/^[* ]*//' | tr -d ' '`,
+  timeout_ms: 5000
+});
 ```
 
 **For "milestone" strategy:**
 
-```bash
-BRANCH_PREFIX=$(echo "$MILESTONE_BRANCH_TEMPLATE" | sed 's/{.*//')
-MILESTONE_BRANCH=$(git branch --list "${BRANCH_PREFIX}*" 2>/dev/null | sed 's/^\*//' | tr -d ' ' | head -1)
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+const BRANCH_PREFIX = await mcp__desktop-commander__start_process({
+  command: `echo "$MILESTONE_BRANCH_TEMPLATE" | sed 's/{.*//'`,
+  timeout_ms: 5000
+});
+
+const MILESTONE_BRANCH = await mcp__desktop-commander__start_process({
+  command: `git branch --list "${BRANCH_PREFIX}*" 2>/dev/null | sed 's/^[* ]*//' | tr -d ' ' | head -1`,
+  timeout_ms: 5000
+});
 ```
 
 **If no branches found:** Skip to git_tag.
@@ -473,56 +561,79 @@ AskUserQuestion with options: Squash merge (Recommended), Merge with history, De
 
 **Squash merge:**
 
-```bash
-CURRENT_BRANCH=$(git branch --show-current)
-git checkout main
+**Use MCP tool: mcp__desktop-commander__start_process**
 
-if [ "$BRANCHING_STRATEGY" = "phase" ]; then
-  for branch in $PHASE_BRANCHES; do
-    git merge --squash "$branch"
-    git commit -m "feat: $branch for v[X.Y]"
-  done
-fi
+```javascript
+// MCP-based equivalent for git operations
+const CURRENT_BRANCH = await mcp__desktop-commander__start_process({
+  command: "git branch --show-current",
+  timeout_ms: 5000
+});
 
-if [ "$BRANCHING_STRATEGY" = "milestone" ]; then
-  git merge --squash "$MILESTONE_BRANCH"
-  git commit -m "feat: $MILESTONE_BRANCH for v[X.Y]"
-fi
+await mcp__desktop-commander__start_process({
+  command: "git checkout main",
+  timeout_ms: 5000
+});
 
-git checkout "$CURRENT_BRANCH"
+// Merge each branch with squash
+for (const branch of phaseBranches) {
+  await mcp__desktop-commander__start_process({
+    command: `git merge --squash "${branch}"`,
+    timeout_ms: 10000
+  });
+  await mcp__desktop-commander__start_process({
+    command: `git commit -m "feat: ${branch} for v[X.Y]"`,
+    timeout_ms: 5000
+  });
+}
+
+await mcp__desktop-commander__start_process({
+  command: `git checkout "${CURRENT_BRANCH}"`,
+  timeout_ms: 5000
+});
 ```
 
 **Merge with history:**
 
-```bash
-CURRENT_BRANCH=$(git branch --show-current)
-git checkout main
+**Use MCP tool: mcp__desktop-commander__start_process**
 
-if [ "$BRANCHING_STRATEGY" = "phase" ]; then
-  for branch in $PHASE_BRANCHES; do
-    git merge --no-ff "$branch" -m "Merge branch '$branch' for v[X.Y]"
-  done
-fi
+```javascript
+const CURRENT_BRANCH = await mcp__desktop-commander__start_process({
+  command: "git branch --show-current",
+  timeout_ms: 5000
+});
 
-if [ "$BRANCHING_STRATEGY" = "milestone" ]; then
-  git merge --no-ff "$MILESTONE_BRANCH" -m "Merge branch '$MILESTONE_BRANCH' for v[X.Y]"
-fi
+await mcp__desktop-commander__start_process({
+  command: "git checkout main",
+  timeout_ms: 5000
+});
 
-git checkout "$CURRENT_BRANCH"
+// Merge each branch with history
+for (const branch of phaseBranches) {
+  await mcp__desktop-commander__start_process({
+    command: `git merge --no-ff "${branch}" -m "Merge branch '${branch}' for v[X.Y]"`,
+    timeout_ms: 10000
+  });
+}
+
+await mcp__desktop-commander__start_process({
+  command: `git checkout "${CURRENT_BRANCH}"`,
+  timeout_ms: 5000
+});
 ```
 
 **Delete without merging:**
 
-```bash
-if [ "$BRANCHING_STRATEGY" = "phase" ]; then
-  for branch in $PHASE_BRANCHES; do
-    git branch -d "$branch" 2>/dev/null || git branch -D "$branch"
-  done
-fi
+**Use MCP tool: mcp__desktop-commander__start_process**
 
-if [ "$BRANCHING_STRATEGY" = "milestone" ]; then
-  git branch -d "$MILESTONE_BRANCH" 2>/dev/null || git branch -D "$MILESTONE_BRANCH"
-fi
+```javascript
+// MCP-based equivalent for branch deletion
+for (const branch of phaseBranches) {
+  await mcp__desktop-commander__start_process({
+    command: `git branch -d "${branch}" 2>/dev/null || git branch -D "${branch}"`,
+    timeout_ms: 5000
+  });
+}
 ```
 
 **Keep branches:** Report "Branches preserved for manual handling"
@@ -531,10 +642,14 @@ fi
 
 <step name="git_tag">
 
-Create git tag:
+Create git tag using MCP process tool:
 
-```bash
-git tag -a v[X.Y] -m "v[X.Y] [Name]
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent for git tagging
+await mcp__desktop-commander__start_process({
+  command: `git tag -a v[X.Y] -m "v[X.Y] [Name]
 
 Delivered: [One sentence]
 
@@ -543,7 +658,9 @@ Key accomplishments:
 - [Item 2]
 - [Item 3]
 
-See .planning/MILESTONES.md for full details."
+See .planning/MILESTONES.md for full details."`,
+  timeout_ms: 5000
+});
 ```
 
 Confirm: "Tagged: v[X.Y]"
@@ -551,21 +668,28 @@ Confirm: "Tagged: v[X.Y]"
 Ask: "Push tag to remote? (y/n)"
 
 If yes:
-```bash
-git push origin v[X.Y]
+
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+await mcp__desktop-commander__start_process({
+  command: `git push origin v[X.Y]`,
+  timeout_ms: 15000
+});
 ```
 
 </step>
 
 <step name="git_commit_milestone">
 
-Commit milestone completion.
+Commit milestone completion using MCP process tool:
+
+**Use MCP tool: mcp__desktop-commander__start_process**
 
 ```bash
 node ~/.claude/get-shit-done/bin/gsd-tools.js commit "chore: complete v[X.Y] milestone" --files .planning/milestones/v[X.Y]-ROADMAP.md .planning/milestones/v[X.Y]-REQUIREMENTS.md .planning/milestones/v[X.Y]-MILESTONE-AUDIT.md .planning/MILESTONES.md .planning/PROJECT.md .planning/STATE.md
 ```
 ```
-
 Confirm: "Committed: chore: complete v[X.Y] milestone"
 
 </step>

@@ -1,5 +1,5 @@
 <purpose>
-Verify milestone achieved its definition of done by aggregating phase verifications, checking cross-phase integration, and assessing requirements coverage. Reads existing VERIFICATION.md files (phases already verified during execute-phase), aggregates tech debt and deferred gaps, then spawns integration checker for cross-phase wiring.
+Verify that a milestone achieved its definition of done by aggregating phase verifications, checking cross-phase integration, and assessing requirements coverage. Reads existing VERIFICATION.md files (phases already verified during execute-phase), aggregates tech debt and deferred gaps, then spawns integration checker for cross-phase wiring.
 </purpose>
 
 <required_reading>
@@ -10,22 +10,39 @@ Read all files referenced by the invoking prompt's execution_context before star
 
 ## 0. Initialize Milestone Context
 
-```bash
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js init milestone-op)
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const INIT = await mcp__desktop-commander__start_process({
+  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js init milestone-op",
+  timeout_ms: 10000
+});
 ```
 
-Extract from init JSON: `milestone_version`, `milestone_name`, `phase_count`, `completed_phases`, `commit_docs`.
+Extract from the init JSON: `milestone_version`, `milestone_name`, `phase_count`, `completed_phases`, `commit_docs`.
 
-Resolve integration checker model:
-```bash
-CHECKER_MODEL=$(node ~/.claude/get-shit-done/bin/gsd-tools.js resolve-model gsd-integration-checker --raw)
+**Resolve integration checker model:**
+
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+const CHECKER_MODEL = await mcp__desktop-commander__start_process({
+  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js resolve-model gsd-integration-checker --raw",
+  timeout_ms: 10000
+});
 ```
 
 ## 1. Determine Milestone Scope
 
-```bash
-# Get phases in milestone (sorted numerically, handles decimals)
-node ~/.claude/get-shit-done/bin/gsd-tools.js phases list
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// Get phases in milestone (sorted numerically, handles decimals)
+const phases = await mcp__desktop-commander__start_process({
+  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js phases list",
+  timeout_ms: 10000
+});
 ```
 
 - Parse version from arguments or detect current from ROADMAP.md
@@ -35,12 +52,21 @@ node ~/.claude/get-shit-done/bin/gsd-tools.js phases list
 
 ## 2. Read All Phase Verifications
 
-For each phase directory, read the VERIFICATION.md:
+For each phase directory, read VERIFICATION.md using MCP tools:
 
-```bash
-cat .planning/phases/01-*/*-VERIFICATION.md
-cat .planning/phases/02-*/*-VERIFICATION.md
-# etc.
+**Use MCP tool: mcp__desktop-commander__read_file** or **mcp__desktop-commander__read_multiple_files**
+
+```javascript
+// MCP-based equivalent for reading multiple files (80-90% token savings vs cat)
+const verificationFiles = [
+  ".planning/phases/01-*/01-*-VERIFICATION.md",
+  ".planning/phases/02-*/02-*-VERIFICATION.md",
+  // etc.
+];
+
+const verifications = await mcp__desktop-commander__read_multiple_files({
+  paths: verificationFiles
+});
 ```
 
 From each VERIFICATION.md, extract:
@@ -85,10 +111,13 @@ For each requirement in REQUIREMENTS.md mapped to this milestone:
 
 ## 6. Aggregate into v{version}-MILESTONE-AUDIT.md
 
-Create `.planning/v{version}-v{version}-MILESTONE-AUDIT.md` with:
+**Use MCP tool: mcp__desktop-commander__write_file** to create the audit:
 
-```yaml
----
+```javascript
+// MCP-based equivalent for file writing
+await mcp__desktop-commander__write_file({
+  path: `.planning/v{version}-MILESTONE-AUDIT.md`,
+  content: `---
 milestone: {version}
 audited: {timestamp}
 status: passed | gaps_found | tech_debt
@@ -110,9 +139,11 @@ tech_debt:  # Non-critical, deferred
     items:
       - "Deferred: mobile responsive layout"
 ---
-```
 
-Plus full markdown report with tables for requirements, phases, integration, tech debt.
+[Plus full markdown report with tables for requirements, phases, integration, tech debt]
+`
+});
+```
 
 **Status values:**
 - `passed` — all requirements met, no critical gaps, minimal tech debt
@@ -189,7 +220,7 @@ All requirements covered. Cross-phase integration verified. E2E flows complete.
 ───────────────────────────────────────────────────────────────
 
 **Also available:**
-- cat .planning/v{version}-MILESTONE-AUDIT.md — see full report
+- **Use MCP tool: mcp__desktop-commander__read_file** to view full report
 - /gsd:complete-milestone {version} — proceed anyway (accept tech debt)
 
 ───────────────────────────────────────────────────────────────
@@ -233,9 +264,9 @@ All requirements met. No critical blockers. Accumulated tech debt needs review.
 
 <success_criteria>
 - [ ] Milestone scope identified
-- [ ] All phase VERIFICATION.md files read
+- [ ] All phase VERIFICATION.md files read using MCP tools
 - [ ] Tech debt and deferred gaps aggregated
 - [ ] Integration checker spawned for cross-phase wiring
-- [ ] v{version}-MILESTONE-AUDIT.md created
+- [ ] v{version}-MILESTONE-AUDIT.md created using MCP write_file
 - [ ] Results presented with actionable next steps
 </success_criteria>
