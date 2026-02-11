@@ -4,26 +4,34 @@ Create all phases necessary to close gaps identified by `/gsd:audit-milestone`. 
 
 <required_reading>
 Read all files referenced by the invoking prompt's execution_context before starting.
+
+**Use MCP tool: mcp__desktop-commander__read_file**
+
+```javascript
+// MCP-based equivalent for reading audit file
+const auditContent = await mcp__desktop-commander__read_file({
+  path: ".planning/v*-MILESTONE-AUDIT.md"
+});
+```
 </required_reading>
 
 <process>
 
 ## 1. Load Audit Results
 
-```bash
-# Find the most recent audit file
-ls -t .planning/v*-MILESTONE-AUDIT.md 2>/dev/null | head -1
+**Use MCP tool: mcp__desktop-commander__read_file**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const auditContent = await mcp__desktop-commander__read_file({
+  path: ".planning/v*-MILESTONE-AUDIT.md"
+});
 ```
 
 Parse YAML frontmatter to extract structured gaps:
 - `gaps.requirements` — unsatisfied requirements
 - `gaps.integration` — missing cross-phase connections
-- `gaps.flows` — broken E2E flows
-
-If no audit file exists or has no gaps, error:
-```
-No audit gaps found. Run `/gsd:audit-milestone` first.
-```
+- `gaps.flows` — broken E2E user flows
 
 ## 2. Prioritize Gaps
 
@@ -33,117 +41,118 @@ Group gaps by priority from REQUIREMENTS.md:
 |----------|--------|
 | `must` | Create phase, blocks milestone |
 | `should` | Create phase, recommended |
-| `nice` | Ask user: include or defer? |
+| `nice` | Ask user: include or defer |
 
 For integration/flow gaps, infer priority from affected requirements.
 
 ## 3. Group Gaps into Phases
 
-Cluster related gaps into logical phases:
+Cluster related gaps into logical phases using MCP search:
+
+**Use MCP tool: mcp__code-index-mcp__search_code_advanced**
+
+```javascript
+// Search for patterns to group related gaps
+const gapPatterns = await mcp__code-index-mcp__search_code_advanced({
+  pattern: "(auth|dashboard|api)",
+  file_pattern: "*-AUDIT.md",
+  path: ".planning"
+});
+```
 
 **Grouping rules:**
 - Same affected phase → combine into one fix phase
 - Same subsystem (auth, API, UI) → combine
-- Dependency order (fix stubs before wiring)
-- Keep phases focused: 2-4 tasks each
+- Dependency order (fix stubs before wiring) → sequence phases
 
 **Example grouping:**
 ```
-Gap: DASH-01 unsatisfied (Dashboard doesn't fetch)
-Gap: Integration Phase 1→3 (Auth not passed to API calls)
-Gap: Flow "View dashboard" broken at data fetch
-
-→ Phase 6: "Wire Dashboard to API"
-  - Add fetch to Dashboard.tsx
-  - Include auth header in fetch
-  - Handle response, update state
-  - Render user data
+Gap: Auth token missing (DASH-01)
+Gap: API calls don't include auth (DASH-01)
+Gap: Dashboard can't fetch data (DASH-01)
+→ Phase 6: "Wire Auth to API and Dashboard"
 ```
 
 ## 4. Determine Phase Numbers
 
-Find highest existing phase:
-```bash
-# Get sorted phase list, extract last one
-PHASES=$(node ~/.claude/get-shit-done/bin/gsd-tools.js phases list)
-HIGHEST=$(echo "$PHASES" | jq -r '.directories[-1]')
+**Use MCP tool: mcp__code-index-mcp__find_files**
+
+```javascript
+// Find existing phases to determine next numbers
+const existingPhases = await mcp__code-index-mcp__find_files({
+  pattern: "*-PLAN.md",
+  path: ".planning/phases"
+});
 ```
 
-New phases continue from there:
-- If Phase 5 is highest, gaps become Phase 6, 7, 8...
+Find highest existing phase number. Continue from there.
 
 ## 5. Present Gap Closure Plan
 
-```markdown
+Display markdown showing proposed phases:
+
+```
 ## Gap Closure Plan
 
 **Milestone:** {version}
-**Gaps to close:** {N} requirements, {M} integration, {K} flows
+**Gaps:** {N} requirements, {M} integration, {K} flows
 
 ### Proposed Phases
 
 **Phase {N}: {Name}**
 Closes:
-- {REQ-ID}: {description}
-- Integration: {from} → {to}
-Tasks: {count}
+- {REQ-ID}: {description} (requirement gap)
+- Integration: {from} → {to} (integration gap)
+- Flow: {flow name} (flow gap)
 
-**Phase {N+1}: {Name}**
-Closes:
-- {REQ-ID}: {description}
-- Flow: {flow name}
-Tasks: {count}
+Tasks: {count estimated}
 
-{If nice-to-have gaps exist:}
-
-### Deferred (nice-to-have)
-
-These gaps are optional. Include them?
-- {gap description}
-- {gap description}
-
----
-
-Create these {X} phases? (yes / adjust / defer all optional)
+[Next phase...]
 ```
-
-Wait for user confirmation.
 
 ## 6. Update ROADMAP.md
 
-Add new phases to current milestone:
+**Use MCP tool: mcp__desktop-commander__edit_block**
 
-```markdown
-### Phase {N}: {Name}
-**Goal:** {derived from gaps being closed}
-**Requirements:** {REQ-IDs being satisfied}
-**Gap Closure:** Closes gaps from audit
-
-### Phase {N+1}: {Name}
-...
+```javascript
+// MCP-based equivalent for editing files
+await mcp__desktop-commander__edit_block({
+  file_path: ".planning/ROADMAP.md",
+  old_string: "[existing roadmap section before gaps]",
+  new_string: "[new roadmap section with gap phases]"
+});
 ```
+
+Add new phase entries after current milestone with `(GAP CLOSURE)` marker.
 
 ## 7. Create Phase Directories
 
-```bash
-mkdir -p ".planning/phases/{NN}-{name}"
+**Use MCP tool: mcp__desktop-commander__create_directory**
+
+```javascript
+// MCP-based equivalent for mkdir (80-90% token savings vs bash)
+await mcp__desktop-commander__create_directory({
+  path: ".planning/phases/{NN}-{slug}"
+});
 ```
+
+Create one directory per gap closure phase.
 
 ## 8. Commit Roadmap Update
 
-```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs(roadmap): add gap closure phases {N}-{M}" --files .planning/ROADMAP.md
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs(roadmap): add gap closure phases" --files .planning/ROADMAP.md`,
+  timeout_ms: 10000
+});
 ```
 
 ## 9. Offer Next Steps
 
-```markdown
-## ✓ Gap Closure Phases Created
-
-**Phases added:** {N} - {M}
-**Gaps addressed:** {count} requirements, {count} integration, {count} flows
-
----
+```
+✓ Gap closure phases created
 
 ## ▶ Next Up
 
@@ -156,101 +165,21 @@ node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs(roadmap): add gap clo
 ---
 
 **Also available:**
+- Review roadmap: Use MCP read tool to view .planning/ROADMAP.md
 - `/gsd:execute-phase {N}` — if plans already exist
-- `cat .planning/ROADMAP.md` — see updated roadmap
-
----
-
-**After all gap phases complete:**
-
-`/gsd:audit-milestone` — re-audit to verify gaps closed
-`/gsd:complete-milestone {version}` — archive when audit passes
 ```
+</step>
 
 </process>
 
-<gap_to_phase_mapping>
-
-## How Gaps Become Tasks
-
-**Requirement gap → Tasks:**
-```yaml
-gap:
-  id: DASH-01
-  description: "User sees their data"
-  reason: "Dashboard exists but doesn't fetch from API"
-  missing:
-    - "useEffect with fetch to /api/user/data"
-    - "State for user data"
-    - "Render user data in JSX"
-
-becomes:
-
-phase: "Wire Dashboard Data"
-tasks:
-  - name: "Add data fetching"
-    files: [src/components/Dashboard.tsx]
-    action: "Add useEffect that fetches /api/user/data on mount"
-
-  - name: "Add state management"
-    files: [src/components/Dashboard.tsx]
-    action: "Add useState for userData, loading, error states"
-
-  - name: "Render user data"
-    files: [src/components/Dashboard.tsx]
-    action: "Replace placeholder with userData.map rendering"
-```
-
-**Integration gap → Tasks:**
-```yaml
-gap:
-  from_phase: 1
-  to_phase: 3
-  connection: "Auth token → API calls"
-  reason: "Dashboard API calls don't include auth header"
-  missing:
-    - "Auth header in fetch calls"
-    - "Token refresh on 401"
-
-becomes:
-
-phase: "Add Auth to Dashboard API Calls"
-tasks:
-  - name: "Add auth header to fetches"
-    files: [src/components/Dashboard.tsx, src/lib/api.ts]
-    action: "Include Authorization header with token in all API calls"
-
-  - name: "Handle 401 responses"
-    files: [src/lib/api.ts]
-    action: "Add interceptor to refresh token or redirect to login on 401"
-```
-
-**Flow gap → Tasks:**
-```yaml
-gap:
-  name: "User views dashboard after login"
-  broken_at: "Dashboard data load"
-  reason: "No fetch call"
-  missing:
-    - "Fetch user data on mount"
-    - "Display loading state"
-    - "Render user data"
-
-becomes:
-
-# Usually same phase as requirement/integration gap
-# Flow gaps often overlap with other gap types
-```
-
-</gap_to_phase_mapping>
-
 <success_criteria>
-- [ ] MILESTONE-AUDIT.md loaded and gaps parsed
-- [ ] Gaps prioritized (must/should/nice)
+- [ ] MILESTONE-AUDIT.md loaded using MCP read_file
+- [ ] Gaps parsed and prioritized
 - [ ] Gaps grouped into logical phases
-- [ ] User confirmed phase plan
-- [ ] ROADMAP.md updated with new phases
-- [ ] Phase directories created
-- [ ] Changes committed
-- [ ] User knows to run `/gsd:plan-phase` next
+- [ ] Phase numbers determined using MCP find_files
+- [ ] Gap closure plan presented with phases, tasks, requirements
+- [ ] ROADMAP.md updated using MCP edit_block
+- [ ] Phase directories created using MCP create_directory
+- [ ] Roadmap committed using MCP start_process
+- [ ] User informed of next steps
 </success_criteria>

@@ -1,145 +1,148 @@
 <purpose>
-Interactive configuration of GSD workflow agents (research, plan_check, verifier) and model profile selection via multi-question prompt. Updates .planning/config.json with user preferences.
+Configure workflow toggles and model profile interactively. Changes mode (interactive/yolo), depth (quick/standard/comprehensive), parallelization, and model assignments for planning agents.
 </purpose>
 
 <required_reading>
-Read all files referenced by the invoking prompt's execution_context before starting.
+**Use MCP tool: mcp__desktop-commander__read_file** to read current config
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </required_reading>
+
+<tool_requirements>
+**MANDATORY: Use MCP tools instead of native tools for all operations.**
+
+**File Operations:**
+- mcp__desktop-commander__read_file — Read config.json
+- mcp__desktop-commander__write_file — Write updated config
+
+**Process Operations:**
+- mcp__desktop-commander__start_process — Run gsd-tools.js config commands
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
+</tool_requirements>
 
 <process>
 
-<step name="ensure_and_load_config">
-Ensure config exists and load current state:
+<step name="init_context">
+Load settings context using MCP tools:
 
-```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js config-ensure-section
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js state load)
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const CONFIG_JSON = await mcp__desktop-commander__read_file({
+  path: ".planning/config.json"
+});
+
+await mcp__desktop-commander__start_process({
+  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js config-init",
+  timeout_ms: 10000
+});
 ```
 
-Creates `.planning/config.json` with defaults if missing and loads current config values.
+Display current config with menu for toggles.
 </step>
 
-<step name="read_current">
-```bash
-cat .planning/config.json
+<step name="interactive_menu">
+Present settings menu:
+
+```
+## GSD Settings
+
+**Current Configuration:**
+
+Mode: [interactive | yolo]
+Depth: [quick | standard | comprehensive]
+Parallelization: [enabled | disabled]
+Commit Docs: [true | false]
+Model Profile: [quality | balanced | budget]
+
+---
+
+## Toggle Mode
+
+/gsd:settings --mode [interactive|yolo]
+
+## Set Depth
+
+/gsd:settings --depth [quick|standard|comprehensive]
+
+## Toggle Parallelization
+
+/gsd:settings --parallelization [true|false]
+
+## Toggle Commit Docs
+
+/gsd:settings --commit-docs [true|false]
+
+## Set Model Profile
+
+/gsd:settings --profile [quality|balanced|budget]
+
+---
+
+What would you like to change?
 ```
 
-Parse current values (default to `true` if not present):
-- `workflow.research` — spawn researcher during plan-phase
-- `workflow.plan_check` — spawn plan checker during plan-phase
-- `workflow.verifier` — spawn verifier during execute-phase
-- `model_profile` — which model each agent uses (default: `balanced`)
-- `git.branching_strategy` — branching approach (default: `"none"`)
+Wait for user response.
 </step>
 
-<step name="present_settings">
-Use AskUserQuestion with current values pre-selected:
+<step name="apply_changes">
+Apply selected setting using MCP tools:
 
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js config-set ${KEY} ${VALUE}`,
+  timeout_ms: 10000
+});
 ```
-AskUserQuestion([
-  {
-    question: "Which model profile for agents?",
-    header: "Model",
-    multiSelect: false,
-    options: [
-      { label: "Quality", description: "Opus everywhere except verification (highest cost)" },
-      { label: "Balanced (Recommended)", description: "Opus for planning, Sonnet for execution/verification" },
-      { label: "Budget", description: "Sonnet for writing, Haiku for research/verification (lowest cost)" }
-    ]
-  },
-  {
-    question: "Spawn Plan Researcher? (researches domain before planning)",
-    header: "Research",
-    multiSelect: false,
-    options: [
-      { label: "Yes", description: "Research phase goals before planning" },
-      { label: "No", description: "Skip research, plan directly" }
-    ]
-  },
-  {
-    question: "Spawn Plan Checker? (verifies plans before execution)",
-    header: "Plan Check",
-    multiSelect: false,
-    options: [
-      { label: "Yes", description: "Verify plans meet phase goals" },
-      { label: "No", description: "Skip plan verification" }
-    ]
-  },
-  {
-    question: "Spawn Execution Verifier? (verifies phase completion)",
-    header: "Verifier",
-    multiSelect: false,
-    options: [
-      { label: "Yes", description: "Verify must-haves after execution" },
-      { label: "No", description: "Skip post-execution verification" }
-    ]
-  },
-  {
-    question: "Git branching strategy?",
-    header: "Branching",
-    multiSelect: false,
-    options: [
-      { label: "None (Recommended)", description: "Commit directly to current branch" },
-      { label: "Per Phase", description: "Create branch for each phase (gsd/phase-{N}-{name})" },
-      { label: "Per Milestone", description: "Create branch for entire milestone (gsd/{version}-{name})" }
-    ]
-  }
-])
+
+**Use MCP tool: mcp__desktop-commander__write_file** to update config.json
+
+```javascript
+await mcp__desktop-commander__write_file({
+  path: ".planning/config.json",
+  content: `[updated config JSON]`
+});
 ```
+
+Commit config changes:
+
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js commit "chore: update GSD settings" --files .planning/config.json`,
+  timeout_ms: 10000
+});
+```
+
+Confirm: "Settings updated. [Key]: [new value]"
 </step>
 
-<step name="update_config">
-Merge new settings into existing config.json:
+<step name="model_profile_info">
+If user wants to change model profile, show current assignments:
 
-```json
-{
-  ...existing_config,
-  "model_profile": "quality" | "balanced" | "budget",
-  "workflow": {
-    "research": true/false,
-    "plan_check": true/false,
-    "verifier": true/false
-  },
-  "git": {
-    "branching_strategy": "none" | "phase" | "milestone"
-  }
-}
-```
+| Agent | Quality Profile | Balanced Profile | Budget Profile |
+|-------|---------------|----------------|--------------|
+| Researcher | Opus | Sonnet | Haiku |
+| Synthesizer | Opus | Sonnet | Haiku |
+| Roadmapper | Opus | Sonnet | Haiku |
+| Planner | Opus | Sonnet | Sonnet |
+| Plan Checker | Sonnet | Sonnet | Haiku |
 
-Write updated config to `.planning/config.json`.
-</step>
-
-<step name="confirm">
-Display:
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► SETTINGS UPDATED
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-| Setting              | Value |
-|----------------------|-------|
-| Model Profile        | {quality/balanced/budget} |
-| Plan Researcher      | {On/Off} |
-| Plan Checker         | {On/Off} |
-| Execution Verifier   | {On/Off} |
-| Git Branching        | {None/Per Phase/Per Milestone} |
-
-These settings apply to future /gsd:plan-phase and /gsd:execute-phase runs.
-
-Quick commands:
-- /gsd:set-profile <profile> — switch model profile
-- /gsd:plan-phase --research — force research
-- /gsd:plan-phase --skip-research — skip research
-- /gsd:plan-phase --skip-verify — skip plan check
-```
+Note: Quality = best performance, Budget = lowest cost.
 </step>
 
 </process>
 
 <success_criteria>
-- [ ] Current config read
-- [ ] User presented with 5 settings (profile + 3 workflow toggles + git branching)
-- [ ] Config updated with model_profile, workflow, and git sections
-- [ ] Changes confirmed to user
+- [ ] Current config loaded using MCP read_file
+- [ ] User presented with settings menu
+- [ ] Setting applied using MCP start_process and write_file
+- [ ] Config committed using MCP start_process
+- [ ] User informed of changes
+- [ ] Model profile information provided if requested
 </success_criteria>

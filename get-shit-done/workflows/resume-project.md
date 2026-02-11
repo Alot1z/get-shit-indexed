@@ -1,306 +1,137 @@
-<trigger>
-Use this workflow when:
-- Starting a new session on an existing project
-- User says "continue", "what's next", "where were we", "resume"
-- Any planning operation when .planning/ already exists
-- User returns after time away from project
-</trigger>
-
 <purpose>
-Instantly restore full project context so "Where were we?" has an immediate, complete answer.
+Resume work from a previous session that used `.continue-here.md` handoff file. Loads complete state, finds where left off, and continues execution. Orchestrator stays lean — delegates to subagents.
 </purpose>
 
 <required_reading>
-@~/.claude/get-shit-done/references/continuation-format.md
+**Use MCP tools to read project state and handoff file:**
+
+- mcp__desktop-commander__read_file — Read STATE.md
+- mcp__desktop-commander__read_file — Read .continue-here.md
+- mcp__code-index-mcp__find_files — List phase directories
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </required_reading>
+
+<tool_requirements>
+**MANDATORY: Use MCP tools instead of native tools for all operations.**
+
+**File Operations:**
+- mcp__desktop-commander__read_file — Read handoff file
+- mcp__desktop-commander__list_directory — Find current phase
+
+**Process Operations:**
+- mcp__desktop-commander__start_process — Run gsd-tools.js commands
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
+</tool_requirements>
 
 <process>
 
-<step name="initialize">
-Load all context in one call:
+## 1. Detect Current Phase
 
-```bash
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js init resume)
+**Use MCP tool: mcp__code-index-mcp__find_files**
+
+```javascript
+// MCP-based equivalent for finding files (80-90% token savings vs bash ls)
+const phaseDirs = await mcp__code-index-mcp__find_files({
+  pattern: "*-PLAN.md",
+  path: ".planning/phases"
+});
 ```
 
-Parse JSON for: `state_exists`, `roadmap_exists`, `project_exists`, `planning_exists`, `has_interrupted_agent`, `interrupted_agent_id`, `commit_docs`.
+Find most recently modified phase directory.
 
-**If `state_exists` is true:** Proceed to load_state
-**If `state_exists` is false but `roadmap_exists` or `project_exists` is true:** Offer to reconstruct STATE.md
-**If `planning_exists` is false:** This is a new project - route to /gsd:new-project
+**If no active phase detected:** Ask user which phase they're resuming.
 </step>
 
-<step name="load_state">
+<step name="load_handoff">
+**Use MCP tool: mcp__desktop-commander__read_file**
 
-Read and parse STATE.md, then PROJECT.md:
-
-```bash
-cat .planning/STATE.md
-cat .planning/PROJECT.md
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash cat)
+const handoffContent = await mcp__desktop-commander__read_file({
+  path: ".planning/phases/XX-name/.continue-here.md"
+});
 ```
 
-**From STATE.md extract:**
+Parse YAML frontmatter:
+- `phase`
+- `task`
+- `total_tasks`
+- `status`
+- `last_updated`
+- `current_state` with completed/remaining work arrays
+- `decisions_made`
+- `blockers`
+- `context`
+- `next_action`
 
-- **Project Reference**: Core value and current focus
-- **Current Position**: Phase X of Y, Plan A of B, Status
-- **Progress**: Visual progress bar
-- **Recent Decisions**: Key decisions affecting current work
-- **Pending Todos**: Ideas captured during sessions
-- **Blockers/Concerns**: Issues carried forward
-- **Session Continuity**: Where we left off, any resume files
-
-**From PROJECT.md extract:**
-
-- **What This Is**: Current accurate description
-- **Requirements**: Validated, Active, Out of Scope
-- **Key Decisions**: Full decision log with outcomes
-- **Constraints**: Hard limits on implementation
-
+Extract all context for seamless continuation.
 </step>
 
-<step name="check_incomplete_work">
-Look for incomplete work that needs attention:
+<step name="verify_continuation">
+Check if handoff file exists and is recent.
 
-```bash
-# Check for continue-here files (mid-plan resumption)
-ls .planning/phases/*/.continue-here*.md 2>/dev/null
-
-# Check for plans without summaries (incomplete execution)
-for plan in .planning/phases/*/*-PLAN.md; do
-  summary="${plan/PLAN/SUMMARY}"
-  [ ! -f "$summary" ] && echo "Incomplete: $plan"
-done 2>/dev/null
-
-# Check for interrupted agents (use has_interrupted_agent and interrupted_agent_id from init)
-if [ "$has_interrupted_agent" = "true" ]; then
-  echo "Interrupted agent: $interrupted_agent_id"
-fi
-```
-
-**If .continue-here file exists:**
-
-- This is a mid-plan resumption point
-- Read the file for specific resumption context
-- Flag: "Found mid-plan checkpoint"
-
-**If PLAN without SUMMARY exists:**
-
-- Execution was started but not completed
-- Flag: "Found incomplete plan execution"
-
-**If interrupted agent found:**
-
-- Subagent was spawned but session ended before completion
-- Read agent-history.json for task details
-- Flag: "Found interrupted agent"
-  </step>
-
-<step name="present_status">
-Present complete project status to user:
-
-```
-╔══════════════════════════════════════════════════════════════╗
-║  PROJECT STATUS                                               ║
-╠══════════════════════════════════════════════════════════════╣
-║  Building: [one-liner from PROJECT.md "What This Is"]         ║
-║                                                               ║
-║  Phase: [X] of [Y] - [Phase name]                            ║
-║  Plan:  [A] of [B] - [Status]                                ║
-║  Progress: [██████░░░░] XX%                                  ║
-║                                                               ║
-║  Last activity: [date] - [what happened]                     ║
-╚══════════════════════════════════════════════════════════════╝
-
-[If incomplete work found:]
-⚠️  Incomplete work detected:
-    - [.continue-here file or incomplete plan]
-
-[If interrupted agent found:]
-⚠️  Interrupted agent detected:
-    Agent ID: [id]
-    Task: [task description from agent-history.json]
-    Interrupted: [timestamp]
-
-    Resume with: Task tool (resume parameter with agent ID)
-
-[If pending todos exist:]
-📋 [N] pending todos — /gsd:check-todos to review
-
-[If blockers exist:]
-⚠️  Carried concerns:
-    - [blocker 1]
-    - [blocker 2]
-
-[If alignment is not ✓:]
-⚠️  Brief alignment: [status] - [assessment]
-```
-
+**If missing:** Warn user that state may be stale. Ask if they want to continue anyway.
 </step>
 
-<step name="determine_next_action">
-Based on project state, determine the most logical next action:
+<step name="spawn_continuation">
+Spawn gsd-executor with continuation context:
 
-**If interrupted agent exists:**
-→ Primary: Resume interrupted agent (Task tool with resume parameter)
-→ Option: Start fresh (abandon agent work)
+```
+Task(
+  subagent_type="gsd-executor",
+  prompt="<complete state from handoff, continue from task X>",
+  model="{executor_model}"
+)
+```
 
-**If .continue-here file exists:**
-→ Primary: Resume from checkpoint
-→ Option: Start fresh on current plan
+No new planning — executor reads handoff state and continues from exactly where previous session stopped.
 
-**If incomplete plan (PLAN without SUMMARY):**
-→ Primary: Complete the incomplete plan
-→ Option: Abandon and move on
-
-**If phase in progress, all plans complete:**
-→ Primary: Transition to next phase
-→ Option: Review completed work
-
-**If phase ready to plan:**
-→ Check if CONTEXT.md exists for this phase:
-
-- If CONTEXT.md missing:
-  → Primary: Discuss phase vision (how user imagines it working)
-  → Secondary: Plan directly (skip context gathering)
-- If CONTEXT.md exists:
-  → Primary: Plan the phase
-  → Option: Review roadmap
-
-**If phase ready to execute:**
-→ Primary: Execute next plan
-→ Option: Review the plan first
+Fresh context per subagent — no token contamination from orchestrator.
 </step>
 
-<step name="offer_options">
-Present contextual options based on project state:
+<step name="update_state">
+After continuation completes, update STATE.md:
 
-```
-What would you like to do?
+**Use MCP tool: mcp__desktop-commander__start_process**
 
-[Primary action based on state - e.g.:]
-1. Resume interrupted agent [if interrupted agent found]
-   OR
-1. Execute phase (/gsd:execute-phase {phase})
-   OR
-1. Discuss Phase 3 context (/gsd:discuss-phase 3) [if CONTEXT.md missing]
-   OR
-1. Plan Phase 3 (/gsd:plan-phase 3) [if CONTEXT.md exists or discuss option declined]
-
-[Secondary options:]
-2. Review current phase status
-3. Check pending todos ([N] pending)
-4. Review brief alignment
-5. Something else
+```javascript
+await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js state record-session --stopped-at "Continuation complete" --resume-file "None"`,
+  timeout_ms: 10000
+});
 ```
 
-**Note:** When offering phase planning, check for CONTEXT.md existence first:
-
-```bash
-ls .planning/phases/XX-name/*-CONTEXT.md 2>/dev/null
-```
-
-If missing, suggest discuss-phase before plan. If exists, offer plan directly.
-
-Wait for user selection.
+Remove `.continue-here.md` after successful continuation.
 </step>
 
-<step name="route_to_workflow">
-Based on user selection, route to appropriate workflow:
+<step name="completion">
+Present completion report:
 
-- **Execute plan** → Show command for user to run after clearing:
-  ```
-  ---
-
-  ## ▶ Next Up
-
-  **{phase}-{plan}: [Plan Name]** — [objective from PLAN.md]
-
-  `/gsd:execute-phase {phase}`
-
-  <sub>`/clear` first → fresh context window</sub>
-
-  ---
-  ```
-- **Plan phase** → Show command for user to run after clearing:
-  ```
-  ---
-
-  ## ▶ Next Up
-
-  **Phase [N]: [Name]** — [Goal from ROADMAP.md]
-
-  `/gsd:plan-phase [phase-number]`
-
-  <sub>`/clear` first → fresh context window</sub>
-
-  ---
-
-  **Also available:**
-  - `/gsd:discuss-phase [N]` — gather context first
-  - `/gsd:research-phase [N]` — investigate unknowns
-
-  ---
-  ```
-- **Transition** → ./transition.md
-- **Check todos** → Read .planning/todos/pending/, present summary
-- **Review alignment** → Read PROJECT.md, compare to current state
-- **Something else** → Ask what they need
-</step>
-
-<step name="update_session">
-Before proceeding to routed workflow, update session continuity:
-
-Update STATE.md:
-
-```markdown
-## Session Continuity
-
-Last session: [now]
-Stopped at: Session resumed, proceeding to [action]
-Resume file: [updated if applicable]
 ```
+✓ Work resumed from session handoff
 
-This ensures if session ends unexpectedly, next resume knows the state.
+Phase: [XX-name]
+Continued from: Task [X] of [Y]
+[Summary of what was done]
+
+---
+
+## ▶ Next Up
+
+Continue with remaining tasks or mark phase complete.
+```
 </step>
 
 </process>
 
-<reconstruction>
-If STATE.md is missing but other artifacts exist:
-
-"STATE.md missing. Reconstructing from artifacts..."
-
-1. Read PROJECT.md → Extract "What This Is" and Core Value
-2. Read ROADMAP.md → Determine phases, find current position
-3. Scan \*-SUMMARY.md files → Extract decisions, concerns
-4. Count pending todos in .planning/todos/pending/
-5. Check for .continue-here files → Session continuity
-
-Reconstruct and write STATE.md, then proceed normally.
-
-This handles cases where:
-
-- Project predates STATE.md introduction
-- File was accidentally deleted
-- Cloning repo without full .planning/ state
-  </reconstruction>
-
-<quick_resume>
-If user says "continue" or "go":
-- Load state silently
-- Determine primary action
-- Execute immediately without presenting options
-
-"Continuing from [state]... [action]"
-</quick_resume>
-
 <success_criteria>
-Resume is complete when:
-
-- [ ] STATE.md loaded (or reconstructed)
-- [ ] Incomplete work detected and flagged
-- [ ] Clear status presented to user
-- [ ] Contextual next actions offered
-- [ ] User knows exactly where project stands
-- [ ] Session continuity updated
-      </success_criteria>
+- [ ] Current phase detected using MCP find_files
+- [ ] Handoff file loaded using MCP read_file
+- [ ] Continuation spawned with complete state
+- [ ] Work continued and tasks completed
+- [ ] STATE.md updated using MCP start_process
+- [ ] User informed of completion and next steps
+- [ ] Handoff file cleaned up after successful continuation
+</success_criteria>

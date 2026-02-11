@@ -1,80 +1,74 @@
 <purpose>
-Switch the model profile used by GSD agents. Controls which Claude model each agent uses, balancing quality vs token spend.
+Quick switch model profile for GSD agents without navigating full settings menu. Direct command: `/gsd:set-profile [quality|balanced|budget]` sets all agents at once.
 </purpose>
 
 <required_reading>
-Read all files referenced by the invoking prompt's execution_context before starting.
+**Use MCP tool: mcp__desktop-commander__start_process** to run profile switch command
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </required_reading>
+
+<tool_requirements>
+**MANDATORY: Use MCP tools instead of native tools for all operations.**
+
+**Process Operations:**
+- mcp__desktop-commander__start_process — Run gsd-tools.js config-set command
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
+</tool_requirements>
 
 <process>
 
-<step name="validate">
-Validate argument:
+<step name="apply_profile">
+Switch model profile using MCP tools:
 
-```
-if $ARGUMENTS.profile not in ["quality", "balanced", "budget"]:
-  Error: Invalid profile "$ARGUMENTS.profile"
-  Valid profiles: quality, balanced, budget
-  EXIT
-```
-</step>
+**Use MCP tool: mcp__desktop-commander__start_process**
 
-<step name="ensure_and_load_config">
-Ensure config exists and load current state:
-
-```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js config-ensure-section
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js state load)
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js config-set workflow.model_profile ${PROFILE}`,
+  timeout_ms: 10000
+});
 ```
 
-This creates `.planning/config.json` with defaults if missing and loads current config.
-</step>
+Valid profiles: `quality` (Opus for most agents), `balanced` (Sonnet for planning/execution, Opus for others), `budget` (Haiku where possible).
 
-<step name="update_config">
-Read current config from state load or directly:
+Commit config changes:
 
-Update `model_profile` field:
-```json
-{
-  "model_profile": "$ARGUMENTS.profile"
-}
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js commit "chore: switch model profile to ${PROFILE}" --files .planning/config.json`,
+  timeout_ms: 10000
+});
 ```
-
-Write updated config back to `.planning/config.json`.
 </step>
 
 <step name="confirm">
-Display confirmation with model table for selected profile:
+Confirm profile switch:
 
 ```
-✓ Model profile set to: $ARGUMENTS.profile
+✓ Model profile switched to: ${PROFILE}
 
-Agents will now use:
+Current assignments:
+- Researcher: [model]
+- Synthesizer: [model]
+- Roadmapper: [model]
+- Planner: [model]
+- Plan Checker: [model]
+- Executor: [model]
+- Verifier: [model]
 
-[Show table from MODEL_PROFILES in gsd-tools.js for selected profile]
-
-Example:
-| Agent | Model |
-|-------|-------|
-| gsd-planner | opus |
-| gsd-executor | sonnet |
-| gsd-verifier | haiku |
-| ... | ... |
-
-Next spawned agents will use the new profile.
+Run /gsd:settings to see full configuration or /gsd:set-profile to change again.
 ```
-
-Map profile names:
-- quality: use "quality" column from MODEL_PROFILES
-- balanced: use "balanced" column from MODEL_PROFILES
-- budget: use "budget" column from MODEL_PROFILES
 </step>
 
 </process>
 
 <success_criteria>
-- [ ] Argument validated
-- [ ] Config file ensured
-- [ ] Config updated with new model_profile
-- [ ] Confirmation displayed with model table
+- [ ] Model profile switched using MCP start_process
+- [ ] Config committed using MCP start_process
+- [ ] User confirmed with new agent assignments
 </success_criteria>

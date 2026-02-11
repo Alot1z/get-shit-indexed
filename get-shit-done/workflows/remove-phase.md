@@ -1,154 +1,150 @@
 <purpose>
-Remove an unstarted future phase from the project roadmap, delete its directory, renumber all subsequent phases to maintain a clean linear sequence, and commit the change. The git commit serves as the historical record of removal.
+Remove a future phase from the roadmap and renumber all subsequent phases to close the gap. Updates ROADMAP.md, deletes phase directory, and commits changes.
 </purpose>
 
 <required_reading>
-Read all files referenced by the invoking prompt's execution_context before starting.
+**Use MCP tools:**
+- mcp__desktop-commander__read_file — Read ROADMAP.md before modification
+- mcp__code-index-mcp__search_code_advanced — Find phase references to update
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </required_reading>
+
+<tool_requirements>
+**MANDATORY: Use MCP tools instead of native tools for all operations.**
+
+**File Operations:**
+- mcp__desktop-commander__read_file — Read files
+- mcp__desktop-commander__edit_block — Edit ROADMAP.md
+- mcp__desktop-commander__list_directory — List phase directories
+
+**Code Search:**
+- mcp__code-index-mcp__search_code_advanced — Search for phase references
+
+**Process Operations:**
+- mcp__desktop-commander__start_process — Run gsd-tools.js commands
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
+</tool_requirements>
 
 <process>
 
 <step name="parse_arguments">
-Parse the command arguments:
-- Argument is the phase number to remove (integer or decimal)
-- Example: `/gsd:remove-phase 17` → phase = 17
-- Example: `/gsd:remove-phase 16.1` → phase = 16.1
+Parse command arguments:
+- First argument: phase number to remove
+- Remaining arguments: (optional) confirmation flag
 
-If no argument provided:
+Example: `/gsd:remove-phase 17` → remove = 17
+
+If no phase number:
 
 ```
 ERROR: Phase number required
-Usage: /gsd:remove-phase <phase-number>
+Usage: /gsd:remove-phase <number>
 Example: /gsd:remove-phase 17
 ```
 
 Exit.
+
+Validate first argument is an integer ≤ highest phase number.
 </step>
 
 <step name="init_context">
-Load phase operation context:
+Load phase operation context using MCP tools:
 
-```bash
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js init phase-op "${target}")
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const INIT = await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js init phase-op "${REMOVE_PHASE}"`,
+  timeout_ms: 10000
+});
 ```
 
-Extract: `phase_found`, `phase_dir`, `phase_number`, `commit_docs`, `roadmap_exists`.
-
-Also read STATE.md and ROADMAP.md content for parsing current position.
-</step>
-
-<step name="validate_future_phase">
-Verify the phase is a future phase (not started):
-
-1. Compare target phase to current phase from STATE.md
-2. Target must be > current phase number
-
-If target <= current phase:
-
+Extract `roadmap_exists` from init JSON. If false:
 ```
-ERROR: Cannot remove Phase {target}
-
-Only future phases can be removed:
-- Current phase: {current}
-- Phase {target} is current or completed
-
-To abandon current work, use /gsd:pause-work instead.
+ERROR: No roadmap found (.planning/ROADMAP.md)
 ```
-
 Exit.
 </step>
 
-<step name="confirm_removal">
-Present removal summary and confirm:
+<step name="remove_phase">
+**Remove phase using gsd-tools:**
 
-```
-Removing Phase {target}: {Name}
+**Use MCP tool: mcp__desktop-commander__start_process**
 
-This will:
-- Delete: .planning/phases/{target}-{slug}/
-- Renumber all subsequent phases
-- Update: ROADMAP.md, STATE.md
-
-Proceed? (y/n)
-```
-
-Wait for confirmation.
-</step>
-
-<step name="execute_removal">
-**Delegate the entire removal operation to gsd-tools:**
-
-```bash
-RESULT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js phase remove "${target}")
-```
-
-If the phase has executed plans (SUMMARY.md files), gsd-tools will error. Use `--force` only if the user confirms:
-
-```bash
-RESULT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js phase remove "${target}" --force)
+```javascript
+await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js phase remove "${REMOVE_PHASE}"`,
+  timeout_ms: 10000
+});
 ```
 
 The CLI handles:
-- Deleting the phase directory
-- Renumbering all subsequent directories (in reverse order to avoid conflicts)
-- Renaming all files inside renumbered directories (PLAN.md, SUMMARY.md, etc.)
-- Updating ROADMAP.md (removing section, renumbering all phase references, updating dependencies)
-- Updating STATE.md (decrementing phase count)
+- Validating phase exists in ROADMAP.md
+- Removing phase entry from ROADMAP.md
+- Deleting phase directory (`.planning/phases/{NN}-{slug}/`)
+- Renumbering all subsequent phases (NN becomes NN-1, NN-1 becomes NN-2, etc.)
 
-Extract from result: `removed`, `directory_deleted`, `renamed_directories`, `renamed_files`, `roadmap_updated`, `state_updated`.
+Extract from result: `removed_phase`, `removed_directory`, `renumbered_count`.
+
+**Note:** Phase directories are NOT deleted from disk — they accumulate as execution history. Only the ROADMAP.md reference is removed.
 </step>
 
-<step name="commit">
-Stage and commit the removal:
+<step name="update_state">
+Update STATE.md using MCP tools:
 
-```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js commit "chore: remove phase {target} ({original-phase-name})" --files .planning/
+**Use MCP tool: mcp__desktop-commander__read_file** and **mcp__desktop-commander__edit_block**
+
+```javascript
+// MCP-based equivalent for reading and editing files
+const stateContent = await mcp__desktop-commander__read_file({
+  path: ".planning/STATE.md"
+});
+
+await mcp__desktop-commander__edit_block({
+  file_path: ".planning/STATE.md",
+  old_string: "[existing roadmap evolution section]",
+  new_string: "### Roadmap Evolution\n   - Phase ${removed_phase} removed: ${reason}\n   - Phases ${renumbered_count} renumbered: ${removed_phase}+1 → ${removed_phase}, ${removed_phase}+2 → ..."
+});
 ```
 
-The commit message preserves the historical record of what was removed.
+If "Roadmap Evolution" section doesn't exist, create it.
 </step>
 
 <step name="completion">
 Present completion summary:
 
 ```
-Phase {target} ({original-name}) removed.
+Phase ${removed_phase} removed from roadmap:
+- Directory: .planning/phases/${removed_phase}-{slug}/ (preserved on disk)
+- Phases renumbered: ${renumbered_count} phases shifted
+- ROADMAP.md updated
 
-Changes:
-- Deleted: .planning/phases/{target}-{slug}/
-- Renumbered: {N} directories and {M} files
-- Updated: ROADMAP.md, STATE.md
-- Committed: chore: remove phase {target} ({original-name})
+State updated: .planning/STATE.md
+
+---
+
+## ▶ Next Up
+
+Review updated roadmap structure.
 
 ---
 
-## What's Next
-
-Would you like to:
-- `/gsd:progress` — see updated roadmap status
-- Continue with current phase
-- Review roadmap
-
----
+**Also available:**
+- `cat .planning/ROADMAP.md` — view updated roadmap
 ```
 </step>
 
 </process>
 
-<anti_patterns>
-
-- Don't remove completed phases (have SUMMARY.md files) without --force
-- Don't remove current or past phases
-- Don't manually renumber — use `gsd-tools phase remove` which handles all renumbering
-- Don't add "removed phase" notes to STATE.md — git commit is the record
-- Don't modify completed phase directories
-</anti_patterns>
-
 <success_criteria>
-Phase removal is complete when:
-
-- [ ] Target phase validated as future/unstarted
-- [ ] `gsd-tools phase remove` executed successfully
-- [ ] Changes committed with descriptive message
-- [ ] User informed of changes
+- [ ] Phase exists in roadmap (validated using MCP tools)
+- [ ] Phase removed using gsd-tools (MCP start_process)
+- [ ] Phase directory deleted (preserved on disk)
+- [ ] Subsequent phases renumbered (count tracked)
+- [ ] ROADMAP.md updated using MCP edit_block
+- [ ] STATE.md updated with roadmap evolution entry
+- [ ] User informed of completion and next steps
 </success_criteria>
