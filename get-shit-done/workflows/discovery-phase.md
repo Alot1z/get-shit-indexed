@@ -1,5 +1,5 @@
 <purpose>
-Execute discovery at the appropriate depth level.
+Execute discovery at appropriate depth level.
 Produces DISCOVERY.md (for Level 2-3) that informs PLAN.md creation.
 
 Called from plan-phase.md's mandatory_discovery step with a depth parameter.
@@ -39,7 +39,7 @@ Check the depth parameter passed from plan-phase.md:
 - `depth=standard` → Level 2 (Standard Discovery)
 - `depth=deep` → Level 3 (Deep Dive)
 
-Route to appropriate level workflow below.
+Route to the appropriate level workflow below.
 </step>
 
 <step name="level_1_quick_verify">
@@ -51,11 +51,15 @@ For: Single known library, confirming syntax/version still correct.
 
 1. Resolve library in Context7:
 
+   **Use MCP tool: mcp__context7__resolve-library-id**
+
    ```
    mcp__context7__resolve-library-id with libraryName: "[library]"
    ```
 
 2. Fetch relevant docs:
+
+   **Use MCP tool: mcp__context7__get-library-docs**
 
    ```
    mcp__context7__get-library-docs with:
@@ -91,6 +95,8 @@ For: Choosing between options, new external integration.
 
 2. **Context7 for each option:**
 
+   **Use MCP tools: mcp__context7__resolve-library-id and mcp__context7__get-library-docs**
+
    ```
    For each library/framework:
    - mcp__context7__resolve-library-id
@@ -101,13 +107,28 @@ For: Choosing between options, new external integration.
 
 4. **WebSearch** for comparisons:
 
-   - "[option A] vs [option B] {current_year}"
-   - "[option] known issues"
-   - "[option] with [our stack]"
+   **Use MCP tool: mcp__rag-web-browser__search**
+
+   ```
+   mcp__rag-web-browser__search with:
+   - query: "[option A] vs [option B] {current_year}"
+   - query: "[option] known issues"
+   - query: "[option] with [our stack]"
+   ```
 
 5. **Cross-verify:** Any WebSearch finding → confirm with Context7/official docs.
 
 6. **Create DISCOVERY.md** using ~/.claude/get-shit-done/templates/discovery.md structure:
+
+   **Use MCP tool: mcp__desktop-commander__write_file**
+
+   ```
+   // MCP-based equivalent for file writing (80-90% token savings vs bash)
+   await mcp__desktop-commander__write_file({
+     path: ".planning/phases/XX-name/DISCOVERY.md",
+     content: `[discovery content with summary, findings, code examples]`
+   });
+   ```
 
    - Summary with recommendation
    - Key findings per option
@@ -126,7 +147,7 @@ For: Architectural decisions, novel problems, high-risk choices.
 
 **Process:**
 
-1. **Scope the discovery** using ~/.claude/get-shit-done/templates/discovery.md:
+1. **Scope discovery** using ~/.claude/get-shit-done/templates/discovery.md:
 
    - Define clear scope
    - Define include/exclude boundaries
@@ -134,9 +155,14 @@ For: Architectural decisions, novel problems, high-risk choices.
 
 2. **Exhaustive Context7 research:**
 
+   **Use MCP tools: mcp__context7__resolve-library-id and mcp__context7__get-library-docs**
+
+   ```
+   // MCP-based equivalent (80-90% token savings vs bash)
    - All relevant libraries
    - Related patterns and concepts
    - Multiple topics per library if needed
+   ```
 
 3. **Official documentation deep read:**
 
@@ -147,10 +173,15 @@ For: Architectural decisions, novel problems, high-risk choices.
 
 4. **WebSearch for ecosystem context:**
 
+   **Use MCP tool: mcp__rag-web-browser__search**
+
+   ```
+   // MCP-based search for current info
    - How others solved similar problems
    - Production experiences
    - Gotchas and anti-patterns
    - Recent changes/announcements
+   ```
 
 5. **Cross-verify ALL findings:**
 
@@ -160,10 +191,13 @@ For: Architectural decisions, novel problems, high-risk choices.
 
 6. **Create comprehensive DISCOVERY.md:**
 
-   - Full structure from ~/.claude/get-shit-done/templates/discovery.md
+   **Use MCP tool: mcp__desktop-commander__write_file**
+
+   ```
+   // Full structure from ~/.claude/get-shit-done/templates/discovery.md
    - Quality report with source attribution
    - Confidence by finding
-   - If LOW confidence on any critical finding → add validation checkpoints
+   ```
 
 7. **Confidence gate:** If overall confidence is LOW, present options before proceeding.
 
@@ -181,7 +215,7 @@ Ask: What do we need to learn before we can plan this phase?
 - Best practices?
 - API patterns?
 - Architecture approach?
-  </step>
+</step>
 
 <step name="create_discovery_scope">
 Use ~/.claude/get-shit-done/templates/discovery.md.
@@ -192,26 +226,32 @@ Include:
 - Scoped include/exclude lists
 - Source preferences (official docs, Context7, current year)
 - Output structure for DISCOVERY.md
-  </step>
+</step>
 
 <step name="execute_discovery">
-Run the discovery:
-- Use web search for current info
-- Use Context7 MCP for library docs
+Run discovery:
+- **Use MCP tool: mcp__rag-web-browser__search** for current info
+- **Use MCP tools: mcp__context7__resolve-library-id and mcp__context7__get-library-docs** for library docs
 - Prefer current year sources
 - Structure findings per template
 </step>
 
 <step name="create_discovery_output">
 Write `.planning/phases/XX-name/DISCOVERY.md`:
-- Summary with recommendation
-- Key findings with sources
-- Code examples if applicable
-- Metadata (confidence, dependencies, open questions, assumptions)
+
+**Use MCP tool: mcp__desktop-commander__write_file**
+
+```javascript
+// MCP-based equivalent for file writing
+await mcp__desktop-commander__write_file({
+  path: ".planning/phases/XX-name/DISCOVERY.md",
+  content: `[discovery content with summary, findings, code examples, metadata]`
+});
+```
 </step>
 
 <step name="confidence_gate">
-After creating DISCOVERY.md, check confidence level.
+After creating DISCOVERY.md, check the confidence level.
 
 If confidence is LOW:
 Use AskUserQuestion:
@@ -266,22 +306,22 @@ NOTE: DISCOVERY.md is NOT committed separately. It will be committed with phase 
 
 <success_criteria>
 **Level 1 (Quick Verify):**
-- Context7 consulted for library/topic
+- Context7 consulted using mcp__context7 tools
 - Current state verified or concerns escalated
 - Verbal confirmation to proceed (no files)
 
 **Level 2 (Standard):**
-- Context7 consulted for all options
-- WebSearch findings cross-verified
-- DISCOVERY.md created with recommendation
+- Context7 consulted using mcp__context7 tools for all options
+- WebSearch findings cross-verified using mcp__rag-web-browser__search
+- DISCOVERY.md created using mcp__desktop-commander__write_file
 - Confidence level MEDIUM or higher
 - Ready to inform PLAN.md creation
 
 **Level 3 (Deep Dive):**
 - Discovery scope defined
-- Context7 exhaustively consulted
-- All WebSearch findings verified against authoritative sources
-- DISCOVERY.md created with comprehensive analysis
+- Context7 exhaustively consulted using mcp__context7 tools
+- All WebSearch findings verified against authoritative sources using mcp__rag-web-browser__search
+- DISCOVERY.md created using mcp__desktop-commander__write_file with comprehensive analysis
 - Quality report with source attribution
 - If LOW confidence findings → validation checkpoints defined
 - Confidence gate passed
