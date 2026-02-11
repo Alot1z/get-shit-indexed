@@ -82,7 +82,46 @@ Continue to spawn_agents.
 </step>
 
 <step name="spawn_agents">
-Spawn 4 parallel gsd-codebase-mapper agents.
+Spawn 4 parallel gsd-codebase-mapper agents using **wave-based execution** with rate limiting.
+
+**Wave-Based Architecture:**
+
+Agents are organized into waves to prevent overwhelming MCP servers and API rate limits:
+
+- **Wave 1 (Independent agents):** Tech, Architecture, Quality, Concerns mappers
+  - All 4 agents can run in parallel (no dependencies between them)
+  - Maximum concurrent agents: 3 (rate limit protection)
+  - Stagger delay: 500ms between each spawn
+
+- **Wave 2 (Dependent agents):** Optional refinement agents
+  - Only run if Wave 1 produces incomplete results
+  - Depends on Wave 1 documents for context
+
+- **Wave 3 (Synthesis agents):** Optional cross-cutting analysis
+  - Analyzes relationships between Wave 1 documents
+  - Depends on all Wave 1 and Wave 2 completions
+
+**Rate Limiting Parameters:**
+
+```json
+{
+  "rate_limiting": {
+    "max_concurrent_agents": 3,
+    "inter_wave_delay_ms": 2000,
+    "stagger_delay_ms": 500,
+    "wave_timeout_seconds": 300
+  }
+}
+```
+
+**Wave Execution Flow:**
+
+1. **Pre-wave check:** Verify `.planning/agent-history.json` exists (see tracking section)
+2. **Launch Wave 1:** Spawn agents with 500ms stagger delay
+3. **Monitor Wave 1:** Wait for all agents in wave to complete
+4. **Wave completion:** Report status before starting next wave
+5. **Launch Wave 2:** If needed, after Wave 1 fully completes
+6. **Continue** until all waves complete
 
 Use Task tool with `subagent_type="gsd-codebase-mapper"`, `model="{mapper_model}"`, and `run_in_background=true` for parallel execution.
 
