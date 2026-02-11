@@ -1,385 +1,144 @@
 <purpose>
-Check project progress, summarize recent work and what's ahead, then intelligently route to the next action — either executing an existing plan or creating the next one. Provides situational awareness before continuing work.
+Check project progress, summarize recent work and what's ahead, then intelligently route to next action — either executing an existing plan or creating a next one. Provides situational awareness before continuing work.
 </purpose>
 
 <required_reading>
-Read all files referenced by the invoking prompt's execution_context before starting.
+**Use MCP tools to read project state:**
+
+- mcp__desktop-commander__read_file — Read STATE.md, ROADMAP.md
+- mcp__code-index-mcp__find_files — List phase directories
+- mcp__code-index-mcp__get_file_summary — Get file metadata
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </required_reading>
 
 <process>
 
 <step name="init_context">
-**Load progress context (with file contents to avoid redundant reads):**
+Load progress context using MCP tools:
 
-```bash
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js init progress --include state,roadmap,project,config)
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const INIT = await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js init progress --include state,roadmap,project,config`,
+  timeout_ms: 10000
+});
 ```
 
-Extract from init JSON: `project_exists`, `roadmap_exists`, `state_exists`, `phases`, `current_phase`, `next_phase`, `milestone_version`, `completed_count`, `phase_count`, `paused_at`.
-
-**File contents (from --include):** `state_content`, `roadmap_content`, `project_content`, `config_content`. These are null if files don't exist.
-
-If `project_exists` is false (no `.planning/` directory):
-
-```
-No planning structure found.
-
-Run /gsd:new-project to start a new project.
-```
-
-Exit.
-
-If missing STATE.md: suggest `/gsd:new-project`.
-
-**If ROADMAP.md missing but PROJECT.md exists:**
-
-This means a milestone was completed and archived. Go to **Route F** (between milestones).
-
-If missing both ROADMAP.md and PROJECT.md: suggest `/gsd:new-project`.
-</step>
-
-<step name="load">
-**Use project context from INIT:**
-
-All file contents are already loaded via `--include` in init_context step:
-- `state_content` — living memory (position, decisions, issues)
-- `roadmap_content` — phase structure and objectives
-- `project_content` — current state (What This Is, Core Value, Requirements)
-- `config_content` — settings (model_profile, workflow toggles)
-
-No additional file reads needed.
+Extract JSON: `project_exists`, `roadmap_exists`, `state_exists`, `phases`, `current_phase`, `next_phase`, `milestone_version`, `completed_count`, `phase_count`, `paused_at`.
 </step>
 
 <step name="analyze_roadmap">
-**Get comprehensive roadmap analysis (replaces manual parsing):**
+**Use MCP tool: mcp__code-index-mcp__search_code_advanced** or **mcp__desktop-commander__read_file**
 
-```bash
-ROADMAP=$(node ~/.claude/get-shit-done/bin/gsd-tools.js roadmap analyze)
+```javascript
+// MCP-based equivalent for roadmap analysis
+const roadmap = await mcp__desktop-commander__read_file({
+  path: ".planning/ROADMAP.md"
+});
+
+// Or use search for pattern matching
 ```
 
-This returns structured JSON with:
-- All phases with disk status (complete/partial/planned/empty/no_directory)
-- Goal and dependencies per phase
-- Plan and summary counts per phase
-- Aggregated stats: total plans, summaries, progress percent
-- Current and next phase identification
+Parse roadmap structure:
+- Current phase number
+- Next phase number
+- Phase names and goals
+- Milestone boundaries
 
-Use this instead of manually reading/parsing ROADMAP.md.
+**If roadmap missing:** Error — run `/gsd:new-project` first.
 </step>
 
 <step name="recent">
 **Gather recent work context:**
 
-- Find the 2-3 most recent SUMMARY.md files
-- Use `summary-extract` for efficient parsing:
-  ```bash
-  node ~/.claude/get-shit-done/bin/gsd-tools.js summary-extract <path> --fields one_liner
-  ```
-- This shows "what we've been working on"
-  </step>
+**Use MCP tool: mcp__code-index-mcp__find_files** and **mcp__desktop-commander__read_file**
 
-<step name="position">
-**Parse current position from init context and roadmap analysis:**
+```javascript
+// MCP-based equivalent for finding and reading summary files
+const summaryFiles = await mcp__code-index-mcp__find_files({
+  pattern: "*-SUMMARY.md",
+  path: ".planning/phases"
+});
 
-- Use `current_phase` and `next_phase` from roadmap analyze
-- Use phase-level `has_context` and `has_research` flags from analyze
-- Note `paused_at` if work was paused (from init context)
-- Count pending todos: use `init todos` or `list-todos`
-- Check for active debug sessions: `ls .planning/debug/*.md 2>/dev/null | grep -v resolved | wc -l`
-  </step>
-
-<step name="report">
-**Generate progress bar from gsd-tools, then present rich status report:**
-
-```bash
-# Get formatted progress bar
-PROGRESS_BAR=$(node ~/.claude/get-shit-done/bin/gsd-tools.js progress bar --raw)
+// Read last 2-3 summaries for recent work
 ```
 
-Present:
+Extract:
+- What was built (one-liners)
+- Any notable deviations or issues
+- Completion timestamps
+</step>
+
+<step name="position">
+**Parse current position from init context and roadmap:**
+
+- Are we in a phase? What number?
+- Is there a next phase?
+- Are we at milestone completion?
+
+Determine smart routing based on state.
+</step>
+
+<step name="report">
+**Generate rich status report:**
 
 ```
 # [Project Name]
 
-**Progress:** {PROGRESS_BAR}
-**Profile:** [quality/balanced/budget]
-
-## Recent Work
-- [Phase X, Plan Y]: [what was accomplished - 1 line from summary-extract]
-- [Phase X, Plan Z]: [what was accomplished - 1 line from summary-extract]
+**Progress:** [visual progress bar from init]
 
 ## Current Position
-Phase [N] of [total]: [phase-name]
-Plan [M] of [phase-total]: [status]
-CONTEXT: [✓ if has_context | - if not]
+Phase [N]: [Name]
+[Status: In Progress / Complete / Not Started]
 
-## Key Decisions Made
-- [decision 1 from STATE.md]
-- [decision 2]
+## Recent Work
+[Last 2-3 phase summaries]
 
-## Blockers/Concerns
-- [any blockers or concerns from STATE.md]
+## What's Ahead
+Phase [N+1]: [Name]
+
+## Key Decisions
+[From STATE.md decisions table]
 
 ## Pending Todos
-- [count] pending — /gsd:check-todos to review
+[Count pending - use /gsd:check-todos]
 
-## Active Debug Sessions
-- [count] active — /gsd:debug to continue
-(Only show this section if count > 0)
+## Blockers/Concerns
+[Any open issues]
 
-## What's Next
-[Next phase/plan objective from roadmap analyze]
+---
+
+## ▶ Next Up
+[Smart routing suggestion]
 ```
-
 </step>
 
 <step name="route">
-**Determine next action based on verified counts.**
-
-**Step 1: Count plans, summaries, and issues in current phase**
-
-List files in the current phase directory:
-
-```bash
-ls -1 .planning/phases/[current-phase-dir]/*-PLAN.md 2>/dev/null | wc -l
-ls -1 .planning/phases/[current-phase-dir]/*-SUMMARY.md 2>/dev/null | wc -l
-ls -1 .planning/phases/[current-phase-dir]/*-UAT.md 2>/dev/null | wc -l
-```
-
-State: "This phase has {X} plans, {Y} summaries."
-
-**Step 1.5: Check for unaddressed UAT gaps**
-
-Check for UAT.md files with status "diagnosed" (has gaps needing fixes).
-
-```bash
-# Check for diagnosed UAT with gaps
-grep -l "status: diagnosed" .planning/phases/[current-phase-dir]/*-UAT.md 2>/dev/null
-```
-
-Track:
-- `uat_with_gaps`: UAT.md files with status "diagnosed" (gaps need fixing)
-
-**Step 2: Route based on counts**
-
-| Condition | Meaning | Action |
-|-----------|---------|--------|
-| uat_with_gaps > 0 | UAT gaps need fix plans | Go to **Route E** |
-| summaries < plans | Unexecuted plans exist | Go to **Route A** |
-| summaries = plans AND plans > 0 | Phase complete | Go to Step 3 |
-| plans = 0 | Phase not yet planned | Go to **Route B** |
-
----
-
-**Route A: Unexecuted plan exists**
-
-Find the first PLAN.md without matching SUMMARY.md.
-Read its `<objective>` section.
-
-```
----
-
-## ▶ Next Up
-
-**{phase}-{plan}: [Plan Name]** — [objective summary from PLAN.md]
-
-`/gsd:execute-phase {phase}`
-
-<sub>`/clear` first → fresh context window</sub>
-
----
-```
-
----
-
-**Route B: Phase needs planning**
-
-Check if `{phase}-CONTEXT.md` exists in phase directory.
-
-**If CONTEXT.md exists:**
-
-```
----
-
-## ▶ Next Up
-
-**Phase {N}: {Name}** — {Goal from ROADMAP.md}
-<sub>✓ Context gathered, ready to plan</sub>
-
-`/gsd:plan-phase {phase-number}`
-
-<sub>`/clear` first → fresh context window</sub>
-
----
-```
-
-**If CONTEXT.md does NOT exist:**
-
-```
----
-
-## ▶ Next Up
-
-**Phase {N}: {Name}** — {Goal from ROADMAP.md}
-
-`/gsd:discuss-phase {phase}` — gather context and clarify approach
-
-<sub>`/clear` first → fresh context window</sub>
-
----
-
-**Also available:**
-- `/gsd:plan-phase {phase}` — skip discussion, plan directly
-- `/gsd:list-phase-assumptions {phase}` — see Claude's assumptions
-
----
-```
-
----
-
-**Route E: UAT gaps need fix plans**
-
-UAT.md exists with gaps (diagnosed issues). User needs to plan fixes.
-
-```
----
-
-## ⚠ UAT Gaps Found
-
-**{phase}-UAT.md** has {N} gaps requiring fixes.
-
-`/gsd:plan-phase {phase} --gaps`
-
-<sub>`/clear` first → fresh context window</sub>
-
----
-
-**Also available:**
-- `/gsd:execute-phase {phase}` — execute phase plans
-- `/gsd:verify-work {phase}` — run more UAT testing
-
----
-```
-
----
-
-**Step 3: Check milestone status (only when phase complete)**
-
-Read ROADMAP.md and identify:
-1. Current phase number
-2. All phase numbers in the current milestone section
-
-Count total phases and identify the highest phase number.
-
-State: "Current phase is {X}. Milestone has {N} phases (highest: {Y})."
-
-**Route based on milestone status:**
-
-| Condition | Meaning | Action |
-|-----------|---------|--------|
-| current phase < highest phase | More phases remain | Go to **Route C** |
-| current phase = highest phase | Milestone complete | Go to **Route D** |
-
----
-
-**Route C: Phase complete, more phases remain**
-
-Read ROADMAP.md to get the next phase's name and goal.
-
-```
----
-
-## ✓ Phase {Z} Complete
-
-## ▶ Next Up
-
-**Phase {Z+1}: {Name}** — {Goal from ROADMAP.md}
-
-`/gsd:discuss-phase {Z+1}` — gather context and clarify approach
-
-<sub>`/clear` first → fresh context window</sub>
-
----
-
-**Also available:**
-- `/gsd:plan-phase {Z+1}` — skip discussion, plan directly
-- `/gsd:verify-work {Z}` — user acceptance test before continuing
-
----
-```
-
----
-
-**Route D: Milestone complete**
-
-```
----
-
-## 🎉 Milestone Complete
-
-All {N} phases finished!
-
-## ▶ Next Up
-
-**Complete Milestone** — archive and prepare for next
-
-`/gsd:complete-milestone`
-
-<sub>`/clear` first → fresh context window</sub>
-
----
-
-**Also available:**
-- `/gsd:verify-work` — user acceptance test before completing milestone
-
----
-```
-
----
-
-**Route F: Between milestones (ROADMAP.md missing, PROJECT.md exists)**
-
-A milestone was completed and archived. Ready to start the next milestone cycle.
-
-Read MILESTONES.md to find the last completed milestone version.
-
-```
----
-
-## ✓ Milestone v{X.Y} Complete
-
-Ready to plan the next milestone.
-
-## ▶ Next Up
-
-**Start Next Milestone** — questioning → research → requirements → roadmap
-
-`/gsd:new-milestone`
-
-<sub>`/clear` first → fresh context window</sub>
-
----
-```
-
+**Smart routing based on state:**
+
+| Condition | Route | Action |
+|-----------|--------|--------|
+| Phase complete + no next phase | Suggest `/gsd:complete-milestone` | Archive milestone, start next cycle |
+| Phase in progress + plans exist | Suggest `/gsd:execute-phase {N}` | Continue current phase |
+| Phase in progress + no plans | Suggest `/gsd:plan-phase {N}` | Create execution plans |
+| No phase active | Suggest `/gsd:discuss-phase {N}` | Gather context before planning |
+| Paused phase | Suggest `/gsd:resume-work` | Continue where left off |
+| Pending todos exist | Suggest `/gsd:check-todos` | Review and work on todos |
+
+Present the routed action clearly.
 </step>
-
-<step name="edge_cases">
-**Handle edge cases:**
-
-- Phase complete but next phase not planned → offer `/gsd:plan-phase [next]`
-- All work complete → offer milestone completion
-- Blockers present → highlight before offering to continue
-- Handoff file exists → mention it, offer `/gsd:resume-work`
-  </step>
 
 </process>
 
 <success_criteria>
-
-- [ ] Rich context provided (recent work, decisions, issues)
-- [ ] Current position clear with visual progress
-- [ ] What's next clearly explained
-- [ ] Smart routing: /gsd:execute-phase if plans exist, /gsd:plan-phase if not
-- [ ] User confirms before any action
-- [ ] Seamless handoff to appropriate gsd command
-      </success_criteria>
+- [ ] Progress context loaded using MCP start_process
+- [ ] Roadmap analyzed using MCP read_file or search_code_advanced
+- [ ] Recent summaries found using MCP find_files
+- [ ] Current position determined
+- [ ] Rich status report displayed with progress bar
+- [ ] Smart routing suggestion provided
+- [ ] User knows next actions
+</success_criteria>

@@ -1,212 +1,144 @@
 <purpose>
-Check for GSD updates via npm, display changelog for versions between installed and latest, obtain user confirmation, and execute clean installation with cache clearing.
+Update GSD to latest version and show changelog preview. Checks installed vs latest version comparison and displays changelog entries for versions user may have missed. Better than raw `npx get-shit-done-cc@latest` — has intelligent checks and confirmation.
 </purpose>
 
 <required_reading>
-Read all files referenced by the invoking prompt's execution_context before starting.
+**Use MCP tool: mcp__desktop-commander__start_process** to check version and run update
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </required_reading>
+
+<tool_requirements>
+**MANDATORY: Use MCP tools instead of native tools for all operations.**
+
+**Process Operations:**
+- mcp__desktop-commander__start_process — Run gsd-tools.js update and install commands
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
+</tool_requirements>
 
 <process>
 
-<step name="get_installed_version">
-Detect whether GSD is installed locally or globally by checking both locations:
+<step name="check_version">
+Check installed and latest versions using MCP tools:
 
-```bash
-# Check local first (takes priority)
-if [ -f "./.claude/get-shit-done/VERSION" ]; then
-  cat "./.claude/get-shit-done/VERSION"
-  echo "LOCAL"
-elif [ -f ~/.claude/get-shit-done/VERSION ]; then
-  cat ~/.claude/get-shit-done/VERSION
-  echo "GLOBAL"
-else
-  echo "UNKNOWN"
-fi
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const versionInfo = await mcp__desktop-commander__start_process({
+  command: "npm show get-shit-done version && npm view get-shit-done dist/tags",
+  timeout_ms: 15000
+});
 ```
 
-Parse output:
-- If last line is "LOCAL": installed version is first line, use `--local` flag for update
-- If last line is "GLOBAL": installed version is first line, use `--global` flag for update
-- If "UNKNOWN": proceed to install step (treat as version 0.0.0)
+Parse versions:
+- `installed`: Current version in package.json
+- `latest`: Latest from npm registry
 
-**If VERSION file missing:**
-```
-## GSD Update
+If installed is latest: Already up to date.
 
-**Installed version:** Unknown
-
-Your installation doesn't include version tracking.
-
-Running fresh install...
-```
-
-Proceed to install step (treat as version 0.0.0 for comparison).
+If out of date: Show preview of changelogs and confirm update.
 </step>
 
-<step name="check_latest_version">
-Check npm for latest version:
+<step name="fetch_changelog">
+If out of date, fetch changelog using MCP tools:
 
-```bash
-npm view get-shit-done-cc version 2>/dev/null
+**Use MCP tool: mcp__rag-web-browser__search** or **mcp__web_reader__webReader**
+
+```javascript
+// MCP-based web search for changelog
+const changelog = await mcp__rag-web-browser__search({
+  query: "get-shit-done changelog ${installed}..${latest}",
+  maxResults: 10
+});
+
+// Or use web reader
+const changelog = await mcp__web_reader__webReader({
+  url: "https://github.com/glittercowboy/get-shit-done/blob/main/CHANGELOG.md",
+  returnFormat: "markdown"
+});
 ```
 
-**If npm check fails:**
-```
-Couldn't check for updates (offline or npm unavailable).
+## 3. Preview Changes
 
-To update manually: `npx get-shit-done-cc --global`
-```
-
-Exit.
-</step>
-
-<step name="compare_versions">
-Compare installed vs latest:
-
-**If installed == latest:**
-```
-## GSD Update
-
-**Installed:** X.Y.Z
-**Latest:** X.Y.Z
-
-You're already on the latest version.
-```
-
-Exit.
-
-**If installed > latest:**
-```
-## GSD Update
-
-**Installed:** X.Y.Z
-**Latest:** A.B.C
-
-You're ahead of the latest release (development version?).
-```
-
-Exit.
-</step>
-
-<step name="show_changes_and_confirm">
-**If update available**, fetch and show what's new BEFORE updating:
-
-1. Fetch changelog from GitHub raw URL
-2. Extract entries between installed and latest versions
-3. Display preview and ask for confirmation:
+Display key changes between versions:
 
 ```
-## GSD Update Available
+## Changes Since [Installed Version]
 
-**Installed:** 1.5.10
-**Latest:** 1.5.15
-
-### What's New
-────────────────────────────────────────────────────────────
-
-## [1.5.15] - 2026-01-20
+[Browse full changelogs at https://github.com/glittercowboy/get-shit-done/commits/main]
 
 ### Added
-- Feature X
+- [Feature 1]
+- [Feature 2]
 
-## [1.5.14] - 2026-01-18
+### Changed
+- [Breaking change 1]
+- [Improvement 1]
 
 ### Fixed
-- Bug fix Y
-
-────────────────────────────────────────────────────────────
-
-⚠️  **Note:** The installer performs a clean install of GSD folders:
-- `commands/gsd/` will be wiped and replaced
-- `get-shit-done/` will be wiped and replaced
-- `agents/gsd-*` files will be replaced
-
-(Paths are relative to your install location: `~/.claude/` for global, `./.claude/` for local)
-
-Your custom files in other locations are preserved:
-- Custom commands not in `commands/gsd/` ✓
-- Custom agents not prefixed with `gsd-` ✓
-- Custom hooks ✓
-- Your CLAUDE.md files ✓
-
-If you've modified any GSD files directly, they'll be automatically backed up to `gsd-local-patches/` and can be reapplied with `/gsd:reapply-patches` after the update.
-```
-
-Use AskUserQuestion:
-- Question: "Proceed with update?"
-- Options:
-  - "Yes, update now"
-  - "No, cancel"
-
-**If user cancels:** Exit.
-</step>
-
-<step name="run_update">
-Run the update using the install type detected in step 1:
-
-**If LOCAL install:**
-```bash
-npx get-shit-done-cc --local
-```
-
-**If GLOBAL install (or unknown):**
-```bash
-npx get-shit-done-cc --global
-```
-
-Capture output. If install fails, show error and exit.
-
-Clear the update cache so statusline indicator disappears:
-
-**If LOCAL install:**
-```bash
-rm -f ./.claude/cache/gsd-update-check.json
-```
-
-**If GLOBAL install:**
-```bash
-rm -f ~/.claude/cache/gsd-update-check.json
+- [Bug fix 1]
+- [Bug fix 2]
 ```
 </step>
 
-<step name="display_result">
-Format completion message (changelog was already shown in confirmation step):
+<step name="confirm_update">
+Ask user confirmation:
 
 ```
-╔═══════════════════════════════════════════════════════════╗
-║  GSD Updated: v1.5.10 → v1.5.15                           ║
-╚═══════════════════════════════════════════════════════════╝
+Update from ${installed} to ${latest}?
+[y] - Download and install
+[n] - Skip for now
 
-⚠️  Restart Claude Code to pick up the new commands.
+Run /gsd:update anytime to check again.
+```
 
-[View full changelog](https://github.com/glittercowboy/get-shit-done/blob/main/CHANGELOG.md)
+**If yes:**
+
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash npm install)
+await mcp__desktop-commander__start_process({
+  command: "npx get-shit-done-cc@latest",
+  timeout_ms: 120000
+});
+```
+
+Confirm: "Updated to ${latest}"
+
+**If no:**
+Note that future `/gsd:progress` checks will continue showing out of date status.
+</step>
+
+<step name="completion">
+Present completion:
+
+```
+✓ Version check complete
+
+Installed: ${installed}
+Latest: ${latest}
+
+Status: [Up to date / Update available]
+
+---
+
+## ▶ Next Up
+
+`/gsd:progress` — Check project status
 ```
 </step>
 
-
-<step name="check_local_patches">
-After update completes, check if the installer detected and backed up any locally modified files:
-
-Check for gsd-local-patches/backup-meta.json in the config directory.
-
-**If patches found:**
-
-```
-Local patches were backed up before the update.
-Run /gsd:reapply-patches to merge your modifications into the new version.
-```
-
-**If no patches:** Continue normally.
-</step>
 </process>
 
 <success_criteria>
-- [ ] Installed version read correctly
-- [ ] Latest version checked via npm
-- [ ] Update skipped if already current
-- [ ] Changelog fetched and displayed BEFORE update
-- [ ] Clean install warning shown
+- [ ] Version check completed using MCP start_process
+- [ ] Changelog fetched using MCP web search tools
+- [ ] Changes preview displayed to user
 - [ ] User confirmation obtained
-- [ ] Update executed successfully
-- [ ] Restart reminder shown
+- [ ] Update installed using MCP start_process if confirmed
+- [ ] User informed of current status
+- [ ] Next steps provided
 </success_criteria>

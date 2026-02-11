@@ -1,226 +1,175 @@
 <purpose>
-Verify phase goal achievement through goal-backward analysis. Check that the codebase delivers what the phase promised, not just that tasks completed.
-
-Executed by a verification subagent spawned from execute-phase.md.
+Validate built features through conversational UAT. Extracts testable deliverables from SUMMARY.md files, presents tests one at a time (yes/no responses), automatically diagnoses failures and creates fix plans. Ready for re-execution if issues found.
 </purpose>
 
-<core_principle>
-**Task completion ≠ Goal achievement**
-
-A task "create chat component" can be marked complete when the component is a placeholder. The task was done — but the goal "working chat interface" was not achieved.
-
-Goal-backward verification:
-1. What must be TRUE for the goal to be achieved?
-2. What must EXIST for those truths to hold?
-3. What must be WIRED for those artifacts to function?
-
-Then verify each level against the actual codebase.
-</core_principle>
-
 <required_reading>
-@~/.claude/get-shit-done/references/verification-patterns.md
-@~/.claude/get-shit-done/templates/verification-report.md
+**Use MCP tools for reading phase summaries and STATE.md:**
+
+- mcp__desktop-commander__read_file — Read SUMMARY.md files
+- mcp__code-index-mcp__find_files — Find phase directories
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </required_reading>
+
+<tool_requirements>
+**MANDATORY: Use MCP tools instead of native tools for all operations.**
+
+**File Operations:**
+- mcp__desktop-commander__read_file — Read SUMMARY.md
+- mcp__code-index-mcp__find_files — Find verification files
+
+**Process Operations:**
+- mcp__desktop-commander__start_process — Run gsd-tools.js commands
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
+</tool_requirements>
 
 <process>
 
-<step name="load_context" priority="first">
-Load phase operation context:
+## 1. Load Verification Context
 
-```bash
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js init phase-op "${PHASE_ARG}")
+**Use MCP tool: mcp__desktop-commander__read_file**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const STATE = await mcp__desktop-commander__read_file({
+  path: ".planning/STATE.md"
+});
 ```
 
-Extract from init JSON: `phase_dir`, `phase_number`, `phase_name`, `has_plans`, `plan_count`.
+Extract: Current phase, milestone, position.
 
-Then load phase details and list plans/summaries:
-```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js roadmap get-phase "${phase_number}"
-grep -E "^| ${phase_number}" .planning/REQUIREMENTS.md 2>/dev/null
-ls "$phase_dir"/*-SUMMARY.md "$phase_dir"/*-PLAN.md 2>/dev/null
+**Use MCP tool: mcp__code-index-mcp__find_files**
+
+```javascript
+// MCP-based equivalent for finding files (80-90% token savings vs bash ls)
+const phaseDirs = await mcp__code-index-mcp__find_files({
+  pattern: "*-SUMMARY.md",
+  path: ".planning/phases"
+});
 ```
 
-Extract **phase goal** from ROADMAP.md (the outcome to verify, not tasks) and **requirements** from REQUIREMENTS.md if it exists.
-</step>
+Identify all SUMMARY.md files in current phase.
 
-<step name="establish_must_haves">
-**Option A: Must-haves in PLAN frontmatter**
+## 2. Extract Testable Deliverables
 
-Use gsd-tools to extract must_haves from each PLAN:
+From each SUMMARY.md, extract `key-files.created` and map to user-facing tests:
 
-```bash
-for plan in "$PHASE_DIR"/*-PLAN.md; do
-  MUST_HAVES=$(node ~/.claude/get-shit-done/bin/gsd-tools.js frontmatter get "$plan" --field must_haves)
-  echo "=== $plan ===" && echo "$MUST_HAVES"
-done
+**Use MCP tool: mcp__desktop-commander__read_file**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash cat)
+for (const summary of summaries) {
+  const content = await mcp__desktop-commander__read_file({
+    path: `.planning/phases/${phase}/${summary}`
+  });
+  // Parse key-files.created for testable items
+}
 ```
 
-Returns JSON: `{ truths: [...], artifacts: [...], key_links: [...] }`
-
-Aggregate all must_haves across plans for phase-level verification.
-
-**Option B: Derive from phase goal**
-
-If no must_haves in frontmatter (MUST_HAVES returns error or empty):
-1. State the goal from ROADMAP.md
-2. Derive **truths** (3-7 observable behaviors, each testable)
-3. Derive **artifacts** (concrete file paths for each truth)
-4. Derive **key links** (critical wiring where stubs hide)
-5. Document derived must-haves before proceeding
+Create test queue organized by component/feature.
 </step>
 
-<step name="verify_truths">
-For each observable truth, determine if the codebase enables it.
+<step name="run_tests">
+Present tests one at a time using conversational prompts:
 
-**Status:** ✓ VERIFIED (all supporting artifacts pass) | ✗ FAILED (artifact missing/stub/unwired) | ? UNCERTAIN (needs human)
+For each deliverable:
+1. Describe what's being tested (from SUMMARY.md)
+2. Provide clear test steps
+3. Ask: "Ready to test? (yes/no)"
 
-For each truth: identify supporting artifacts → check artifact status → check wiring → determine truth status.
+Wait for user response (yes/no/skip/issue description).
 
-**Example:** Truth "User can see existing messages" depends on Chat.tsx (renders), /api/chat GET (provides), Message model (schema). If Chat.tsx is a stub or API returns hardcoded [] → FAILED. If all exist, are substantive, and connected → VERIFIED.
+**Track results:**
+- `yes` → Mark as passed
+- `no` → Mark as failed or skipped
+- `issue` → Capture failure details
+
+Document any issues found for gap closure planning.
 </step>
 
-<step name="verify_artifacts">
-Use gsd-tools for artifact verification against must_haves in each PLAN:
+<step name="diagnose_failures">
+For failed tests, spawn debug agents:
 
-```bash
-for plan in "$PHASE_DIR"/*-PLAN.md; do
-  ARTIFACT_RESULT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js verify artifacts "$plan")
-  echo "=== $plan ===" && echo "$ARTIFACT_RESULT"
-done
+**Use MCP tool: mcp__desktop-commander__start_process** to spawn debug agents
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+await mcp__desktop-commander__start_process({
+  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js init debug ${test_name}",
+  timeout_ms: 10000
+});
 ```
 
-Parse JSON result: `{ all_passed, passed, total, artifacts: [{path, exists, issues, passed}] }`
-
-**Artifact status from result:**
-- `exists=false` → MISSING
-- `issues` not empty → STUB (check issues for "Only N lines" or "Missing pattern")
-- `passed=true` → VERIFIED (Levels 1-2 pass)
-
-**Level 3 — Wired (manual check for artifacts that pass Levels 1-2):**
-```bash
-grep -r "import.*$artifact_name" src/ --include="*.ts" --include="*.tsx"  # IMPORTED
-grep -r "$artifact_name" src/ --include="*.ts" --include="*.tsx" | grep -v "import"  # USED
-```
-WIRED = imported AND used. ORPHANED = exists but not imported/used.
-
-| Exists | Substantive | Wired | Status |
-|--------|-------------|-------|--------|
-| ✓ | ✓ | ✓ | ✓ VERIFIED |
-| ✓ | ✓ | ✗ | ⚠️ ORPHANED |
-| ✓ | ✗ | - | ✗ STUB |
-| ✗ | - | - | ✗ MISSING |
+Each agent investigates root cause.
 </step>
 
-<step name="verify_wiring">
-Use gsd-tools for key link verification against must_haves in each PLAN:
+<step name="create_fix_plans">
+After diagnosis, group issues into gap closure phases using MCP tools:
 
-```bash
-for plan in "$PHASE_DIR"/*-PLAN.md; do
-  LINKS_RESULT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js verify key-links "$plan")
-  echo "=== $plan ===" && echo "$LINKS_RESULT"
-done
+**Use MCP tool: mcp__desktop-commander__write_file**
+
+```javascript
+// MCP-based equivalent for file writing (80-90% token savings vs bash)
+await mcp__desktop-commander__start_process({
+  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js plan-phase ${PHASE} --gaps",
+  timeout_ms: 10000
+});
 ```
-
-Parse JSON result: `{ all_verified, verified, total, links: [{from, to, via, verified, detail}] }`
-
-**Link status from result:**
-- `verified=true` → WIRED
-- `verified=false` with "not found" → NOT_WIRED
-- `verified=false` with "Pattern not found" → PARTIAL
-
-**Fallback patterns (if key_links not in must_haves):**
-
-| Pattern | Check | Status |
-|---------|-------|--------|
-| Component → API | fetch/axios call to API path, response used (await/.then/setState) | WIRED / PARTIAL (call but unused response) / NOT_WIRED |
-| API → Database | Prisma/DB query on model, result returned via res.json() | WIRED / PARTIAL (query but not returned) / NOT_WIRED |
-| Form → Handler | onSubmit with real implementation (fetch/axios/mutate/dispatch), not console.log/empty | WIRED / STUB (log-only/empty) / NOT_WIRED |
-| State → Render | useState variable appears in JSX (`{stateVar}` or `{stateVar.property}`) | WIRED / NOT_WIRED |
-
-Record status and evidence for each key link.
 </step>
 
-<step name="verify_requirements">
-If REQUIREMENTS.md exists:
-```bash
-grep -E "Phase ${PHASE_NUM}" .planning/REQUIREMENTS.md 2>/dev/null
+<step name="offer_reexecution">
+If issues found, offer to re-execute phase with gap closure plans:
+
+```
+## ⚠ Verification Issues Found
+
+**Failures:** {N} tests failed
+
+---
+
+## ▶ Next Up
+
+**Plan gap closure** — Create phases to fix issues
+
+`/gsd:plan-phase {PHASE} --gaps`
+
+<sub>`/clear` first → fresh context window</sub>
+
+Or **Skip re-execution** — Accept issues, mark phase complete
+
+---
+
+**All tests passed?**
+
+[yes/no]
 ```
 
-For each requirement: parse description → identify supporting truths/artifacts → status: ✓ SATISFIED / ✗ BLOCKED / ? NEEDS HUMAN.
+If all passed: Update phase status to passed in STATE.md.
 </step>
 
-<step name="scan_antipatterns">
-Extract files modified in this phase from SUMMARY.md, scan each:
+<step name="update_phase_status">
+Update phase verification status in ROADMAP.md and STATE.md using MCP tools:
 
-| Pattern | Search | Severity |
-|---------|--------|----------|
-| TODO/FIXME/XXX/HACK | `grep -n -E "TODO\|FIXME\|XXX\|HACK"` | ⚠️ Warning |
-| Placeholder content | `grep -n -iE "placeholder\|coming soon\|will be here"` | 🛑 Blocker |
-| Empty returns | `grep -n -E "return null\|return \{\}\|return \[\]\|=> \{\}"` | ⚠️ Warning |
-| Log-only functions | Functions containing only console.log | ⚠️ Warning |
+**Use MCP tool: mcp__desktop-commander__start_process**
 
-Categorize: 🛑 Blocker (prevents goal) | ⚠️ Warning (incomplete) | ℹ️ Info (notable).
-</step>
-
-<step name="identify_human_verification">
-**Always needs human:** Visual appearance, user flow completion, real-time behavior (WebSocket/SSE), external service integration, performance feel, error message clarity.
-
-**Needs human if uncertain:** Complex wiring grep can't trace, dynamic state-dependent behavior, edge cases.
-
-Format each as: Test Name → What to do → Expected result → Why can't verify programmatically.
-</step>
-
-<step name="determine_status">
-**passed:** All truths VERIFIED, all artifacts pass levels 1-3, all key links WIRED, no blocker anti-patterns.
-
-**gaps_found:** Any truth FAILED, artifact MISSING/STUB, key link NOT_WIRED, or blocker found.
-
-**human_needed:** All automated checks pass but human verification items remain.
-
-**Score:** `verified_truths / total_truths`
-</step>
-
-<step name="generate_fix_plans">
-If gaps_found:
-
-1. **Cluster related gaps:** API stub + component unwired → "Wire frontend to backend". Multiple missing → "Complete core implementation". Wiring only → "Connect existing components".
-
-2. **Generate plan per cluster:** Objective, 2-3 tasks (files/action/verify each), re-verify step. Keep focused: single concern per plan.
-
-3. **Order by dependency:** Fix missing → fix stubs → fix wiring → verify.
-</step>
-
-<step name="create_report">
-```bash
-REPORT_PATH="$PHASE_DIR/${PHASE_NUM}-VERIFICATION.md"
+```javascript
+await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs(uat-${PHASE}): all tests passed" --files .planning/ROADMAP.md .planning/STATE.md .planning/phases/${PHASE_DIR}/*-UAT.md`,
+  timeout_ms: 10000
+});
 ```
-
-Fill template sections: frontmatter (phase/timestamp/status/score), goal achievement, artifact table, wiring table, requirements coverage, anti-patterns, human verification, gaps summary, fix plans (if gaps_found), metadata.
-
-See ~/.claude/get-shit-done/templates/verification-report.md for complete template.
-</step>
-
-<step name="return_to_orchestrator">
-Return status (`passed` | `gaps_found` | `human_needed`), score (N/M must-haves), report path.
-
-If gaps_found: list gaps + recommended fix plan names.
-If human_needed: list items requiring human testing.
-
-Orchestrator routes: `passed` → update_roadmap | `gaps_found` → create/execute fixes, re-verify | `human_needed` → present to user.
 </step>
 
 </process>
 
 <success_criteria>
-- [ ] Must-haves established (from frontmatter or derived)
-- [ ] All truths verified with status and evidence
-- [ ] All artifacts checked at all three levels
-- [ ] All key links verified
-- [ ] Requirements coverage assessed (if applicable)
-- [ ] Anti-patterns scanned and categorized
-- [ ] Human verification items identified
-- [ ] Overall status determined
-- [ ] Fix plans generated (if gaps_found)
-- [ ] VERIFICATION.md created with complete report
-- [ ] Results returned to orchestrator
+- [ ] All SUMMARY.md files located using MCP find_files
+- [ ] Testable deliverables extracted using MCP read_file
+- [ ] Tests executed conversationaly
+- [ ] Failures diagnosed using MCP start_process
+- [ ] Fix plans created using MCP start_process if issues found
+- [ ] Re-execution offered if needed
+- [ ] Phase status updated using MCP start_process
+- [ ] User informed of verification results
 </success_criteria>
