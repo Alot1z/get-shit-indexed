@@ -2,6 +2,20 @@
 Execute a phase prompt (PLAN.md) and create the outcome summary (SUMMARY.md).
 </purpose>
 
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file", "start_process"]
+  priority: 1
+  rationale: "Primary workflow for reading plan files, writing summaries, and running git/process commands"
+code_index:
+  tools: ["search_code_advanced"]
+  priority: 2
+  rationale: "Secondary use for searching plan patterns and discovering phase files during execution"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
 <required_reading>
 Read STATE.md before any operation to load project context.
 Read config.json for planning behavior settings.
