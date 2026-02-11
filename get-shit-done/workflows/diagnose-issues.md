@@ -9,7 +9,7 @@ Orchestrator stays lean: parse gaps, spawn agents, collect results, update UAT.
 <paths>
 DEBUG_DIR=.planning/debug
 
-Debug files use the `.planning/debug/` path (hidden directory with leading dot).
+Debug files use `.planning/debug/` path (hidden directory with leading dot).
 </paths>
 
 <core_principle>
@@ -26,11 +26,20 @@ With diagnosis: "Comment doesn't refresh" → "useEffect missing dependency" →
 <step name="parse_gaps">
 **Extract gaps from UAT.md:**
 
-Read the "Gaps" section (YAML format):
+**Use MCP tool: mcp__desktop-commander__read_file**
+
+```javascript
+// MCP-based equivalent for reading files (80-90% token savings vs cat)
+const uatContent = await mcp__desktop-commander__read_file({
+  path: ".planning/phases/XX-name/{phase}-UAT.md"
+});
+```
+
+Read "Gaps" section (YAML format):
 ```yaml
 - truth: "Comment appears immediately after submission"
   status: failed
-  reason: "User reported: works but doesn't show until I refresh the page"
+  reason: "User reported: works but doesn't show until I refresh page"
   severity: major
   test: 2
   artifacts: []
@@ -75,7 +84,7 @@ This runs in parallel - all gaps investigated simultaneously.
 <step name="spawn_agents">
 **Spawn debug agents in parallel:**
 
-For each gap, fill the debug-subagent-prompt template and spawn:
+For each gap, fill in debug-subagent-prompt template and spawn:
 
 ```
 Task(
@@ -138,27 +147,28 @@ If agent returns `## INVESTIGATION INCONCLUSIVE`:
 
 For each gap in the Gaps section, add artifacts and missing fields:
 
-```yaml
-- truth: "Comment appears immediately after submission"
-  status: failed
-  reason: "User reported: works but doesn't show until I refresh the page"
-  severity: major
-  test: 2
-  root_cause: "useEffect in CommentList.tsx missing commentCount dependency"
-  artifacts:
-    - path: "src/components/CommentList.tsx"
-      issue: "useEffect missing dependency"
-  missing:
-    - "Add commentCount to useEffect dependency array"
-    - "Trigger re-render when new comment added"
-  debug_session: .planning/debug/comment-not-refreshing.md
+**Use MCP tool: mcp__desktop-commander__edit_block**
+
+```javascript
+// MCP-based equivalent for editing files
+await mcp__desktop-commander__edit_block({
+  file_path: ".planning/phases/XX-name/{phase}-UAT.md",
+  old_string: "- truth: \"Comment appears immediately after submission\"\n  status: failed\n  reason: \"User reported: works but doesn't show until I refresh page\"\n  severity: major\n  test: 2",
+  new_string: "- truth: \"Comment appears immediately after submission\"\n  status: diagnosed\n  reason: \"User reported: works but doesn't show until I refresh page\"\n  severity: major\n  test: 2\n  root_cause: \"useEffect in CommentList.tsx missing commentCount dependency\"\n  artifacts:\n    - path: \"src/components/CommentList.tsx\"\n      issue: \"useEffect missing dependency\"\n  missing:\n    - \"Add commentCount to useEffect dependency array\"\n    - \"Trigger re-render when new comment added\"\n  debug_session: .planning/debug/comment-not-refreshing.md"
+});
 ```
 
 Update status in frontmatter to "diagnosed".
 
-Commit the updated UAT.md:
-```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs({phase}): add root causes from diagnosis" --files ".planning/phases/XX-name/{phase}-UAT.md"
+Commit updated UAT.md using MCP process tool:
+
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+await mcp__desktop-commander__start_process({
+  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js commit \"docs({phase}): add root causes from diagnosis\" --files \".planning/phases/XX-name/{phase}-UAT.md\"",
+  timeout_ms: 10000
+});
 ```
 </step>
 
@@ -167,9 +177,9 @@ node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs({phase}): add root ca
 
 Display:
 ```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  GSD ► DIAGNOSIS COMPLETE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 | Gap (Truth) | Root Cause | Files |
 |-------------|------------|-------|
@@ -210,10 +220,10 @@ Agents only diagnose—plan-phase --gaps handles fixes (no fix application).
 </failure_handling>
 
 <success_criteria>
-- [ ] Gaps parsed from UAT.md
+- [ ] Gaps parsed from UAT.md using MCP read_file
 - [ ] Debug agents spawned in parallel
 - [ ] Root causes collected from all agents
-- [ ] UAT.md gaps updated with artifacts and missing
+- [ ] UAT.md gaps updated with artifacts and missing using MCP edit_block
 - [ ] Debug sessions saved to ${DEBUG_DIR}/
 - [ ] Hand off to verify-work for automatic planning
 </success_criteria>

@@ -3,20 +3,35 @@ Execute all plans in a phase using wave-based parallel execution. Orchestrator s
 </purpose>
 
 <core_principle>
-Orchestrator coordinates, not executes. Each subagent loads the full execute-plan context. Orchestrator: discover plans → analyze deps → group waves → spawn agents → handle checkpoints → collect results.
+Orchestrator coordinates, not executes. Each subagent loads full execute-plan context. Orchestrator: discover plans → analyze deps → group waves → spawn agents → handle checkpoints → collect results.
 </core_principle>
 
 <required_reading>
 Read STATE.md before any operation to load project context.
+
+**Use MCP tool: mcp__desktop-commander__read_file**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const stateContent = await mcp__desktop-commander__read_file({
+  path: ".planning/STATE.md"
+});
+```
 </required_reading>
 
 <process>
 
 <step name="initialize" priority="first">
-Load all context in one call:
+Load all context in one call using MCP process tool:
 
-```bash
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js init execute-phase "${PHASE_ARG}")
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const INIT = await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js init execute-phase "${PHASE_ARG}"`,
+  timeout_ms: 10000
+});
 ```
 
 Parse JSON for: `executor_model`, `verifier_model`, `commit_docs`, `parallelization`, `branching_strategy`, `branch_name`, `phase_found`, `phase_dir`, `phase_number`, `phase_name`, `phase_slug`, `plans`, `incomplete_plans`, `plan_count`, `incomplete_count`, `state_exists`, `roadmap_exists`.
@@ -34,8 +49,15 @@ Check `branching_strategy` from init:
 **"none":** Skip, continue on current branch.
 
 **"phase" or "milestone":** Use pre-computed `branch_name` from init:
-```bash
-git checkout -b "$BRANCH_NAME" 2>/dev/null || git checkout "$BRANCH_NAME"
+
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent for git operations
+await mcp__desktop-commander__start_process({
+  command: `git checkout -b "$BRANCH_NAME" 2>/dev/null || git checkout "$BRANCH_NAME"`,
+  timeout_ms: 10000
+});
 ```
 
 All subsequent commits go to this branch. User handles merging.
@@ -48,10 +70,16 @@ Report: "Found {plan_count} plans in {phase_dir} ({incomplete_count} incomplete)
 </step>
 
 <step name="discover_and_group_plans">
-Load plan inventory with wave grouping in one call:
+Load plan inventory with wave grouping in one call using MCP process tool:
 
-```bash
-PLAN_INDEX=$(node ~/.claude/get-shit-done/bin/gsd-tools.js phase-plan-index "${PHASE_NUMBER}")
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const PLAN_INDEX = await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js phase-plan-index "${PHASE_NUMBER}"`,
+  timeout_ms: 10000
+});
 ```
 
 Parse JSON for: `phase`, `plans[]` (each with `id`, `wave`, `autonomous`, `objective`, `files_modified`, `task_count`, `has_summary`), `waves` (map of wave number → plan IDs), `incomplete`, `has_checkpoints`.
@@ -79,6 +107,15 @@ Execute each wave in sequence. Within a wave: parallel if `PARALLELIZATION=true`
 1. **Describe what's being built (BEFORE spawning):**
 
    Read each plan's `<objective>`. Extract what's being built and why.
+
+   **Use MCP tool: mcp__desktop-commander__read_file**
+
+   ```
+   // MCP-based equivalent for reading plan files
+   const planContent = await mcp__desktop-commander__read_file({
+     path: ".planning/phases/XX-name/{plan_file}"
+   });
+   ```
 
    ```
    ---
@@ -117,7 +154,7 @@ Execute each wave in sequence. Within a wave: parallel if `PARALLELIZATION=true`
        </execution_context>
 
        <files_to_read>
-       Read these files at execution start using the Read tool:
+       Read these files at execution start using MCP tools:
        - Plan: {phase_dir}/{plan_file}
        - State: .planning/STATE.md
        - Config: .planning/config.json (if exists)
@@ -138,7 +175,19 @@ Execute each wave in sequence. Within a wave: parallel if `PARALLELIZATION=true`
 4. **Report completion — spot-check claims first:**
 
    For each SUMMARY.md:
-   - Verify first 2 files from `key-files.created` exist on disk
+
+   **Use MCP tool: mcp__desktop-commander__list_directory** to verify files exist
+
+   ```javascript
+   // MCP-based equivalent for checking file existence (80-90% token savings vs bash test commands)
+   const summaryDir = await mcp__desktop-commander__list_directory({
+     path: ".planning/phases/XX-name",
+     depth: 1
+   });
+   // Check if SUMMARY.md exists in the listing
+   ```
+
+   - Verify first 2 files from `key-files.created` exist on disk with `[ -f ]`
    - Check `git log --oneline --all --grep="{phase}-{plan}"` returns ≥1 commit
    - Check for `## Self-Check: FAILED` marker
 
@@ -167,8 +216,6 @@ Execute each wave in sequence. Within a wave: parallel if `PARALLELIZATION=true`
    For real failures: report which plan failed → ask "Continue?" or "Stop?" → if continue, dependent plans may also fail. If stop, partial completion report.
 
 6. **Execute checkpoint plans between waves** — see `<checkpoint_handling>`.
-
-7. **Proceed to next wave.**
 </step>
 
 <step name="checkpoint_handling">
@@ -241,8 +288,16 @@ Check must_haves against actual codebase. Create VERIFICATION.md.",
 ```
 
 Read status:
-```bash
-grep "^status:" "$PHASE_DIR"/*-VERIFICATION.md | cut -d: -f2 | tr -d ' '
+
+**Use MCP tool: mcp__code-index-mcp__search_code_advanced** or **mcp__desktop-commander__read_file**
+
+```javascript
+// MCP-based equivalent for reading verification status
+const statusMatch = await mcp__code-index-mcp__search_code_advanced({
+  pattern: "^status:",
+  file_pattern: "*-VERIFICATION.md",
+  path: ".planning/phases/XX-name"
+});
 ```
 
 | Status | Action |
@@ -257,7 +312,7 @@ grep "^status:" "$PHASE_DIR"/*-VERIFICATION.md | cut -d: -f2 | tr -d ' '
 
 All automated checks passed. {N} items need human testing:
 
-{From VERIFICATION.md human_verification section}
+[From VERIFICATION.md human_verification section]
 
 "approved" → continue | Report issues → gap closure
 ```
@@ -270,7 +325,7 @@ All automated checks passed. {N} items need human testing:
 **Report:** {phase_dir}/{phase}-VERIFICATION.md
 
 ### What's Missing
-{Gap summaries from VERIFICATION.md}
+[Gap summaries from VERIFICATION.md]
 
 ---
 ## ▶ Next Up
@@ -279,18 +334,23 @@ All automated checks passed. {N} items need human testing:
 
 <sub>`/clear` first → fresh context window</sub>
 
-Also: `cat {phase_dir}/{phase}-VERIFICATION.md` — full report
-Also: `/gsd:verify-work {X}` — manual testing first
+Also: Use MCP tool mcp__desktop-commander__read_file to view full report
+
 ```
 
 Gap closure cycle: `/gsd:plan-phase {X} --gaps` reads VERIFICATION.md → creates gap plans with `gap_closure: true` → user runs `/gsd:execute-phase {X} --gaps-only` → verifier re-runs.
 </step>
 
 <step name="update_roadmap">
-Mark phase complete in ROADMAP.md (date, status).
+Mark phase complete in ROADMAP.md (date, status) using MCP process and edit tools:
 
-```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs(phase-{X}): complete phase execution" --files .planning/ROADMAP.md .planning/STATE.md .planning/phases/{phase_dir}/*-VERIFICATION.md .planning/REQUIREMENTS.md
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+await mcp__desktop-commander__start_process({
+  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js commit \"docs(phase-{X}): complete phase execution\" --files .planning/ROADMAP.md .planning/STATE.md .planning/phases/{phase_dir}/*-VERIFICATION.md .planning/REQUIREMENTS.md",
+  timeout_ms: 10000
+});
 ```
 </step>
 
@@ -336,3 +396,23 @@ Re-run `/gsd:execute-phase {phase}` → discover_plans finds completed SUMMARYs 
 
 STATE.md tracks: last completed plan, current wave, pending checkpoints.
 </resumption>
+
+<tool_requirements>
+**MANDATORY: Use MCP tools instead of native tools for all operations.**
+
+**File Operations:**
+- Use `mcp__desktop-commander__read_file` instead of Read
+- Use `mcp__desktop-commander__write_file` instead of Write
+- Use `mcp__desktop-commander__edit_block` instead of Edit
+- Use `mcp__desktop-commander__list_directory` instead of ls
+- Use `mcp__desktop-commander__create_directory` instead of mkdir
+
+**Code Search:**
+- Use `mcp__code-index-mcp__search_code_advanced` instead of Grep
+- Use `mcp__code-index-mcp__find_files` instead of find
+- Use `mcp__code-index-mcp__get_file_summary` for file analysis
+
+**Process Operations:**
+- Use `mcp__desktop-commander__start_process` instead of Bash for commands
+- Use `mcp__desktop-commander__interact_with_process` for interactive processes
+</tool_requirements>
