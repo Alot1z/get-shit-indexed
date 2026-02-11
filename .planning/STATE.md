@@ -2,36 +2,36 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-02-11)
+See: .planning/PROJECT.md (updated 2025-02-11)
 
 **Core value:** Token-efficient, reliable GSD workflows that leverage all three MCP servers (DC + CI + CG) using proven tool chain patterns.
-**Current focus:** Phase 1 - MCP Foundation
+**Current focus:** Phase 2 - Workflow Integration (Phase 1 complete with gaps)
 
 ## Current Position
 
-Phase: 1 of 8 (MCP Foundation)
-Plan: 3 of 3 in current phase
-Status: Phase complete
-Last activity: 2026-02-11 — Completed plan 01-03: Tool Priority Rules
+Phase: 2 of 8 (Workflow Integration)
+Plan: 0 of 3 in current phase
+Status: Ready to plan
+Last activity: 2025-02-11 — Phase 1 complete with gaps
 
-Progress: [████████░░░░░] 100%
+Progress: [██░░░░░░░░░] 12%
 
 ## Performance Metrics
 
 **Velocity:**
 - Total plans completed: 3
-- Average duration: 15 min
-- Total execution time: 0.8 hours
+- Average duration: 13.3 min
+- Total execution time: 0.4 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-mcp-foundation | 3 | 3 | 15min |
+| 1 | 3 | 3 | 13.3 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (8min), 01-02 (20min), 01-01 (12min)
-- Trend: Stable performance
+- Last 5 plans: 01-01, 01-02, 01-03 (all Phase 1)
+- Trend: All successful, efficient execution
 
 *Updated after each plan completion*
 
@@ -42,22 +42,10 @@ Progress: [████████░░░░░] 100%
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-**From 01-01 (MCP Foundation):**
-- Desktop Commander MCP is PRIMARY tool for all file/process operations (85-90% token savings)
-- Code-Index MCP is PRIMARY tool for code search operations (80-81% token savings)
-- Token efficiency data justifies tool-priority.md enforcement rules
-- CodeGraphContext MCP unavailable - documented as blocker for later resolution
-
-**From 01-02 (Golden Pattern):**
-- Golden pattern (CG discover → CI understand → CI understand → DC act → DC verify → CI verify) established as optimal flow for complex code changes
-- Two CI understanding phases provide both context (where) and depth (how) before modifications
-- Decision tree enables workflow authors to select optimal pattern without memorizing all 24 patterns
-- CI-only fallback documented for when CodeGraphContext is unavailable
-
-**From 01-03 (Tool Priority Rules):**
-- Tool priority rules (Skills > MCP > Native) established as mandatory for all GSD operations
-- Token savings metrics (80-90%) documented to justify tool priority enforcement
-- Plan template includes <tool_priority> section to guide authors toward MCP tools
+**Phase 1 Complete with Gaps:**
+- CG (CodeGraphContext) server not available — documented as blocker
+- Golden pattern end-to-end not fully testable without CG server
+- Gap closure plans needed before Phase 2 (Workflow Integration)
 
 ### Pending Todos
 
@@ -73,6 +61,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-11
-Stopped at: Completed plan 01-03: Tool Priority Rules
+Last session: 2025-02-11 Phase 1 execution
+Stopped at: Phase 1 complete with 2 gaps identified
 Resume file: None
