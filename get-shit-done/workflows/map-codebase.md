@@ -116,12 +116,46 @@ Agents are organized into waves to prevent overwhelming MCP servers and API rate
 
 **Wave Execution Flow:**
 
-1. **Pre-wave check:** Verify `.planning/agent-history.json` exists (see tracking section)
-2. **Launch Wave 1:** Spawn agents with 500ms stagger delay
-3. **Monitor Wave 1:** Wait for all agents in wave to complete
-4. **Wave completion:** Report status before starting next wave
-5. **Launch Wave 2:** If needed, after Wave 1 fully completes
-6. **Continue** until all waves complete
+1. **Pre-wave check:** Verify `.planning/agent-history.json` exists (see init_agent_tracking step)
+2. **Generate agent IDs:** Create unique IDs for each agent: `{focus}-{datestamp}`
+3. **Launch Wave 1:** Spawn agents with 500ms stagger delay
+4. **Track each spawn:** Update agent-history.json with `status: "running"`
+5. **Monitor Wave 1:** Wait for all agents in wave to complete
+6. **Wave completion:** Report status before starting next wave
+7. **Launch Wave 2:** If needed, after Wave 1 fully completes
+8. **Continue** until all waves complete
+
+**Agent ID Format:**
+
+```
+mapper-tech-20250211-192500
+mapper-arch-20250211-192500
+mapper-quality-20250211-192500
+mapper-concerns-20250211-192500
+```
+
+**Tracking Operations:**
+
+On spawn:
+```bash
+# Generate unique agent ID
+AGENT_ID="mapper-${FOCUS}-$(date -u +%Y%m%d-%H%M%S)"
+
+# Add to agent-history.json
+node ~/.claude/get-shit-done/bin/gsd-tools.js track-agent "$AGENT_ID" "$FOCUS" "spawned"
+
+# Write current agent ID for resumption
+echo "$AGENT_ID" > .planning/current-agent-id.txt
+```
+
+On completion:
+```bash
+# Update agent status in history
+node ~/.claude/get-shit-done/bin/gsd-tools.js track-agent "$AGENT_ID" "$FOCUS" "completed" --docs "$DOCUMENTS"
+
+# Clean up current agent ID
+rm -f .planning/current-agent-id.txt
+```
 
 Use Task tool with `subagent_type="gsd-codebase-mapper"`, `model="{mapper_model}"`, and `run_in_background=true` for parallel execution.
 
@@ -219,6 +253,56 @@ Explore thoroughly. Write document directly using template. Return confirmation 
 ```
 
 Continue to collect_confirmations.
+</step>
+
+<step name="init_agent_tracking">
+Initialize agent tracking system.
+
+**Create tracking file if not exists:**
+
+```bash
+# Check if agent-history.json exists
+test -f .planning/agent-history.json || echo '{"agents":[]}' > .planning/agent-history.json
+```
+
+**Tracking data structure:**
+
+```json
+{
+  "agents": [
+    {
+      "agent_id": "mapper-tech-20250211-192500",
+      "task_description": "Map codebase tech stack",
+      "focus": "tech",
+      "phase": "02-workflow-integration",
+      "plan": "02-02",
+      "wave": 1,
+      "status": "spawned",
+      "spawn_time": "2025-02-11T19:25:00Z",
+      "completion_time": null,
+      "documents_created": ["STACK.md", "INTEGRATIONS.md"],
+      "exit_status": null
+    }
+  ],
+  "last_updated": "2025-02-11T19:25:00Z"
+}
+```
+
+**Status values:**
+- `spawned` - Agent created but not yet running
+- `running` - Agent is actively working
+- `completed` - Agent finished successfully
+- `failed` - Agent encountered an error
+- `timed_out` - Agent exceeded wave timeout
+
+**Current agent tracking file:**
+
+```bash
+# Write current agent ID for resumption support
+echo "mapper-tech-$(date -u +%Y%m%d-%H%M%S)" > .planning/current-agent-id.txt
+```
+
+Continue to spawn_agents.
 </step>
 
 <step name="collect_confirmations">
