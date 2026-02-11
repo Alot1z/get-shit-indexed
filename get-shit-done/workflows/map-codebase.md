@@ -306,11 +306,77 @@ Continue to spawn_agents.
 </step>
 
 <step name="collect_confirmations">
-Wait for all 4 agents to complete.
+Wait for agents to complete using **wave-based collection**.
 
-Read each agent's output file to collect confirmations.
+**Wave Completion Checking:**
 
-**Expected confirmation format from each agent:**
+For each wave, verify completion before starting the next wave:
+
+```bash
+# Check agent status for all agents in current wave
+node ~/.claude/get-shit-done/bin/gsd-tools.js check-wave-complete --wave 1
+
+# Expected output:
+# Wave 1 Status:
+# - mapper-tech-20250211-192500: completed
+# - mapper-arch-20250211-192505: completed
+# - mapper-quality-20250211-192510: completed
+# - mapper-concerns-20250211-192515: completed
+# 
+# Wave 1 complete: 4/4 agents finished
+```
+
+**Wave Completion Criteria:**
+- All agents in wave have status `completed` or `failed`
+- No agents still `running` or `spawned`
+- Wave timeout (300s) not exceeded
+
+**Staggered Launch Timing:**
+
+Agents are launched with 500ms delays between each spawn:
+
+```bash
+# Spawn Agent 1
+spawn_agent "tech" && sleep 0.5
+
+# Spawn Agent 2
+spawn_agent "arch" && sleep 0.5
+
+# Spawn Agent 3
+spawn_agent "quality" && sleep 0.5
+
+# Spawn Agent 4
+spawn_agent "concerns"
+```
+
+This prevents overwhelming MCP servers with simultaneous requests.
+
+**Wave Reporting Format:**
+
+After each wave completes, report:
+
+```
+=== Wave 1 Complete ===
+
+Agents spawned: 4
+Completed: 4
+Failed: 0
+Duration: 2m 15s
+
+Agent Results:
+- mapper-tech-20250211-192500: SUCCESS (STACK.md: 145 lines, INTEGRATIONS.md: 89 lines)
+- mapper-arch-20250211-192505: SUCCESS (ARCHITECTURE.md: 178 lines, STRUCTURE.md: 134 lines)
+- mapper-quality-20250211-192510: SUCCESS (CONVENTIONS.md: 112 lines, TESTING.md: 98 lines)
+- mapper-concerns-20250211-192515: SUCCESS (CONCERNS.md: 67 lines)
+
+Wave 1 summary: 7 documents created, 823 total lines
+
+Ready for Wave 2 (if needed)
+```
+
+**Read each agent's output file to collect confirmations.**
+
+Expected confirmation format from each agent:**
 ```
 ## Mapping Complete
 
@@ -322,9 +388,24 @@ Read each agent's output file to collect confirmations.
 Ready for orchestrator summary.
 ```
 
-**What you receive:** Just file paths and line counts. NOT document contents.
+**What you receive:** Just file paths, line counts, and agent status. NOT document contents.
+
+**Wave progression:**
+- Wave 1 completes → Report results → Check if Wave 2 needed
+- Wave 2 (if needed) → Launch → Report results
+- All waves complete → Continue to verify_output
 
 If any agent failed, note the failure and continue with successful documents.
+
+**Handling Failed Agents:**
+
+```bash
+# Check for failed agents in wave
+node ~/.claude/get-shit-done/bin/gsd-tools.js list-failed-agents --wave 1
+
+# If any failed, offer retry option:
+# "Agent mapper-quality-xxx failed. Retry? [y/N]"
+```
 
 Continue to verify_output.
 </step>
