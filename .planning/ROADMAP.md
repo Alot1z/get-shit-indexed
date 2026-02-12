@@ -97,28 +97,28 @@ Transform Get Shit Done (GSD) system to fully leverage three MCP servers—Deskt
 
 ### Phase 4: Repository Synchronization
 
-**Goal**: Local GSD directory synchronized with cloned upstream repo as single source of truth
+**Goal**: Local GSD directory synchronized with cloned upstream repo as single source of truth with complete 3-MCP integration
 
 **Depends on**: Phase 2 (Workflow Integration), Phase 3 (Documentation Consolidation)
 
 **Requirements**: REPO-001, REPO-002, REPO-003, REPO-004
 
 **Success Criteria** (what must be TRUE):
-1. Local directory `C:\Users\mose\.claude\get-shit-done` synced to cloned upstream repo
+1. Local directory `C:\Users\mose\.claude\get-shit-done` synced to cloned upstream repo (local -> clone)
 2. Cloned repo at `C:\github-repos\my-claude-code-repos\get-shit-done-code-index` contains all 3-MCP integrations
-3. All local changes pushed to clone maintaining bidirectional sync
+3. All local changes pushed to clone with DC, CI, CG (neo4j://localhost:7687) integrations
 4. Clone is established as single source of truth for GSD enhancements
 
-**Plans**: 3 plans
+**Plans**: 3 plans (REDO - with explicit 3-MCP integration)
 
 **Status**: Plans created, ready for execution
 
 **Completed**: -
 
 **Plans**:
-- [ ] 04-01: Sync local GSD directory to cloned upstream repo (10 tasks - analysis, cataloging, backup)
-- [ ] 04-02: Update cloned repo with all 3-MCP integration changes (10 tasks - copy workflows, references, research)
-- [ ] 04-03: Verify bidirectional sync between local and clone (10 tasks - commit, verify, document)
+- [ ] 04-01: Analyze local GSD directory and cloned repo structure (10 tasks - analysis, cataloging, 3-MCP verification, backup)
+- [ ] 04-02: Update cloned repo with all 3-MCP integration changes (10 tasks - copy DC+CI+CG workflows, references, research)
+- [ ] 04-03: Verify bidirectional sync with 3-MCP integration (10 tasks - commit, verify DC+CI+CG, document)
 
 ### Phase 5: Thinking Server Integration
 
@@ -188,16 +188,16 @@ Transform Get Shit Done (GSD) system to fully leverage three MCP servers—Deskt
 3. GSD commands work with CodeGraphContext
 4. All commands handle all three MCP servers transparently
 
-**Plans**: TBD
+**Plans**: 3 plans
 
-**Status**: Not started
+**Status**: Plans created
 
 **Completed**: -
 
 **Plans**:
-- [ ] 07-01: Update GSD command definitions for Desktop Commander integration
-- [ ] 07-02: Update GSD command definitions for Code-Index MCP integration
-- [ ] 07-03: Update GSD command definitions for CodeGraphContext integration
+- [ ] 07-01: Update GSD command definitions for Desktop Commander integration (10 tasks)
+- [ ] 07-02: Update GSD command definitions for Code-Index MCP integration (10 tasks)
+- [ ] 07-03: Update GSD command definitions for CodeGraphContext integration (10 tasks)
 
 ### Phase 8: Advanced Workflow Features
 
@@ -238,7 +238,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 4. Repository Synchronization | 0/3 | Plans created | - |
 | 5. Thinking Server Integration | 0/4 | Plans created | - |
 | 6. Quality & Verification | 0/4 | Not started | - |
-| 7. Command Layer Updates | 0/3 | Not started | - |
+| 7. Command Layer Updates | 0/3 | Plans created | - |
 | 8. Advanced Workflow Features | 0/4 | Not started | - |
 
 **Overall Progress**: 6/32 plans complete (19%)
@@ -250,12 +250,17 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 - Plan 03-04: 8 tasks - DECISION-TREES.md with decision frameworks
 
 **Phase 4 (Repository Synchronization): 3 plans created - 30 tasks total**
-- Plan 04-01: 10 tasks - Sync local to cloned repo
-- Plan 04-02: 10 tasks - Update clone with 3-MCP changes
-- Plan 04-03: 10 tasks - Verify bidirectional sync
+- Plan 04-01: 10 tasks - Analyze and catalog local + clone with 3-MCP verification
+- Plan 04-02: 10 tasks - Update clone with DC+CI+CG integrations
+- Plan 04-03: 10 tasks - Verify bidirectional sync with 3-MCP documentation
 
 **Phase 5 (Thinking Server Integration): 4 plans created - 28 tasks total**
 - Plan 05-01: 6 tasks - Sequential thinking + 7-BMAD methodology
 - Plan 05-02: 7 tasks - Tractatus thinking for logical structure
 - Plan 05-03: 7 tasks - Debug thinking with graph-based debugging
 - Plan 05-04: 8 tasks - Tool chain variants with thinking-aware selection
+
+**Phase 7 (Command Layer Updates): 3 plans created - 30 tasks total**
+- Plan 07-01: 10 tasks - DC integration for all 26 GSD commands
+- Plan 07-02: 10 tasks - CI integration for code search and analysis
+- Plan 07-03: 10 tasks - CG integration for relationship analysis
