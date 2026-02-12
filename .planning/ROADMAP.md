@@ -149,7 +149,7 @@ Transform Get Shit Done (GSD) system to fully leverage three MCP servers—Deskt
 
 ### Phase 6: Quality & Verification
 
-**Goal**: Auto-validation system with 7-BMAD quality gates integrated across all agent work
+**Goal**: Auto-validation system with 7-BMAD quality gates integrated across all agent work, ensuring all deliverables match planned goals through comprehensive verification.
 
 **Depends on**: Phase 5 (Thinking Server Integration)
 
@@ -162,17 +162,17 @@ Transform Get Shit Done (GSD) system to fully leverage three MCP servers—Deskt
 4. Verifier integrated to confirm deliverables match goals
 5. All requirements are testable and verifiable with clear success criteria
 
-**Plans**: TBD
+**Plans**: 4 plans
 
-**Status**: Not started
+**Status**: Plans created
 
 **Completed**: -
 
 **Plans**:
-- [ ] 06-01: Implement auto-validation system with 7-BMAD quality gates
-- [ ] 06-02: Integrate code review expert skill for validation
-- [ ] 06-03: Implement plan checker to verify plans achieve phase goals
-- [ ] 06-04: Implement verifier to confirm deliverables match goals
+- [ ] 06-01: Implement auto-validation system with 7-BMAD quality gates (10 tasks)
+- [ ] 06-02: Integrate code review expert skill for validation (10 tasks)
+- [ ] 06-03: Implement plan checker to verify plans achieve phase goals (10 tasks)
+- [ ] 06-04: Implement verifier to confirm deliverables match goals (10 tasks)
 
 ### Phase 7: Command Layer Updates
 
@@ -213,17 +213,17 @@ Transform Get Shit Done (GSD) system to fully leverage three MCP servers—Deskt
 3. YOLO mode (auto-approve) enables frictionless execution
 4. Wave-based spawning prevents API rate limits
 
-**Plans**: TBD
+**Plans**: 4 plans
 
-**Status**: Not started
+**Status**: Plans created
 
 **Completed**: -
 
 **Plans**:
-- [ ] 08-01: Implement parallel agent orchestration with rate limiting
-- [ ] 08-02: Implement configurable model profiles (quality/balanced/budget)
-- [ ] 08-03: Implement YOLO mode for frictionless execution
-- [ ] 08-04: Verify wave-based spawning prevents API rate limits
+- [ ] 08-01: Implement parallel agent orchestration with rate limiting (8 tasks)
+- [ ] 08-02: Implement configurable model profiles (quality/balanced/budget) (9 tasks)
+- [ ] 08-03: Implement YOLO mode for frictionless execution (10 tasks)
+- [ ] 08-04: Verify wave-based spawning prevents API rate limits (10 tasks)
 
 ## Progress
 
@@ -237,9 +237,9 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 3. Documentation Consolidation | 0/4 | Plans created | - |
 | 4. Repository Synchronization | 0/3 | Plans created | - |
 | 5. Thinking Server Integration | 0/4 | Plans created | - |
-| 6. Quality & Verification | 0/4 | Not started | - |
+| 6. Quality & Verification | 0/4 | Plans created | - |
 | 7. Command Layer Updates | 0/3 | Plans created | - |
-| 8. Advanced Workflow Features | 0/4 | Not started | - |
+| 8. Advanced Workflow Features | 0/4 | Plans created | - |
 
 **Overall Progress**: 6/32 plans complete (19%)
 
@@ -260,7 +260,19 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 - Plan 05-03: 7 tasks - Debug thinking with graph-based debugging
 - Plan 05-04: 8 tasks - Tool chain variants with thinking-aware selection
 
+**Phase 6 (Quality & Verification): 4 plans created - 40 tasks total**
+- Plan 06-01: 10 tasks - Auto-validation system with 7-BMAD quality gates
+- Plan 06-02: 10 tasks - Code review expert skill integration
+- Plan 06-03: 10 tasks - Plan checker for goal verification
+- Plan 06-04: 10 tasks - Deliverable verifier
+
 **Phase 7 (Command Layer Updates): 3 plans created - 30 tasks total**
 - Plan 07-01: 10 tasks - DC integration for all 26 GSD commands
 - Plan 07-02: 10 tasks - CI integration for code search and analysis
 - Plan 07-03: 10 tasks - CG integration for relationship analysis
+
+**Phase 8 (Advanced Workflow Features): 4 plans created - 37 tasks total**
+- Plan 08-01: 8 tasks - Parallel orchestration with rate limiting and staggered spawning
+- Plan 08-02: 9 tasks - Configurable model profiles (quality/balanced/budget)
+- Plan 08-03: 10 tasks - YOLO mode for frictionless execution
+- Plan 08-04: 10 tasks - Wave-based spawning verification and testing
