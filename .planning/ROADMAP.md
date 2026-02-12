@@ -78,22 +78,22 @@ Transform Get Shit Done (GSD) system to fully leverage three MCP servers—Deskt
 
 **Success Criteria** (what must be TRUE):
 1. CODE-INDEX-MCP-GUIDE.md exists with complete Code-Index server usage patterns
-2. TOOL-PRIORITY-RULES.md exists enforcing MCP tool priority over native tools
-3. All MCP tool chain research files consolidated into unified reference guides
-4. Mermaid diagrams document all 15 linear, 4 circular, and 5 hybrid tool chain patterns
-5. Tool chain reference includes decision trees for optimal tool selection
+2. TOOL-PRIORITY-RULES.md enhanced with CodeGraphContext (CG) server integration
+3. All MCP tool chain patterns consolidated into unified reference guides with Mermaid diagrams
+4. TOOL-CHAIN-REFERENCE.md documents all 15 linear, 4 circular, and 5 hybrid patterns
+5. DECISION-TREES.md provides decision trees for optimal tool and pattern selection
 
-**Plans**: TBD
+**Plans**: 4 plans
 
-**Status**: Deferred (plans not created - CG server blocker)
+**Status**: Plans created, ready for execution
 
 **Completed**: N/A
 
 **Plans**:
 - [ ] 03-01: Create CODE-INDEX-MCP-GUIDE.md with comprehensive CI usage patterns
-- [ ] 03-02: Create TOOL-PRIORITY-RULES.md enforcing MCP > Native hierarchy
-- [ ] 03-03: Consolidate all research files into unified reference with Mermaid diagrams
-- [ ] 03-04: Create tool chain reference guide with decision trees
+- [ ] 03-02: Enhance TOOL-PRIORITY-RULES.md with CodeGraphContext integration
+- [ ] 03-03: Create TOOL-CHAIN-REFERENCE.md with Mermaid diagrams for all 24 patterns
+- [ ] 03-04: Create DECISION-TREES.md with tool and pattern selection decision trees
 
 ### Phase 4: Repository Synchronization
 
@@ -109,16 +109,16 @@ Transform Get Shit Done (GSD) system to fully leverage three MCP servers—Deskt
 3. All local changes pushed to clone maintaining bidirectional sync
 4. Clone is established as single source of truth for GSD enhancements
 
-**Plans**: TBD
+**Plans**: 3 plans
 
-**Status**: Not started
+**Status**: Plans created, ready for execution
 
 **Completed**: -
 
 **Plans**:
-- [ ] 04-01: Sync local GSD directory to cloned upstream repo
-- [ ] 04-02: Update cloned repo with all 3-MCP integration changes
-- [ ] 04-03: Verify bidirectional sync between local and clone
+- [ ] 04-01: Sync local GSD directory to cloned upstream repo (10 tasks - analysis, cataloging, backup)
+- [ ] 04-02: Update cloned repo with all 3-MCP integration changes (10 tasks - copy workflows, references, research)
+- [ ] 04-03: Verify bidirectional sync between local and clone (10 tasks - commit, verify, document)
 
 ### Phase 5: Thinking Server Integration
 
@@ -234,11 +234,11 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 |-------|----------------|--------|-----------|
 | 1. MCP Foundation | 3/3 | Complete (gaps) | 2025-02-11 |
 | 2. Workflow Integration | 3/3 | Complete ✓ | 2025-02-11 |
-| 3. Documentation Consolidation | 0/4 | Deferred | - |
-| 4. Repository Synchronization | 0/3 | Not started | - |
+| 3. Documentation Consolidation | 0/4 | Plans created | - |
+| 4. Repository Synchronization | 0/3 | Plans created | - |
 | 5. Thinking Server Integration | 0/4 | Not started | - |
 | 6. Quality & Verification | 0/4 | Not started | - |
 | 7. Command Layer Updates | 0/3 | Not started | - |
 | 8. Advanced Workflow Features | 0/4 | Not started | - |
 
-**Overall Progress**: 6/28 plans complete (21%)
+**Overall Progress**: 6/32 plans complete (19%)
