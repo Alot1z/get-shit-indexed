@@ -13,7 +13,12 @@
     "enabled": true,
     "stagger_delay_ms": 500,
     "max_retries": 5,
-    "initial_backoff_ms": 1000
+    "initial_backoff_ms": 1000,
+    "inter_wave_delay_ms": 2000,
+    "wave_timeout_seconds": 300,
+    "adaptive_rate_limiting": true,
+    "log_wave_execution": true,
+    "wave_log_path": ".planning/wave-history.json"
   },
   "gates": {
     "confirm_project": true,
@@ -30,6 +35,30 @@
     "always_confirm_external_services": true
   },
   "model_profile": "quality",
+  "model_profiles": {
+    "quality": {
+      "name": "quality",
+      "description": "Maximum capability for complex tasks",
+      "executor_model": "claude-opus-4-6",
+      "planner_model": "claude-opus-4-6",
+      "verifier_model": "claude-opus-4-6"
+    },
+    "balanced": {
+      "name": "balanced",
+      "description": "Balanced performance and cost for standard workflows",
+      "executor_model": "claude-sonnet-4-5",
+      "planner_model": "claude-opus-4-6",
+      "verifier_model": "claude-sonnet-4-5"
+    },
+    "budget": {
+      "name": "budget",
+      "description": "Maximum speed for quick iterations and testing",
+      "executor_model": "claude-haiku-4-5",
+      "planner_model": "claude-sonnet-4-5",
+      "verifier_model": "claude-haiku-4-5"
+    }
+  },
+  "yolo_mode": true,
   "planning": {
     "commit_docs": true,
     "search_gitignored": false
