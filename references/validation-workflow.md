@@ -39,7 +39,9 @@ When valid completion signal detected:
 ```
 Validation agent loads context
 ↓
-Executes code-review-expert skill
+Executes code-review-expert skill (for gates 1, 2, 4, 5, 7)
+↓
+Executes tractatus-thinking skill (for gates 3, 6)
 ↓
 Runs find-skills for optimization check
 ↓
@@ -49,17 +51,23 @@ Applies 7-BMAD gate assessment
 #### Context Loading
 
 1. **Completion Signal**: Extract agent info, task description
-2. **Files List**: Load all changed files
+2. **Files List**: Load all changed files using DesktopCommander
 3. **Deviations**: Load deviation details if present
 4. **Gate Specifications**: Load @references/validation-gates.md
 
 #### Skill Invocation
 
 **Code Review Expert** (for gates 1, 2, 4, 5, 7):
+
+See @references/code-review-workflow.md for detailed invocation patterns.
+
 ```
 Use skill: code-review-expert
 Focus: [Specific gate(s) to validate]
 Context: [Relevant files/changes]
+
+Criteria: @references/code-review-criteria.md
+Output: @references/code-review-templates.md
 ```
 
 **Tractatus Thinking** (for gates 3, 6):
@@ -75,6 +83,18 @@ Use skill: find-skills
 Task: [Current implementation]
 Goal: Token/quality optimization
 ```
+
+#### Gate-Specific Tool Selection
+
+| Gate | Primary Tool | Secondary Tools | Criteria Reference |
+|------|-------------|-----------------|-------------------|
+| Method | code-review-expert | find-skills | @code-review-criteria.md#method-circle |
+| Mad | code-review-expert | tractatus-thinking | @code-review-criteria.md#mad-circle |
+| Model | tractatus-thinking | code-review-expert | Architecture analysis |
+| Mode | code-review-expert | find-skills | @code-review-criteria.md#mode-circle |
+| Mod | code-review-expert | N/A | @code-review-criteria.md#mod-circle |
+| Modd | tractatus-thinking | code-review-expert | Extensibility analysis |
+| Methodd | code-review-expert | N/A | @code-review-criteria.md#methodd-circle |
 
 ---
 
