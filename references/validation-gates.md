@@ -621,8 +621,23 @@ After Attempt 3: If still failing → Detailed report to user
 
 - @C:\Users\mose\.claude\rules\auto-validation.md - Auto-validation system rules
 - @references/code-review-criteria.md - Detailed code review criteria
+- @references/code-review-workflow.md - Code review workflow with skill integration
 - @references/validation-workflow.md - End-to-end validation workflow
 - @references/validation-config.md - Configuration options
+
+## Code Review Integration
+
+### Code Review Tool Mapping
+
+The following gates use `code-review-expert` skill with detailed criteria from @references/code-review-criteria.md:
+
+- **Method Circle** → Implementation Correctness criteria
+- **Mad Circle** → Integration Completeness criteria
+- **Mode Circle** → Pattern Consistency criteria
+- **Mod Circle** → Maintainability Standards criteria
+- **Methodd Circle** → Documentation Quality criteria
+
+See @references/code-review-criteria.md for detailed checklists, metrics, and output formats for each gate.
 
 ---
 
