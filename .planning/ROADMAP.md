@@ -14,6 +14,11 @@ Transform Get Shit Done (GSD) system to fully leverage three MCP servers—Deskt
 - [x] **Phase 6: Quality & Verification** - Implement auto-validation, code review, and verification systems
 - [x] **Phase 7: Command Layer Updates** - Update GSD command definitions for all 3 MCP servers
 - [x] **Phase 8: Advanced Workflow Features** - Implement parallel orchestration, model profiles, and YOLO mode
+- [ ] **Phase 9: Repository Renovation** - GSI terminal logo, global keyword replacement, documentation overhaul
+- [ ] **Phase 10: MCP & Tools Audit** - Complete MCP server and tools audit with documentation
+- [ ] **Phase 11: Resources & Links Audit** - Verify all external and internal resources
+- [ ] **Phase 12: Theory & Practice Docs** - Document conceptual model vs actual implementation
+- [ ] **Phase 13: Comprehensive Testing** - End-to-end testing of all GSI functionality
 
 ## Phase Details
 
@@ -240,8 +245,13 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 6. Quality & Verification | 4/4 | Complete ✓ | 2026-02-13 |
 | 7. Command Layer Updates | 3/3 | Complete ✓ | 2026-02-13 |
 | 8. Advanced Workflow Features | 4/4 | Complete ✓ | 2026-02-13 |
+| 9. Repository Renovation | 0/3 | Plans created | - |
+| 10. MCP & Tools Audit | 0/2 | Plans created | - |
+| 11. Resources & Links Audit | 0/1 | Plans created | - |
+| 12. Theory & Practice Docs | 0/1 | Plans created | - |
+| 13. Comprehensive Testing | 0/1 | Plans created | - |
 
-**Overall Progress**: 32/32 plans complete (100%)
+**Overall Progress**: 32/45 plans complete (71%)
 
 **Phase 3 (Documentation Consolidation): 4 plans created - 32 tasks total**
 
@@ -288,3 +298,106 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 - [x] 08-02: Configurable model profiles with profile switching
 - [x] 08-03: YOLO mode with auto-approval and frictionless execution
 - [x] 08-04: Wave verification and testing with health monitoring
+
+### Phase 9: Repository Renovation
+
+**Goal**: Complete GSD → GSI transformation with new logo, global keyword replacement, and documentation overhaul
+
+**Depends on**: Phase 8 (Advanced Workflow Features)
+
+**Success Criteria**:
+1. GSI terminal logo created with ring effects (cyan G+S, purple I with horizontal ellipses)
+2. ALL GSD keywords replaced with GSI globally
+3. All documentation updated with GSI branding
+4. All URLs point to Alot1z/get-shit-indexed fork
+5. GSI-REBRANDING.md changelog created
+
+**Plans**: 3 plans
+
+**Status**: Plans created
+
+**Plans**:
+- [ ] 09-01: Create GSI terminal logo with Tokyo Night theme and ring effects
+- [ ] 09-02: Global keyword replacement (GSD→GSI, Get Shit Done→Get Shit Indexed)
+- [ ] 09-03: Documentation overhaul with new branding and fork URLs
+
+### Phase 10: MCP & Tools Audit
+
+**Goal**: Complete audit of all MCP servers and tools with documentation and verification
+
+**Depends on**: Phase 9 (Repository Renovation)
+
+**Success Criteria**:
+1. All MCP servers documented with purpose and status
+2. All MCP servers tested and verified working
+3. All tools audited and documented
+4. Token efficiency documented
+5. Dependency graph created
+
+**Plans**: 2 plans
+
+**Status**: Plans created
+
+**Plans**:
+- [ ] 10-01: MCP server audit with connection testing and documentation
+- [ ] 10-02: Tools audit with dependency graph and verification
+
+### Phase 11: Resources & Links Audit
+
+**Goal**: Verify all external and internal resources and links
+
+**Depends on**: Phase 10 (MCP & Tools Audit)
+
+**Success Criteria**:
+1. All external URLs documented and verified active
+2. All links updated to point to fork (not original GSD repo)
+3. API endpoints documented
+4. Internal file references verified
+
+**Plans**: 1 plan
+
+**Status**: Plans created
+
+**Plans**:
+- [ ] 11-01: Resources and links audit with verification
+
+### Phase 12: Theory & Practice Docs
+
+**Goal**: Document conceptual model vs actual implementation with gap analysis
+
+**Depends on**: Phase 11 (Resources & Links Audit)
+
+**Success Criteria**:
+1. GSI theory (conceptual model) documented
+2. GSI practice (actual implementation) documented
+3. Gap analysis complete with severity ratings
+4. Resolution plans prioritized
+5. Logic flows documented with Mermaid diagrams
+
+**Plans**: 1 plan
+
+**Status**: Plans created
+
+**Plans**:
+- [ ] 12-01: Theory vs Practice documentation with gap analysis
+
+### Phase 13: Comprehensive Testing
+
+**Goal**: End-to-end testing of all GSI functionality after GSD→GSI transformation
+
+**Depends on**: Phase 12 (Theory & Practice Docs)
+
+**Success Criteria**:
+1. All CLI commands tested with GSI branding
+2. All MCP server integrations working
+3. All workflows functional
+4. Documentation accuracy verified
+5. No GSD references remaining (brand consistency)
+6. Test summary shows high pass rate
+
+**Plans**: 1 plan
+
+**Status**: Plans created
+
+**Plans**:
+- [ ] 13-01: Comprehensive testing with brand verification
