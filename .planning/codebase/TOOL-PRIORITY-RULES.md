@@ -71,6 +71,67 @@ MCP tools with skill compression:
 
 **CG Server:** neo4j://localhost:7687 (CodeGraphContext for relationship analysis)
 
+### Relationship Operations
+
+| Operation | Skill | MCP | Native | Use |
+|-----------|-------|-----|--------|-----|
+| Graph Query | N/A | CG query_graph | Manual grep/trace | MCP |
+| Find Path | N/A | CG find_path | Manual import tracing | MCP |
+| Get Neighbors | N/A | CG get_neighbors | Manual dependency search | MCP |
+| Impact Analysis | N/A | CG + CI combo | Manual audit | MCP |
+| Dependency Map | N/A | CG query_graph | Manual documentation | MCP |
+
+**RULE: Use CG tools for relationship discovery, CI for code content, DC for file operations**
+
+**CG Server:** neo4j://localhost:7687 (CodeGraphContext for relationship analysis)
+
+### CodeGraphContext (CG) Tools
+
+#### query_graph
+**Purpose:** Query code relationships and dependencies
+**Use when:** Finding files affected by changes, mapping module dependencies, impact analysis
+**Golden Pattern Step:** Step 1 - CG discover
+**CG Server:** neo4j://localhost:7687
+**Example:**
+```yaml
+mcp__CodeGraphContext__query_graph:
+  query: "files that import or use User.authenticate"
+  depth: 2
+```
+**Returns:** List of files, relationships, dependency paths
+**Token efficiency:** ~85% vs manual grep/trace
+
+#### find_path
+**Purpose:** Find relationship paths between nodes
+**Use when:** Tracing import chains, understanding module connections, finding indirect dependencies
+**Example:**
+```yaml
+mcp__CodeGraphContext__find_path:
+  from: "src/routes/users.ts"
+  to: "src/middleware/auth.ts"
+  relationship_type: "imports"
+  max_depth: 3
+```
+**Returns:** Path showing how nodes connect (A -> B -> C)
+**Use cases:**
+- Understand breaking change impact
+- Trace data flow through system
+- Find circular dependencies
+
+#### get_neighbors
+**Purpose:** Get connected nodes for a symbol
+**Use when:** Finding what depends on this, what this depends on, immediate impact analysis
+**Example:**
+```yaml
+mcp__CodeGraphContext__get_neighbors:
+  node: "src/models/user.ts"
+  direction: "both"
+  max_depth: 1
+  relationship_types: ["imports", "extends", "implements"]
+```
+**Returns:** List of connected nodes with relationship types
+**Direction options:** "incoming" (what depends on this), "outgoing" (what this depends on), "both"
+
 ### Analysis Operations
 
 | Operation | Skill | MCP | Native | Use |
@@ -96,13 +157,31 @@ Is there a Skill for it?
   |
   NO
   v
+Is there relationship/dependency analysis needed?
+  YES --> Use CodeGraphContext (CG) tools
+           - query_graph: Find relationships
+           - find_path: Trace connections
+           - get_neighbors: Find dependents
+  |
+  NO
+  v
 Is there an MCP tool for it?
+  |    - File operations? -> Desktop Commander (DC)
+  |    - Code search? -> Code-Index (CI)
+  |    - Process? -> Desktop Commander (DC)
   YES --> Use MCP tool (STOP)
   |
   NO
   v
 Use Native tool (LAST RESORT)
 ```
+
+**CG Decision Point:**
+- Relationship discovery? -> CG query_graph
+- Path tracing? -> CG find_path
+- Dependency mapping? -> CG get_neighbors
+- Impact analysis? -> CG + CI combo
+- Otherwise -> Continue to DC/CI selection
 
 ---
 
@@ -171,6 +250,113 @@ mcp__desktop-commander__start_search: {
   searchType: "content"
 }
 ```
+
+### WRONG: Using Manual Tracing When CG Available
+
+```javascript
+// BAD: Manually tracing imports with Grep
+Grep: {
+  pattern: "import.*User",
+  path: "/src"
+}
+// Then manually reading each file to trace dependencies
+```
+
+### CORRECT: Using CodeGraphContext
+
+```javascript
+// GOOD: Use CG to trace relationships
+mcp__CodeGraphContext__find_path: {
+  from: "src/routes/users.ts",
+  to: "src/models/user.ts",
+  relationship_type: "imports"
+}
+// Returns direct path showing import chain
+```
+
+### WRONG: Missing CG Discover Step Before Multi-File Changes
+
+```javascript
+// BAD: Skip relationship discovery, just search code
+mcp__code-index-mcp__search_code_advanced: {
+  pattern: "User.authenticate"
+}
+// Misses indirect dependencies
+```
+
+### CORRECT: Full Golden Pattern with CG Discover
+
+```javascript
+// GOOD: Start with CG discover
+mcp__CodeGraphContext__query_graph: {
+  query: "files affected by User.authenticate changes",
+  depth: 2
+}
+// Then proceed with CI understand, DC act, etc.
+```
+
+### WRONG: Using CI for Relationship Queries
+
+```javascript
+// BAD: Multiple CI searches to find dependencies
+mcp__code-index-mcp__search_code_advanced: {
+  pattern: "import.*ModuleA"
+}
+// Repeat for ModuleB, ModuleC, etc.
+```
+
+### CORRECT: Single CG Query
+
+```javascript
+// GOOD: One CG query finds all relationships
+mcp__CodeGraphContext__get_neighbors: {
+  node: "src/modules/ModuleA.ts",
+  direction: "both",
+  max_depth: 2
+}
+// Returns all incoming and outgoing dependencies
+```
+
+---
+
+## Golden Pattern Integration
+
+The **Golden Pattern** (CG -> CI -> CI -> DC -> DC -> CI) demonstrates optimal three-server workflow for complex changes.
+
+### Pattern Flow
+
+| Step | Server | Tool | Purpose |
+|------|--------|------|---------|
+| 1 | CG | query_graph | Discover affected files, map dependencies |
+| 2 | CI | search_code_advanced | Understand existing patterns |
+| 3 | CI | get_symbol_body | Deep dive into implementation |
+| 4 | DC | edit_block/write_file | Act on files based on analysis |
+| 5 | DC | read_file | Verify changes applied correctly |
+| 6 | CI | search_code_advanced | Verify integration complete |
+
+### Token Efficiency
+
+**Golden Pattern Total:** ~33,000 tokens
+**Native Equivalent:** ~240,000 tokens
+**Savings:** ~86%
+
+### When to Use Golden Pattern
+
+**Use Golden Pattern when:**
+- Multi-file refactors affecting dependencies (5+ files)
+- Breaking API changes
+- Security-critical modifications
+- Architecture modifications
+- Adding features across multiple modules
+
+**Use simpler patterns when:**
+- Single file edit -> DC-only (Patterns 1-3)
+- Code search only -> CI-only (Patterns 4-6)
+- Relationship query only -> CG-only (Patterns 7-8)
+- Understand then edit -> CI -> DC (Patterns 11-12)
+- Edit then analyze -> DC -> CI (Patterns 9-10)
+
+**For detailed golden pattern documentation:** See GOLDEN-PATTERN.md
 
 ---
 
@@ -256,6 +442,49 @@ CG query: "Find all callers of functionName"
 ```
 
 **CG Server:** neo4j://localhost:7687
+
+### Example 5: Multi-file Refactor with Relationship Awareness (Golden Pattern)
+
+**Bad (Native + Manual):**
+```
+Grep: find imports ~60K tokens
+Read: 15 files ~90K tokens
+Edit: native Edit ~50K tokens
+Grep: verify ~60K tokens
+= ~260K tokens total
+```
+
+**Good (Golden Pattern - CG -> CI -> CI -> DC -> DC -> CI):**
+```
+CG query_graph ~5K tokens
+CI search + summary ~12K tokens
+CI get_symbol_body ~8K tokens
+DC edit_block ~6K tokens
+DC read_file ~4K tokens
+CI search_verify ~8K tokens
+= ~43K tokens total
+
+Savings: ~83%
+```
+
+### Example 6: Relationship Discovery Before Changes
+
+**Bad (Manual Tracing):**
+```
+Grep: find "import.*User" ~20K tokens
+Read: each file ~45K tokens
+Manual: trace dependencies ~30K tokens
+= ~95K tokens (and still incomplete)
+```
+
+**Good (CG Query):**
+```
+CG query_graph ~4K tokens
+CG get_neighbors ~3K tokens
+= ~7K tokens with complete relationship map
+
+Savings: ~93%
+```
 
 ---
 
@@ -386,12 +615,37 @@ Symbols --> code-index-mcp (CI)
 Relationships --> CodeGraphContext (CG) at neo4j://localhost:7687
 ```
 
+### Relationship Operations (NEW)
+```
+Graph Query --> CodeGraphContext (CG)
+Find Path --> CodeGraphContext (CG)
+Neighbors --> CodeGraphContext (CG)
+Impact Analysis --> CG + CI combo
+```
+
 ### Analysis
 ```
 Thinking --> sequential-thinking skill
 Logic --> tractatus-thinking skill
 Debug --> debug-thinking skill
 Docs --> context7/deepwiki MCP
+```
+
+### Complex Workflows
+```
+Multi-file refactor --> Golden Pattern (CG -> CI -> CI -> DC -> DC -> CI)
+Dependency impact --> CG query + CI search
+Quick edit --> DC act + CI verify
+Relationship discovery --> CG-only (Patterns 7-8)
+```
+
+### Server Summary
+```
+DC (Desktop Commander) --> Files, Processes, Directories
+CI (Code-Index) --> Search, Symbols, File Analysis
+CG (CodeGraphContext) --> Relationships, Dependencies, Paths
+Skills --> Compressed workflows (code-review, thinking)
+Native --> Last resort only
 ```
 
 ---
