@@ -461,6 +461,181 @@ Total validation: 5 minutes
 
 ---
 
+## Retry Strategy and Failure Handling
+
+### Retry Strategy
+
+**Attempt 1: Fix Immediate Issues**
+- Fix syntax errors
+- Resolve missing imports
+- Correct simple logic errors
+- Add missing error handling
+**Outcome**: Most issues resolved
+
+**Attempt 2: Deeper Analysis**
+- Architecture review if needed
+- Integration analysis
+- Pattern consistency review
+- Maintainability assessment
+**Outcome**: Deeper issues resolved
+
+**Attempt 3: Comprehensive Refactor**
+- Full code refactor if needed
+- Architecture restructuring
+- Pattern realignment
+- Documentation completion
+**Outcome**: Last attempt before manual intervention
+
+### Failure Report Format
+
+```markdown
+# Validation Failure Report
+
+## Failing Gates
+- Gate X: [Description]
+- Gate Y: [Description]
+
+## Issues Found
+1. [Issue description with location]
+2. [Issue description with location]
+
+## Recommended Fixes
+1. [Specific fix suggestion]
+2. [Specific fix suggestion]
+
+## Next Steps
+Please review and either:
+- Approve automatic fix attempts
+- Provide guidance on resolution approach
+```
+
+### Automatic Fix Generation
+
+When validation fails:
+
+1. **Identify Failing Gates**: List gates with issues
+2. **Categorize Issues**: By severity (Critical, High, Medium, Low)
+3. **Generate Fixes**: For each issue, create specific fix
+4. **Apply Fixes**: Implement fixes automatically
+5. **Re-Validate**: Run validation again
+
+### Fix Generation by Gate Type
+
+**Method Circle (Implementation)**:
+- Fix syntax errors
+- Correct logic errors
+- Add edge case handling
+- Fix security issues
+
+**Mad Circle (Integration)**:
+- Add missing dependencies
+- Fix API mismatches
+- Correct data flow issues
+- Add error handling at boundaries
+
+**Model Circle (Architecture)**:
+- Restructure components
+- Improve separation of concerns
+- Align with design patterns
+- Fix architectural violations
+
+**Mode Circle (Patterns)**:
+- Apply consistent patterns
+- Fix naming conventions
+- Standardize error handling
+- Align state management
+
+**Mod Circle (Maintainability)**:
+- Reduce complexity
+- Add comments
+- Break up large functions
+- Remove duplication
+
+**Modd Circle (Extensibility)**:
+- Remove hard-coding
+- Add configuration options
+- Improve abstraction
+- Add extension points
+
+**Methodd Circle (Documentation)**:
+- Update README
+- Complete API docs
+- Add usage examples
+- Update changelog
+
+### Monitoring and Metrics
+
+**Track**:
+- Validation pass/fail rate
+- Retry success rate
+- Common failure patterns
+- Average validation duration
+- Token usage per validation
+
+**Goals**:
+- 95%+ pass rate after fixes
+- <5 minutes per standard review
+- 80%+ token savings vs manual review
+- 100% agent compliance
+
+**Continuous Improvement**:
+- System learns from failures
+- Update detection patterns
+- Enhance fix suggestions
+- Optimize validation speed
+
+---
+
+## Emergency Overrides
+
+### Force Complete
+
+User can force completion with:
+
+```markdown
+[FORCE COMPLETE]
+Reason: [Why validation should be bypassed]
+[/FORCE COMPLETE]
+```
+
+**Appropriate Use**:
+- Emergency deployments
+- Known acceptable risks
+- Time-critical fixes
+
+### Skip Gate
+
+User can skip specific gate:
+
+```markdown
+[SKIP GATE]
+Gate: [Gate number/name]
+Reason: [Why gate should be skipped]
+[/SKIP GATE]
+```
+
+**Appropriate Use**:
+- Gate doesn't apply to current work type
+- Temporary exception for specific reason
+- Known limitation with workaround
+
+### Override Audit Trail
+
+All overrides logged:
+- Date/time
+- User
+- Override type
+- Reason
+- Review after completion
+
+**Override Review**:
+- All overrides reviewed after completion
+- Assess if override was appropriate
+- Update validation rules if needed
+- Document lessons learned
+
+---
+
 **Version**: 1.0  
 **Last Updated**: 2026-02-13  
 **Status**: Active
