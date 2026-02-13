@@ -61,12 +61,15 @@ MCP tools with skill compression:
 | Operation | Skill | MCP | Native | Use |
 |-----------|-------|-----|--------|-----|
 | Code Review | `code-review-expert` | N/A | Manual | Skill |
-| Code Search | N/A | `search_code_advanced` | `Grep` | MCP |
-| Symbol Search | N/A | `get_symbol_body` | Manual | MCP |
-| File Search | N/A | `find_files` | `Glob` | MCP |
-| Build Index | N/A | `build_deep_index` | N/A | MCP |
+| Code Search | N/A | `search_code_advanced` (CI) | `Grep` | MCP |
+| Symbol Search | N/A | `get_symbol_body` (CI) | Manual | MCP |
+| File Search | N/A | `find_files` (CI) | `Glob` | MCP |
+| Build Index | N/A | `build_deep_index` (CI) | N/A | MCP |
+| Relationship Analysis | N/A | `CG query` (CG) | Manual | MCP |
 
-**RULE: Use `code-review-expert` skill for review, MCP for search**
+**RULE: Use `code-review-expert` skill for review, MCP for search/relationships**
+
+**CG Server:** neo4j://localhost:7687 (CodeGraphContext for relationship analysis)
 
 ### Analysis Operations
 
@@ -236,6 +239,24 @@ with context: "Review changes in /src"
 = ~10K tokens (compressed)
 ```
 
+### Example 4: Relationship Analysis (CG)
+
+**Bad (Manual Multi-File):**
+```
+Grep for "functionName" across all files
+Manually trace imports
+Analyze call chains
+= ~50K tokens + time
+```
+
+**Good (CodeGraphContext MCP):**
+```
+CG query: "Find all callers of functionName"
+= ~5K tokens with complete relationship graph
+```
+
+**CG Server:** neo4j://localhost:7687
+
 ---
 
 ## Token Optimization Metrics
@@ -360,8 +381,9 @@ List/Kill --> desktop-commander skill
 ### Code Operations
 ```
 Review --> code-review-expert skill
-Search --> code-index-mcp
-Symbols --> code-index-mcp
+Search --> code-index-mcp (CI)
+Symbols --> code-index-mcp (CI)
+Relationships --> CodeGraphContext (CG) at neo4j://localhost:7687
 ```
 
 ### Analysis
@@ -371,6 +393,16 @@ Logic --> tractatus-thinking skill
 Debug --> debug-thinking skill
 Docs --> context7/deepwiki MCP
 ```
+
+---
+
+## All Three MCP Servers
+
+| Server | Purpose | Connection |
+|--------|---------|------------|
+| DC (Desktop Commander) | File/Process operations | MCP server |
+| CI (Code-Index) | Code search/symbol navigation | MCP server |
+| CG (CodeGraphContext) | Relationship analysis | neo4j://localhost:7687 |
 
 ---
 
@@ -416,7 +448,8 @@ This is the tool priority hierarchy. Follow it always.
 
 ---
 
-*Version: 1.0*
-*Last Updated: 2026-02-11*
+*Version: 1.1*
+*Last Updated: 2026-02-12*
 *Purpose: Enforce MCP tool usage for GSD workflows*
 *Target: 80-90% token savings across all GSD operations*
+*MCP Servers: DC, CI, CG (neo4j://localhost:7687)*
