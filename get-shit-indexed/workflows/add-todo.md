@@ -1,0 +1,232 @@
+<thinking>auto</thinking>
+
+<code_index_mcp>
+desktop_commander:
+  tools: ["read_file", "write_file"]
+  priority: 1
+  rationale: "Primary workflow for reading and writing todo files"
+native:
+  priority: 3
+  rationale: "Fallback only - MCP tools provide 80-90% token savings"
+</code_index_mcp>
+
+<purpose>Capture an idea, task, or issue that surfaces during a GSD session as a structured todo for later work. Enables "thought → capture → continue" flow without losing context.
+</purpose>
+
+<required_reading>
+Read all files referenced by the invoking prompt's execution_context before starting.
+</required_reading>
+
+<process>
+
+<step name="init_context">
+Load the todo context using MCP tools:
+
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+// MCP-based equivalent (80-90% token savings vs bash)
+const INIT = await mcp__desktop-commander__start_process({
+  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js init todos",
+  timeout_ms: 10000
+});
+```
+
+Extract from the init JSON: `commit_docs`, `date`, `timestamp`, `todo_count`, `todos`, `pending_dir`, `todos_dir_exists`.
+
+**Use MCP tool: mcp__desktop-commander__list_directory** to ensure directories exist:
+
+```javascript
+// MCP-based equivalent for checking directory structure
+const pendingDir = await mcp__desktop-commander__list_directory({
+  path: ".planning/todos/pending",
+  depth: 1
+});
+
+const doneDir = await mcp__desktop-commander__list_directory({
+  path: ".planning/todos/done",
+  depth: 1
+});
+
+// Create directories if needed using MCP tool
+if (!pendingDir.ok) {
+  await mcp__desktop-commander__create_directory({
+    path: ".planning/todos/pending"
+  });
+}
+if (!doneDir.ok) {
+  await mcp__desktop-commander__create_directory({
+    path: ".planning/todos/done"
+  });
+}
+```
+
+Note existing areas from the todos array for consistency in the infer_area step.
+</step>
+
+<step name="extract_content">
+**With arguments:** Use as the title/focus.
+- `/gsd:add-todo Add auth token refresh` → title = "Add auth token refresh"
+
+**Without arguments:** Analyze the recent conversation to extract:
+- The specific problem, idea, or task discussed
+- Relevant file paths mentioned
+- Technical details (error messages, line numbers, constraints)
+
+Formulate:
+- `title`: 3-10 word descriptive title (action verb preferred)
+- `problem`: What's wrong or why this is needed
+- `solution`: Approach hints or "TBD" if just an idea
+- `files`: Relevant paths with line numbers from conversation
+</step>
+
+<step name="infer_area">
+Infer the area from file paths:
+
+| Path pattern | Area |
+|--------------|------|
+| `src/api/*`, `api/*` | `api` |
+| `src/components/*`, `src/ui/*` | `ui` |
+| `src/auth/*`, `auth/*` | `auth` |
+| `src/db/*`, `database/*` | `database` |
+| `tests/*`, `__tests__/*` | `testing` |
+| `docs/*` | `docs` |
+| `.planning/*` | `planning` |
+| `scripts/*`, `bin/*` | `tooling` |
+| No files or unclear | `general` |
+
+Use existing area from step 2 if a similar match exists.
+</step>
+
+<step name="check_duplicates">
+**Use MCP tool: mcp__code-index-mcp__search_code_advanced** to search for existing todos
+
+```javascript
+// MCP-based equivalent for searching todos (80-90% token savings vs grep)
+const results = await mcp__code-index-mcp__search_code_advanced({
+  pattern: "[key words from title]",
+  path: ".planning/todos/pending",
+  filePattern: "*.md",
+  contextLines: 2
+});
+```
+
+If a potential duplicate is found:
+1. Read the existing todo using mcp__desktop-commander__read_file
+2. Compare the scope
+
+If overlapping, use AskUserQuestion:
+- header: "Duplicate?"
+- question: "Similar todo exists: [title]. What would you like to do?"
+- options:
+  - "Skip" — keep the existing todo
+  - "Replace" — update the existing with new context
+  - "Add anyway" — create as a separate todo
+</step>
+
+<step name="create_file">
+Use values from init context: `timestamp` and `date` are already available.
+
+Generate a slug for the title using MCP process tool:
+
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```javascript
+const slug = await mcp__desktop-commander__start_process({
+  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js generate-slug "$title" --raw`,
+  timeout_ms: 10000
+});
+```
+
+**Use MCP tool: mcp__desktop-commander__write_file** to write the todo:
+
+```javascript
+// MCP-based equivalent for file writing
+await mcp__desktop-commander__write_file({
+  path: `.planning/todos/pending/${date}-${slug}.md`,
+  content: `---
+created: [timestamp]
+title: [title]
+area: [area]
+files:
+  - [file:lines]
+---
+
+## Problem
+
+[problem description - enough context for future Claude to understand weeks later]
+
+## Solution
+
+[approach hints or "TBD"]
+`
+});
+```
+</step>
+
+<step name="update_state">
+If `.planning/STATE.md` exists:
+
+1. Use `todo_count` from init context (or re-run `init todos` if count changed)
+2. Update "### Pending Todos" under "## Accumulated Context"
+
+**Use MCP tools: mcp__desktop-commander__read_file and mcp__desktop-commander__edit_block**
+
+```javascript
+// Read and update STATE.md
+const stateContent = await mcp__desktop-commander__read_file({
+  path: ".planning/STATE.md"
+});
+
+// Use edit_block to update the todo count section
+await mcp__desktop-commander__edit_block({
+  file_path: ".planning/STATE.md",
+  old_string: "### Pending Todos\n[existing content]",
+  new_string: "### Pending Todos\n[updated content with new count]"
+});
+```
+</step>
+
+<step name="git_commit">
+Commit the todo and any updated state using MCP process tool:
+
+**Use MCP tool: mcp__desktop-commander__start_process**
+
+```bash
+node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs: capture todo - [title]" --files .planning/todos/pending/[filename] .planning/STATE.md
+```
+
+Tool respects `commit_docs` config and gitignore automatically.
+
+Confirm: "Committed: docs: capture todo - [title]"
+</step>
+
+<step name="confirm">
+```
+Todo saved: .planning/todos/pending/[filename]
+
+  [title]
+  Area: [area]
+  Files: [count] referenced
+
+---
+
+Would you like to:
+
+1. Continue with current work
+2. Add another todo
+3. View all todos (/gsd:check-todos)
+```
+</step>
+
+</process>
+
+<success_criteria>
+- [ ] Directory structure exists
+- [ ] Todo file created with valid frontmatter
+- [ ] Problem section has enough context for future Claude
+- [ ] No duplicates (checked and resolved)
+- [ ] Area consistent with existing todos
+- [ ] STATE.md updated if exists
+- [ ] Todo and state committed to git
+</success_criteria>
