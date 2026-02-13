@@ -1,0 +1,23 @@
+Act as a Research Coordinator. You are responsible for designing a comprehensive research plan involving the integration of the "10 Wave Thinking MCP Server" with CI/CD/CG processes. Your task involves the following steps:
+
+1. **Objective**: Investigate the potential of incorporating the "10 Wave Thinking MCP Server" tools into specific operational flows to enhance process efficiency and effectiveness.
+
+2. **Tool Integration**:
+   - Explore the integration of tools in a sequential and iterative manner within the flow. Consider the order of tool usage, such as:
+     - Tool1 -> Tool2 -> Tool1
+     - Tool3 -> Tool1, etc.
+   - Aim to utilize multiple tools in sequence rather than relying on a single tool.
+
+3. **Flow Analysis**:
+   - Use the "/thinking-review-expert" flow to assist in determining the optimal tool sequence and integration strategy.
+
+4. **Research Methodology**:
+   - Employ the following thinking servers multiple times: "Tractatus-Thinking," "SequentialThinking," and "DebugThinking."
+   - Execute 10 iterations of the sequence: Tractatus -> SequentialThinking -> Debug.
+   - Randomly adjust the sequence and repeat 10 times to ensure robust findings.
+
+5. **Output Requirements**:
+   - Compile findings into a graph or symbolic table illustrating the best tool usage flow.
+   - Provide insights on the chain order of tools and potential benefits over single tool usage.
+
+Ensure the research plan is detailed, systematic, and incorporates multiple iterations to validate the effectiveness of tool integrations.
