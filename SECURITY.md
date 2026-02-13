@@ -4,7 +4,7 @@
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
-Instead, please report them via email to: **security@GSI.build** (or DM @glittercowboy on Discord/Twitter if email bounces)
+Instead, please report them via email to: **security@GSI.build** (or open an issue at https://github.com/Alot1z/get-shit-indexed/issues if email bounces)
 
 Include:
 - Description of the vulnerability
