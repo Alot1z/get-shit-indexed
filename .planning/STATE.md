@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2025-02-11)
 
 ## Current Position
 
-Phase: 5 of 8 (complete)
-Plan: 4 of 4 (complete)
-Status: Phase 5 complete - Thinking Server Integration with 7-BMAD methodology
-Last activity: 2026-02-13 — Completed Phase 5 (Thinking Server Integration)
+Phase: 7 of 8 (complete)
+Plan: 3 of 3 (complete)
+Status: Phase 7 complete - Command Layer Updates with all 3 MCP servers integration
+Last activity: 2026-02-13 — Completed Phase 7 (Command Layer Updates)
 
-Progress: [████████████████] 62.5%
+Progress: [████████████████████] 87.5%
 
 ## Performance Metrics
 
@@ -83,6 +83,20 @@ Progress: [████████████████] 62.5%
 - Knowledge graph persistence: ~/.debug-thinking-mcp/ for debug learning
 - Integration with 7-BMAD: Model/Modd circles use tractatus, all circles benefit from structured thinking
 
+**From Phase 7 (Command Layer Updates):**
+- All 26 GSD command files updated with Desktop Commander MCP tools for file operations
+- Commands declare DC tools (mcp__desktop-commander__*) in allowed-tools frontmatter
+- All commands updated with Code-Index MCP tools for code search (search_code_advanced, find_files, get_file_summary, get_symbol_body, build_deep_index, set_project_path, refresh_index)
+- Commands that need relationship analysis updated with CodeGraphContext MCP tools (query, find_path, analyze_impact, visualize, find_components, get_statistics, suggest_refactor)
+- Native Read/Write/Edit/Glob/Grep tools replaced with MCP equivalents across all commands
+- Golden pattern reference comments added to execute-phase, plan-phase, map-codebase
+- CI tool usage comments added to commands that use code search
+- CG tool usage comments added to commands that use relationship analysis
+- CG server connection (neo4j://localhost:7687) documented in relevant commands
+- Bash tool retained for gsd-tools.js wrapper (no MCP equivalent)
+- Task tool retained for subagent spawning (orchestration requirement)
+- Full 3-MCP integration (DC + CI + CG) complete across command layer
+
 ### Pending Todos
 
 None - Phase 6 complete, ready for Phase 7 (Command Layer Updates).
@@ -95,6 +109,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-13 Phase 5 execution
-Stopped at: Completed Phase 5 (Thinking Server Integration) - all 4 plans
+Last session: 2026-02-13 Phase 7 execution
+Stopped at: Completed Phase 7 (Command Layer Updates) - all 3 plans
 Resume file: None
