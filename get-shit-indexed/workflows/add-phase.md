@@ -1,4 +1,4 @@
-<thinking>auto</thinking>
+﻿<thinking>auto</thinking>
 
 <purpose>
 Add a new integer phase to the end of the current milestone in the roadmap. Automatically calculates the next phase number, creates the phase directory, and updates the roadmap structure.
@@ -27,15 +27,15 @@ Read all files referenced by the invoking prompt's execution_context before star
 <step name="parse_arguments">
 Parse the command arguments:
 - All arguments become the phase description
-- Example: `/gsd:add-phase Add authentication` → description = "Add authentication"
-- Example: `/gsd:add-phase Fix critical performance issues` → description = "Fix critical performance issues"
+- Example: `/GSI:add-phase Add authentication` → description = "Add authentication"
+- Example: `/GSI:add-phase Fix critical performance issues` → description = "Fix critical performance issues"
 
 If no arguments are provided:
 
 ```
 ERROR: Phase description required
-Usage: /gsd:add-phase <description>
-Example: /gsd:add-phase Add authentication system
+Usage: /GSI:add-phase <description>
+Example: /GSI:add-phase Add authentication system
 ```
 
 Exit.
@@ -49,7 +49,7 @@ Load the phase operation context using MCP tools:
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 const INIT = await mcp__desktop-commander__start_process({
-  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js init phase-op \"0\"",
+  command: "node ~/.claude/get-shit-indexed/bin/GSI-tools.js init phase-op \"0\"",
   timeout_ms: 10000
 });
 ```
@@ -57,20 +57,20 @@ const INIT = await mcp__desktop-commander__start_process({
 Check `roadmap_exists` from the init JSON. If false:
 ```
 ERROR: No roadmap found (.planning/ROADMAP.md)
-Run /gsd:new-project to initialize.
+Run /GSI:new-project to initialize.
 ```
 Exit.
 </step>
 
 <step name="add_phase">
-**Delegate the phase addition to gsd-tools:**
+**Delegate the phase addition to GSI-tools:**
 
 **Use MCP tool: mcp__desktop-commander__start_process**
 
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 const RESULT = await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js phase add "${description}"`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js phase add "${description}"`,
   timeout_ms: 15000
 });
 ```
@@ -124,14 +124,14 @@ Roadmap updated: .planning/ROADMAP.md
 
 **Phase {N}: {description}**
 
-`/gsd:plan-phase {N}`
+`/GSI:plan-phase {N}`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- `/gsd:add-phase <description>` — add another phase
+- `/GSI:add-phase <description>` — add another phase
 - Review the roadmap
 
 ---
@@ -141,7 +141,7 @@ Roadmap updated: .planning/ROADMAP.md
 </process>
 
 <success_criteria>
-- [ ] `gsd-tools phase add` executed successfully
+- [ ] `GSI-tools phase add` executed successfully
 - [ ] Phase directory created
 - [ ] Roadmap updated with the new phase entry
 - [ ] STATE.md updated with the roadmap evolution note

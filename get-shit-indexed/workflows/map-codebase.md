@@ -1,4 +1,4 @@
-<thinking>auto</thinking>
+﻿<thinking>auto</thinking>
 
 <purpose>
 Orchestrate parallel codebase mapper agents to analyze codebase and produce structured documents in .planning/codebase/
@@ -84,7 +84,7 @@ rate_limiting:
 Load codebase mapping context:
 
 ```bash
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js init map-codebase)
+INIT=$(node ~/.claude/get-shit-indexed/bin/GSI-tools.js init map-codebase)
 ```
 
 Extract from init JSON: `mapper_model`, `commit_docs`, `codebase_dir`, `existing_maps`, `has_maps`, `codebase_dir_exists`.
@@ -140,7 +140,7 @@ Continue to spawn_agents.
 </step>
 
 <step name="spawn_agents">
-Spawn 4 parallel gsd-codebase-mapper agents using **wave-based execution** with rate limiting.
+Spawn 4 parallel GSI-codebase-mapper agents using **wave-based execution** with rate limiting.
 
 **Wave-Based Architecture:**
 
@@ -200,7 +200,7 @@ On spawn:
 AGENT_ID="mapper-${FOCUS}-$(date -u +%Y%m%d-%H%M%S)"
 
 # Add to agent-history.json
-node ~/.claude/get-shit-done/bin/gsd-tools.js track-agent "$AGENT_ID" "$FOCUS" "spawned"
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js track-agent "$AGENT_ID" "$FOCUS" "spawned"
 
 # Write current agent ID for resumption
 echo "$AGENT_ID" > .planning/current-agent-id.txt
@@ -209,21 +209,21 @@ echo "$AGENT_ID" > .planning/current-agent-id.txt
 On completion:
 ```bash
 # Update agent status in history
-node ~/.claude/get-shit-done/bin/gsd-tools.js track-agent "$AGENT_ID" "$FOCUS" "completed" --docs "$DOCUMENTS"
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js track-agent "$AGENT_ID" "$FOCUS" "completed" --docs "$DOCUMENTS"
 
 # Clean up current agent ID
 rm -f .planning/current-agent-id.txt
 ```
 
-Use Task tool with `subagent_type="gsd-codebase-mapper"`, `model="{mapper_model}"`, and `run_in_background=true` for parallel execution.
+Use Task tool with `subagent_type="GSI-codebase-mapper"`, `model="{mapper_model}"`, and `run_in_background=true` for parallel execution.
 
-**CRITICAL:** Use the dedicated `gsd-codebase-mapper` agent, NOT `Explore`. The mapper agent writes documents directly.
+**CRITICAL:** Use the dedicated `GSI-codebase-mapper` agent, NOT `Explore`. The mapper agent writes documents directly.
 
 **Agent 1: Tech Focus**
 
 Task tool parameters:
 ```
-subagent_type: "gsd-codebase-mapper"
+subagent_type: "GSI-codebase-mapper"
 model: "{mapper_model}"
 run_in_background: true
 description: "Map codebase tech stack"
@@ -246,7 +246,7 @@ Explore thoroughly. Write documents directly using templates. Return confirmatio
 
 Task tool parameters:
 ```
-subagent_type: "gsd-codebase-mapper"
+subagent_type: "GSI-codebase-mapper"
 model: "{mapper_model}"
 run_in_background: true
 description: "Map codebase architecture"
@@ -269,7 +269,7 @@ Explore thoroughly. Write documents directly using templates. Return confirmatio
 
 Task tool parameters:
 ```
-subagent_type: "gsd-codebase-mapper"
+subagent_type: "GSI-codebase-mapper"
 model: "{mapper_model}"
 run_in_background: true
 description: "Map codebase conventions"
@@ -292,7 +292,7 @@ Explore thoroughly. Write documents directly using templates. Return confirmatio
 
 Task tool parameters:
 ```
-subagent_type: "gsd-codebase-mapper"
+subagent_type: "GSI-codebase-mapper"
 model: "{mapper_model}"
 run_in_background: true
 description: "Map codebase concerns"
@@ -372,7 +372,7 @@ For each wave, verify completion before starting the next wave:
 
 ```bash
 # Check agent status for all agents in current wave
-node ~/.claude/get-shit-done/bin/gsd-tools.js check-wave-complete --wave 1
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js check-wave-complete --wave 1
 
 # Expected output:
 # Wave 1 Status:
@@ -459,7 +459,7 @@ If any agent failed, note the failure and continue with successful documents.
 
 ```bash
 # Check for failed agents in wave
-node ~/.claude/get-shit-done/bin/gsd-tools.js list-failed-agents --wave 1
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js list-failed-agents --wave 1
 
 # If any failed, offer retry option:
 # "Agent mapper-quality-xxx failed. Retry? [y/N]"
@@ -524,7 +524,7 @@ Continue to commit_codebase_map.
 Commit the codebase map:
 
 ```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs: map existing codebase" --files .planning/codebase/*.md
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit "docs: map existing codebase" --files .planning/codebase/*.md
 ```
 
 Continue to offer_next.
@@ -559,14 +559,14 @@ Created .planning/codebase/:
 
 **Initialize project** — use codebase context for planning
 
-`/gsd:new-project`
+`/GSI:new-project`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- Re-run mapping: `/gsd:map-codebase`
+- Re-run mapping: `/GSI:map-codebase`
 - Review specific file: `cat .planning/codebase/STACK.md`
 - Edit any document before proceeding
 
@@ -580,10 +580,10 @@ End workflow.
 
 <success_criteria>
 - .planning/codebase/ directory created
-- 4 parallel gsd-codebase-mapper agents spawned with run_in_background=true
+- 4 parallel GSI-codebase-mapper agents spawned with run_in_background=true
 - Agents write documents directly (orchestrator doesn't receive document contents)
 - Read agent output files to collect confirmations
 - All 7 codebase documents exist
 - Clear completion summary with line counts
-- User offered clear next steps in GSD style
+- User offered clear next steps in GSI style
 </success_criteria>

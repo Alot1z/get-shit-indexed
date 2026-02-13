@@ -1,4 +1,4 @@
-<thinking>auto</thinking>
+﻿<thinking>auto</thinking>
 
 <code_index_mcp>
 desktop_commander:
@@ -27,7 +27,7 @@ Load the todo context using MCP tools:
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 const INIT = await mcp__desktop-commander__start_process({
-  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js init todos",
+  command: "node ~/.claude/get-shit-indexed/bin/GSI-tools.js init todos",
   timeout_ms: 10000
 });
 ```
@@ -38,22 +38,22 @@ If `todo_count` is 0:
 ```
 No pending todos.
 
-Todos are captured during work sessions with /gsd:add-todo.
+Todos are captured during work sessions with /GSI:add-todo.
 
 ---
 
 Would you like to:
 
-1. Continue with current phase (/gsd:progress)
-2. Add a todo now (/gsd:add-todo)
+1. Continue with current phase (/GSI:progress)
+2. Add a todo now (/GSI:add-todo)
 ```
 Exit.
 </step>
 
 <step name="parse_filter">
 Check for area filter in arguments:
-- `/gsd:check-todos` → show all
-- `/gsd:check-todos api` → filter to area:api only
+- `/GSI:check-todos` → show all
+- `/GSI:check-todos api` → filter to area:api only
 </step>
 
 <step name="list_todos">
@@ -71,7 +71,7 @@ Pending Todos:
 ---
 
 Reply with a number to view details, or:
-- `/gsd:check-todos [area]` to filter by area
+- `/GSI:check-todos [area]` to filter by area
 - `q` to exit
 ```
 
@@ -156,7 +156,7 @@ Use AskUserQuestion:
 - question: "What would you like to do with this todo?"
 - options:
   - "Work on it now" — move to done, start working
-  - "Create a phase" — /gsd:add-phase with this scope
+  - "Create a phase" — /GSI:add-phase with this scope
   - "Brainstorm approach" — think through before deciding
   - "Put it back" — return to list
 </step>
@@ -180,7 +180,7 @@ Update STATE.md todo count. Present problem/solution context. Begin work or ask 
 Note todo reference in phase planning notes. Keep in pending. Return to list or exit.
 
 **Create a phase:**
-Display: `/gsd:add-phase [description from todo]`
+Display: `/GSI:add-phase [description from todo]`
 Keep in pending. User runs command in fresh context.
 
 **Brainstorm approach:**
@@ -202,7 +202,7 @@ If todo was moved to done/, commit the change using MCP process tool:
 **Use MCP tool: mcp__desktop-commander__start_process**
 
 ```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs: start work on todo - [title]" --files .planning/todos/done/[filename] .planning/STATE.md
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit "docs: start work on todo - [title]" --files .planning/todos/done/[filename] .planning/STATE.md
 ```
 
 Tool respects `commit_docs` config and gitignore automatically.

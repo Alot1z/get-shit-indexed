@@ -1,4 +1,4 @@
-<thinking>auto</thinking>
+﻿<thinking>auto</thinking>
 
 <code_index_mcp>
 desktop_commander:
@@ -10,7 +10,7 @@ native:
   rationale: "Fallback only - MCP tools provide 80-90% token savings"
 </code_index_mcp>
 
-<purpose>Capture an idea, task, or issue that surfaces during a GSD session as a structured todo for later work. Enables "thought → capture → continue" flow without losing context.
+<purpose>Capture an idea, task, or issue that surfaces during a GSI session as a structured todo for later work. Enables "thought → capture → continue" flow without losing context.
 </purpose>
 
 <required_reading>
@@ -27,7 +27,7 @@ Load the todo context using MCP tools:
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 const INIT = await mcp__desktop-commander__start_process({
-  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js init todos",
+  command: "node ~/.claude/get-shit-indexed/bin/GSI-tools.js init todos",
   timeout_ms: 10000
 });
 ```
@@ -66,7 +66,7 @@ Note existing areas from the todos array for consistency in the infer_area step.
 
 <step name="extract_content">
 **With arguments:** Use as the title/focus.
-- `/gsd:add-todo Add auth token refresh` → title = "Add auth token refresh"
+- `/GSI:add-todo Add auth token refresh` → title = "Add auth token refresh"
 
 **Without arguments:** Analyze the recent conversation to extract:
 - The specific problem, idea, or task discussed
@@ -133,7 +133,7 @@ Generate a slug for the title using MCP process tool:
 
 ```javascript
 const slug = await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js generate-slug "$title" --raw`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js generate-slug "$title" --raw`,
   timeout_ms: 10000
 });
 ```
@@ -193,7 +193,7 @@ Commit the todo and any updated state using MCP process tool:
 **Use MCP tool: mcp__desktop-commander__start_process**
 
 ```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs: capture todo - [title]" --files .planning/todos/pending/[filename] .planning/STATE.md
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit "docs: capture todo - [title]" --files .planning/todos/pending/[filename] .planning/STATE.md
 ```
 
 Tool respects `commit_docs` config and gitignore automatically.
@@ -215,7 +215,7 @@ Would you like to:
 
 1. Continue with current work
 2. Add another todo
-3. View all todos (/gsd:check-todos)
+3. View all todos (/GSI:check-todos)
 ```
 </step>
 

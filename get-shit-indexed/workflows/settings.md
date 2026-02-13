@@ -1,4 +1,4 @@
-<thinking>auto</thinking>
+﻿<thinking>auto</thinking>
 
 <code_index_mcp>
 desktop_commander:
@@ -27,7 +27,7 @@ Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 - mcp__desktop-commander__write_file — Write updated config
 
 **Process Operations:**
-- mcp__desktop-commander__start_process — Run gsd-tools.js config commands
+- mcp__desktop-commander__start_process — Run GSI-tools.js config commands
 
 Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </tool_requirements>
@@ -46,7 +46,7 @@ const CONFIG_JSON = await mcp__desktop-commander__read_file({
 });
 
 await mcp__desktop-commander__start_process({
-  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js config-init",
+  command: "node ~/.claude/get-shit-indexed/bin/GSI-tools.js config-init",
   timeout_ms: 10000
 });
 ```
@@ -58,7 +58,7 @@ Display current config with menu for toggles.
 Present settings menu:
 
 ```
-## GSD Settings
+## GSI Settings
 
 **Current Configuration:**
 
@@ -72,23 +72,23 @@ Model Profile: [quality | balanced | budget]
 
 ## Toggle Mode
 
-/gsd:settings --mode [interactive|yolo]
+/GSI:settings --mode [interactive|yolo]
 
 ## Set Depth
 
-/gsd:settings --depth [quick|standard|comprehensive]
+/GSI:settings --depth [quick|standard|comprehensive]
 
 ## Toggle Parallelization
 
-/gsd:settings --parallelization [true|false]
+/GSI:settings --parallelization [true|false]
 
 ## Toggle Commit Docs
 
-/gsd:settings --commit-docs [true|false]
+/GSI:settings --commit-docs [true|false]
 
 ## Set Model Profile
 
-/gsd:settings --profile [quality|balanced|budget]
+/GSI:settings --profile [quality|balanced|budget]
 
 ---
 
@@ -105,7 +105,7 @@ Apply selected setting using MCP tools:
 
 ```javascript
 await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js config-set ${KEY} ${VALUE}`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js config-set ${KEY} ${VALUE}`,
   timeout_ms: 10000
 });
 ```
@@ -125,7 +125,7 @@ Commit config changes:
 
 ```javascript
 await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js commit "chore: update GSD settings" --files .planning/config.json`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit "chore: update GSI settings" --files .planning/config.json`,
   timeout_ms: 10000
 });
 ```
