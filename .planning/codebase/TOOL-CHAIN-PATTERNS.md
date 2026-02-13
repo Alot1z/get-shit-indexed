@@ -1,7 +1,10 @@
 # Tool Chain Pattern Catalog
 
 **Created:** 2026-02-11
+**Updated:** 2026-02-12
 **Purpose:** Catalog of proven tool chain patterns for GSD workflow selection
+
+**CG Server Status:** ✅ CodeGraphContext operational at neo4j://localhost:7687
 
 ---
 
