@@ -784,6 +784,53 @@ Example: "TypeError undefined"
 *Last Updated: 2026-02-13*
 *Phase: 05-thinking-server-integration*
 
+---
+
+## Tool Chain Integration Guide
+
+### Tool Chain Selection Matrix
+
+| Thinking Server | Best For | Primary MCP | Token Efficiency |
+|----------------|----------|-------------|------------------|
+| Sequential | Multi-step planning → CI/DC execution | CI/DC | ~2K for 5-7 thoughts |
+| Tractatus | Structure → CG mapping | CG | ~2K for 10-20 propositions |
+| Debug | Investigation → DC experiments | DC/Debug | ~1-2K for 3-10 nodes |
+
+### When to Combine Thinking + MCP Servers
+
+**Use Sequential + CI for:**
+- Multi-step code analysis
+- Complex codebase understanding
+- Structured investigation
+
+**Use Tractatus + CG for:**
+- Architectural mapping
+- Relationship discovery
+- Complete structure documentation
+
+**Use Debug + DC for:**
+- Systematic bug fixing
+- Experiment-based debugging
+- Knowledge capture
+
+**Use Sequential + DC for:**
+- Planned file operations
+- Sequential edits with verification
+- Multi-step refactoring
+
+### Token Optimization for Combined Patterns
+
+1. **One thinking session covers multiple MCP operations**
+2. **Batch MCP calls based on thinking server output**
+3. **Reuse thinking context across related operations**
+4. **Export thinking results for documentation reuse**
+
+### Reference to TOOL-CHAIN-PATTERNS.md
+
+- "See TOOL-CHAIN-PATTERNS.md for detailed variant patterns"
+- "See decision tree for thinking-aware tool selection"
+- "See examples for practical combined patterns"
+
 
 
 1. **Combine Related Thoughts**: "Analyze X + Consider Y + Propose Z" in single thought
