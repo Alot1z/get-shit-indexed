@@ -1,0 +1,4 @@
+{
+  "preSession": ["start-cg-server.ps1"],
+  "postSession": []
+}
