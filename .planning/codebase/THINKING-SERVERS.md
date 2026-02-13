@@ -153,9 +153,292 @@ Thought 7: "Verify Methodd Circle - Is documentation complete?"
 
 ---
 
-## Token-Efficient Thinking Patterns
+## Tractatus Thinking Server
+
+### Server Tool
+
+`mcp__tractatus-thinking__tractatus_thinking`
+
+### Operations
+
+| Operation | Description | Key Parameters |
+|-----------|-------------|----------------|
+| `start` | Begin analysis with concept | `concept`, `depth_limit` (default: 5), `style` (analytical/exhaustive/creative) |
+| `add` | Build understanding by adding propositions | `session_id`, `content`, `parent_number`, `is_atomic` |
+| `navigate` | Move between propositions | `session_id`, `target` (parent/child/sibling/root), `child_index` |
+| `export` | Capture insights in format | `session_id`, `format` (markdown/json/graphviz) |
+| `analyze` | Check completeness of analysis | `session_id` |
+| `revise` | Refine propositions | `session_id`, `proposition_number`, `new_content` |
+| `undo` | Reconsider previous steps | `session_id`, `confirm_orphaning` |
+| `move` | Restructure propositions | `session_id`, `proposition_number`, `new_parent_number`, `new_position` |
+
+### Key Concepts
+
+- **Propositions**: Atomic truths that cannot be decomposed further
+- **Logical structure**: Hierarchy of propositions showing dependencies
+- **Atomic vs complex**: Some propositions are atomic, others decompose further
+- **Multiplicative relationships**: A x B x C - all factors must be present
+- **Logical architecture**: Shows WHY things work, not just WHAT
+
+### Use Cases
+
+Tractatus thinking is ideal for:
+
+- **Breaking down complex concepts into atomic truths**: Concept decomposition
+- **Understanding with room for restructuring**: Flexible analysis
+- **Analysis where bundled ideas hide real problems**: Unbundling complexity
+- **Concepts with unclear logical structure**: Structure clarification
+- **Problems requiring multiplicative understanding**: Finding all required factors
+- **Tasks needing separation of essential vs accidental**: Distinguishing what matters
+
+### Strategic Sequencing
+
+**Use THIS FIRST for WHAT (structure/logic)**
+- Analyze architecture and dependencies
+- Decompose concepts into propositions
+- Identify multiplicative relationships
+
+**Switch to sequential thinking for HOW (process/steps)**
+- Plan implementation steps
+- Design execution flow
+- Create task breakdown
+
+**Return to tractatus to formalize and verify**
+- Verify structural completeness
+- Export final architecture
+- Document logical dependencies
+
+### Tool Priority
+
+- **Priority**: 2 (Secondary use for architectural decisions)
+- **Rationale**: Supports structural analysis and architectural verification
+- **Integration**: Works with CG for relationship mapping, DC for implementation
+
+---
+
+## Logical Structure Analysis Patterns
+
+### Pattern 1: Concept Decomposition
+
+**Use when**: Analyzing a complex concept or requirement
+
+**Process**:
+1. Start operation with concept question: "What is X?"
+2. Add operation to break into propositions
+3. Mark atomic propositions (is_atomic: true)
+4. Identify multiplicative relationships (A x B x C)
+
+**Example**:
+```
+Concept: "What is authentication?"
+
+Propositions:
+1. Authentication requires identity verification (atomic)
+2. Authentication requires credential validation (atomic)
+3. Authentication requires session establishment (atomic)
+4. Authentication = identity x credential x session (multiplicative)
+```
+
+### Pattern 2: Architecture Analysis
+
+**Use when**: Analyzing system or component architecture
+
+**Process**:
+1. Start with "Analyze X architecture"
+2. Add propositions for each architectural layer
+3. Find dependencies between propositions
+4. Export to graphviz for visualization
+
+**Example**:
+```
+Concept: "Analyze user management architecture"
+
+Propositions:
+1. User model defines data structure
+2. Auth service handles authentication
+3. Profile service manages user data
+4. Admin panel provides oversight
+5. Auth service depends on User model
+6. Profile service depends on User model
+```
+
+### Pattern 3: Problem Clarification
+
+**Use when**: Concepts feel fuzzy or bundled
+
+**Process**:
+1. Start with fuzzy concept
+2. Separate bundled concepts at any level
+3. Reveal dependencies between propositions
+4. Identify ONE missing element preventing success
+
+**Example**:
+```
+Concept: "Improve performance"
+
+Decomposed:
+1. Performance = latency x throughput x resources
+2. Latency: Response time optimization
+3. Throughput: Request processing capacity
+4. Resources: CPU, memory, I/O
+5. Missing: Only latency addressed, not throughput
+```
+
+### Pattern 4: Verification
+
+**Use when**: Verifying structural completeness
+
+**Process**:
+1. Use analyze operation to check completeness
+2. Verify all propositions are supported
+3. Check for multiplicative failures
+4. Confirm logical necessity vs correlation
+
+**Integration with 7-BMAD**:
+- **Model Circle**: Use tractatus for architecture alignment verification
+- **Modd Circle**: Use tractatus for extensibility analysis
+- Export format: markdown for documentation
+
+---
+
+## Tractatus Integration Examples
+
+### Example 1: Architecture Decision Analysis
+
+**Scenario**: "Microservices vs Monolith"
+
+**Process**:
+```
+1. Start operation
+   Concept: "Analyze microservices vs monolith architecture"
+   Depth limit: 5
+
+2. Add propositions
+   - 1. Microservices enable independent deployment
+   - 2. Microservices require service mesh
+   - 3. Microservices increase operational complexity
+   - 4. Monolith simplifies deployment
+   - 5. Monolith limits scaling granularity
+   - 6. Decision = scaling x complexity x team_size
+
+3. Analyze operation
+   Result: Architecture decision depends on 3 multiplicative factors
+
+4. Export to markdown
+   Output: Complete decision rationale with dependencies
+```
+
+### Example 2: Failure Analysis
+
+**Scenario**: "System failing despite all components working"
+
+**Process**:
+```
+1. Start operation
+   Concept: "Analyze why system fails when components work"
+
+2. Add propositions
+   - 1. Component A works individually
+   - 2. Component B works individually
+   - 3. Component C works individually
+   - 4. Integration = A x B x C (multiplicative)
+   - 5. Missing factor: Data consistency between B and C
+
+3. Navigate to find dependencies
+   Result: ONE missing factor (data consistency) blocking system
+
+4. Export findings
+   Output: Clear identification of blocking issue
+```
+
+### Example 3: Concept Clarification
+
+**Scenario**: "Fuzzy requirement: improve performance"
+
+**Process**:
+```
+1. Start operation
+   Concept: "Analyze performance improvement requirements"
+
+2. Add propositions
+   - 1. Performance = latency x throughput x resources
+   - 2. Latency: Response time < 100ms
+   - 3. Throughput: 1000 requests/second
+   - 4. Resources: CPU < 80%, memory < 70%
+   - 5. All factors must be satisfied (multiplicative)
+
+3. Export to markdown
+   Output: Clear, actionable requirements with metrics
+```
+
+### Integration with Sequential Thinking
+
+**Workflow**: Tractatus (structure) → Sequential (process) → Tractatus (verify)
+
+```
+1. Tractatus Thinking - Start operation
+   Concept: "Analyze authentication architecture"
+   → Decompose into propositions
+
+2. Sequential Thinking - Plan implementation
+   Thought 1: "Implement JWT token generation"
+   Thought 2: "Create authentication middleware"
+   Thought 3: "Add session management"
+   → Generate step-by-step plan
+
+3. Tractatus Thinking - Verify structure
+   Analyze operation: Check completeness
+   Export operation: Document final architecture
+   → Verify all propositions satisfied
+```
+
+---
+
+## Token-Efficient Tractatus Patterns
 
 ### Compression Strategies
+
+1. **Start with thoughts parameter**: Quick mode using raw thoughts for faster analysis
+2. **Limit depth to 3-5 levels**: Use depth_limit parameter to avoid over-decomposition
+3. **Export only final structure**: Skip intermediate exports, only export final result
+4. **Use navigate instead of repeated add**: Move between existing propositions
+
+### When to Use Tractatus
+
+**Use**:
+- Architecture decisions (multiple options with tradeoffs)
+- Fuzzy concepts (bundled requirements hiding real issues)
+- Multiplicative problems (all factors must be present)
+
+**Skip**:
+- Simple CRUD (clear requirements)
+- Single-factor issues (one dependency)
+- Straightforward tasks (obvious structure)
+
+### Sizing Guidelines
+
+| Complexity | Propositions | Depth Limit | Total Tokens |
+|------------|-------------|-------------|--------------|
+| Simple concepts | 5-10 | 3 | ~1K |
+| Architecture analysis | 10-20 | 4-5 | ~2K |
+| Complex systems | 20+ | 5+ (consider splitting) | ~3K+ |
+
+### Integration Flow
+
+**Tractatus (structure) → Sequential (process) → Tractatus (verify)**
+
+```
+Example: "Analyze auth architecture"
+1. Tractatus: Start → Add propositions → Analyze completeness
+2. Sequential: Plan implementation steps → Execute
+3. Tractatus: Verify structure → Export to markdown
+```
+
+---
+
+*Last Updated: 2026-02-13*
+*Phase: 05-thinking-server-integration*
+
 
 1. **Combine Related Thoughts**: "Analyze X + Consider Y + Propose Z" in single thought
 2. **Use Thought Numbers Strategically**: Skip intermediate states when possible
