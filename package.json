@@ -27,11 +27,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/glittercowboy/get-shit-indexed.git"
+    "url": "git+https://github.com/Alot1z/get-shit-indexed.git"
   },
-  "homepage": "https://github.com/glittercowboy/get-shit-indexed",
+  "homepage": "https://github.com/Alot1z/get-shit-indexed",
   "bugs": {
-    "url": "https://github.com/glittercowboy/get-shit-indexed/issues"
+    "url": "https://github.com/Alot1z/get-shit-indexed/issues"
   },
   "engines": {
     "node": ">=16.7.0"
