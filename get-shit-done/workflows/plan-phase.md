@@ -25,6 +25,17 @@ native:
 
 **Use MCP tool: mcp__context7__resolve-library-id and mcp__context7__get-library-docs** for library research
 
+**Use MCP tool: mcp__sequential-thinking__sequentialthinking** for complex planning:
+- Multi-step problem decomposition (3-7 thoughts typical)
+- Planning with room for revision (isRevision parameter)
+- Hypothesis generation and verification
+
+**Use MCP tool: mcp__tractatus-thinking__tractatus_thinking** for logical structure analysis:
+- Concept decomposition into atomic propositions
+- Architecture analysis before planning
+- Verification of structural completeness
+- Export to markdown/graphviz for documentation
+
 @~/.claude/get-shit-done/references/ui-brand.md
 </required_reading>
 
@@ -109,6 +120,84 @@ const docs = await mcp__context7__get-library-docs({
   context7CompatibleLibraryID: libId,
   topic: "[specific topic]",
   mode: "code" // for API reference, "info" for conceptual
+});
+```
+
+## 5.5. Apply Sequential Thinking (for complex phases)
+
+**For complex phases (5+ plans or architectural decisions):**
+
+**Use MCP tool: mcp__sequential-thinking__sequentialthinking**
+
+```javascript
+// Sequential thinking for multi-step problem decomposition
+const thoughts = [
+  {
+    thought: "Analyze phase requirements and identify key components",
+    nextThoughtNeeded: true,
+    thoughtNumber: 1,
+    totalThoughts: 5
+  },
+  {
+    thought: "Break down phase into logical plan sequence",
+    nextThoughtNeeded: true,
+    thoughtNumber: 2,
+    totalThoughts: 5
+  },
+  {
+    thought: "Identify dependencies between plans",
+    nextThoughtNeeded: true,
+    thoughtNumber: 3,
+    totalThoughts: 5
+  },
+  {
+    thought: "Generate task breakdown for each plan",
+    nextThoughtNeeded: true,
+    thoughtNumber: 4,
+    totalThoughts: 5
+  },
+  {
+    thought: "Hypothesis: Phase structure complete with all dependencies mapped",
+    nextThoughtNeeded: false,
+    thoughtNumber: 5,
+    totalThoughts: 5
+  }
+];
+```
+
+**For architectural decisions, also apply tractatus thinking:**
+
+**Use MCP tool: mcp__tractatus-thinking__tractatus_thinking**
+
+```javascript
+// Tractatus thinking for structural analysis
+const analysis = await mcp__tractatus-thinking__tractatus_thinking({
+  operation: "start",
+  concept: "Analyze architecture for {phase goal}",
+  depth_limit: 5,
+  style: "analytical"
+});
+
+// Add propositions for key decisions
+await mcp__tractatus-thinking__tractatus_thinking({
+  operation: "add",
+  session_id: analysis.session_id,
+  content: "{architectural decision proposition}",
+  parent_number: null,
+  is_atomic: false
+});
+
+// Verify completeness
+await mcp__tractatus-thinking__tractatus_thinking({
+  operation: "analyze",
+  session_id: analysis.session_id
+});
+
+// Export to markdown for reference
+await mcp__tractatus-thinking__tractatus_thinking({
+  operation: "export",
+  session_id: analysis.session_id,
+  format: "markdown"
 });
 ```
 

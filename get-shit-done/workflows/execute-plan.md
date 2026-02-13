@@ -11,6 +11,22 @@ code_index:
   tools: ["search_code_advanced"]
   priority: 2
   rationale: "Secondary use for searching plan patterns and discovering phase files during execution"
+sequential_thinking:
+  tools: ["sequentialthinking"]
+  priority: 2
+  rationale: "Secondary use for complex execution with multi-step verification"
+tractatus_thinking:
+  tools: ["tractatus_thinking"]
+  priority: 2
+  rationale: "Secondary use for architectural decisions requiring structural analysis"
+debug_thinking:
+  tools: ["debug_thinking"]
+  priority: 2
+  rationale: "Secondary use for systematic debugging with knowledge graph tracking"
+thinking_aware:
+  tools: ["sequential-thinking", "tractatus-thinking", "debug-thinking"]
+  priority: 1
+  rationale: "Primary for complex planning - thinking output guides MCP tool selection"
 native:
   priority: 3
   rationale: "Fallback only - MCP tools provide 80-90% token savings"
@@ -195,6 +211,14 @@ You WILL discover unplanned work. Apply automatically, track all for Summary.
 | **3: Blocking** | Prevents completion: missing deps, wrong types, broken imports, missing env/config/files, circular deps | Fix blocker → verify proceeds → track `[Rule 3 - Blocking]` | Auto |
 | **4: Architectural** | Structural change: new DB table, schema change, new service, switching libs, breaking API, new infra | STOP → present decision (below) → track `[Rule 4 - Architectural]` | Ask user |
 
+**Rule 1 Enhancement:** For complex bugs requiring investigation, use debug-thinking:
+```
+1. mcp__debug-thinking__debug_thinking(action: "create", nodeType: "problem", content: "{error}")
+2. mcp__debug-thinking__debug_thinking(action: "query", queryType: "similar-problems")
+3. Create hypothesis/experiment nodes based on findings
+4. After fix: create solution and learning nodes
+```
+
 **Rule 4 format:**
 ```
 ⚠️ Architectural Decision Needed
@@ -214,6 +238,65 @@ Proceed with proposed change? (yes / different approach / defer)
 **Heuristic:** Affects correctness/security/completion? → R1-3. Maybe? → R4.
 
 </deviation_rules>
+
+<thinking_aware_tool_selection>
+
+## Thinking-Aware Tool Selection
+
+For complex tasks requiring structured thinking, select appropriate thinking server first, then use its output to guide MCP tool selection.
+
+**Step 1: Determine if thinking server needed**
+
+| Task Type | Thinking Server | Rationale |
+|-----------|----------------|-----------|
+| Complex multi-step planning | sequential-thinking | Decompose into 3-7 thoughts with revision support |
+| Architectural decisions | tractatus-thinking | Analyze structure into atomic propositions |
+| Bug investigation | debug-thinking | Graph-based problem tracking with knowledge base |
+
+**Step 2: Use thinking server output to guide MCP tool selection**
+
+```
+Sequential thinking specifies: "Use CI to verify X"
+→ Execute: mcp__code-index-mcp__search_code_advanced({pattern: "X"})
+
+Tractatus export specifies: "Use CG to map Y"
+→ Execute: mcp__codegraph__query_graph({cypher: "MATCH Y"})
+
+Debug graph suggests: "Query similar problems"
+→ Execute: mcp__debug-thinking__debug_thinking({action: "query", queryType: "similar-problems"})
+```
+
+**Step 3: Execute MCP operations guided by thinking context**
+
+Batch operations based on thinking server recommendations:
+- Sequential thoughts can specify multiple CI searches in sequence
+- Tractatus propositions can trigger multiple CG relationship queries
+- Debug hypotheses can generate multiple DC experiments
+
+**Token Optimization:**
+- One thinking session per workflow (avoid multiple calls)
+- Thinking output should specify exact MCP tools to use
+- Batch operations based on thinking server recommendations
+
+**Example Flow:**
+```
+1. Sequential Thinking (5 thoughts)
+   - Thought 1: "Need to analyze auth flow"
+   - Thought 2: "Use CI to search auth middleware"
+   - Thought 3: "Use CI to search session storage"
+   - Thought 4: "Use DC to read auth implementation"
+   - Thought 5: "Synthesize findings"
+
+2. Execute MCP Operations (guided by thoughts 2-4)
+   - CI: search_code_advanced("authenticate.*middleware")
+   - CI: search_code_advanced("session.*storage")
+   - DC: read_file("/src/auth.js")
+
+3. Final Sequential Thought
+   - Thought 6: "Auth flows: middleware → route guards → session storage"
+```
+
+</thinking_aware_tool_selection>
 
 <deviation_documentation>
 
@@ -300,6 +383,76 @@ When spawned via Task and hitting checkpoint: return structured state (cannot in
 **Required return:** 1) Completed Tasks table (hashes + files) 2) Current Task (what's blocking) 3) Checkpoint Details (user-facing content) 4) Awaiting (what's needed from user)
 
 Orchestrator parses → presents to user → spawns fresh continuation with your completed tasks state. You will NOT be resumed. In main context: use checkpoint_protocol above.
+</step>
+
+<step name="execution_thinking_for_architectural_decisions">
+For tasks marked as complex (deviation_rule: Architectural) or requiring significant analysis:
+
+**Use mcp__sequential-thinking__sequentialthinking to decompose the decision:**
+
+```javascript
+// Step 1: Decompose architectural decision
+const thoughts = [
+  {
+    thought: "Analyze architectural requirements and constraints",
+    nextThoughtNeeded: true,
+    thoughtNumber: 1,
+    totalThoughts: 5
+  },
+  {
+    thought: "Identify technical options and their tradeoffs",
+    nextThoughtNeeded: true,
+    thoughtNumber: 2,
+    totalThoughts: 5
+  },
+  {
+    thought: "Evaluate each option against 7-BMAD circles",
+    nextThoughtNeeded: true,
+    thoughtNumber: 3,
+    totalThoughts: 5
+  },
+  {
+    thought: "Generate recommendation with rationale",
+    nextThoughtNeeded: true,
+    thoughtNumber: 4,
+    totalThoughts: 5
+  },
+  {
+    thought: "Hypothesis: Recommended option best satisfies requirements",
+    nextThoughtNeeded: false,
+    thoughtNumber: 5,
+    totalThoughts: 5
+  }
+];
+```
+
+**For structural analysis, also use tractatus-thinking:**
+
+```javascript
+// Step 2: Analyze structural implications
+const analysis = await mcp__tractatus-thinking__tractatus_thinking({
+  operation: "start",
+  concept: "Analyze {architectural change} structure",
+  depth_limit: 5
+});
+
+// Add propositions for each factor
+await mcp__tractatus-thinking__tractatus_thinking({
+  operation: "add",
+  session_id: analysis.session_id,
+  content: "{factor A must be present}",
+  is_atomic: false
+});
+
+// Export for decision documentation
+await mcp__tractatus-thinking__tractatus_thinking({
+  operation: "export",
+  session_id: analysis.session_id,
+  format: "markdown"
+});
+```
+
+**Present decision with thinking artifacts attached.**
 </step>
 
 <step name="verification_failure_gate">
