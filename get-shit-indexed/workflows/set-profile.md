@@ -1,4 +1,4 @@
-<thinking>auto</thinking>
+﻿<thinking>auto</thinking>
 
 ---
 <code_index_mcp>
@@ -8,7 +8,7 @@ project_index: .planning/codebase-index
 </code_index_mcp>
 
 <purpose>
-Switch active model profile for GSD workflows to balance speed vs capability.
+Switch active model profile for GSI workflows to balance speed vs capability.
 
 Three profiles available:
 - **quality**: Maximum capability (Opus for all agents)
@@ -154,7 +154,7 @@ Models in use:
 ### Example 1: Switch to quality profile
 
 ```bash
-/gsd:set-profile quality
+/GSI:set-profile quality
 
 Current Profile: balanced
 Available Profiles:
@@ -189,7 +189,7 @@ Models in use:
 ### Example 2: Switch to budget profile for speed
 
 ```bash
-/gsd:set-profile budget
+/GSI:set-profile budget
 
 Current Profile: quality
 ...
@@ -221,4 +221,4 @@ Models in use:
 
 ---
 
-*Generated for GSD Phase 8 - Advanced Workflow Features*
+*Generated for GSI Phase 8 - Advanced Workflow Features*

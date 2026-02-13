@@ -1,4 +1,4 @@
-<thinking>auto</thinking>
+﻿<thinking>auto</thinking>
 
 <code_index_mcp>
 desktop_commander:
@@ -34,7 +34,7 @@ Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 - mcp__code-index-mcp__find_files — Find deliverables
 
 **Process Operations:**
-- mcp__desktop-commander__start_process — Run gsd-tools.js commands
+- mcp__desktop-commander__start_process — Run GSI-tools.js commands
 
 Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </tool_requirements>
@@ -117,7 +117,7 @@ Commit verification:
 
 ```javascript
 await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs(uat-${PHASE}): manual verification complete" --files .planning/phases/${PHASE_DIR}/${PHASE}-UAT.md .planning/STATE.md`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit "docs(uat-${PHASE}): manual verification complete" --files .planning/phases/${PHASE_DIR}/${PHASE}-UAT.md .planning/STATE.md`,
   timeout_ms: 10000
 });
 ```
@@ -138,8 +138,8 @@ Results: ${passed} passed, ${failed} failed
 ## ▶ Next Up
 
 - Review VERIFICATION.md for full results
-- `/gsd:plan-phase ${PHASE} --gaps` — If issues found
-- `/gsd:execute-phase ${PHASE}` — Re-run with fixes
+- `/GSI:plan-phase ${PHASE} --gaps` — If issues found
+- `/GSI:execute-phase ${PHASE}` — Re-run with fixes
 ```
 </step>
 

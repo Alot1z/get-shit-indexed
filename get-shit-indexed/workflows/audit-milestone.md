@@ -1,4 +1,4 @@
-<thinking>auto</thinking>
+﻿<thinking>auto</thinking>
 
 <code_index_mcp>
 desktop_commander:
@@ -30,7 +30,7 @@ Read all files referenced by the invoking prompt's execution_context before star
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 const INIT = await mcp__desktop-commander__start_process({
-  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js init milestone-op",
+  command: "node ~/.claude/get-shit-indexed/bin/GSI-tools.js init milestone-op",
   timeout_ms: 10000
 });
 ```
@@ -43,7 +43,7 @@ Extract from the init JSON: `milestone_version`, `milestone_name`, `phase_count`
 
 ```javascript
 const CHECKER_MODEL = await mcp__desktop-commander__start_process({
-  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js resolve-model gsd-integration-checker --raw",
+  command: "node ~/.claude/get-shit-indexed/bin/GSI-tools.js resolve-model GSI-integration-checker --raw",
   timeout_ms: 10000
 });
 ```
@@ -55,7 +55,7 @@ const CHECKER_MODEL = await mcp__desktop-commander__start_process({
 ```javascript
 // Get phases in milestone (sorted numerically, handles decimals)
 const phases = await mcp__desktop-commander__start_process({
-  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js phases list",
+  command: "node ~/.claude/get-shit-indexed/bin/GSI-tools.js phases list",
   timeout_ms: 10000
 });
 ```
@@ -106,7 +106,7 @@ Phase exports: {from SUMMARYs}
 API routes: {routes created}
 
 Verify cross-phase wiring and E2E user flows.",
-  subagent_type="gsd-integration-checker",
+  subagent_type="GSI-integration-checker",
   model="{integration_checker_model}"
 )
 ```
@@ -191,7 +191,7 @@ All requirements covered. Cross-phase integration verified. E2E flows complete.
 
 **Complete milestone** — archive and tag
 
-/gsd:complete-milestone {version}
+/GSI:complete-milestone {version}
 
 <sub>/clear first → fresh context window</sub>
 
@@ -228,7 +228,7 @@ All requirements covered. Cross-phase integration verified. E2E flows complete.
 
 **Plan gap closure** — create phases to complete milestone
 
-/gsd:plan-milestone-gaps
+/GSI:plan-milestone-gaps
 
 <sub>/clear first → fresh context window</sub>
 
@@ -236,7 +236,7 @@ All requirements covered. Cross-phase integration verified. E2E flows complete.
 
 **Also available:**
 - **Use MCP tool: mcp__desktop-commander__read_file** to view full report
-- /gsd:complete-milestone {version} — proceed anyway (accept tech debt)
+- /GSI:complete-milestone {version} — proceed anyway (accept tech debt)
 
 ───────────────────────────────────────────────────────────────
 
@@ -266,11 +266,11 @@ All requirements met. No critical blockers. Accumulated tech debt needs review.
 
 **A. Complete milestone** — accept debt, track in backlog
 
-/gsd:complete-milestone {version}
+/GSI:complete-milestone {version}
 
 **B. Plan cleanup phase** — address debt before completing
 
-/gsd:plan-milestone-gaps
+/GSI:plan-milestone-gaps
 
 <sub>/clear first → fresh context window</sub>
 
