@@ -1,36 +1,99 @@
 ---
-name: gsd:set-profile
-description: Switch model profile for GSD agents (quality/balanced/budget)
-argument-hint: <profile>
-allowed-tools:
-  - mcp__desktop-commander__read_file
-  - mcp__desktop-commander__write_file
-  - mcp__desktop-commander__edit_block
-  - mcp__desktop-commander__list_directory
-  - Bash
+name: set-profile
+description: Switch between model quality profiles (quality/balanced/budget)
+color: cyan
 ---
 
-<objective>
-Switch the model profile used by GSD agents. Controls which Claude model each agent uses, balancing quality vs token spend.
+## Usage
 
-Routes to the set-profile workflow which handles:
-- Argument validation (quality/balanced/budget)
-- Config file creation if missing
-- Profile update in config.json
-- Confirmation with model table display
-</objective>
+```bash
+/gsd:set-profile [quality|balanced|budget]
+```
 
-<execution_context>
-@~/.claude/get-shit-done/workflows/set-profile.md
-</execution_context>
+## Examples
 
-<process>
-**Follow the set-profile workflow** from `@~/.claude/get-shit-done/workflows/set-profile.md`.
+### Switch to quality profile (maximum capability)
 
-The workflow handles all logic including:
-1. Profile argument validation
-2. Config file ensuring
-3. Config reading and updating
-4. Model table generation from MODEL_PROFILES
-5. Confirmation display
-</process>
+```bash
+/gsd:set-profile quality
+```
+
+Uses Opus for all agents (executor, planner, verifier).
+Best for: Complex analysis, architectural decisions, critical tasks.
+
+### Switch to balanced profile (recommended)
+
+```bash
+/gsd:set-profile balanced
+```
+
+Uses Sonnet for execution/planning, Opus for verification.
+Best for: Standard workflows, most development tasks.
+
+### Switch to budget profile (maximum speed)
+
+```bash
+/gsd:set-profile budget
+```
+
+Uses Haiku for execution/verification, Sonnet for planning.
+Best for: Quick iterations, experimental features, cost-sensitive operations.
+
+### Check current profile status
+
+```bash
+/gsd:set-profile
+```
+
+Displays current active profile without changing it.
+
+---
+
+## Profiles
+
+| Profile | Executor | Planner | Verifier | Best For |
+|---------|----------|----------|----------|-----------|
+| **quality** | claude-opus-4-6 | claude-opus-4-6 | claude-opus-4-6 | Complex tasks, architecture |
+| **balanced** | claude-sonnet-4-5 | claude-opus-4-6 | claude-sonnet-4-5 | Standard workflows |
+| **budget** | claude-haiku-4-5 | claude-sonnet-4-5 | claude-haiku-4-5 | Quick iterations, testing |
+
+---
+
+## Configuration
+
+Profile settings are stored in `.planning/config.json`:
+
+```json
+{
+  "active_profile": "quality|balanced|budget",
+  "profiles": {
+    "quality": {
+      "executor_model": "claude-opus-4-6",
+      "planner_model": "claude-opus-4-6",
+      "verifier_model": "claude-opus-4-6"
+    },
+    "balanced": {
+      "executor_model": "claude-sonnet-4-5",
+      "planner_model": "claude-opus-4-6",
+      "verifier_model": "claude-sonnet-4-5"
+    },
+    "budget": {
+      "executor_model": "claude-haiku-4-5",
+      "planner_model": "claude-sonnet-4-5",
+      "verifier_model": "claude-haiku-4-5"
+    }
+  }
+}
+```
+
+---
+
+## See Also
+
+- `@get-shit-done/workflows/set-profile.md` — Profile switching workflow
+- `@get-shit-done/references/model-profiles.md` — Profile reference documentation
+- `@.planning/config.json` — Configuration storage
+
+---
+
+*Command for GSD Phase 8 - Advanced Workflow Features*
