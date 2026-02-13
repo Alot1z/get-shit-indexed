@@ -70,8 +70,10 @@ This dual verification catches both write failures AND logic errors before task 
 
 **Purpose:** Discover relationships and identify relevant files
 
+**CG Server:** neo4j://localhost:7687 (Operational)
+
 **What It Does:**
-- Analyzes code relationships and dependencies
+- Analyzes code relationships and dependencies via code graph queries
 - Maps how modules/components connect
 - Identifies files affected by changes
 - Discovers usage patterns for symbols
@@ -84,7 +86,7 @@ This dual verification catches both write failures AND logic errors before task 
 
 **MCP Tools:**
 ```
-mcp__CodeGraphContext__query_graph - Query the code graph
+mcp__CodeGraphContext__query_graph - Query the code graph at neo4j://localhost:7687
 mcp__CodeGraphContext__find_path - Find relationship paths
 mcp__CodeGraphContext__get_neighbors - Get connected nodes
 ```
@@ -466,17 +468,20 @@ For the complete catalog of patterns, see `TOOL-CHAIN-PATTERNS.md`.
 
 ## Notes on CodeGraphContext Availability
 
-**Current Status:** CodeGraphContext MCP is documented as unavailable (see `MCP-SERVER-STATUS.md`)
+**Current Status:** ✅ CodeGraphContext MCP is OPERATIONAL at neo4j://localhost:7687 (see `MCP-SERVER-STATUS.md`)
 
-**Workaround:** When CG is unavailable, start with CI discover:
+**Full Golden Pattern Enabled:** With CG server running, the complete golden pattern (CG → CI → CI → DC → DC → CI) is now executable.
 
-```
-CI discover (search_code_advanced) → CI understand → DC act → DC verify → CI verify
-```
+**CG Server Connection:** neo4j://localhost:7687
 
-This modified pattern uses CI for relationship discovery via search and symbol analysis.
+**CG Capabilities:**
+- Relationship queries and code graph analysis
+- Dependency mapping and impact analysis
+- Finding all callers/callees of functions
+- Data flow analysis through components
+- Circular dependency detection
 
-**Future Enhancement:** Install CodeGraphContext MCP to enable full golden pattern capabilities.
+**Auto-startup:** hooks/start-cg-server.ps1 automatically starts CG server on session start.
 
 ---
 
