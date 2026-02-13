@@ -65,6 +65,29 @@ native:
 Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </tool_requirements>
 
+<thinking_aware_planning>
+**For complex phases requiring structured thinking:**
+
+1. **Select thinking server based on phase type:**
+   - Complex planning (5+ plans) → sequential-thinking
+   - Architectural decisions → tractatus-thinking
+   - Bug investigation → debug-thinking
+
+2. **Use thinking output to select optimal tool chain:**
+   - Sequential thoughts specify: "Use CI to search for X"
+   - Tractatus propositions specify: "Use CG to map Y"
+   - Debug graph suggests: "Query similar problems"
+
+3. **Reference TOOL-CHAIN-PATTERNS.md for variant patterns:**
+   - Sequential + CI for multi-step analysis
+   - Tractatus + CG for architectural mapping
+   - Debug + DC for systematic debugging
+
+4. **Batch MCP operations per thinking server recommendations:**
+   - One thinking session covers multiple MCP calls
+   - Reuse thinking context across related operations
+</thinking_aware_planning>
+
 <process>
 
 ## 1. Initialize
@@ -200,6 +223,41 @@ await mcp__tractatus-thinking__tractatus_thinking({
   format: "markdown"
 });
 ```
+
+## 5.6. Apply Thinking-Aware Breakdown (for phases with architectural decisions)
+
+**For phases requiring both structural analysis and task planning:**
+
+**Process:**
+1. **Use tractatus-thinking for structural analysis (WHAT)**
+2. **Use sequential-thinking for task planning (HOW)**
+3. **Select tool chain variants based on thinking output**
+4. **Batch MCP operations per thinking server recommendations**
+
+**Example flow:**
+```javascript
+// Step 1: Tractatus - Analyze architecture
+const tractatus = await mcp__tractatus-thinking__tractatus_thinking({
+  operation: "start",
+  concept: "Analyze {phase} architecture",
+  depth_limit: 5
+});
+
+// Step 2: Sequential - Plan implementation
+const sequential = await mcp__sequential-thinking__sequentialthinking({
+  thought: "Plan implementation based on tractatus analysis",
+  thoughtNumber: 1,
+  totalThoughts: 5,
+  nextThoughtNeeded: true
+});
+
+// Step 3: Execute MCP operations guided by thinking
+// CI: search_code_advanced (guided by sequential thoughts)
+// CG: query_graph (guided by tractatus propositions)
+// DC: write_file/edit_block (guided by implementation plan)
+```
+
+**Reference:** See TOOL-CHAIN-PATTERNS.md for thinking-aware variants
 
 ## 6. Spawn gsd-phase-researcher
 
