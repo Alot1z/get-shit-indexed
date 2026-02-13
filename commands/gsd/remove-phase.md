@@ -3,10 +3,14 @@ name: gsd:remove-phase
 description: Remove a future phase from roadmap and renumber subsequent phases
 argument-hint: <phase-number>
 allowed-tools:
-  - Read
-  - Write
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__write_file
+  - mcp__desktop-commander__edit_block
+  - mcp__desktop-commander__list_directory
+  - mcp__code-index-mcp__search_code_advanced
+  - mcp__code-index-mcp__find_files
   - Bash
-  - Glob
+  - Task
 ---
 <objective>
 Remove an unstarted future phase from the roadmap and renumber all subsequent phases to maintain a clean, linear sequence.

@@ -2,12 +2,14 @@
 name: gsd:plan-milestone-gaps
 description: Create phases to close all gaps identified by milestone audit
 allowed-tools:
-  - Read
-  - Write
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__write_file
+  - mcp__desktop-commander__edit_block
+  - mcp__desktop-commander__list_directory
+  - mcp__code-index-mcp__search_code_advanced
+  - mcp__code-index-mcp__find_files
   - Bash
-  - Glob
-  - Grep
-  - AskUserQuestion
+  - Task
 ---
 <objective>
 Create all phases necessary to close gaps identified by `/gsd:audit-milestone`.

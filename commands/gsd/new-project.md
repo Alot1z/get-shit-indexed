@@ -3,11 +3,13 @@ name: gsd:new-project
 description: Initialize a new project with deep context gathering and PROJECT.md
 argument-hint: "[--auto]"
 allowed-tools:
-  - Read
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__write_file
+  - mcp__desktop-commander__list_directory
+  - mcp__desktop-commander__create_directory
+  - mcp__code-index-mcp__find_files
   - Bash
-  - Write
   - Task
-  - AskUserQuestion
 ---
 <context>
 **Flags:**

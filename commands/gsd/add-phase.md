@@ -3,9 +3,14 @@ name: gsd:add-phase
 description: Add phase to end of current milestone in roadmap
 argument-hint: <description>
 allowed-tools:
-  - Read
-  - Write
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__write_file
+  - mcp__desktop-commander__edit_block
+  - mcp__desktop-commander__list_directory
+  - mcp__desktop-commander__create_directory
+  - mcp__code-index-mcp__search_code_advanced
   - Bash
+  - Task
 ---
 
 <objective>

@@ -2,12 +2,17 @@
 name: gsd:progress
 description: Check project progress, show context, and route to next action (execute or plan)
 allowed-tools:
-  - Read
+  - mcp__desktop-commander__read_file
+  - mcp__code-index-mcp__search_code_advanced
+  - mcp__code-index-mcp__find_files
   - Bash
-  - Grep
-  - Glob
-  - SlashCommand
 ---
+
+<!--
+CI Tools Usage:
+- search_code_advanced: Find patterns across planning files
+- find_files: Discover plan and summary files
+-->
 <objective>
 Check project progress, summarize recent work and what's ahead, then intelligently route to the next action - either executing an existing plan or creating the next one.
 

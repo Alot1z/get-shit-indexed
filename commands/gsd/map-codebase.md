@@ -3,13 +3,45 @@ name: gsd:map-codebase
 description: Analyze codebase with parallel mapper agents to produce .planning/codebase/ documents
 argument-hint: "[optional: specific area to map, e.g., 'api' or 'auth']"
 allowed-tools:
-  - Read
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__write_file
+  - mcp__desktop-commander__list_directory
+  - mcp__desktop-commander__create_directory
+  - mcp__code-index-mcp__search_code_advanced
+  - mcp__code-index-mcp__find_files
+  - mcp__code-index-mcp__get_file_summary
+  - mcp__code-index-mcp__set_project_path
+  - mcp__code-index-mcp__build_deep_index
+  - mcp__code-index-mcp__get_symbol_body
+  - mcp__codegraphcontext__query
+  - mcp__codegraphcontext__find_components
+  - mcp__codegraphcontext__get_statistics
+  - mcp__desktop-commander__start_process
   - Bash
-  - Glob
-  - Grep
-  - Write
   - Task
 ---
+
+<!--
+Golden Pattern Tool Usage:
+- CG discover: CodeGraphContext for relationship analysis
+- CI understand: Code-Index for code search and symbol extraction
+- DC act: Desktop Commander for file operations
+
+CG Server: neo4j://localhost:7687
+
+CI Tools Usage:
+- search_code_advanced: Find code patterns across project
+- find_files: Discover relevant files
+- get_file_summary: Understand file structure
+- set_project_path: Initialize index for codebase
+- build_deep_index: Create comprehensive symbol index
+- get_symbol_body: Extract function/class implementations
+
+CG Tools Usage:
+- query: Extract relationship graphs
+- find_components: Discover subsystems
+- get_statistics: Codebase metrics
+-->
 
 <objective>
 Analyze existing codebase using parallel gsd-codebase-mapper agents to produce structured codebase documents.

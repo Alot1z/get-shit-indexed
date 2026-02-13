@@ -2,8 +2,10 @@
 name: gsd:update
 description: Update GSD to latest version with changelog display
 allowed-tools:
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__list_directory
+  - mcp__desktop-commander__start_process
   - Bash
-  - AskUserQuestion
 ---
 
 <objective>

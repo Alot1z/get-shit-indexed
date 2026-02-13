@@ -3,8 +3,10 @@ name: gsd:set-profile
 description: Switch model profile for GSD agents (quality/balanced/budget)
 argument-hint: <profile>
 allowed-tools:
-  - Read
-  - Write
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__write_file
+  - mcp__desktop-commander__edit_block
+  - mcp__desktop-commander__list_directory
   - Bash
 ---
 

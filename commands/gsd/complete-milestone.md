@@ -4,9 +4,12 @@ name: gsd:complete-milestone
 description: Archive completed milestone and prepare for next version
 argument-hint: <version>
 allowed-tools:
-  - Read
-  - Write
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__write_file
+  - mcp__desktop-commander__list_directory
+  - mcp__code-index-mcp__find_files
   - Bash
+  - Task
 ---
 
 <objective>

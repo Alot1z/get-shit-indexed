@@ -3,11 +3,13 @@ name: gsd:new-milestone
 description: Start a new milestone cycle — update PROJECT.md and route to requirements
 argument-hint: "[milestone name, e.g., 'v1.1 Notifications']"
 allowed-tools:
-  - Read
-  - Write
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__write_file
+  - mcp__desktop-commander__list_directory
+  - mcp__desktop-commander__create_directory
+  - mcp__code-index-mcp__find_files
   - Bash
   - Task
-  - AskUserQuestion
 ---
 <objective>
 Start a new milestone: questioning → research (optional) → requirements → roadmap.
