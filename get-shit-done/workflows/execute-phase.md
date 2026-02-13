@@ -1,3 +1,5 @@
+﻿<thinking>auto</thinking>
+
 <code_index_mcp>
 desktop_commander:
   tools: ["read_file", "write_file", "start_process"]
@@ -42,7 +44,7 @@ Load all context in one call using MCP process tool:
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 const INIT = await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js init execute-phase "${PHASE_ARG}"`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js init execute-phase "${PHASE_ARG}"`,
   timeout_ms: 10000
 });
 ```
@@ -90,7 +92,7 @@ Load plan inventory with wave grouping in one call using MCP process tool:
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 const PLAN_INDEX = await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js phase-plan-index "${PHASE_NUMBER}"`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js phase-plan-index "${PHASE_NUMBER}"`,
   timeout_ms: 10000
 });
 ```
@@ -151,7 +153,7 @@ Execute each wave in sequence. Within a wave: parallel if `PARALLELIZATION=true`
 
    ```
    Task(
-     subagent_type="gsd-executor",
+     subagent_type="GSI-executor",
      model="{executor_model}",
      prompt="
        <objective>
@@ -160,10 +162,10 @@ Execute each wave in sequence. Within a wave: parallel if `PARALLELIZATION=true`
        </objective>
 
        <execution_context>
-       @~/.claude/get-shit-done/workflows/execute-plan.md
-       @~/.claude/get-shit-done/templates/summary.md
-       @~/.claude/get-shit-done/references/checkpoints.md
-       @~/.claude/get-shit-done/references/tdd.md
+       @~/.claude/get-shit-indexed/workflows/execute-plan.md
+       @~/.claude/get-shit-indexed/templates/summary.md
+       @~/.claude/get-shit-indexed/references/checkpoints.md
+       @~/.claude/get-shit-indexed/references/tdd.md
        </execution_context>
 
        <files_to_read>
@@ -224,7 +226,7 @@ Execute each wave in sequence. Within a wave: parallel if `PARALLELIZATION=true`
 
 5. **Handle failures:**
 
-   **Known Claude Code bug (classifyHandoffIfNeeded):** If an agent reports "failed" with error containing `classifyHandoffIfNeeded is not defined`, this is a Claude Code runtime bug — not a GSD or agent issue. The error fires in the completion handler AFTER all tool calls finish. In this case: run the same spot-checks as step 4 (SUMMARY.md exists, git commits present, no Self-Check: FAILED). If spot-checks PASS → treat as **successful**. If spot-checks FAIL → treat as real failure below.
+   **Known Claude Code bug (classifyHandoffIfNeeded):** If an agent reports "failed" with error containing `classifyHandoffIfNeeded is not defined`, this is a Claude Code runtime bug — not a GSI or agent issue. The error fires in the completion handler AFTER all tool calls finish. In this case: run the same spot-checks as step 4 (SUMMARY.md exists, git commits present, no Self-Check: FAILED). If spot-checks PASS → treat as **successful**. If spot-checks FAIL → treat as real failure below.
 
    For real failures: report which plan failed → ask "Continue?" or "Stop?" → if continue, dependent plans may also fail. If stop, partial completion report.
 
@@ -295,7 +297,7 @@ Task(
 Phase directory: {phase_dir}
 Phase goal: {goal from ROADMAP.md}
 Check must_haves against actual codebase. Create VERIFICATION.md.",
-  subagent_type="gsd-verifier",
+  subagent_type="GSI-verifier",
   model="{verifier_model}"
 )
 ```
@@ -317,7 +319,7 @@ const statusMatch = await mcp__code-index-mcp__search_code_advanced({
 |--------|--------|
 | `passed` | → update_roadmap |
 | `human_needed` | Present items for human testing, get approval or feedback |
-| `gaps_found` | Present gap summary, offer `/gsd:plan-phase {phase} --gaps` |
+| `gaps_found` | Present gap summary, offer `/GSI:plan-phase {phase} --gaps` |
 
 **If human_needed:**
 ```
@@ -343,7 +345,7 @@ All automated checks passed. {N} items need human testing:
 ---
 ## ▶ Next Up
 
-`/gsd:plan-phase {X} --gaps`
+`/GSI:plan-phase {X} --gaps`
 
 <sub>`/clear` first → fresh context window</sub>
 
@@ -351,7 +353,7 @@ Also: Use MCP tool mcp__desktop-commander__read_file to view full report
 
 ```
 
-Gap closure cycle: `/gsd:plan-phase {X} --gaps` reads VERIFICATION.md → creates gap plans with `gap_closure: true` → user runs `/gsd:execute-phase {X} --gaps-only` → verifier re-runs.
+Gap closure cycle: `/GSI:plan-phase {X} --gaps` reads VERIFICATION.md → creates gap plans with `gap_closure: true` → user runs `/GSI:execute-phase {X} --gaps-only` → verifier re-runs.
 </step>
 
 <step name="update_roadmap">
@@ -361,7 +363,7 @@ Mark phase complete in ROADMAP.md (date, status) using MCP process and edit tool
 
 ```javascript
 await mcp__desktop-commander__start_process({
-  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js commit \"docs(phase-{X}): complete phase execution\" --files .planning/ROADMAP.md .planning/STATE.md .planning/phases/{phase_dir}/*-VERIFICATION.md .planning/REQUIREMENTS.md",
+  command: "node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit \"docs(phase-{X}): complete phase execution\" --files .planning/ROADMAP.md .planning/STATE.md .planning/phases/{phase_dir}/*-VERIFICATION.md .planning/REQUIREMENTS.md",
   timeout_ms: 10000
 });
 ```
@@ -375,7 +377,7 @@ await mcp__desktop-commander__start_process({
 
 **Phase {X+1}: {Name}** — {Goal}
 
-`/gsd:plan-phase {X+1}`
+`/GSI:plan-phase {X+1}`
 
 <sub>`/clear` first for fresh context</sub>
 ```
@@ -386,7 +388,7 @@ MILESTONE COMPLETE!
 
 All {N} phases executed.
 
-`/gsd:complete-milestone`
+`/GSI:complete-milestone`
 ```
 </step>
 
@@ -397,7 +399,7 @@ Orchestrator: ~10-15% context. Subagents: fresh 200k each. No polling (Task bloc
 </context_efficiency>
 
 <failure_handling>
-- **classifyHandoffIfNeeded false failure:** Agent reports "failed" but error is `classifyHandoffIfNeeded is not defined` → Claude Code bug, not GSD. Spot-check (SUMMARY exists, commits present) → if pass, treat as success
+- **classifyHandoffIfNeeded false failure:** Agent reports "failed" but error is `classifyHandoffIfNeeded is not defined` → Claude Code bug, not GSI. Spot-check (SUMMARY exists, commits present) → if pass, treat as success
 - **Agent fails mid-plan:** Missing SUMMARY.md → report, ask user how to proceed
 - **Dependency chain breaks:** Wave 1 fails → Wave 2 dependents likely fail → user chooses attempt or skip
 - **All agents in wave fail:** Systemic issue → stop, report for investigation
@@ -405,7 +407,7 @@ Orchestrator: ~10-15% context. Subagents: fresh 200k each. No polling (Task bloc
 </failure_handling>
 
 <resumption>
-Re-run `/gsd:execute-phase {phase}` → discover_plans finds completed SUMMARYs → skips them → resumes from first incomplete plan → continues wave execution.
+Re-run `/GSI:execute-phase {phase}` → discover_plans finds completed SUMMARYs → skips them → resumes from first incomplete plan → continues wave execution.
 
 STATE.md tracks: last completed plan, current wave, pending checkpoints.
 </resumption>

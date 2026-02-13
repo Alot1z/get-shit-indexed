@@ -1,8 +1,8 @@
-# MCP Tool Chain Analysis
+﻿# MCP Tool Chain Analysis
 
 ## Executive Summary
 
-Analysis of tool usage patterns across GSD workflows to identify optimal chaining strategies and integrate CodeGraphContext MCP server capabilities.
+Analysis of tool usage patterns across GSI workflows to identify optimal chaining strategies and integrate CodeGraphContext MCP server capabilities.
 
 ## Tool Priority Order (from tool-priority.md)
 
@@ -36,7 +36,7 @@ Tools used in sequence where output of one becomes input to next:
 tool1 (read file) → process data → tool2 (search code) → tool3 (write result)
 ```
 
-**Current GSD Examples:**
+**Current GSI Examples:**
 - `mcp__code-index-mcp__find_files` → grep pattern → `mcp__code-index-mcp__search_code_advanced`
 - `mcp__desktop-commander__read_file` → parse content → `mcp__desktop-commander__write_file`
 
@@ -48,9 +48,9 @@ branch2: toolC → toolD → result2
 merge: combine results
 ```
 
-**Current GSD Parallel Examples:**
-- Parallel mapper agents in `/gsd:map-codebase`
-- Parallel research agents in `/gsd:new-project`
+**Current GSI Parallel Examples:**
+- Parallel mapper agents in `/GSI:map-codebase`
+- Parallel research agents in `/GSI:new-project`
 
 ### Tool Reuse Patterns
 Calling the same tool multiple times vs. different tools:
@@ -129,6 +129,6 @@ iteration 3: debug-thinking (problem-solving)
 
 ## Conclusion
 
-Current GSD workflows already demonstrate strong MCP tool compliance. The migration to MCP tools (DesktopCommander + Code-Index) achieving 80-90% token savings is complete and functional.
+Current GSI workflows already demonstrate strong MCP tool compliance. The migration to MCP tools (DesktopCommander + Code-Index) achieving 80-90% token savings is complete and functional.
 
-CodeGraphContext integration should complement existing tools by adding graph-based code analysis capabilities not currently available in GSD.
+CodeGraphContext integration should complement existing tools by adding graph-based code analysis capabilities not currently available in GSI.

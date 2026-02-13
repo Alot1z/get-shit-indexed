@@ -1,6 +1,6 @@
----
-name: gsd:quick
-description: Execute a quick task with GSD guarantees (atomic commits, state tracking) but skip optional agents
+﻿---
+name: GSI:quick
+description: Execute a quick task with GSI guarantees (atomic commits, state tracking) but skip optional agents
 argument-hint: ""
 allowed-tools:
   - mcp__desktop-commander__read_file
@@ -14,11 +14,11 @@ allowed-tools:
   - Task
 ---
 <objective>
-Execute small, ad-hoc tasks with GSD guarantees (atomic commits, STATE.md tracking) while skipping optional agents (research, plan-checker, verifier).
+Execute small, ad-hoc tasks with GSI guarantees (atomic commits, STATE.md tracking) while skipping optional agents (research, plan-checker, verifier).
 
 Quick mode is the same system with a shorter path:
-- Spawns gsd-planner (quick mode) + gsd-executor(s)
-- Skips gsd-phase-researcher, gsd-plan-checker, gsd-verifier
+- Spawns GSI-planner (quick mode) + GSI-executor(s)
+- Skips GSI-phase-researcher, GSI-plan-checker, GSI-verifier
 - Quick tasks live in `.planning/quick/` separate from planned phases
 - Updates STATE.md "Quick Tasks Completed" table (NOT ROADMAP.md)
 
@@ -26,7 +26,7 @@ Use when: You know exactly what to do and the task is small enough to not need r
 </objective>
 
 <execution_context>
-@~/.claude/get-shit-done/workflows/quick.md
+@~/.claude/get-shit-indexed/workflows/quick.md
 </execution_context>
 
 <context>
@@ -34,6 +34,6 @@ Use when: You know exactly what to do and the task is small enough to not need r
 </context>
 
 <process>
-Execute the quick workflow from @~/.claude/get-shit-done/workflows/quick.md end-to-end.
+Execute the quick workflow from @~/.claude/get-shit-indexed/workflows/quick.md end-to-end.
 Preserve all workflow gates (validation, task description, planning, execution, state updates, commits).
 </process>

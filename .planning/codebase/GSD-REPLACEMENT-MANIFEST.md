@@ -1,4 +1,4 @@
-# GSD to GSI Replacement Manifest
+﻿# GSI to GSI Replacement Manifest
 
 **Date**: 2026-02-13
 **Phase**: 09-repository-renovation
@@ -11,13 +11,13 @@ Total lines affected: 25,928
 
 ## Replacement Rules (in order of specificity)
 
-1. GetShitDone -> GetShitIndexed
-2. getShitDone -> getShitIndexed  
-3. Get Shit Done -> Get Shit Indexed
-4. get-shit-done -> get-shit-indexed
-5. get_shit_done -> get_shit_indexed
-6. GSD -> GSI
-7. gsd -> gsi
+1. GetShitIndexed -> GetShitIndexed
+2. GetShitIndexed -> getShitIndexed  
+3. Get Shit Indexed -> Get Shit Indexed
+4. get-shit-indexed -> get-shit-indexed
+5. get_shit_indexed -> get_shit_indexed
+6. GSI -> GSI
+7. GSI -> gsi
 
 ## File Type Breakdown
 
@@ -36,7 +36,7 @@ Total lines affected: 25,928
 ### Documentation
 - README.md (major)
 - SECURITY.md
-- All workflow files in get-shit-done/workflows/
+- All workflow files in get-shit-indexed/workflows/
 - All files in .planning/
 - All files in commands/
 
@@ -46,8 +46,8 @@ Total lines affected: 25,928
 - .planning/config.json
 
 ### Hooks
-- hooks/gsd-check-update.js -> gsi-check-update.js
-- hooks/gsd-statusline.js -> gsi-statusline.js
+- hooks/GSI-check-update.js -> gsi-check-update.js
+- hooks/GSI-statusline.js -> gsi-statusline.js
 - hooks/start-cg-server.ps1
 
 ### Workflows

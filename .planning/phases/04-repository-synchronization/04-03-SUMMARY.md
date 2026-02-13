@@ -1,4 +1,4 @@
-# Phase 4 Plan 03: Complete Repository Sync Summary
+﻿# Phase 4 Plan 03: Complete Repository Sync Summary
 
 **Phase:** 04-Repository Synchronization
 **Plan:** 03
@@ -8,7 +8,7 @@
 
 ## Objective
 
-Commit and push all synchronized changes (including 3-MCP integrations: DC, CI, CG at neo4j://localhost:7687) to the git repository, establishing the cloned repo as the single source of truth for the MCP-enhanced GSD system.
+Commit and push all synchronized changes (including 3-MCP integrations: DC, CI, CG at neo4j://localhost:7687) to the git repository, establishing the cloned repo as the single source of truth for the MCP-enhanced GSI system.
 
 ## Execution Summary
 
@@ -106,7 +106,7 @@ git push origin main
 **Post-push verification:**
 - Verify upstream repository reflects all 3-MCP changes
 - Confirm .planning/codebase/ files are available upstream
-- Verify get-shit-done/workflows/ have tool_requirements headers
+- Verify get-shit-indexed/workflows/ have tool_requirements headers
 
 ## Issues Encountered
 
@@ -132,10 +132,10 @@ Phase 5 is now ready to begin with:
 ### Commands to Execute Phase 5
 ```bash
 # Plan Phase 5
-/gsd:plan-phase 5
+/GSI:plan-phase 5
 
 # Execute Phase 5
-/gsd:execute-phase 5
+/GSI:execute-phase 5
 ```
 
 ## Performance Metrics

@@ -1,4 +1,4 @@
-# GSD Terminal Logo Analysis
+﻿# GSI Terminal Logo Analysis
 
 ## Source
 https://raw.githubusercontent.com/Alot1z/get-shit-indexed/main/assets/terminal.svg
@@ -21,7 +21,7 @@ https://raw.githubusercontent.com/Alot1z/get-shit-indexed/main/assets/terminal.s
 .btn-green { fill: #9ece6a; }        /* Maximize button */
 .prompt { fill: #7aa2f7; }           /* Shell prompt (~) */
 .command { fill: #c0caf5; }          /* Command text */
-.cyan { fill: #7dcfff; }             /* GSD ASCII art */
+.cyan { fill: #7dcfff; }             /* GSI ASCII art */
 .green { fill: #9ece6a; }            /* Checkmarks and Done */
 .dim { fill: #565f89; }              /* Secondary text */
 .white { fill: #c0caf5; }            /* Primary text */
@@ -44,13 +44,13 @@ https://raw.githubusercontent.com/Alot1z/get-shit-indexed/main/assets/terminal.s
 
 #### 3. Terminal Content
 - Content offset: `transform="translate(32, 72)"`
-- Prompt line: `~ $ npx get-shit-done-cc`
-- ASCII art banner: "GSD" in cyan
+- Prompt line: `~ $ npx get-shit-indexed-cc`
+- ASCII art banner: "GSI" in cyan
 - Version info and description
 - Installation output with checkmarks
 - Completion message
 
-#### 4. ASCII Art "GSD"
+#### 4. ASCII Art "GSI"
 - Font: Monospace (SF Mono, Fira Code, JetBrains Mono, Consolas)
 - Font size: 14px
 - Color: Cyan (#7dcfff)

@@ -1,3 +1,5 @@
+﻿<thinking>auto</thinking>
+
 <code_index_mcp>
 desktop_commander:
   tools: ["read_file", "write_file", "start_process"]
@@ -35,7 +37,7 @@ Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 - mcp__code-index-mcp__search_code_advanced — Search for phase references
 
 **Process Operations:**
-- mcp__desktop-commander__start_process — Run gsd-tools.js commands
+- mcp__desktop-commander__start_process — Run GSI-tools.js commands
 
 Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </tool_requirements>
@@ -47,14 +49,14 @@ Parse command arguments:
 - First argument: phase number to remove
 - Remaining arguments: (optional) confirmation flag
 
-Example: `/gsd:remove-phase 17` → remove = 17
+Example: `/GSI:remove-phase 17` → remove = 17
 
 If no phase number:
 
 ```
 ERROR: Phase number required
-Usage: /gsd:remove-phase <number>
-Example: /gsd:remove-phase 17
+Usage: /GSI:remove-phase <number>
+Example: /GSI:remove-phase 17
 ```
 
 Exit.
@@ -70,7 +72,7 @@ Load phase operation context using MCP tools:
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 const INIT = await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js init phase-op "${REMOVE_PHASE}"`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js init phase-op "${REMOVE_PHASE}"`,
   timeout_ms: 10000
 });
 ```
@@ -83,13 +85,13 @@ Exit.
 </step>
 
 <step name="remove_phase">
-**Remove phase using gsd-tools:**
+**Remove phase using GSI-tools:**
 
 **Use MCP tool: mcp__desktop-commander__start_process**
 
 ```javascript
 await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js phase remove "${REMOVE_PHASE}"`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js phase remove "${REMOVE_PHASE}"`,
   timeout_ms: 10000
 });
 ```
@@ -154,7 +156,7 @@ Review updated roadmap structure.
 
 <success_criteria>
 - [ ] Phase exists in roadmap (validated using MCP tools)
-- [ ] Phase removed using gsd-tools (MCP start_process)
+- [ ] Phase removed using GSI-tools (MCP start_process)
 - [ ] Phase directory deleted (preserved on disk)
 - [ ] Subsequent phases renumbered (count tracked)
 - [ ] ROADMAP.md updated using MCP edit_block

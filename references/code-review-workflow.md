@@ -1,4 +1,4 @@
-# Code Review Workflow
+﻿# Code Review Workflow
 
 ## Overview
 
@@ -248,7 +248,7 @@ Use mcp__tractatus-thinking__tractatus_thinking for structure analysis
 
 ```
 [COMPLETION]
-Agent: gsd-executor
+Agent: GSI-executor
 Task: Implement JWT authentication
 Files: src/auth/jwt.ts
 [/COMPLETION]

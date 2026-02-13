@@ -1,4 +1,4 @@
----
+﻿---
 phase: 02-workflow-integration
 plan: 02
 subsystem: workflow-automation
@@ -26,7 +26,7 @@ tech-stack:
 
 key-files:
   created: []
-  modified: [get-shit-done/workflows/map-codebase.md]
+  modified: [get-shit-indexed/workflows/map-codebase.md]
 
 key-decisions:
   - "Three-wave structure: Independent (Wave 1), Dependent (Wave 2), Synthesis (Wave 3)"
@@ -81,7 +81,7 @@ Each task was committed atomically:
 
 ## Files Created/Modified
 
-- `get-shit-done/workflows/map-codebase.md` - Refactored with wave-based spawning
+- `get-shit-indexed/workflows/map-codebase.md` - Refactored with wave-based spawning
 
 ## Decisions Made
 
@@ -104,7 +104,7 @@ None - plan executed exactly as written.
 - Wave-based spawning implemented in map-codebase.md
 - Rate limiting parameters defined and documented
 - Agent tracking system specified with JSON structure
-- Ready for Plan 02-03: Full GSD workflow execution end-to-end test
+- Ready for Plan 02-03: Full GSI workflow execution end-to-end test
 
 ---
 *Phase: 02-workflow-integration*

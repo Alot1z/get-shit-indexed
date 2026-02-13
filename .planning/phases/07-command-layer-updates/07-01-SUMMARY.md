@@ -1,4 +1,4 @@
----
+﻿---
 phase: 07-command-layer-updates
 plan: 01
 subsystem: command-layer
@@ -9,7 +9,7 @@ requires:
   - phase: 06-quality-verification
     provides: verified-command-layer-ready-for-mcp-integration
 provides:
-  - All 26 GSD command files updated with Desktop Commander MCP tool declarations
+  - All 26 GSI command files updated with Desktop Commander MCP tool declarations
   - Native Read/Write/Edit/Glob/Grep tools replaced with MCP equivalents
   - Tool usage comments added explaining DC operations
 affects:
@@ -23,7 +23,7 @@ tech-stack:
 
 key-files:
   created: []
-  modified: [commands/gsd/*.md - all 26 command files]
+  modified: [commands/GSI/*.md - all 26 command files]
 
 # Metrics
 duration: 12 min
@@ -32,7 +32,7 @@ completed: 2026-02-13
 
 # Phase 7 Plan 1: Core Command Enhancement with DC MCP Tools Summary
 
-**All 26 GSD command files updated with Desktop Commander MCP tools for file operations, replacing native Read/Write/Edit/Glob/Grep equivalents**
+**All 26 GSI command files updated with Desktop Commander MCP tools for file operations, replacing native Read/Write/Edit/Glob/Grep equivalents**
 
 ## Performance
 
@@ -59,7 +59,7 @@ completed: 2026-02-13
 
 ## Task Commits
 
-1. **Update all 26 GSD commands with DC, CI, and CG MCP tools** - `f77462d` (feat)
+1. **Update all 26 GSI commands with DC, CI, and CG MCP tools** - `f77462d` (feat)
 
 **Plan metadata:** N/A (single commit for all three plans)
 
@@ -67,34 +67,34 @@ completed: 2026-02-13
 
 All 26 command files updated:
 
-- `commands/gsd/execute-phase.md` - Full DC + CI + CG tool declarations
-- `commands/gsd/plan-phase.md` - DC + context7 + web-browser + CG tools
-- `commands/gsd/map-codebase.md` - Full DC + CI + CG tool set
-- `commands/gsd/verify-work.md` - DC + CI + CG tools
-- `commands/gsd/quick.md` - DC tools without AskUserQuestion
-- `commands/gsd/new-project.md` - DC file creation tools
-- `commands/gsd/new-milestone.md` - DC file creation tools
-- `commands/gsd/add-phase.md` - DC tools for phase management
-- `commands/gsd/insert-phase.md` - DC tools for phase insertion
-- `commands/gsd/remove-phase.md` - DC tools for phase removal
-- `commands/gsd/audit-milestone.md` - DC + CI search tools
-- `commands/gsd/complete-milestone.md` - DC tools for completion
-- `commands/gsd/plan-milestone-gaps.md` - DC + CI tools
-- `commands/gsd/add-todo.md` - DC tools for todo management
-- `commands/gsd/check-todos.md` - DC tools for todo checking
-- `commands/gsd/debug.md` - DC + CI + CG diagnostic tools
-- `commands/gsd/help.md` - DC read-only (reference command)
-- `commands/gsd/progress.md` - DC + CI tools for progress tracking
-- `commands/gsd/settings.md` - DC tools for configuration
-- `commands/gsd/pause-work.md` - DC tools for session management
-- `commands/gsd/resume-work.md` - DC tools for session resumption
-- `commands/gsd/update.md` - DC tools for updates
-- `commands/gsd/reapply-patches.md` - DC + CI tools for patch management
-- `commands/gsd/discuss-phase.md` - DC + CI + CG tools
-- `commands/gsd/research-phase.md` - Full DC + CI + CG + context7 + web-browser tool set
-- `commands/gsd/join-discord.md` - DC read-only (external link)
-- `commands/gsd/list-phase-assumptions.md` - DC + CI tools for assumption listing
-- `commands/gsd/set-profile.md` - DC tools for profile management
+- `commands/GSI/execute-phase.md` - Full DC + CI + CG tool declarations
+- `commands/GSI/plan-phase.md` - DC + context7 + web-browser + CG tools
+- `commands/GSI/map-codebase.md` - Full DC + CI + CG tool set
+- `commands/GSI/verify-work.md` - DC + CI + CG tools
+- `commands/GSI/quick.md` - DC tools without AskUserQuestion
+- `commands/GSI/new-project.md` - DC file creation tools
+- `commands/GSI/new-milestone.md` - DC file creation tools
+- `commands/GSI/add-phase.md` - DC tools for phase management
+- `commands/GSI/insert-phase.md` - DC tools for phase insertion
+- `commands/GSI/remove-phase.md` - DC tools for phase removal
+- `commands/GSI/audit-milestone.md` - DC + CI search tools
+- `commands/GSI/complete-milestone.md` - DC tools for completion
+- `commands/GSI/plan-milestone-gaps.md` - DC + CI tools
+- `commands/GSI/add-todo.md` - DC tools for todo management
+- `commands/GSI/check-todos.md` - DC tools for todo checking
+- `commands/GSI/debug.md` - DC + CI + CG diagnostic tools
+- `commands/GSI/help.md` - DC read-only (reference command)
+- `commands/GSI/progress.md` - DC + CI tools for progress tracking
+- `commands/GSI/settings.md` - DC tools for configuration
+- `commands/GSI/pause-work.md` - DC tools for session management
+- `commands/GSI/resume-work.md` - DC tools for session resumption
+- `commands/GSI/update.md` - DC tools for updates
+- `commands/GSI/reapply-patches.md` - DC + CI tools for patch management
+- `commands/GSI/discuss-phase.md` - DC + CI + CG tools
+- `commands/GSI/research-phase.md` - Full DC + CI + CG + context7 + web-browser tool set
+- `commands/GSI/join-discord.md` - DC read-only (external link)
+- `commands/GSI/list-phase-assumptions.md` - DC + CI tools for assumption listing
+- `commands/GSI/set-profile.md` - DC tools for profile management
 
 ## Decisions Made
 
@@ -102,7 +102,7 @@ All 26 command files updated:
 - Applied golden pattern reference comments to execute-phase, plan-phase, map-codebase
 - Added CI/CG usage comments to commands that use those tools
 - Removed native tool names (Read/Write/Edit/Glob/Grep) from all allowed-tools sections
-- Retained Bash tool for gsd-tools.js wrapper (no MCP equivalent)
+- Retained Bash tool for GSI-tools.js wrapper (no MCP equivalent)
 - Retained Task tool for subagent spawning (orchestration requirement)
 
 ## Deviations from Plan

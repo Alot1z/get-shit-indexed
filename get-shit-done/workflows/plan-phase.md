@@ -1,5 +1,7 @@
+﻿<thinking>auto</thinking>
+
 <purpose>
-Create executable phase prompts (PLAN.md files) for a roadmap phase with integrated research and verification. Default flow: Research (if needed) -> Plan -> Verify -> Done. Orchestrates gsd-phase-researcher, gsd-planner, and gsd-plan-checker agents with a revision loop (max 3 iterations).
+Create executable phase prompts (PLAN.md files) for a roadmap phase with integrated research and verification. Default flow: Research (if needed) -> Plan -> Verify -> Done. Orchestrates GSI-phase-researcher, GSI-planner, and GSI-plan-checker agents with a revision loop (max 3 iterations).
 </purpose>
 
 <code_index_mcp>
@@ -36,7 +38,7 @@ native:
 - Verification of structural completeness
 - Export to markdown/graphviz for documentation
 
-@~/.claude/get-shit-done/references/ui-brand.md
+@~/.claude/get-shit-indexed/references/ui-brand.md
 </required_reading>
 
 <tool_requirements>
@@ -98,12 +100,12 @@ Load all context in one call using MCP tools:
 
 ```bash
 # MCP-based equivalent (80-90% token savings vs bash)
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js init plan-phase "$PHASE" --include state,roadmap,requirements,context,research,verification,uat,config)
+INIT=$(node ~/.claude/get-shit-indexed/bin/GSI-tools.js init plan-phase "$PHASE" --include state,roadmap,requirements,context,research,verification,uat,config)
 ```
 
 Parse JSON for all file contents and settings.
 
-**If `.planning/` missing:** Error — run `/gsd:new-project` first.
+**If `.planning/` missing:** Error — run `/GSI:new-project` first.
 
 ## 2. Parse and Normalize Arguments
 
@@ -115,7 +117,7 @@ Extract from $ARGUMENTS: phase number (integer or decimal like `2.1`), flags (`-
 
 ```bash
 # MCP-based equivalent for validating phase in roadmap
-PHASE_INFO=$(node ~/.claude/get-shit-done/bin/gsd-tools.js roadmap get-phase "${PHASE}")
+PHASE_INFO=$(node ~/.claude/get-shit-indexed/bin/GSI-tools.js roadmap get-phase "${PHASE}")
 ```
 
 If phase not found in ROADMAP.md: Error.
@@ -259,7 +261,7 @@ const sequential = await mcp__sequential-thinking__sequentialthinking({
 
 **Reference:** See TOOL-CHAIN-PATTERNS.md for thinking-aware variants
 
-## 6. Spawn gsd-phase-researcher
+## 6. Spawn GSI-phase-researcher
 
 Researcher uses CONTEXT.md + downstream consumer requirements to create DISCOVERY.md.
 
@@ -273,7 +275,7 @@ await mcp__desktop-commander__write_file({
 });
 ```
 
-## 7. Spawn gsd-planner
+## 7. Spawn GSI-planner
 
 Planner uses DISCOVERY.md + requirements + ROADMAP to create PLAN.md.
 

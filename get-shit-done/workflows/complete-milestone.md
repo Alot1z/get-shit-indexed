@@ -1,3 +1,5 @@
+﻿<thinking>auto</thinking>
+
 <code_index_mcp>
 desktop_commander:
   tools: ["read_file", "write_file", "list_directory"]
@@ -57,7 +59,7 @@ When a milestone completes:
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 const ROADMAP = await mcp__desktop-commander__start_process({
-  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js roadmap analyze",
+  command: "node ~/.claude/get-shit-indexed/bin/GSI-tools.js roadmap analyze",
   timeout_ms: 15000
 });
 ```
@@ -180,7 +182,7 @@ Extract one-liners from SUMMARY.md files using MCP process tool:
 // MCP-based equivalent for summary extraction
 for (const summary of summaryFiles) {
   const result = await mcp__desktop-commander__start_process({
-    command: `node ~/.claude/get-shit-done/bin/gsd-tools.js summary-extract "${summary}" --fields one_liner --raw`,
+    command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js summary-extract "${summary}" --fields one_liner --raw`,
     timeout_ms: 10000
   });
   // Parse result for one_liner
@@ -202,7 +204,7 @@ Key accomplishments for this milestone:
 
 <step name="create_milestone_entry">
 
-**Note:** MILESTONES.md entry is now created automatically by `gsd-tools milestone complete` in the archive_milestone step. The entry includes version, date, phase/plan/task counts, and accomplishments extracted from SUMMARY.md files.
+**Note:** MILESTONES.md entry is now created automatically by `GSI-tools milestone complete` in the archive_milestone step. The entry includes version, date, phase/plan/task counts, and accomplishments extracted from SUMMARY.md files.
 
 If additional details are needed (e.g., user-provided "Delivered" summary, git range, LOC stats), add them manually after the CLI creates the base entry.
 </step>
@@ -403,14 +405,14 @@ Update `.planning/ROADMAP.md` — group completed milestone phases.
 
 <step name="archive_milestone">
 
-**Delegate archival to gsd-tools:**
+**Delegate archival to GSI-tools:**
 
 **Use MCP tool: mcp__desktop-commander__start_process**
 
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 const ARCHIVE = await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js milestone complete "v[X.Y]" --name "[Milestone Name]"`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js milestone complete "v[X.Y]" --name "[Milestone Name]"`,
   timeout_ms: 15000
 });
 ```
@@ -513,7 +515,7 @@ Check branching strategy and offer merge options.
 
 ```javascript
 const INIT = await mcp__desktop-commander__start_process({
-  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js init execute-phase \"1\"",
+  command: "node ~/.claude/get-shit-indexed/bin/GSI-tools.js init execute-phase \"1\"",
   timeout_ms: 10000
 });
 ```
@@ -700,7 +702,7 @@ Commit milestone completion using MCP process tool:
 **Use MCP tool: mcp__desktop-commander__start_process**
 
 ```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js commit "chore: complete v[X.Y] milestone" --files .planning/milestones/v[X.Y]-ROADMAP.md .planning/milestones/v[X.Y]-REQUIREMENTS.md .planning/milestones/v[X.Y]-MILESTONE-AUDIT.md .planning/MILESTONES.md .planning/PROJECT.md .planning/STATE.md
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit "chore: complete v[X.Y] milestone" --files .planning/milestones/v[X.Y]-ROADMAP.md .planning/milestones/v[X.Y]-REQUIREMENTS.md .planning/milestones/v[X.Y]-MILESTONE-AUDIT.md .planning/MILESTONES.md .planning/PROJECT.md .planning/STATE.md
 ```
 ```
 Confirm: "Committed: chore: complete v[X.Y] milestone"
@@ -729,7 +731,7 @@ Tag: v[X.Y]
 
 **Start Next Milestone** — questioning → research → requirements → roadmap
 
-`/gsd:new-milestone`
+`/GSI:new-milestone`
 
 <sub>`/clear` first → fresh context window</sub>
 
@@ -776,6 +778,6 @@ Milestone completion is successful when:
 - [ ] STATE.md updated with fresh project reference
 - [ ] Git tag created (v[X.Y])
 - [ ] Milestone commit made (includes archive files and deletion)
-- [ ] User knows next step (/gsd:new-milestone)
+- [ ] User knows next step (/GSI:new-milestone)
 
 </success_criteria>

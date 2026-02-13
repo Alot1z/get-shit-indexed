@@ -1,3 +1,5 @@
+<thinking>auto</thinking>
+
 <purpose>
 Orchestrate parallel codebase mapper agents to analyze codebase and produce structured documents in .planning/codebase/
 
@@ -33,6 +35,48 @@ Include enough detail to be useful as reference. Prioritize practical examples (
 **Always include file paths:**
 Documents are reference material for Claude when planning/executing. Always include actual file paths formatted with backticks: `src/services/user.ts`.
 </philosophy>
+
+<wave_architecture>
+**Wave-based spawning for parallel agent orchestration**
+
+**Purpose:** Enable safe concurrent agent execution without overwhelming MCP servers or hitting API rate limits
+
+**Wave Structure:**
+
+- **Wave 1:** Independent parallel agents (tech, arch, quality, concerns)
+  - No dependencies between agents
+  - Can run simultaneously within rate limits
+  
+- **Wave 2:** Dependent refinement agents (if Wave 1 incomplete)
+  - Spawned only if Wave 1 agents need additional analysis
+  - Typically 0-2 agents based on Wave 1 results
+  
+- **Wave 3:** Synthesis agents (cross-cutting analysis)
+  - Combines results from previous waves
+  - Final integration and verification
+
+**Rate Limiting Parameters:**
+
+```yaml
+rate_limiting:
+  enabled: true
+  max_concurrent_agents: 3      # Maximum agents running simultaneously
+  inter_wave_delay_ms: 2000        # Delay between waves
+  stagger_delay_ms: 500            # Delay between agent spawns within a wave
+  wave_timeout_seconds: 300         # Maximum wait time per wave
+```
+
+**Configuration Source:**
+- Read from `.planning/config.json` -> `rate_limiting` section
+- Fallback to defaults if config missing
+- Log actual values used in wave execution
+
+**Adaptive Behavior:**
+- On 429/rate_limit errors: increase stagger_delay_ms by 2x
+- Back off max_concurrent_agents by 1 on errors
+- Max stagger: 5000ms, Min concurrent: 1
+- Log all adaptations to wave-history.json
+</wave_architecture>
 
 <process>
 

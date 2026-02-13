@@ -1,8 +1,8 @@
----
-name: gsd:plan-phase
+﻿---
+name: GSI:plan-phase
 description: Create detailed execution plan for a phase (PLAN.md) with verification loop
 argument-hint: "[phase] [--research] [--skip-research] [--gaps] [--skip-verify]"
-agent: gsd-planner
+agent: GSI-planner
 allowed-tools:
   - mcp__desktop-commander__read_file
   - mcp__desktop-commander__write_file
@@ -45,12 +45,12 @@ Create executable phase prompts (PLAN.md files) for a roadmap phase with integra
 
 **Default flow:** Research (if needed) → Plan → Verify → Done
 
-**Orchestrator role:** Parse arguments, validate phase, research domain (unless skipped), spawn gsd-planner, verify with gsd-plan-checker, iterate until pass or max iterations, present results.
+**Orchestrator role:** Parse arguments, validate phase, research domain (unless skipped), spawn GSI-planner, verify with GSI-plan-checker, iterate until pass or max iterations, present results.
 </objective>
 
 <execution_context>
-@~/.claude/get-shit-done/workflows/plan-phase.md
-@~/.claude/get-shit-done/references/ui-brand.md
+@~/.claude/get-shit-indexed/workflows/plan-phase.md
+@~/.claude/get-shit-indexed/references/ui-brand.md
 </execution_context>
 
 <context>
@@ -66,6 +66,6 @@ Normalize phase input in step 2 before any directory lookups.
 </context>
 
 <process>
-Execute the plan-phase workflow from @~/.claude/get-shit-done/workflows/plan-phase.md end-to-end.
+Execute the plan-phase workflow from @~/.claude/get-shit-indexed/workflows/plan-phase.md end-to-end.
 Preserve all workflow gates (validation, research, planning, verification loop, routing).
 </process>

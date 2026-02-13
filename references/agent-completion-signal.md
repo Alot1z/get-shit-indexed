@@ -1,4 +1,4 @@
-# Agent Completion Signal Format
+﻿# Agent Completion Signal Format
 
 ## Overview
 
@@ -22,7 +22,7 @@ Deviations: {count or "None"}
 
 | Field | Description | Example |
 |-------|-------------|---------|
-| Agent | Name of the agent completing work | `gsd-executor`, `gsd-planner`, `sub-agent` |
+| Agent | Name of the agent completing work | `GSI-executor`, `GSI-planner`, `sub-agent` |
 | Task | Brief description of completed task | `Implemented JWT authentication` |
 | Files | List of files created or modified | `["src/auth/jwt.ts", "src/types/user.ts"]` |
 | Status | Completion status | `Success`, `Partial`, `Failed` |
@@ -61,11 +61,11 @@ If signal is malformed:
 
 ## Signal Examples
 
-### Example 1: GSD Executor Agent Completion
+### Example 1: GSI Executor Agent Completion
 
 ```markdown
 [COMPLETION]
-Agent: gsd-executor
+Agent: GSI-executor
 Task: Phase 6 Plan 01 - 7-BMAD Quality Gates Implementation
 Files:
   - references/validation-gates.md
@@ -76,11 +76,11 @@ Deviations: None
 [/COMPLETION]
 ```
 
-### Example 2: GSD Planner Agent Completion
+### Example 2: GSI Planner Agent Completion
 
 ```markdown
 [COMPLETION]
-Agent: gsd-planner
+Agent: GSI-planner
 Task: Create execution plan for Phase 6
 Files:
   - .planning/phases/06-quality-verification/06-01-PLAN.md
@@ -153,7 +153,7 @@ When validation agent spawns, it receives:
 #### Error: Missing Required Field
 ```
 [COMPLETION]
-Agent: gsd-executor
+Agent: GSI-executor
 Task: Implement feature
 [/COMPLETION]
 ```
@@ -163,7 +163,7 @@ Task: Implement feature
 #### Error: Invalid Status Value
 ```
 [COMPLETION]
-Agent: gsd-executor
+Agent: GSI-executor
 Task: Implement feature
 Files: ["src/feature.ts"]
 Status: Done
@@ -175,7 +175,7 @@ Status: Done
 #### Error: Unmatched Delimiters
 ```
 [COMPLETION]
-Agent: gsd-executor
+Agent: GSI-executor
 Task: Implement feature
 Files: ["src/feature.ts"]
 Status: Success

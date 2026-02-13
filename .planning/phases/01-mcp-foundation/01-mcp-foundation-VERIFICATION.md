@@ -1,4 +1,4 @@
----
+﻿---
 phase: 01-mcp-foundation
 verified: 2026-02-11T20:00:00Z
 status: partial
@@ -131,4 +131,4 @@ gaps:
 ---
 
 _Verified: 2026-02-11T20:00:00Z_
-_Verifier: Claude (gsd-verifier)_
+_Verifier: Claude (GSI-verifier)_

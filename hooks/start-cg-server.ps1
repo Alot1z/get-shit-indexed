@@ -1,4 +1,4 @@
-# Auto-startup hook for CodeGraphContext MCP server
+﻿# Auto-startup hook for CodeGraphContext MCP server
 # When Claude Code starts, automatically start CG server if not running
 
 $CG_SERVER_NAME = "CodeGraphContext"
@@ -29,8 +29,8 @@ catch {
     exit 1
 }
 
-# Register with GSD workflows
-# After server starts, register it so GSD workflows can use CG tools
-Write-Host "Registering with GSD workflows..."
+# Register with GSI workflows
+# After server starts, register it so GSI workflows can use CG tools
+Write-Host "Registering with GSI workflows..."
 & "$CG_SERVER_EXE" mcp add_code_to_graph
 Write-Host "Auto-startup hook complete"

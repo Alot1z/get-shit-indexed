@@ -1,15 +1,15 @@
-# Sync Strategy: Local to Clone
+﻿# Sync Strategy: Local to Clone
 
 **Strategy Date:** 2026-02-13T00:33:25Z
-**Source:** C:\Users\mose\.claude\get-shit-done (local GSD directory)
-**Target:** C:\github-repos\my-claude-code-repos\get-shit-done-code-index (cloned upstream repo)
+**Source:** C:\Users\mose\.claude\get-shit-indexed (local GSI directory)
+**Target:** C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index (cloned upstream repo)
 
 ## Sync Direction
 
 **ONE-WAY SYNC:** Local → Clone
 
-- **Source:** C:\Users\mose\.claude\get-shit-done (contains all Phase 1-3 3-MCP integration updates)
-- **Target:** C:\github-repos\my-claude-code-repos\get-shit-done-code-index (upstream repository to be updated)
+- **Source:** C:\Users\mose\.claude\get-shit-indexed (contains all Phase 1-3 3-MCP integration updates)
+- **Target:** C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index (upstream repository to be updated)
 
 **Rationale:** The local directory has been the active development environment for Phases 1-3, with all 3-MCP integration work (DC + CI + CG) being done there. The cloned repository needs to receive these updates to become the single source of truth.
 
@@ -17,8 +17,8 @@
 
 ### Category 1: 3-MCP-Integrated Workflows (HIGH PRIORITY)
 
-**Source:** `C:\Users\mose\.claude\get-shit-done\workflows\*.md` (13 files)
-**Target:** `C:\github-repos\my-claude-code-repos\get-shit-done-code-index\get-shit-done\workflows\`
+**Source:** `C:\Users\mose\.claude\get-shit-indexed\workflows\*.md` (13 files)
+**Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\get-shit-indexed\workflows\`
 
 These files contain the core 3-MCP tool integration:
 - Desktop Commander (mcp__desktop-commander__*)
@@ -34,8 +34,8 @@ These files contain the core 3-MCP tool integration:
 
 ### Category 2: Reference Files with 3-MCP Tool Priority Rules (HIGH PRIORITY)
 
-**Source:** `C:\Users\mose\.claude\get-shit-done\references\*.md` (12 files)
-**Target:** `C:\github-repos\my-claude-code-repos\get-shit-done-code-index\get-shit-done\references\`
+**Source:** `C:\Users\mose\.claude\get-shit-indexed\references\*.md` (12 files)
+**Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\get-shit-indexed\references\`
 
 Critical documentation for 3-MCP tool chain:
 - CODE-INDEX-MCP-GUIDE.md - Complete CI server guide (1139 lines)
@@ -44,12 +44,12 @@ Critical documentation for 3-MCP tool chain:
 - checkpoints.md - Checkpoint patterns
 - verification-patterns.md - Verification patterns
 
-**Note:** The cloned repo's .planning/codebase/ already has these from Phase 3, but get-shit-done/references/ does NOT.
+**Note:** The cloned repo's .planning/codebase/ already has these from Phase 3, but get-shit-indexed/references/ does NOT.
 
 ### Category 3: Research Files (MCP Tool Chain Analysis) (MEDIUM PRIORITY)
 
-**Source:** `C:\Users\mose\.claude\get-shit-done\research\**` and `C:\Users\mose\.claude\get-shit-done\reseach\**`
-**Target:** `C:\github-repos\my-claude-code-repos\get-shit-done-code-index\research\`
+**Source:** `C:\Users\mose\.claude\get-shit-indexed\research\**` and `C:\Users\mose\.claude\get-shit-indexed\reseach\**`
+**Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\research\`
 
 Documentation of the 3-MCP integration analysis:
 - MCP-Tool-Chain-10-Cycle-Analysis.md
@@ -60,27 +60,27 @@ Documentation of the 3-MCP integration analysis:
 
 ### Category 4: Migration History (3-MCP Migration) (MEDIUM PRIORITY)
 
-**Source:** `C:\Users\mose\.claude\get-shit-done\implementing-using-code-index-mcp\`
-**Target:** `C:\github-repos\my-claude-code-repos\get-shit-done-code-index\implementing-using-code-index-mcp\`
+**Source:** `C:\Users\mose\.claude\get-shit-indexed\implementing-using-code-index-mcp\`
+**Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\implementing-using-code-index-mcp\`
 
 Contains the migration history from native tools to 3-MCP tools:
 - MIGRATION-COMPLETE.md
 - AUDIT-REPORT.md
-- gsd-plans.txt
-- gsd-rewrite.txt
+- GSI-plans.txt
+- GSI-rewrite.txt
 - tool-research.txt
 
 ### Category 5: MCP Server Documentation (LOW PRIORITY)
 
-**Source:** `C:\Users\mose\.claude\get-shit-done\.planning\codebase\MCP-*.md`
-**Target:** `C:\github-repos\my-claude-code-repos\get-shit-done-code-index\.planning\codebase\`
+**Source:** `C:\Users\mose\.claude\get-shit-indexed\.planning\codebase\MCP-*.md`
+**Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\.planning\codebase\`
 
 **Status:** Already in clone from Phase 3. Verify consistency.
 
 ### Category 6: Prompts (LOW PRIORITY)
 
-**Source:** `C:\Users\mose\.claude\get-shit-done\prompts\thinking-waves.txt`
-**Target:** `C:\github-repos\my-claude-code-repos\get-shit-done-code-index\prompts\`
+**Source:** `C:\Users\mose\.claude\get-shit-indexed\prompts\thinking-waves.txt`
+**Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\prompts\`
 
 May contain CG server patterns.
 
@@ -128,8 +128,8 @@ For all changes:
 
 1. **Backup Created:**
    ```bash
-   robocopy C:\github-repos\my-claude-code-repos\get-shit-done-code-index 
-             C:\github-repos\my-claude-code-repos\get-shit-done-code-index-backup-[timestamp] /E
+   robocopy C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index 
+             C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index-backup-[timestamp] /E
    ```
 
 2. **CG Server Verified:**
@@ -192,11 +192,11 @@ If sync fails or causes issues:
 ### Option 1: Restore from Backup
 ```bash
 # Delete failed sync
-rm -rf C:\github-repos\my-claude-code-repos\get-shit-done-code-index\*
+rm -rf C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\*
 
 # Restore from backup
-robocopy C:\github-repos\my-claude-code-repos\get-shit-done-code-index-backup-[timestamp] 
-          C:\github-repos\my-claude-code-repos\get-shit-done-code-index /E
+robocopy C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index-backup-[timestamp] 
+          C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index /E
 ```
 
 ### Option 2: Git Reset
@@ -247,7 +247,7 @@ Sync is successful when:
 
 ### Medium Risk
 - Overwriting existing workflow files
-- Modifying get-shit-done/references/
+- Modifying get-shit-indexed/references/
 
 ### Mitigation
 - Backup before any operations

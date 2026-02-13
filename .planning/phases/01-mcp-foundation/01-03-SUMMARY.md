@@ -1,4 +1,4 @@
----
+﻿---
 phase: 01-mcp-foundation
 plan: 03
 subsystem: tool-priority-enforcement
@@ -73,7 +73,7 @@ Each task was committed atomically:
 ## Files Created/Modified
 - `.planning/codebase/TOOL-PRIORITY-RULES.md` - Comprehensive tool priority rules
 - `.planning/templates/plan-template.md` - Tool priority section (already present)
-- `C:\Users\mose\.claude\get-shit-done\workflows\execute-plan.md` - CG requirements added
+- `C:\Users\mose\.claude\get-shit-indexed\workflows\execute-plan.md` - CG requirements added
 - `hooks/hooks.json` - Auto-start configuration
 - `hooks/start-cg-server.ps1` - CG server startup script
 

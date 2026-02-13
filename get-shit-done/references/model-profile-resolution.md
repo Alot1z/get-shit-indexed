@@ -1,4 +1,4 @@
-# Model Profile Resolution
+﻿# Model Profile Resolution
 
 Resolve model profile once at the start of orchestration, then use it for all Task spawns.
 
@@ -12,14 +12,14 @@ Default: `balanced` if not set or config missing.
 
 ## Lookup Table
 
-@~/.claude/get-shit-done/references/model-profiles.md
+@~/.claude/get-shit-indexed/references/model-profiles.md
 
 Look up the agent in the table for the resolved profile. Pass the model parameter to Task calls:
 
 ```
 Task(
   prompt="...",
-  subagent_type="gsd-planner",
+  subagent_type="GSI-planner",
   model="{resolved_model}"  # e.g., "opus" for quality profile
 )
 ```

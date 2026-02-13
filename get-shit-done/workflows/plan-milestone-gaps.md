@@ -1,3 +1,5 @@
+﻿<thinking>auto</thinking>
+
 <code_index_mcp>
 desktop_commander:
   tools: ["read_file", "write_file"]
@@ -12,7 +14,7 @@ native:
   rationale: "Fallback only - MCP tools provide 80-90% token savings"
 </code_index_mcp>
 
-<purpose>Create all phases necessary to close gaps identified by `/gsd:audit-milestone`. Reads MILESTONE-AUDIT.md, groups gaps into logical phases, creates phase entries in ROADMAP.md, and offers to plan each phase. One command creates all fix phases — no manual `/gsd:add-phase` per gap.
+<purpose>Create all phases necessary to close gaps identified by `/GSI:audit-milestone`. Reads MILESTONE-AUDIT.md, groups gaps into logical phases, creates phase entries in ROADMAP.md, and offers to plan each phase. One command creates all fix phases — no manual `/GSI:add-phase` per gap.
 </purpose>
 
 <required_reading>
@@ -157,7 +159,7 @@ Create one directory per gap closure phase.
 
 ```javascript
 await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs(roadmap): add gap closure phases" --files .planning/ROADMAP.md`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit "docs(roadmap): add gap closure phases" --files .planning/ROADMAP.md`,
   timeout_ms: 10000
 });
 ```
@@ -171,7 +173,7 @@ await mcp__desktop-commander__start_process({
 
 **Plan first gap closure phase**
 
-`/gsd:plan-phase {N}`
+`/GSI:plan-phase {N}`
 
 <sub>`/clear` first → fresh context window</sub>
 
@@ -179,7 +181,7 @@ await mcp__desktop-commander__start_process({
 
 **Also available:**
 - Review roadmap: Use MCP read tool to view .planning/ROADMAP.md
-- `/gsd:execute-phase {N}` — if plans already exist
+- `/GSI:execute-phase {N}` — if plans already exist
 ```
 </step>
 

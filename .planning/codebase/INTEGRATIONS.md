@@ -1,4 +1,4 @@
-# External Integrations
+﻿# External Integrations
 
 **Analysis Date:** 2025-02-11
 
@@ -73,7 +73,7 @@
 
 **CI Pipeline:**
 - No external CI detected
-- Manual execution through GSD workflows
+- Manual execution through GSI workflows
 
 ## Environment Configuration
 

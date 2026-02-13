@@ -1,3 +1,5 @@
+<thinking>auto</thinking>
+
 <purpose>
 Execute a phase prompt (PLAN.md) and create the outcome summary (SUMMARY.md).
 </purpose>

@@ -1,4 +1,4 @@
-<planning_config>
+﻿<planning_config>
 
 Configuration options for `.planning/` directory behavior.
 
@@ -10,8 +10,8 @@ Configuration options for `.planning/` directory behavior.
 },
 "git": {
   "branching_strategy": "none",
-  "phase_branch_template": "gsd/phase-{phase}-{slug}",
-  "milestone_branch_template": "gsd/{milestone}-{slug}"
+  "phase_branch_template": "GSI/phase-{phase}-{slug}",
+  "milestone_branch_template": "GSI/{milestone}-{slug}"
 }
 ```
 
@@ -20,8 +20,8 @@ Configuration options for `.planning/` directory behavior.
 | `commit_docs` | `true` | Whether to commit planning artifacts to git |
 | `search_gitignored` | `false` | Add `--no-ignore` to broad rg searches |
 | `git.branching_strategy` | `"none"` | Git branching approach: `"none"`, `"phase"`, or `"milestone"` |
-| `git.phase_branch_template` | `"gsd/phase-{phase}-{slug}"` | Branch template for phase strategy |
-| `git.milestone_branch_template` | `"gsd/{milestone}-{slug}"` | Branch template for milestone strategy |
+| `git.phase_branch_template` | `"GSI/phase-{phase}-{slug}"` | Branch template for phase strategy |
+| `git.milestone_branch_template` | `"GSI/{milestone}-{slug}"` | Branch template for milestone strategy |
 </config_schema>
 
 <commit_docs_behavior>
@@ -36,18 +36,18 @@ Configuration options for `.planning/` directory behavior.
 - User must add `.planning/` to `.gitignore`
 - Useful for: OSS contributions, client projects, keeping planning private
 
-**Using gsd-tools.js (preferred):**
+**Using GSI-tools.js (preferred):**
 
 ```bash
 # Commit with automatic commit_docs + gitignore checks:
-node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs: update state" --files .planning/STATE.md
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit "docs: update state" --files .planning/STATE.md
 
 # Load config via state load (returns JSON):
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js state load)
+INIT=$(node ~/.claude/get-shit-indexed/bin/GSI-tools.js state load)
 # commit_docs is available in the JSON output
 
 # Or use init commands which include commit_docs:
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js init execute-phase "1")
+INIT=$(node ~/.claude/get-shit-indexed/bin/GSI-tools.js init execute-phase "1")
 # commit_docs is included in all init command outputs
 ```
 
@@ -56,7 +56,7 @@ INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js init execute-phase "1")
 **Commit via CLI (handles checks automatically):**
 
 ```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs: update state" --files .planning/STATE.md
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit "docs: update state" --files .planning/STATE.md
 ```
 
 The CLI checks `commit_docs` config and gitignore status internally — no manual conditionals needed.
@@ -74,7 +74,7 @@ The CLI checks `commit_docs` config and gitignore status internally — no manua
 - Add `--no-ignore` to broad rg searches that should include `.planning/`
 - Only needed when searching entire repo and expecting `.planning/` matches
 
-**Note:** Most GSD operations use direct file reads or explicit paths, which work regardless of gitignore status.
+**Note:** Most GSI operations use direct file reads or explicit paths, which work regardless of gitignore status.
 
 </search_behavior>
 
@@ -115,18 +115,18 @@ To use uncommitted mode:
 
 **When `git.branching_strategy: "none"` (default):**
 - All work commits to current branch
-- Standard GSD behavior
+- Standard GSI behavior
 
 **When `git.branching_strategy: "phase"`:**
 - `execute-phase` creates/switches to a branch before execution
-- Branch name from `phase_branch_template` (e.g., `gsd/phase-03-authentication`)
+- Branch name from `phase_branch_template` (e.g., `GSI/phase-03-authentication`)
 - All plan commits go to that branch
 - User merges branches manually after phase completion
 - `complete-milestone` offers to merge all phase branches
 
 **When `git.branching_strategy: "milestone"`:**
 - First `execute-phase` of milestone creates the milestone branch
-- Branch name from `milestone_branch_template` (e.g., `gsd/v1.0-mvp`)
+- Branch name from `milestone_branch_template` (e.g., `GSI/v1.0-mvp`)
 - All phases in milestone commit to same branch
 - `complete-milestone` offers to merge milestone branch to main
 
@@ -142,13 +142,13 @@ To use uncommitted mode:
 
 Use `init execute-phase` which returns all config as JSON:
 ```bash
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js init execute-phase "1")
+INIT=$(node ~/.claude/get-shit-indexed/bin/GSI-tools.js init execute-phase "1")
 # JSON output includes: branching_strategy, phase_branch_template, milestone_branch_template
 ```
 
 Or use `state load` for the config values:
 ```bash
-INIT=$(node ~/.claude/get-shit-done/bin/gsd-tools.js state load)
+INIT=$(node ~/.claude/get-shit-indexed/bin/GSI-tools.js state load)
 # Parse branching_strategy, phase_branch_template, milestone_branch_template from JSON
 ```
 

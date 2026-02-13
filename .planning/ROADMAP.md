@@ -1,18 +1,18 @@
-# Roadmap: MCP-Enhanced GSD
+﻿# Roadmap: MCP-Enhanced GSI
 
 ## Overview
 
-Transform Get Shit Done (GSD) system to fully leverage three MCP servers—Desktop Commander (DC), Code-Index MCP (CI), and CodeGraphContext (CG)—replacing native bash commands with MCP equivalents. This journey begins with foundational MCP integration, moves through workflow updates, consolidates research into unified documentation, synchronizes repositories, integrates thinking servers, and concludes with quality verification systems.
+Transform Get Shit Indexed (GSI) system to fully leverage three MCP servers—Desktop Commander (DC), Code-Index MCP (CI), and CodeGraphContext (CG)—replacing native bash commands with MCP equivalents. This journey begins with foundational MCP integration, moves through workflow updates, consolidates research into unified documentation, synchronizes repositories, integrates thinking servers, and concludes with quality verification systems.
 
 ## Phases
 
 - [x] **Phase 1: MCP Foundation** - Establish all three MCP servers with golden pattern implementation
-- [x] **Phase 2: Workflow Integration** - Update all GSD workflows to use MCP tools instead of native commands
+- [x] **Phase 2: Workflow Integration** - Update all GSI workflows to use MCP tools instead of native commands
 - [x] **Phase 3: Documentation Consolidation** - Consolidate research into unified reference guides with Mermaid diagrams
 - [x] **Phase 4: Repository Synchronization** - Sync local changes to cloned upstream repo
 - [x] **Phase 5: Thinking Server Integration** - Integrate all three thinking servers with 7-BMAD methodology
 - [x] **Phase 6: Quality & Verification** - Implement auto-validation, code review, and verification systems
-- [x] **Phase 7: Command Layer Updates** - Update GSD command definitions for all 3 MCP servers
+- [x] **Phase 7: Command Layer Updates** - Update GSI command definitions for all 3 MCP servers
 - [x] **Phase 8: Advanced Workflow Features** - Implement parallel orchestration, model profiles, and YOLO mode
 - [ ] **Phase 9: Repository Renovation** - GSI terminal logo, global keyword replacement, documentation overhaul
 - [ ] **Phase 10: MCP & Tools Audit** - Complete MCP server and tools audit with documentation
@@ -50,14 +50,14 @@ Transform Get Shit Done (GSD) system to fully leverage three MCP servers—Deskt
 
 ### Phase 2: Workflow Integration
 
-**Goal**: All GSD workflows use MCP tools instead of native bash commands
+**Goal**: All GSI workflows use MCP tools instead of native bash commands
 
 **Depends on**: Phase 1 (MCP Foundation)
 
 **Requirements**: WORKFLOW-001, WORKFLOW-002, WORKFLOW-003
 
 **Success Criteria** (what must be TRUE):
-1. All 13 GSD workflow files use MCP tools instead of native bash commands
+1. All 13 GSI workflow files use MCP tools instead of native bash commands
 2. map-codebase.md implements wave-based agent spawning with rate limiting
 3. <code_index_mcp> headers declaratively specify MCP usage in workflow files
 4. Workflows execute using optimal tool sequences (CG → CI → DC)
@@ -102,17 +102,17 @@ Transform Get Shit Done (GSD) system to fully leverage three MCP servers—Deskt
 
 ### Phase 4: Repository Synchronization
 
-**Goal**: Local GSD directory synchronized with cloned upstream repo as single source of truth with complete 3-MCP integration
+**Goal**: Local GSI directory synchronized with cloned upstream repo as single source of truth with complete 3-MCP integration
 
 **Depends on**: Phase 2 (Workflow Integration), Phase 3 (Documentation Consolidation)
 
 **Requirements**: REPO-001, REPO-002, REPO-003, REPO-004
 
 **Success Criteria** (what must be TRUE):
-1. Local directory `C:\Users\mose\.claude\get-shit-done` synced to cloned upstream repo (local -> clone)
-2. Cloned repo at `C:\github-repos\my-claude-code-repos\get-shit-done-code-index` contains all 3-MCP integrations
+1. Local directory `C:\Users\mose\.claude\get-shit-indexed` synced to cloned upstream repo (local -> clone)
+2. Cloned repo at `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index` contains all 3-MCP integrations
 3. All local changes pushed to clone with DC, CI, CG (neo4j://localhost:7687) integrations
-4. Clone is established as single source of truth for GSD enhancements
+4. Clone is established as single source of truth for GSI enhancements
 
 **Plans**: 3 plans (REDO - with explicit 3-MCP integration)
 
@@ -121,7 +121,7 @@ Transform Get Shit Done (GSD) system to fully leverage three MCP servers—Deskt
 **Completed**: 2026-02-13
 
 **Plans**:
-- [x] 04-01: Analyze local GSD directory and cloned repo structure (10 tasks - analysis, cataloging, 3-MCP verification, backup)
+- [x] 04-01: Analyze local GSI directory and cloned repo structure (10 tasks - analysis, cataloging, 3-MCP verification, backup)
 - [x] 04-02: Update cloned repo with all 3-MCP integration changes (10 tasks - copy DC+CI+CG workflows, references, research)
 - [x] 04-03: Verify bidirectional sync with 3-MCP integration (10 tasks - commit, verify DC+CI+CG, document)
 
@@ -181,16 +181,16 @@ Transform Get Shit Done (GSD) system to fully leverage three MCP servers—Deskt
 
 ### Phase 7: Command Layer Updates
 
-**Goal**: GSD commands updated to work with all three MCP servers
+**Goal**: GSI commands updated to work with all three MCP servers
 
 **Depends on**: Phase 2 (Workflow Integration)
 
 **Requirements**: WORKFLOW-004
 
 **Success Criteria** (what must be TRUE):
-1. GSD commands at `C:\Users\mose\.claude\commands\gsd` work with Desktop Commander
-2. GSD commands work with Code-Index MCP
-3. GSD commands work with CodeGraphContext
+1. GSI commands at `C:\Users\mose\.claude\commands\GSI` work with Desktop Commander
+2. GSI commands work with Code-Index MCP
+3. GSI commands work with CodeGraphContext
 4. All commands handle all three MCP servers transparently
 
 **Plans**: 3 plans
@@ -200,9 +200,9 @@ Transform Get Shit Done (GSD) system to fully leverage three MCP servers—Deskt
 **Completed**: 2026-02-13
 
 **Plans**:
-- [x] 07-01: Update GSD command definitions for Desktop Commander integration (10 tasks)
-- [x] 07-02: Update GSD command definitions for Code-Index MCP integration (10 tasks)
-- [x] 07-03: Update GSD command definitions for CodeGraphContext integration (10 tasks)
+- [x] 07-01: Update GSI command definitions for Desktop Commander integration (10 tasks)
+- [x] 07-02: Update GSI command definitions for Code-Index MCP integration (10 tasks)
+- [x] 07-03: Update GSI command definitions for CodeGraphContext integration (10 tasks)
 
 ### Phase 8: Advanced Workflow Features
 
@@ -279,7 +279,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 - Plan 06-04: 10 tasks - Deliverable verifier
 
 **Phase 7 (Command Layer Updates): 3 plans created - 30 tasks total**
-- Plan 07-01: 10 tasks - DC integration for all 26 GSD commands
+- Plan 07-01: 10 tasks - DC integration for all 26 GSI commands
 - Plan 07-02: 10 tasks - CI integration for code search and analysis
 - Plan 07-03: 10 tasks - CG integration for relationship analysis
 
@@ -301,13 +301,13 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 ### Phase 9: Repository Renovation
 
-**Goal**: Complete GSD → GSI transformation with new logo, global keyword replacement, and documentation overhaul
+**Goal**: Complete GSI → GSI transformation with new logo, global keyword replacement, and documentation overhaul
 
 **Depends on**: Phase 8 (Advanced Workflow Features)
 
 **Success Criteria**:
 1. GSI terminal logo created with ring effects (cyan G+S, purple I with horizontal ellipses)
-2. ALL GSD keywords replaced with GSI globally
+2. ALL GSI keywords replaced with GSI globally
 3. All documentation updated with GSI branding
 4. All URLs point to Alot1z/get-shit-indexed fork
 5. GSI-REBRANDING.md changelog created
@@ -318,7 +318,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 **Plans**:
 - [ ] 09-01: Create GSI terminal logo with Tokyo Night theme and ring effects
-- [ ] 09-02: Global keyword replacement (GSD→GSI, Get Shit Done→Get Shit Indexed)
+- [ ] 09-02: Global keyword replacement (GSI→GSI, Get Shit Indexed→Get Shit Indexed)
 - [ ] 09-03: Documentation overhaul with new branding and fork URLs
 
 ### Phase 10: MCP & Tools Audit
@@ -350,7 +350,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 **Success Criteria**:
 1. All external URLs documented and verified active
-2. All links updated to point to fork (not original GSD repo)
+2. All links updated to point to fork (not original GSI repo)
 3. API endpoints documented
 4. Internal file references verified
 
@@ -383,7 +383,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 ### Phase 13: Comprehensive Testing
 
-**Goal**: End-to-end testing of all GSI functionality after GSD→GSI transformation
+**Goal**: End-to-end testing of all GSI functionality after GSI→GSI transformation
 
 **Depends on**: Phase 12 (Theory & Practice Docs)
 
@@ -392,7 +392,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 2. All MCP server integrations working
 3. All workflows functional
 4. Documentation accuracy verified
-5. No GSD references remaining (brand consistency)
+5. No GSI references remaining (brand consistency)
 6. Test summary shows high pass rate
 
 **Plans**: 1 plan

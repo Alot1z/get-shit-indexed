@@ -1,4 +1,4 @@
-# Check Plan Workflow
+﻿# Check Plan Workflow
 
 ## Overview
 
@@ -129,10 +129,10 @@ If WARN: Review warnings, can proceed if acceptable
 
 ```bash
 # Check specific plan
-gsd check-plan .planning/phases/06-quality-verification/06-01-PLAN.md
+GSI check-plan .planning/phases/06-quality-verification/06-01-PLAN.md
 
 # Check all plans in phase
-gsd check-plan .planning/phases/06-quality-verification/*-PLAN.md
+GSI check-plan .planning/phases/06-quality-verification/*-PLAN.md
 ```
 
 ### Integration with Plan Workflow

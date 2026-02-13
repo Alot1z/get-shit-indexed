@@ -1,3 +1,5 @@
+﻿<thinking>auto</thinking>
+
 <purpose>
 Check project progress, summarize recent work and what's ahead, then intelligently route to next action — either executing an existing plan or creating a next one. Provides situational awareness before continuing work.
 </purpose>
@@ -36,7 +38,7 @@ Load progress context using MCP tools:
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 const INIT = await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js init progress --include state,roadmap,project,config`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js init progress --include state,roadmap,project,config`,
   timeout_ms: 10000
 });
 ```
@@ -62,7 +64,7 @@ Parse roadmap structure:
 - Phase names and goals
 - Milestone boundaries
 
-**If roadmap missing:** Error — run `/gsd:new-project` first.
+**If roadmap missing:** Error — run `/GSI:new-project` first.
 </step>
 
 <step name="recent">
@@ -118,7 +120,7 @@ Phase [N+1]: [Name]
 [From STATE.md decisions table]
 
 ## Pending Todos
-[Count pending - use /gsd:check-todos]
+[Count pending - use /GSI:check-todos]
 
 ## Blockers/Concerns
 [Any open issues]
@@ -135,12 +137,12 @@ Phase [N+1]: [Name]
 
 | Condition | Route | Action |
 |-----------|--------|--------|
-| Phase complete + no next phase | Suggest `/gsd:complete-milestone` | Archive milestone, start next cycle |
-| Phase in progress + plans exist | Suggest `/gsd:execute-phase {N}` | Continue current phase |
-| Phase in progress + no plans | Suggest `/gsd:plan-phase {N}` | Create execution plans |
-| No phase active | Suggest `/gsd:discuss-phase {N}` | Gather context before planning |
-| Paused phase | Suggest `/gsd:resume-work` | Continue where left off |
-| Pending todos exist | Suggest `/gsd:check-todos` | Review and work on todos |
+| Phase complete + no next phase | Suggest `/GSI:complete-milestone` | Archive milestone, start next cycle |
+| Phase in progress + plans exist | Suggest `/GSI:execute-phase {N}` | Continue current phase |
+| Phase in progress + no plans | Suggest `/GSI:plan-phase {N}` | Create execution plans |
+| No phase active | Suggest `/GSI:discuss-phase {N}` | Gather context before planning |
+| Paused phase | Suggest `/GSI:resume-work` | Continue where left off |
+| Pending todos exist | Suggest `/GSI:check-todos` | Review and work on todos |
 
 Present the routed action clearly.
 </step>

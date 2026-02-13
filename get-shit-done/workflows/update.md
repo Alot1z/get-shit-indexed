@@ -1,3 +1,5 @@
+﻿<thinking>auto</thinking>
+
 <code_index_mcp>
 desktop_commander:
   tools: ["read_file", "write_file", "start_process"]
@@ -12,7 +14,7 @@ native:
   rationale: "Fallback only - MCP tools provide 80-90% token savings"
 </code_index_mcp>
 
-<purpose>Update GSD to latest version and show changelog preview. Checks installed vs latest version comparison and displays changelog entries for versions user may have missed. Better than raw `npx get-shit-done-cc@latest` — has intelligent checks and confirmation.
+<purpose>Update GSI to latest version and show changelog preview. Checks installed vs latest version comparison and displays changelog entries for versions user may have missed. Better than raw `npx get-shit-indexed-cc@latest` — has intelligent checks and confirmation.
 </purpose>
 
 <required_reading>
@@ -25,7 +27,7 @@ Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 **MANDATORY: Use MCP tools instead of native tools for all operations.**
 
 **Process Operations:**
-- mcp__desktop-commander__start_process — Run gsd-tools.js update and install commands
+- mcp__desktop-commander__start_process — Run GSI-tools.js update and install commands
 
 Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </tool_requirements>
@@ -40,7 +42,7 @@ Check installed and latest versions using MCP tools:
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 const versionInfo = await mcp__desktop-commander__start_process({
-  command: "npm show get-shit-done version && npm view get-shit-done dist/tags",
+  command: "npm show get-shit-indexed version && npm view get-shit-indexed dist/tags",
   timeout_ms: 15000
 });
 ```
@@ -62,13 +64,13 @@ If out of date, fetch changelog using MCP tools:
 ```javascript
 // MCP-based web search for changelog
 const changelog = await mcp__rag-web-browser__search({
-  query: "get-shit-done changelog ${installed}..${latest}",
+  query: "get-shit-indexed changelog ${installed}..${latest}",
   maxResults: 10
 });
 
 // Or use web reader
 const changelog = await mcp__web_reader__webReader({
-  url: "https://github.com/glittercowboy/get-shit-done/blob/main/CHANGELOG.md",
+  url: "https://github.com/glittercowboy/get-shit-indexed/blob/main/CHANGELOG.md",
   returnFormat: "markdown"
 });
 ```
@@ -80,7 +82,7 @@ Display key changes between versions:
 ```
 ## Changes Since [Installed Version]
 
-[Browse full changelogs at https://github.com/glittercowboy/get-shit-done/commits/main]
+[Browse full changelogs at https://github.com/glittercowboy/get-shit-indexed/commits/main]
 
 ### Added
 - [Feature 1]
@@ -104,7 +106,7 @@ Update from ${installed} to ${latest}?
 [y] - Download and install
 [n] - Skip for now
 
-Run /gsd:update anytime to check again.
+Run /GSI:update anytime to check again.
 ```
 
 **If yes:**
@@ -114,7 +116,7 @@ Run /gsd:update anytime to check again.
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash npm install)
 await mcp__desktop-commander__start_process({
-  command: "npx get-shit-done-cc@latest",
+  command: "npx get-shit-indexed-cc@latest",
   timeout_ms: 120000
 });
 ```
@@ -122,7 +124,7 @@ await mcp__desktop-commander__start_process({
 Confirm: "Updated to ${latest}"
 
 **If no:**
-Note that future `/gsd:progress` checks will continue showing out of date status.
+Note that future `/GSI:progress` checks will continue showing out of date status.
 </step>
 
 <step name="completion">
@@ -140,7 +142,7 @@ Status: [Up to date / Update available]
 
 ## ▶ Next Up
 
-`/gsd:progress` — Check project status
+`/GSI:progress` — Check project status
 ```
 </step>
 

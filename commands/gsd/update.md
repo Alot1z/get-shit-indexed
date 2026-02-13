@@ -1,6 +1,6 @@
----
-name: gsd:update
-description: Update GSD to latest version with changelog display
+﻿---
+name: GSI:update
+description: Update GSI to latest version with changelog display
 allowed-tools:
   - mcp__desktop-commander__read_file
   - mcp__desktop-commander__list_directory
@@ -9,7 +9,7 @@ allowed-tools:
 ---
 
 <objective>
-Check for GSD updates, install if available, and display what changed.
+Check for GSI updates, install if available, and display what changed.
 
 Routes to the update workflow which handles:
 - Version detection (local vs global installation)
@@ -21,11 +21,11 @@ Routes to the update workflow which handles:
 </objective>
 
 <execution_context>
-@~/.claude/get-shit-done/workflows/update.md
+@~/.claude/get-shit-indexed/workflows/update.md
 </execution_context>
 
 <process>
-**Follow the update workflow** from `@~/.claude/get-shit-done/workflows/update.md`.
+**Follow the update workflow** from `@~/.claude/get-shit-indexed/workflows/update.md`.
 
 The workflow handles all logic including:
 1. Installed version detection (local/global)

@@ -1,10 +1,10 @@
-# Discovery Template
+﻿# Discovery Template
 
 Template for `.planning/phases/XX-name/DISCOVERY.md` - shallow research for library/option decisions.
 
 **Purpose:** Answer "which library/option should we use" questions during mandatory discovery in plan-phase.
 
-For deep ecosystem research ("how do experts build this"), use `/gsd:research-phase` which produces RESEARCH.md.
+For deep ecosystem research ("how do experts build this"), use `/GSI:research-phase` which produces RESEARCH.md.
 
 ---
 
@@ -142,5 +142,5 @@ Create `.planning/phases/XX-name/DISCOVERY.md`:
 - Niche/complex domains (3D, games, audio, shaders)
 - Need ecosystem knowledge, not just library choice
 - "How do experts build this" questions
-- Use `/gsd:research-phase` for these
+- Use `/GSI:research-phase` for these
 </guidelines>

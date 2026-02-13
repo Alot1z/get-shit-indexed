@@ -1,8 +1,8 @@
-# Plan Frontmatter Template
+﻿# Plan Frontmatter Template
 
 ## Overview
 
-This template provides the standard frontmatter format for all GSD plans.
+This template provides the standard frontmatter format for all GSI plans.
 
 ## Template
 

@@ -1,3 +1,5 @@
+﻿<thinking>auto</thinking>
+
 <code_index_mcp>
 desktop_commander:
   tools: ["read_file", "write_file"]
@@ -117,7 +119,7 @@ Be specific enough for a fresh Claude to understand immediately.
 
 ```javascript
 await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js commit "wip: ${phase-name} paused at task ${X}" --files .planning/phases/XX-name/.continue-here.md`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit "wip: ${phase-name} paused at task ${X}" --files .planning/phases/XX-name/.continue-here.md`,
   timeout_ms: 10000
 });
 ```
@@ -134,7 +136,7 @@ Current state:
 - Status: [in_progress/blocked]
 - Committed as WIP
 
-To resume: /gsd:resume-work
+To resume: /GSI:resume-work
 
 ```
 </step>

@@ -1,4 +1,4 @@
-# Wave Configuration Tuning Guide
+﻿# Wave Configuration Tuning Guide
 
 Guide for optimizing wave-based spawning parameters for different environments and use cases.
 
@@ -217,7 +217,7 @@ Run wave execution and monitor:
 - Agent success rate
 
 ```bash
-node ~/.claude/get-shit-done/bin/wave-health.js
+node ~/.claude/get-shit-indexed/bin/wave-health.js
 ```
 
 ### 3. Adjust Based on Results
@@ -234,7 +234,7 @@ node ~/.claude/get-shit-done/bin/wave-health.js
 Validate tuning with test wave:
 
 ```bash
-node ~/.claude/get-shit-done/bin/test-wave-spawning.js
+node ~/.claude/get-shit-indexed/bin/test-wave-spawning.js
 ```
 
 ---
@@ -309,7 +309,7 @@ cat .planning/wave-history.json | grep "status.*failed"
 **Diagnosis:**
 ```bash
 # Calculate average wave duration
-node ~/.claude/get-shit-done/bin/wave-health.js --show-stats
+node ~/.claude/get-shit-indexed/bin/wave-health.js --show-stats
 ```
 
 **Solutions:**
@@ -372,11 +372,11 @@ Copy this template to `.planning/config.json`:
 
 ## See Also
 
-- `@get-shit-done/references/wave-verification.md` - Wave verification documentation
+- `@get-shit-indexed/references/wave-verification.md` - Wave verification documentation
 - `@.planning/config.json` - Configuration storage
 - `bin/wave-health.js` - Health monitoring script
 - `bin/test-wave-spawning.js` - Wave testing script
 
 ---
 
-*Generated for GSD Phase 8 - Advanced Workflow Features*
+*Generated for GSI Phase 8 - Advanced Workflow Features*

@@ -1,4 +1,4 @@
----
+﻿---
 phase: 05-thinking-server-integration
 plan: 04
 subsystem: workflow-integration
@@ -26,7 +26,7 @@ tech-stack:
 
 key-files:
   created: []
-  modified: [.planning/codebase/TOOL-CHAIN-PATTERNS.md, .planning/codebase/THINKING-SERVERS.md, get-shit-done/workflows/plan-phase.md]
+  modified: [.planning/codebase/TOOL-CHAIN-PATTERNS.md, .planning/codebase/THINKING-SERVERS.md, get-shit-indexed/workflows/plan-phase.md]
 
 key-decisions:
   - "Tool chain variants optimize based on which thinking server is active"
@@ -73,7 +73,7 @@ completed: 2026-02-13
 
 - `.planning/codebase/TOOL-CHAIN-PATTERNS.md` - Updated with thinking-server-specific variants (appended)
 - `.planning/codebase/THINKING-SERVERS.md` - Updated with tool chain integration guide (appended)
-- `get-shit-done/workflows/plan-phase.md` - Updated with thinking-aware pattern selection
+- `get-shit-indexed/workflows/plan-phase.md` - Updated with thinking-aware pattern selection
 
 ## Decisions Made
 

@@ -1,3 +1,5 @@
+﻿<thinking>auto</thinking>
+
 <code_index_mcp>
 desktop_commander:
   tools: ["read_file", "write_file"]
@@ -23,8 +25,8 @@ Phase number: $ARGUMENTS (required)
 ```
 Error: Phase number required.
 
-Usage: /gsd:list-phase-assumptions [phase-number]
-Example: /gsd:list-phase-assumptions 3
+Usage: /GSI:list-phase-assumptions [phase-number]
+Example: /GSI:list-phase-assumptions 3
 ```
 
 Exit workflow.
@@ -162,8 +164,8 @@ Present next steps:
 
 ```
 What's next?
-1. Discuss context (/gsd:discuss-phase ${PHASE}) - Let me ask you questions to build comprehensive context
-2. Plan this phase (/gsd:plan-phase ${PHASE}) - Create detailed execution plans
+1. Discuss context (/GSI:discuss-phase ${PHASE}) - Let me ask you questions to build comprehensive context
+2. Plan this phase (/GSI:plan-phase ${PHASE}) - Create detailed execution plans
 3. Re-examine assumptions - I'll analyze again with your corrections
 4. Done for now
 ```

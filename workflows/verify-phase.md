@@ -1,4 +1,4 @@
-# Verify Phase Workflow
+﻿# Verify Phase Workflow
 
 <tool_requirements>
 **MANDATORY: Use MCP tools instead of native tools for all operations.**
@@ -23,7 +23,7 @@ Verify phase deliverables match planned goals through comprehensive verification
 @references/verification-checklist.md
 
 # Agent Reference
-@agents/gsd-verifier.md
+@agents/GSI-verifier.md
 
 # 7-BMAD Quality Gates
 @references/validation-gates.md

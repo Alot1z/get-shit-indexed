@@ -1,4 +1,4 @@
----
+﻿---
 name: yolo
 description: Toggle YOLO mode for frictionless execution
 color: magenta
@@ -12,13 +12,13 @@ examples:
 
 ```bash
 # Enable YOLO mode
-/gsd:yolo on
+/GSI:yolo on
 
 # Disable YOLO mode  
-/gsd:yolo off
+/GSI:yolo off
 
 # Check status
-/gsd:yolo
+/GSI:yolo
 ```
 
 ---
@@ -72,25 +72,25 @@ When `mode: "yolo"`, all workflows skip confirmations and proceed automatically.
 ### Enable YOLO for quick iteration
 
 ```bash
-$ /gsd:yolo on
+$ /GSI:yolo on
 ✓ YOLO mode enabled
-$ /gsd:execute-phase 08
+$ /GSI:execute-phase 08
 # Executes all tasks without checkpoint pauses
 ```
 
 ### Disable YOLO for careful execution
 
 ```bash
-$ /gsd:yolo off
+$ /GSI:yolo off
 ✓ YOLO mode disabled
-$ /gsd:execute-phase 08
+$ /GSI:execute-phase 08
 # Normal checkpoint behavior
 ```
 
 ### Check current status
 
 ```bash
-$ /gsd:yolo
+$ /GSI:yolo
 Current YOLO mode: off
 ```
 
@@ -115,9 +115,9 @@ Current YOLO mode: off
 
 ## See Also
 
-- `@get-shit-done/references/yolo-mode.md` - Full YOLO mode documentation
+- `@get-shit-indexed/references/yolo-mode.md` - Full YOLO mode documentation
 - `@.planning/config.json` - Configuration storage
 
 ---
 
-*Command for GSD Phase 8 - Advanced Workflow Features*
+*Command for GSI Phase 8 - Advanced Workflow Features*

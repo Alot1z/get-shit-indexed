@@ -1,5 +1,5 @@
----
-name: gsd:progress
+﻿---
+name: GSI:progress
 description: Check project progress, show context, and route to next action (execute or plan)
 allowed-tools:
   - mcp__desktop-commander__read_file
@@ -20,10 +20,10 @@ Provides situational awareness before continuing work.
 </objective>
 
 <execution_context>
-@~/.claude/get-shit-done/workflows/progress.md
+@~/.claude/get-shit-indexed/workflows/progress.md
 </execution_context>
 
 <process>
-Execute the progress workflow from @~/.claude/get-shit-done/workflows/progress.md end-to-end.
+Execute the progress workflow from @~/.claude/get-shit-indexed/workflows/progress.md end-to-end.
 Preserve all routing logic (Routes A through F) and edge case handling.
 </process>
