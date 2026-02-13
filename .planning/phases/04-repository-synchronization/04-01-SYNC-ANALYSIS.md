@@ -1,19 +1,19 @@
-# Sync Analysis: Local vs Clone Repository
+﻿# Sync Analysis: Local vs Clone Repository
 
 **Analysis Date:** 2026-02-13T00:33:25Z
-**Source:** C:\Users\mose\.claude\get-shit-done (local GSD directory)
-**Target:** C:\github-repos\my-claude-code-repos\get-shit-done-code-index (cloned upstream repo)
+**Source:** C:\Users\mose\.claude\get-shit-indexed (local GSI directory)
+**Target:** C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index (cloned upstream repo)
 
 ## Executive Summary
 
-This document provides a comprehensive comparison between the local GSD directory (source of all 3-MCP integration updates) and the cloned upstream repository. The analysis reveals significant differences in workflow files, reference documentation, and research content that need to be synchronized.
+This document provides a comprehensive comparison between the local GSI directory (source of all 3-MCP integration updates) and the cloned upstream repository. The analysis reveals significant differences in workflow files, reference documentation, and research content that need to be synchronized.
 
 **Key Finding:** The local directory contains complete 3-MCP integration (DC + CI + CG) updates that must be synced to the cloned repository.
 
-## Local GSD Directory Structure
+## Local GSI Directory Structure
 
 ```
-C:\Users\mose\.claude\get-shit-done\
+C:\Users\mose\.claude\get-shit-indexed\
 ├── .planning/
 │   ├── codebase/           (7 files)
 │   ├── config.json
@@ -30,7 +30,7 @@ C:\Users\mose\.claude\get-shit-done\
 └── workflows/              (13 files - 3-MCP integrated)
 ```
 
-**Total Files in Local GSD:**
+**Total Files in Local GSI:**
 - .planning/codebase: 7 files
 - implementing-using-code-index-mcp: 11 files
 - prompts: 1 file
@@ -43,7 +43,7 @@ C:\Users\mose\.claude\get-shit-done\
 ## Cloned Repository Structure
 
 ```
-C:\github-repos\my-claude-code-repos\get-shit-done-code-index\
+C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\
 ├── .github/
 │   ├── workflows/          (CI/CD workflows)
 │   └── ISSUE_TEMPLATE/
@@ -59,8 +59,8 @@ C:\github-repos\my-claude-code-repos\get-shit-done-code-index\
 ├── agents/                 (11 agent definition files)
 ├── assets/                 (logo files)
 ├── bin/
-├── commands/gsd/           (34 command files)
-├── get-shit-done/
+├── commands/GSI/           (34 command files)
+├── get-shit-indexed/
 │   ├── bin/
 │   ├── references/         (12 files)
 │   ├── templates/          (23 files)
@@ -72,10 +72,10 @@ C:\github-repos\my-claude-code-repos\get-shit-done-code-index\
 **Total Files in Cloned Repo:**
 - .planning/codebase: 17 files (already has 3-MCP docs from Phase 3)
 - agents: 11 files
-- commands/gsd: 34 files
-- get-shit-done/references: 12 files
-- get-shit-done/templates: 23 files
-- get-shit-done/workflows: 34 files
+- commands/GSI: 34 files
+- get-shit-indexed/references: 12 files
+- get-shit-indexed/templates: 23 files
+- get-shit-indexed/workflows: 34 files
 - hooks: 4 files + start-cg-server.ps1
 
 ## Critical Differences Analysis
@@ -93,7 +93,7 @@ The local workflows contain the complete 3-MCP tool integration from Phase 2. Th
 6. **transition.md** - 3-MCP integration
 
 #### References (3-MCP Documentation) - HIGH PRIORITY
-Local has critical 3-MCP documentation that needs to be in get-shit-done/references:
+Local has critical 3-MCP documentation that needs to be in get-shit-indexed/references:
 
 1. **CODE-INDEX-MCP-GUIDE.md** - Complete CI server guide (1139 lines)
 2. **TOOL-PRIORITY-RULES.md** - 3-MCP tool priority rules (667 lines, includes CG)
@@ -101,7 +101,7 @@ Local has critical 3-MCP documentation that needs to be in get-shit-done/referen
 4. **checkpoints.md** - Checkpoint patterns
 5. **verification-patterns.md** - Verification patterns
 
-Note: The cloned repo's .planning/codebase already has these files from Phase 3, but get-shit-done/references does NOT have them.
+Note: The cloned repo's .planning/codebase already has these files from Phase 3, but get-shit-indexed/references does NOT have them.
 
 #### Research (MCP Tool Chain Analysis) - MEDIUM PRIORITY
 Local has extensive MCP research that documents the 3-MCP integration analysis:
@@ -117,8 +117,8 @@ These files document the analysis that led to the 3-MCP integration pattern.
 **implementing-using-code-index-mcp/** directory contains:
 - MIGRATION-COMPLETE.md
 - AUDIT-REPORT.md
-- gsd-plans.txt
-- gsd-rewrite.txt
+- GSI-plans.txt
+- GSI-rewrite.txt
 - tool-research.txt
 
 This directory documents the migration from native tools to 3-MCP tools.
@@ -131,15 +131,15 @@ This directory documents the migration from native tools to 3-MCP tools.
 These files are part of the cloned repo structure and should be preserved:
 
 1. **agents/** - 11 agent definition files (not in local)
-2. **commands/gsd/** - 34 command files (not in local)
+2. **commands/GSI/** - 34 command files (not in local)
 3. **hooks/** - Hook files including start-cg-server.ps1 (not in local)
 4. **.github/** - GitHub workflows and templates (not in local)
-5. **get-shit-done/bin/** - Binary files (not in local)
+5. **get-shit-indexed/bin/** - Binary files (not in local)
 6. **assets/** - Logo files (not in local)
 
 ### Category 3: Files in BOTH (Compare for 3-MCP Content)
 
-#### get-shit-done/workflows/
+#### get-shit-indexed/workflows/
 
 | File | Local | Clone | Sync Needed |
 |------|-------|-------|-------------|
@@ -157,7 +157,7 @@ These files are part of the cloned repo structure and should be preserved:
 | list-phase-assumptions.md | Basic | Basic | No |
 | resume-project.md | Basic | Basic | No |
 
-#### get-shit-done/references/
+#### get-shit-indexed/references/
 
 | File | Local | Clone | Sync Needed |
 |------|-------|-------|-------------|
@@ -214,7 +214,7 @@ Note: Local's .planning/codebase has 7 files. Clone's .planning/codebase has 17 
 - **Status:** Already documented in .planning/codebase
 
 **Key Insight:** The cloned repository already has significant 3-MCP integration from Phases 2 and 3. The sync should focus on:
-1. Ensuring get-shit-done/references has the 3-MCP documentation
+1. Ensuring get-shit-indexed/references has the 3-MCP documentation
 2. Adding research files that document the 3-MCP analysis
 3. Adding migration history directory
 4. Verifying workflow files have consistent 3-MCP integration
@@ -222,9 +222,9 @@ Note: Local's .planning/codebase has 7 files. Clone's .planning/codebase has 17 
 ## Sync Recommendations
 
 ### Priority 1: Must Sync (3-MCP Core Documentation)
-1. Copy references/CODE-INDEX-MCP-GUIDE.md to get-shit-done/references/
-2. Copy references/TOOL-PRIORITY-RULES.md to get-shit-done/references/
-3. Copy references/rate-limiting.md to get-shit-done/references/
+1. Copy references/CODE-INDEX-MCP-GUIDE.md to get-shit-indexed/references/
+2. Copy references/TOOL-PRIORITY-RULES.md to get-shit-indexed/references/
+3. Copy references/rate-limiting.md to get-shit-indexed/references/
 4. Sync research/ and reseach/ directories (MCP analysis documentation)
 5. Copy implementing-using-code-index-mcp/ directory
 
@@ -243,7 +243,7 @@ Note: Local's .planning/codebase has 7 files. Clone's .planning/codebase has 17 
 | Location | Workflows | References | Research | Templates | Other | Total |
 |----------|-----------|------------|----------|-----------|-------|-------|
 | Local | 13 | 12 | 6 | 36 | 19 | 86 |
-| Clone (get-shit-done/) | 34 | 12 | 0 | 23 | 2 | 71 |
+| Clone (get-shit-indexed/) | 34 | 12 | 0 | 23 | 2 | 71 |
 | Clone (root) | 0 | 0 | 0 | 0 | 67 | 67 |
 
 ## 3-MCP Integration Status (Verified)
@@ -287,7 +287,7 @@ Note: Local's .planning/codebase has 7 files. Clone's .planning/codebase has 17 
 
 ### Backup Status
 **Created:** 2026-02-13T00:33:25Z
-**Location:** C:\github-repos\my-claude-code-repos\get-shit-done-code-index-backup-20260213-003325
+**Location:** C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index-backup-20260213-003325
 **Contents:** 238 directories, 602 files, 5.40 MB
 **Status:** Complete and verified
 

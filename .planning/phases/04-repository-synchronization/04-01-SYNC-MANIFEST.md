@@ -1,7 +1,7 @@
-# Sync Manifest: Local to Clone
+﻿# Sync Manifest: Local to Clone
 
-**Source:** C:\Users\mose\.claude\get-shit-done (local GSD directory)
-**Target:** C:\github-repos\my-claude-code-repos\get-shit-done-code-index (cloned upstream repo)
+**Source:** C:\Users\mose\.claude\get-shit-indexed (local GSI directory)
+**Target:** C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index (cloned upstream repo)
 **Manifest Date:** 2026-02-13T00:33:25Z
 
 ## Instructions
@@ -14,8 +14,8 @@ Legend:
 
 ## Workflows (3-MCP Integrated)
 
-**Source:** `C:\Users\mose\.claude\get-shit-done\workflows\`
-**Target:** `C:\github-repos\my-claude-code-repos\get-shit-done-code-index\get-shit-done\workflows\`
+**Source:** `C:\Users\mose\.claude\get-shit-indexed\workflows\`
+**Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\get-shit-indexed\workflows\`
 
 ### Core Workflows (Part 1)
 - [ ] execute-plan.md (DC + CI tools, primary execution workflow)
@@ -40,8 +40,8 @@ Legend:
 
 ## References (3-MCP Tool Priority)
 
-**Source:** `C:\Users\mose\.claude\get-shit-done\references\`
-**Target:** `C:\github-repos\my-claude-code-repos\get-shit-done-code-index\get-shit-done\references\`
+**Source:** `C:\Users\mose\.claude\get-shit-indexed\references\`
+**Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\get-shit-indexed\references\`
 
 ### 3-MCP Core Documentation (HIGH PRIORITY)
 - [ ] CODE-INDEX-MCP-GUIDE.md (1139 lines, complete CI server guide)
@@ -65,8 +65,8 @@ Legend:
 
 ## Research (MCP Tool Chain Analysis)
 
-**Source:** `C:\Users\mose\.claude\get-shit-done\research\**` and `C:\Users\mose\.claude\get-shit-done\reseach\**`
-**Target:** `C:\github-repos\my-claude-code-repos\get-shit-done-code-index\research\`
+**Source:** `C:\Users\mose\.claude\get-shit-indexed\research\**` and `C:\Users\mose\.claude\get-shit-indexed\reseach\**`
+**Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\research\`
 
 ### MCP Tool Chain Analysis
 - [ ] research/mcp-tool-chain-analysis.md (correct spelling directory)
@@ -83,28 +83,28 @@ Legend:
 
 ## Migration History (3-MCP Migration)
 
-**Source:** `C:\Users\mose\.claude\get-shit-done\implementing-using-code-index-mcp\`
-**Target:** `C:\github-repos\my-claude-code-repos\get-shit-done-code-index\implementing-using-code-index-mcp\`
+**Source:** `C:\Users\mose\.claude\get-shit-indexed\implementing-using-code-index-mcp\`
+**Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\implementing-using-code-index-mcp\`
 
 ### Migration Documentation
 - [ ] MIGRATION-COMPLETE.md (migration completion status)
 - [ ] AUDIT-REPORT.md (audit of migration)
-- [ ] gsd-plans.txt (plan analysis)
-- [ ] gsd-rewrite.txt (rewrite analysis)
+- [ ] GSI-plans.txt (plan analysis)
+- [ ] GSI-rewrite.txt (rewrite analysis)
 - [ ] tool-research.txt (tool research)
 - [ ] tool-requiremnts.txt (requirements, note typo)
 - [ ] tool-reseach.txt (research, note typo)
 - [ ] tool-research.txt (correct spelling)
 - [ ] explore-agents.txt (agent exploration)
-- [ ] gsd-agents.txt (GSD agent analysis)
+- [ ] GSI-agents.txt (GSI agent analysis)
 - [ ] instructions.txt (migration instructions)
 
 **Total Migration Files:** 11 files
 
 ## Prompts
 
-**Source:** `C:\Users\mose\.claude\get-shit-done\prompts\`
-**Target:** `C:\github-repos\my-claude-code-repos\get-shit-done-code-index\prompts\`
+**Source:** `C:\Users\mose\.claude\get-shit-indexed\prompts\`
+**Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\prompts\`
 
 ### Prompt Files
 - [ ] thinking-waves.txt (may contain CG server patterns)
@@ -113,8 +113,8 @@ Legend:
 
 ## Planning Codebase (3-MCP Documentation)
 
-**Source:** `C:\Users\mose\.claude\get-shit-done\.planning\codebase\`
-**Target:** `C:\github-repos\my-claude-code-repos\get-shit-done-code-index\.planning\codebase\`
+**Source:** `C:\Users\mose\.claude\get-shit-indexed\.planning\codebase\`
+**Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\.planning\codebase\`
 
 ### MCP Server Documentation (VERIFY - may already exist from Phase 3)
 - [ ] MCP-SERVER-STATUS.md (DC + CI + CG status, neo4j://localhost:7687)
@@ -146,9 +146,9 @@ Legend:
 **Total Estimated Files:** ~50 files
 
 ### Directories to Create
-- `get-shit-done-code-index/research/` (may not exist)
-- `get-shit-done-code-index/implementing-using-code-index-mcp/` (may not exist)
-- `get-shit-done-code-index/prompts/` (may not exist)
+- `get-shit-indexed-code-index/research/` (may not exist)
+- `get-shit-indexed-code-index/implementing-using-code-index-mcp/` (may not exist)
+- `get-shit-indexed-code-index/prompts/` (may not exist)
 
 ## Execution Checklist
 

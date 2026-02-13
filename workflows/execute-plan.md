@@ -1,4 +1,4 @@
-# Execute Plan Workflow
+﻿# Execute Plan Workflow
 
 <tool_requirements>
 **MANDATORY: Use MCP tools instead of native tools for all operations.**
@@ -96,7 +96,7 @@ After all tasks complete, emit completion signal:
 
 ```markdown
 [COMPLETION]
-Agent: gsd-executor
+Agent: GSI-executor
 Task: {phase} - {plan name}
 Files:
   - {list of files created/modified}
@@ -175,7 +175,7 @@ Include completion signal that triggers validation:
 
 ```markdown
 [COMPLETION]
-Agent: gsd-executor
+Agent: GSI-executor
 Task: Phase {phase} Plan {plan} - {name}
 Files: [modified files]
 Status: Success

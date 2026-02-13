@@ -1,4 +1,4 @@
-# Research Template
+﻿# Research Template
 
 Template for `.planning/phases/XX-name/{phase}-RESEARCH.md` - comprehensive ecosystem research before planning.
 
@@ -18,7 +18,7 @@ Template for `.planning/phases/XX-name/{phase}-RESEARCH.md` - comprehensive ecos
 <user_constraints>
 ## User Constraints (from CONTEXT.md)
 
-**CRITICAL:** If CONTEXT.md exists from /gsd:discuss-phase, copy locked decisions here verbatim. These MUST be honored by the planner.
+**CRITICAL:** If CONTEXT.md exists from /GSI:discuss-phase, copy locked decisions here verbatim. These MUST be honored by the planner.
 
 ### Locked Decisions
 [Copy from CONTEXT.md `## Decisions` section - these are NON-NEGOTIABLE]
@@ -528,7 +528,7 @@ function useVehicleControls(rigidBodyRef) {
 - When "how do experts do this" matters more than "which library"
 
 **Structure:**
-- Use XML tags for section markers (matches GSD templates)
+- Use XML tags for section markers (matches GSI templates)
 - Seven core sections: summary, standard_stack, architecture_patterns, dont_hand_roll, common_pitfalls, code_examples, sources
 - All sections required (drives comprehensive research)
 

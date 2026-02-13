@@ -1,4 +1,4 @@
----
+﻿---
 phase: XX-name
 plan: YY
 subsystem: [primary category]
@@ -49,7 +49,7 @@ completed: YYYY-MM-DD
 [Key decisions with brief rationale]
 
 ## Deviations from Plan (Auto-fixed)
-[Detailed auto-fix records per GSD deviation rules]
+[Detailed auto-fix records per GSI deviation rules]
 
 ## Issues Encountered
 [Problems during planned work and resolutions]

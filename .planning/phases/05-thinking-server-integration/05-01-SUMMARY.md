@@ -1,4 +1,4 @@
----
+﻿---
 phase: 05-thinking-server-integration
 plan: 01
 subsystem: workflow-integration
@@ -22,7 +22,7 @@ tech-stack:
 
 key-files:
   created: [.planning/codebase/THINKING-SERVERS.md, .planning/codebase/7-BMAD-METHODOLOGY.md]
-  modified: [get-shit-done/workflows/plan-phase.md, get-shit-done/workflows/execute-plan.md]
+  modified: [get-shit-indexed/workflows/plan-phase.md, get-shit-indexed/workflows/execute-plan.md]
 
 key-decisions:
   - "Sequential thinking for multi-step problem decomposition with 3-7 thoughts typical"
@@ -66,8 +66,8 @@ completed: 2026-02-13
 
 - `.planning/codebase/THINKING-SERVERS.md` - Sequential thinking server API documentation with parameters, use cases, and best practices
 - `.planning/codebase/7-BMAD-METHODOLOGY.md` - 7-BMAD quality framework with all 7 circles, validation workflow, and gate evaluation process
-- `get-shit-done/workflows/plan-phase.md` - Updated with sequential thinking integration for complex planning scenarios
-- `get-shit-done/workflows/execute-plan.md` - Updated with sequential thinking for architectural decision handling
+- `get-shit-indexed/workflows/plan-phase.md` - Updated with sequential thinking integration for complex planning scenarios
+- `get-shit-indexed/workflows/execute-plan.md` - Updated with sequential thinking for architectural decision handling
 
 ## Decisions Made
 

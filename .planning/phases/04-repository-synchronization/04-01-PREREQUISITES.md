@@ -1,4 +1,4 @@
-# Sync Prerequisites: Local to Clone
+﻿# Sync Prerequisites: Local to Clone
 
 **Document Date:** 2026-02-13T00:33:25Z
 **For:** Plan 04-02 (Repository Sync Execution)
@@ -47,8 +47,8 @@ git remote -v
 
 **Backup Command:**
 ```bash
-robocopy C:\github-repos\my-claude-code-repos\get-shit-done-code-index 
-          C:\github-repos\my-claude-code-repos\get-shit-done-code-index-backup-20260213-003325 /E /R:0 /W:0
+robocopy C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index 
+          C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index-backup-20260213-003325 /E /R:0 /W:0
 ```
 
 ### 4. Disk Space Verification
@@ -132,13 +132,13 @@ If sync fails or causes issues, use one of these rollback methods:
 1. Delete failed sync content:
    ```bash
    cd C:\github-repos\my-claude-code-repos
-   rm -rf get-shit-done-code-index
+   rm -rf get-shit-indexed-code-index
    ```
 
 2. Restore from backup:
    ```bash
-   robocopy get-shit-done-code-index-backup-20260213-003325 
-             get-shit-done-code-index /E /R:0 /W:0
+   robocopy get-shit-indexed-code-index-backup-20260213-003325 
+             get-shit-indexed-code-index /E /R:0 /W:0
    ```
 
 3. Verify restoration:
@@ -177,8 +177,8 @@ If only specific files are problematic:
 
 2. Restore individual files from backup:
    ```bash
-   copy get-shit-done-code-index-backup-20260213-003325\path\to\file.md 
-        get-shit-done-code-index\path\to\file.md
+   copy get-shit-indexed-code-index-backup-20260213-003325\path\to\file.md 
+        get-shit-indexed-code-index\path\to\file.md
    ```
 
 3. Verify fix:

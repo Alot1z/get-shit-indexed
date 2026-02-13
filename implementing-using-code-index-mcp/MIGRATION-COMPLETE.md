@@ -1,11 +1,11 @@
-# GSD MCP Tool Migration - Complete
+﻿# GSI MCP Tool Migration - Complete
 
 **Date**: 2025-02-11
 **Status**: ✅ COMPLETE
 
 ## Summary
 
-All GSD workflows now have `<tool_requirements>` blocks that mandate the use of MCP tools instead of native tools. This ensures 80-90% token savings across all GSD operations.
+All GSI workflows now have `<tool_requirements>` blocks that mandate the use of MCP tools instead of native tools. This ensures 80-90% token savings across all GSI operations.
 
 ## Migration Applied
 
@@ -84,7 +84,7 @@ Based on research findings (`implementing-using-code-index-mcp/tool-reseach.txt`
 - Code search: 80-90% token reduction
 - Batch operations: 80%+ token reduction
 
-**Cumulative impact**: Significant reduction in token usage across all GSD operations.
+**Cumulative impact**: Significant reduction in token usage across all GSI operations.
 
 ## Verification
 

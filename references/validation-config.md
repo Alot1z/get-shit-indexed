@@ -1,4 +1,4 @@
-# Validation Configuration Specification
+﻿# Validation Configuration Specification
 
 ## Overview
 
@@ -398,17 +398,17 @@ Override configuration via environment variables:
 
 ```bash
 # Retry limit
-GSD_VALIDATION_RETRY_LIMIT=3
+GSI_VALIDATION_RETRY_LIMIT=3
 
 # Pass threshold
-GSD_VALIDATION_PASS_THRESHOLD=100
+GSI_VALIDATION_PASS_THRESHOLD=100
 
 # Strictness
-GSD_VALIDATION_STRICTNESS=standard
+GSI_VALIDATION_STRICTNESS=standard
 
 # Timeouts
-GSD_VALIDATION_TIMEOUT_PER_GATE=60
-GSD_VALIDATION_TIMEOUT_TOTAL=300
+GSI_VALIDATION_TIMEOUT_PER_GATE=60
+GSI_VALIDATION_TIMEOUT_TOTAL=300
 ```
 
 Environment variables take precedence over config files.

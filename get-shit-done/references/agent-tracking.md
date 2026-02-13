@@ -1,6 +1,6 @@
-# Agent Tracking Reference
+﻿# Agent Tracking Reference
 
-Documentation for agent tracking protocol used across GSD workflows for monitoring parallel agent execution and resume capability.
+Documentation for agent tracking protocol used across GSI workflows for monitoring parallel agent execution and resume capability.
 
 ---
 
@@ -56,7 +56,7 @@ Documentation for agent tracking protocol used across GSD workflows for monitori
 AGENT_ID="agent-${FOCUS}-$(date +%Y%m%d-%H%M%S)"
 
 # Add to agent-history.json
-node ~/.claude/get-shit-done/bin/gsd-tools.js track-agent "$AGENT_ID" "$DESCRIPTION" "$PHASE" "$PLAN" --status "spawned"
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js track-agent "$AGENT_ID" "$DESCRIPTION" "$PHASE" "$PLAN" --status "spawned"
 
 # Write current agent ID for resumption
 echo "$AGENT_ID" > .planning/current-agent-id.txt
@@ -66,7 +66,7 @@ echo "$AGENT_ID" > .planning/current-agent-id.txt
 
 ```bash
 # Update agent status in history
-node ~/.claude/get-shit-done/bin/gsd-tools.js track-agent "$AGENT_ID" "$DESCRIPTION" "$PHASE" "$PLAN" --status "completed" --completion-timestamp "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js track-agent "$AGENT_ID" "$DESCRIPTION" "$PHASE" "$PLAN" --status "completed" --completion-timestamp "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 # Clean up current agent ID
 rm -f .planning/current-agent-id.txt
@@ -76,7 +76,7 @@ rm -f .planning/current-agent-id.txt
 
 ```bash
 # Mark as failed
-node ~/.claude/get-shit-done/bin/gsd-tools.js track-agent "$AGENT_ID" "$DESCRIPTION" "$PHASE" "$PLAN" --status "failed" --error "Error description"
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js track-agent "$AGENT_ID" "$DESCRIPTION" "$PHASE" "$PLAN" --status "failed" --error "Error description"
 ```
 
 ---
@@ -151,7 +151,7 @@ Track segment number for agents executing partial plans:
 AGENT_ID="mapper-tech-$(date +%Y%m%d-%H%M%S)"
 
 # Add to history
-node ~/.claude/get-shit-done/bin/gsd-tools.js track-agent "$AGENT_ID" "Map codebase tech stack" "08-advanced-workflow-features" "01" --status "spawned"
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js track-agent "$AGENT_ID" "Map codebase tech stack" "08-advanced-workflow-features" "01" --status "spawned"
 
 # Track current agent
 echo "$AGENT_ID" > .planning/current-agent-id.txt
@@ -161,7 +161,7 @@ echo "$AGENT_ID" > .planning/current-agent-id.txt
 
 ```bash
 # Update status to completed
-node ~/.claude/get-shit-done/bin/gsd-tools.js track-agent "$AGENT_ID" "Map codebase tech stack" "08-advanced-workflow-features" "01" --status "completed" --completion-timestamp "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js track-agent "$AGENT_ID" "Map codebase tech stack" "08-advanced-workflow-features" "01" --status "completed" --completion-timestamp "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 # Clean up
 rm -f .planning/current-agent-id.txt
@@ -181,4 +181,4 @@ fi
 
 ---
 
-*Generated for GSD Phase 8 - Advanced Workflow Features*
+*Generated for GSI Phase 8 - Advanced Workflow Features*

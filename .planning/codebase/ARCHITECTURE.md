@@ -1,4 +1,4 @@
-# Architecture
+﻿# Architecture
 
 **Analysis Date:** 2026-02-11
 
@@ -26,7 +26,7 @@
 - Location: `workflows/`
 - Contains: Workflow definitions for complex operations
 - Dependencies: Template layer for context
-- Used by: GSD commands
+- Used by: GSI commands
 
 **Reference Layer:**
 - Purpose: Core principles and guidance
@@ -36,7 +36,7 @@
 - Used by: All components
 
 **Command Layer:**
-- Purpose: Execute specific GSD operations
+- Purpose: Execute specific GSI operations
 - Location: `workflows/`
 - Contains: Task definitions and command handlers
 - Dependencies: Workflow and template layers
@@ -44,9 +44,9 @@
 
 ## Data Flow
 
-**GSD Command Execution:**
+**GSI Command Execution:**
 
-1. User runs `/gsd:command`
+1. User runs `/GSI:command`
 2. Workflow is loaded from `workflows/command.md`
 3. Tasks are parsed and dependencies identified
 4. Subagents are spawned with appropriate models
@@ -73,7 +73,7 @@
 
 **Subagent:**
 - Purpose: Execute specific tasks with specialized models
-- Examples: GSD executor, verifier, mapper agents
+- Examples: GSI executor, verifier, mapper agents
 - Pattern: Task-based with explicit context injection
 
 **Checkpoint:**
@@ -84,7 +84,7 @@
 ## Entry Points
 
 **CLI Entry:**
-- Location: Workflows triggered by `/gsd:` commands
+- Location: Workflows triggered by `/GSI:` commands
 - Triggers: User invokes commands via CLI
 - Responsibilities: Load workflows, spawn subagents, collect results
 

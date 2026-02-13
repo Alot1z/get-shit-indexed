@@ -1,10 +1,10 @@
-# Project State
+﻿# Project State
 
 ## Project Reference
 
 See: .planning/PROJECT.md (updated 2025-02-11)
 
-**Core value:** Token-efficient, reliable GSD workflows that leverage all three MCP servers (DC + CI + CG) using proven tool chain patterns.
+**Core value:** Token-efficient, reliable GSI workflows that leverage all three MCP servers (DC + CI + CG) using proven tool chain patterns.
 **Current focus:** Phase 9 in progress - Repository renovation to GSI
 
 ## Current Position
@@ -67,7 +67,7 @@ Progress: [████████░░░░░░░░░░░░] 40% (16
 - Sync analysis documented (04-01-SYNC-ANALYSIS.md) with local vs clone comparison
 - Sync strategy established (04-01-SYNC-STRATEGY.md) for local to clone sync
 - Sync manifest created (04-01-SYNC-MANIFEST.md) with ~50 files identified
-- Backup created: get-shit-done-code-index-backup-20260213-003325 (238 dirs, 602 files)
+- Backup created: get-shit-indexed-code-index-backup-20260213-003325 (238 dirs, 602 files)
 - Research files synced: MCP tool chain analysis documentation
 - Migration history synced: implementing-using-code-index-mcp directory
 - Prompts synced: thinking waves patterns
@@ -88,7 +88,7 @@ Progress: [████████░░░░░░░░░░░░] 40% (16
 - Integration with 7-BMAD: Model/Modd circles use tractatus, all circles benefit from structured thinking
 
 **From Phase 7 (Command Layer Updates):**
-- All 26 GSD command files updated with Desktop Commander MCP tools for file operations
+- All 26 GSI command files updated with Desktop Commander MCP tools for file operations
 - Commands declare DC tools (mcp__desktop-commander__*) in allowed-tools frontmatter
 - All commands updated with Code-Index MCP tools for code search (search_code_advanced, find_files, get_file_summary, get_symbol_body, build_deep_index, set_project_path, refresh_index)
 - Commands that need relationship analysis updated with CodeGraphContext MCP tools (query, find_path, analyze_impact, visualize, find_components, get_statistics, suggest_refactor)
@@ -97,7 +97,7 @@ Progress: [████████░░░░░░░░░░░░] 40% (16
 - CI tool usage comments added to commands that use code search
 - CG tool usage comments added to commands that use relationship analysis
 - CG server connection (neo4j://localhost:7687) documented in relevant commands
-- Bash tool retained for gsd-tools.js wrapper (no MCP equivalent)
+- Bash tool retained for GSI-tools.js wrapper (no MCP equivalent)
 - Task tool retained for subagent spawning (orchestration requirement)
 - Full 3-MCP integration (DC + CI + CG) complete across command layer
 
@@ -107,11 +107,11 @@ Progress: [████████░░░░░░░░░░░░] 40% (16
 - Horizontal ellipse ring pattern representing data indexing ripples
 - Ring color gradient: Red outer (#f7768e) -> Yellow (#e0af68) -> Green (#9ece6a) -> Purple I (#bb9af7)
 - SVG glow filter applied to I letter for emphasis
-- Original GSD logo analysis documented (.planning/codebase/LOGO-ANALYSIS.md)
+- Original GSI logo analysis documented (.planning/codebase/LOGO-ANALYSIS.md)
 
 ### Pending Todos
 
-- Phase 9 Plan 02: Global keyword replacement (GSD -> GSI)
+- Phase 9 Plan 02: Global keyword replacement (GSI -> GSI)
 - Phase 9 Plan 03: README.md updates
 - Phase 9 Plan 04: Documentation branding updates
 

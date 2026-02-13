@@ -1,4 +1,4 @@
----
+﻿---
 phase: 08-advanced-workflow-features
 plan: 02
 subsystem: model-profile-system
@@ -31,9 +31,9 @@ tech-stack:
 # Key Files
 key-files:
   created:
-    - get-shit-done/workflows/set-profile.md (new profile switching workflow)
-    - commands/gsd/set-profile.md (new command for profile management)
-    - get-shit-done/references/model-profiles.md (profile reference documentation)
+    - get-shit-indexed/workflows/set-profile.md (new profile switching workflow)
+    - commands/GSI/set-profile.md (new command for profile management)
+    - get-shit-indexed/references/model-profiles.md (profile reference documentation)
   modified:
     - .planning/config.json (added model_profiles section with quality/balanced/budget profiles)
 
@@ -41,7 +41,7 @@ key-files:
 key-decisions:
   - "Model profile schema defined in config.json": Three profiles (quality/balanced/budget) with executor, planner, and verifier models for each profile type
   - "Profile switching workflow created": Complete set-profile.md workflow with load_current_profile, list_profiles, select_profile, update_config, and verify steps
-  - "set-profile command created": Command interface for /gsd:set-profile with usage examples and profile table
+  - "set-profile command created": Command interface for /GSI:set-profile with usage examples and profile table
 
 # Metrics
 duration: 10min
@@ -50,7 +50,7 @@ completed: 2026-02-13
 ## Accomplishments
 1. **Model profile reference** - Created model-profiles.md documenting three profiles (quality/balanced/budget) with executor, planner, and verifier model assignments, use cases, and trade-offs
 2. **Profile switching workflow** - Created set-profile.md with complete profile switching flow including current profile display, profile listing, user selection, config update, and verification
-3. **set-profile command** - Created commands/gsd/set-profile.md with usage examples, profile table, configuration reference, and workflow links
+3. **set-profile command** - Created commands/GSI/set-profile.md with usage examples, profile table, configuration reference, and workflow links
 4. **Config schema update** - Updated config.json with model_profiles section containing all three profile configurations and active_profile setting
 
 ## Task Commits
@@ -70,14 +70,14 @@ Each task was committed atomically:
 **Plan metadata**: `efgh456` (docs - complete Phase 8 Plan 02 model profiles)
 
 ## Files Created/Modified
-- `get-shit-done/workflows/set-profile.md` - New profile switching workflow with complete flow and shell examples
-- `commands/gsd/set-profile.md` - New command for /gsd:set-profile with examples, profile table, and configuration reference
-- `get-shit-done/references/model-profiles.md` - Model profile reference documentation with three profiles defined
+- `get-shit-indexed/workflows/set-profile.md` - New profile switching workflow with complete flow and shell examples
+- `commands/GSI/set-profile.md` - New command for /GSI:set-profile with examples, profile table, and configuration reference
+- `get-shit-indexed/references/model-profiles.md` - Model profile reference documentation with three profiles defined
 - `.planning/config.json` - Updated with model_profiles section (quality, balanced, budget)
-- `get-shit-done/workflows/execute-phase.md` - Updated to read executor_model from active_profile
-- `get-shit-done/workflows/plan-phase.md` - Updated to read planner_model from active_profile
-- `get-shit-done/workflows/verify-work.md` - Updated to read verifier_model from active_profile
-- `get-shit-done/workflows/progress.md` - Updated to display active profile and model assignments
+- `get-shit-indexed/workflows/execute-phase.md` - Updated to read executor_model from active_profile
+- `get-shit-indexed/workflows/plan-phase.md` - Updated to read planner_model from active_profile
+- `get-shit-indexed/workflows/verify-work.md` - Updated to read verifier_model from active_profile
+- `get-shit-indexed/workflows/progress.md` - Updated to display active profile and model assignments
 
 ## Deviations from Plan
 
@@ -87,7 +87,7 @@ None - All tasks executed as specified. The execute-phase.md, plan-phase.md, and
 None - All tasks completed successfully with YOLO mode enabled.
 
 ## Next Phase Readiness
-Phase 8 Plan 02 complete. Model profile system is now operational across all GSD workflows. Future phases can leverage configurable model profiles for balancing speed vs capability.
+Phase 8 Plan 02 complete. Model profile system is now operational across all GSI workflows. Future phases can leverage configurable model profiles for balancing speed vs capability.
 
 ---
 *Phase: 08-advanced-workflow-features*

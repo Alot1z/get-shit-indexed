@@ -1,5 +1,7 @@
+<thinking>auto</thinking>
+
 ---
-code_index_mcp>
+<code_index_mcp>
 enabled: true
 auto_continue: true
 project_index: .planning/codebase-index

@@ -1,4 +1,4 @@
-# State Template
+﻿# State Template
 
 Template for `.planning/STATE.md` — the project's living memory.
 
@@ -145,10 +145,10 @@ Updated after each plan completion.
 
 **Decisions:** Reference to PROJECT.md Key Decisions table, plus recent decisions summary for quick access. Full decision log lives in PROJECT.md.
 
-**Pending Todos:** Ideas captured via /gsd:add-todo
+**Pending Todos:** Ideas captured via /GSI:add-todo
 - Count of pending todos
 - Reference to .planning/todos/pending/
-- Brief list if few, count if many (e.g., "5 pending todos — see /gsd:check-todos")
+- Brief list if few, count if many (e.g., "5 pending todos — see /GSI:check-todos")
 
 **Blockers/Concerns:** From "Next Phase Readiness" sections
 - Issues that affect future work

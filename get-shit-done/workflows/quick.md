@@ -1,3 +1,5 @@
+﻿<thinking>auto</thinking>
+
 <code_index_mcp>
 desktop_commander:
   tools: ["read_file", "write_file", "start_process"]
@@ -12,7 +14,7 @@ native:
   rationale: "Fallback only - MCP tools provide 80-90% token savings"
 </code_index_mcp>
 
-<purpose>Execute small, ad-hoc tasks with GSD guarantees (atomic commits, STATE.md tracking) while skipping optional agents (research, plan-checker, verifier). Quick mode lives in `.planning/quick/` separate from planned phases. Uses same executor and planner agents but streamlined flow.
+<purpose>Execute small, ad-hoc tasks with GSI guarantees (atomic commits, STATE.md tracking) while skipping optional agents (research, plan-checker, verifier). Quick mode lives in `.planning/quick/` separate from planned phases. Uses same executor and planner agents but streamlined flow.
 </purpose>
 
 <required_reading>
@@ -33,7 +35,7 @@ Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 - mcp__desktop-commander__list_directory — Check quick task directory
 
 **Process Operations:**
-- mcp__desktop-commander__start_process — Run gsd-tools.js commands
+- mcp__desktop-commander__start_process — Run GSI-tools.js commands
 
 Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </tool_requirements>
@@ -48,7 +50,7 @@ Store as `$DESCRIPTION`.
 
 **If empty:** Re-prompt with examples:
 - Quick task examples
-- Suggest using /gsd:progress to see pending todos
+- Suggest using /GSI:progress to see pending todos
 
 ## 2. Initialize
 
@@ -57,7 +59,7 @@ Store as `$DESCRIPTION`.
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 const INIT = await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js init quick "${DESCRIPTION}"`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js init quick "${DESCRIPTION}"`,
   timeout_ms: 10000
 });
 ```
@@ -77,11 +79,11 @@ await mcp__desktop-commander__create_directory({
 
 ## 4. Spawn Planner (Quick Mode)
 
-Spawn gsd-planner with quick mode context:
+Spawn GSI-planner with quick mode context:
 
 ```
 Task(
-  subagent_type="gsd-planner",
+  subagent_type="GSI-planner",
   model="{planner_model}",
   description="Quick plan: ${DESCRIPTION}"
 )
@@ -93,7 +95,7 @@ Planner creates `.planning/quick/${next_num}-${slug}/00-PLAN.md`.
 
 ## 6. Spawn Executor
 
-Execute the plan using gsd-executor.
+Execute the plan using GSI-executor.
 
 ## 7. Update STATE.md
 

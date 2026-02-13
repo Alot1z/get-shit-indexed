@@ -1,4 +1,4 @@
-# Wave Verification and Testing
+﻿# Wave Verification and Testing
 
 Documentation for wave-based spawning system that prevents API rate limits through testing and validation.
 
@@ -137,7 +137,7 @@ On rate limit errors:
 
 ```bash
 # Run wave with monitoring
-node ~/.claude/get-shit-done/bin/gsd-tools.js test-wave-spawning \
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js test-wave-spawning \
   --max-concurrent 3 \
   --stagger-delay 500 \
   --wave-timeout 30
@@ -152,7 +152,7 @@ Expected results:
 
 ```bash
 # Simulate rate limit errors
-node ~/.claude/get-shit-done/bin/gsd-tools.js test-wave-spawning \
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js test-wave-spawning \
   --simulate-rate-limit \
   --max-concurrent 3
 ```
@@ -170,7 +170,7 @@ Expected results:
 
 ```bash
 # Check wave execution health
-node ~/.claude/get-shit-done/bin/wave-health.js
+node ~/.claude/get-shit-indexed/bin/wave-health.js
 ```
 
 Health indicators:
@@ -292,4 +292,4 @@ rate_limiting:
 
 ---
 
-*Generated for GSD Phase 8 - Advanced Workflow Features*
+*Generated for GSI Phase 8 - Advanced Workflow Features*

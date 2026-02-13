@@ -1,3 +1,5 @@
+﻿<thinking>auto</thinking>
+
 <code_index_mcp>
 desktop_commander:
   tools: ["read_file", "write_file", "list_directory"]
@@ -17,7 +19,7 @@ Produces DISCOVERY.md (for Level 2-3) that informs PLAN.md creation.
 
 Called from plan-phase.md's mandatory_discovery step with a depth parameter.
 
-NOTE: For comprehensive ecosystem research ("how do experts build this"), use /gsd:research-phase instead, which produces RESEARCH.md.
+NOTE: For comprehensive ecosystem research ("how do experts build this"), use /GSI:research-phase instead, which produces RESEARCH.md.
 </purpose>
 
 <depth_levels>
@@ -41,7 +43,7 @@ Claude's training data is 6-18 months stale. Always verify.
 2. **Official docs** - When Context7 lacks coverage
 3. **WebSearch LAST** - For comparisons and trends only
 
-See ~/.claude/get-shit-done/templates/discovery.md `<discovery_protocol>` for full protocol.
+See ~/.claude/get-shit-indexed/templates/discovery.md `<discovery_protocol>` for full protocol.
 </source_hierarchy>
 
 <process>
@@ -131,7 +133,7 @@ For: Choosing between options, new external integration.
 
 5. **Cross-verify:** Any WebSearch finding → confirm with Context7/official docs.
 
-6. **Create DISCOVERY.md** using ~/.claude/get-shit-done/templates/discovery.md structure:
+6. **Create DISCOVERY.md** using ~/.claude/get-shit-indexed/templates/discovery.md structure:
 
    **Use MCP tool: mcp__desktop-commander__write_file**
 
@@ -160,7 +162,7 @@ For: Architectural decisions, novel problems, high-risk choices.
 
 **Process:**
 
-1. **Scope discovery** using ~/.claude/get-shit-done/templates/discovery.md:
+1. **Scope discovery** using ~/.claude/get-shit-indexed/templates/discovery.md:
 
    - Define clear scope
    - Define include/exclude boundaries
@@ -207,7 +209,7 @@ For: Architectural decisions, novel problems, high-risk choices.
    **Use MCP tool: mcp__desktop-commander__write_file**
 
    ```
-   // Full structure from ~/.claude/get-shit-done/templates/discovery.md
+   // Full structure from ~/.claude/get-shit-indexed/templates/discovery.md
    - Quality report with source attribution
    - Confidence by finding
    ```
@@ -231,7 +233,7 @@ Ask: What do we need to learn before we can plan this phase?
 </step>
 
 <step name="create_discovery_scope">
-Use ~/.claude/get-shit-done/templates/discovery.md.
+Use ~/.claude/get-shit-indexed/templates/discovery.md.
 
 Include:
 
@@ -305,8 +307,8 @@ Confidence: [level]
 
 What's next?
 
-1. Discuss phase context (/gsd:discuss-phase [current-phase])
-2. Create phase plan (/gsd:plan-phase [current-phase])
+1. Discuss phase context (/GSI:discuss-phase [current-phase])
+2. Create phase plan (/GSI:plan-phase [current-phase])
 3. Refine discovery (dig deeper)
 4. Review discovery
 

@@ -1,11 +1,11 @@
----
+﻿---
 phase: 02-workflow-integration
 plan: 01
 subsystem: MCP Tool Migration
 tags: [mcp, desktop-commander, code-index, token-efficiency, workflows]
 completed: 2025-02-11
 
-one_liner: Migrated 22 GSD workflow files from native bash commands to MCP tools (DC + CI), achieving 80-90% token savings per operation
+one_liner: Migrated 22 GSI workflow files from native bash commands to MCP tools (DC + CI), achieving 80-90% token savings per operation
 
 ---
 
@@ -13,7 +13,7 @@ one_liner: Migrated 22 GSD workflow files from native bash commands to MCP tools
 
 ## Objective
 
-Update all GSD workflow files to use MCP tools (Desktop Commander and Code-Index MCP) instead of native bash commands, achieving significant token efficiency gains.
+Update all GSI workflow files to use MCP tools (Desktop Commander and Code-Index MCP) instead of native bash commands, achieving significant token efficiency gains.
 
 ## Execution Results
 
@@ -81,7 +81,7 @@ Update all GSD workflow files to use MCP tools (Desktop Commander and Code-Index
 
 **Commands Kept (No MCP Equivalent):**
 - `git` commands - No MCP git equivalent available
-- `node gsd-tools.js` - Core functionality wrapper required
+- `node GSI-tools.js` - Core functionality wrapper required
 - `wc -l` - Metadata gathering (acceptable)
 - `rm` - Cleanup operations (acceptable)
 
@@ -100,8 +100,8 @@ Update all GSD workflow files to use MCP tools (Desktop Commander and Code-Index
 
 1. **Preserved help.md** - Reference documentation file, no bash commands to replace
 2. **Streamlined plan-phase.md** - Reduced from verbose examples to 162 lines with comprehensive tool_requirements section
-3. **Kept git commands** - No MCP git equivalent, essential for GSD operations
-4. **Kept node gsd-tools.js** - Core wrapper functionality, not a file operation
+3. **Kept git commands** - No MCP git equivalent, essential for GSI operations
+4. **Kept node GSI-tools.js** - Core wrapper functionality, not a file operation
 5. **Added tool_requirements sections** - Document MCP tool priority and usage patterns in each workflow
 
 ## Deviations from Plan
@@ -112,7 +112,7 @@ Update all GSD workflow files to use MCP tools (Desktop Commander and Code-Index
 ### Accepted Patterns
 - `wc -l` for line counting (no MCP equivalent for metadata gathering)
 - `git` commands (no MCP git tool available)
-- `node gsd-tools.js` invocations (core functionality)
+- `node GSI-tools.js` invocations (core functionality)
 - `rm` for cleanup (no MCP equivalent needed)
 
 ## Verification Results
@@ -129,7 +129,7 @@ All verification checks passed:
 
 Plan 02-01 is complete. Ready for:
 - Plan 02-02: Execute wave-based parallel spawning in execute-plan.md
-- Plan 02-03: Full GSD workflow execution end-to-end test
+- Plan 02-03: Full GSI workflow execution end-to-end test
 
 ## Authentication Gates
 

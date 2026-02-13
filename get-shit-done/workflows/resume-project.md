@@ -1,3 +1,5 @@
+﻿<thinking>auto</thinking>
+
 <code_index_mcp>
 desktop_commander:
   tools: ["read_file", "write_file", "start_process"]
@@ -33,7 +35,7 @@ Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 - mcp__desktop-commander__list_directory — Find current phase
 
 **Process Operations:**
-- mcp__desktop-commander__start_process — Run gsd-tools.js commands
+- mcp__desktop-commander__start_process — Run GSI-tools.js commands
 
 Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </tool_requirements>
@@ -89,11 +91,11 @@ Check if handoff file exists and is recent.
 </step>
 
 <step name="spawn_continuation">
-Spawn gsd-executor with continuation context:
+Spawn GSI-executor with continuation context:
 
 ```
 Task(
-  subagent_type="gsd-executor",
+  subagent_type="GSI-executor",
   prompt="<complete state from handoff, continue from task X>",
   model="{executor_model}"
 )
@@ -111,7 +113,7 @@ After continuation completes, update STATE.md:
 
 ```javascript
 await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js state record-session --stopped-at "Continuation complete" --resume-file "None"`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js state record-session --stopped-at "Continuation complete" --resume-file "None"`,
   timeout_ms: 10000
 });
 ```

@@ -1,13 +1,13 @@
-# Git Planning Commit
+﻿# Git Planning Commit
 
-Commit planning artifacts using the gsd-tools CLI, which automatically checks `commit_docs` config and gitignore status.
+Commit planning artifacts using the GSI-tools CLI, which automatically checks `commit_docs` config and gitignore status.
 
 ## Commit via CLI
 
-Always use `gsd-tools.js commit` for `.planning/` files — it handles `commit_docs` and gitignore checks automatically:
+Always use `GSI-tools.js commit` for `.planning/` files — it handles `commit_docs` and gitignore checks automatically:
 
 ```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs({scope}): {description}" --files .planning/STATE.md .planning/ROADMAP.md
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit "docs({scope}): {description}" --files .planning/STATE.md .planning/ROADMAP.md
 ```
 
 The CLI will return `skipped` (with reason) if `commit_docs` is `false` or `.planning/` is gitignored. No manual conditional checks needed.
@@ -17,7 +17,7 @@ The CLI will return `skipped` (with reason) if `commit_docs` is `false` or `.pla
 To fold `.planning/` file changes into the previous commit:
 
 ```bash
-node ~/.claude/get-shit-done/bin/gsd-tools.js commit "" --files .planning/codebase/*.md --amend
+node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit "" --files .planning/codebase/*.md --amend
 ```
 
 ## Commit Message Patterns

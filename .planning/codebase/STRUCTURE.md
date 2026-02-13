@@ -1,11 +1,11 @@
-# Codebase Structure
+﻿# Codebase Structure
 
 **Analysis Date:** 2026-02-11
 
 ## Directory Layout
 
 ```
-get-shit-done/
+get-shit-indexed/
 ├── .debug-thinking-mcp/      # Debug thinking MCP data
 ├── .git/                    # Git repository metadata
 ├── .planning/               # Project planning artifacts (not in repo)
@@ -74,7 +74,7 @@ get-shit-done/
 ## Key File Locations
 
 **Entry Points:**
-- `workflows/*.md` - GSD command definitions
+- `workflows/*.md` - GSI command definitions
 - `VERSION` - Project version identifier
 
 **Configuration:**
@@ -113,7 +113,7 @@ get-shit-done/
 
 ## Where to Add New Code
 
-**New GSD Command:**
+**New GSI Command:**
 - Primary code: `workflows/{command-name}.md`
 - Tests: None yet (could add `tests/commands/`)
 - Documentation: Update references/ as needed

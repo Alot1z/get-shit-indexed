@@ -1,4 +1,4 @@
-# Technology Stack
+﻿# Technology Stack
 
 **Analysis Date:** 2025-02-11
 
@@ -26,7 +26,7 @@
 ## Frameworks
 
 **Core:**
-- GSD (Get-Shit-Done) [v1.11.1] - Workflow orchestration framework
+- GSI (get-shit-indexed) [v1.11.1] - Workflow orchestration framework
   - Purpose: Project management and execution pipeline
   - Location: Root directory with configuration in `.planning/config.json`
 

@@ -1,6 +1,6 @@
-# Phase 2 Plan 3: Declarative MCP Tool Headers for Workflows
+﻿# Phase 2 Plan 3: Declarative MCP Tool Headers for Workflows
 
-**Summary:** Added `<code_index_mcp>` headers to all 27 GSD workflow files, specifying MCP tool usage declaratively with desktop_commander and code_index tools at appropriate priority levels.
+**Summary:** Added `<code_index_mcp>` headers to all 27 GSI workflow files, specifying MCP tool usage declaratively with desktop_commander and code_index tools at appropriate priority levels.
 
 **Tags:** workflows, mcp-integration, tool-declaration, token-optimization
 
@@ -47,7 +47,7 @@ native:
 
 ### Workflow Files Updated
 
-All 27 workflow files in `get-shit-done/workflows/` now have `<code_index_mcp>` headers:
+All 27 workflow files in `get-shit-indexed/workflows/` now have `<code_index_mcp>` headers:
 
 **File operation workflows** (desktop_commander priority 1):
 - add-phase.md, add-todo.md, audit-milestone.md, check-todos.md
@@ -96,7 +96,7 @@ Each header includes a `rationale` field explaining:
 - Phase 02-02 (Code Index Integration) - for MCP tool usage context
 
 ### Provides
-- Declarative tool specification for all GSD workflows
+- Declarative tool specification for all GSI workflows
 - Quick reference for workflow maintainers about MCP tool dependencies
 - Foundation for automated tool selection optimization
 
@@ -112,36 +112,36 @@ None - plan executed exactly as written.
 ## Files Modified
 
 **Workflow headers added (27 files):**
-- get-shit-done/workflows/map-codebase.md
-- get-shit-done/workflows/execute-plan.md
-- get-shit-done/workflows/plan-phase.md
-- get-shit-done/workflows/add-phase.md
-- get-shit-done/workflows/add-todo.md
-- get-shit-done/workflows/audit-milestone.md
-- get-shit-done/workflows/check-todos.md
-- get-shit-done/workflows/complete-milestone.md
-- get-shit-done/workflows/diagnose-issues.md
-- get-shit-done/workflows/discovery-phase.md
-- get-shit-done/workflows/discuss-phase.md
-- get-shit-done/workflows/execute-phase.md
-- get-shit-done/workflows/help.md
-- get-shit-done/workflows/insert-phase.md
-- get-shit-done/workflows/list-phase-assumptions.md
-- get-shit-done/workflows/new-milestone.md
-- get-shit-done/workflows/new-project.md
-- get-shit-done/workflows/pause-work.md
-- get-shit-done/workflows/plan-milestone-gaps.md
-- get-shit-done/workflows/progress.md
-- get-shit-done/workflows/quick.md
-- get-shit-done/workflows/remove-phase.md
-- get-shit-done/workflows/research-phase.md
-- get-shit-done/workflows/resume-project.md
-- get-shit-done/workflows/set-profile.md
-- get-shit-done/workflows/settings.md
-- get-shit-done/workflows/transition.md
-- get-shit-done/workflows/update.md
-- get-shit-done/workflows/verify-phase.md
-- get-shit-done/workflows/verify-work.md
+- get-shit-indexed/workflows/map-codebase.md
+- get-shit-indexed/workflows/execute-plan.md
+- get-shit-indexed/workflows/plan-phase.md
+- get-shit-indexed/workflows/add-phase.md
+- get-shit-indexed/workflows/add-todo.md
+- get-shit-indexed/workflows/audit-milestone.md
+- get-shit-indexed/workflows/check-todos.md
+- get-shit-indexed/workflows/complete-milestone.md
+- get-shit-indexed/workflows/diagnose-issues.md
+- get-shit-indexed/workflows/discovery-phase.md
+- get-shit-indexed/workflows/discuss-phase.md
+- get-shit-indexed/workflows/execute-phase.md
+- get-shit-indexed/workflows/help.md
+- get-shit-indexed/workflows/insert-phase.md
+- get-shit-indexed/workflows/list-phase-assumptions.md
+- get-shit-indexed/workflows/new-milestone.md
+- get-shit-indexed/workflows/new-project.md
+- get-shit-indexed/workflows/pause-work.md
+- get-shit-indexed/workflows/plan-milestone-gaps.md
+- get-shit-indexed/workflows/progress.md
+- get-shit-indexed/workflows/quick.md
+- get-shit-indexed/workflows/remove-phase.md
+- get-shit-indexed/workflows/research-phase.md
+- get-shit-indexed/workflows/resume-project.md
+- get-shit-indexed/workflows/set-profile.md
+- get-shit-indexed/workflows/settings.md
+- get-shit-indexed/workflows/transition.md
+- get-shit-indexed/workflows/update.md
+- get-shit-indexed/workflows/verify-phase.md
+- get-shit-indexed/workflows/verify-work.md
 
 ## Next Phase Readiness
 

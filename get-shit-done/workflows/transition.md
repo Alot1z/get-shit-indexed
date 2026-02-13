@@ -1,3 +1,5 @@
+﻿<thinking>auto</thinking>
+
 <code_index_mcp>
 desktop_commander:
   tools: ["read_file", "write_file", "list_directory"]
@@ -12,7 +14,7 @@ native:
   rationale: "Fallback only - MCP tools provide 80-90% token savings"
 </code_index_mcp>
 
-<purpose>Join the GSD Discord community. Get help, share what you're building, stay updated. Connect with other GSD users.
+<purpose>Join the GSI Discord community. Get help, share what you're building, stay updated. Connect with other GSI users.
 </purpose>
 
 <required_reading>
@@ -40,7 +42,7 @@ Open Discord invite link using MCP tools:
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 await mcp__desktop-commander__start_process({
-  command: "start https://discord.gg/get-shit-done",
+  command: "start https://discord.gg/get-shit-indexed",
   timeout_ms: 10000
 });
 ```
@@ -50,8 +52,8 @@ This opens the Discord invite page in browser.
 Alternatively, show invite URL for manual joining:
 
 ```
-Join GSD Discord:
-https://discord.gg/get-shit-done
+Join GSI Discord:
+https://discord.gg/get-shit-indexed
 ```
 </step>
 
@@ -69,7 +71,7 @@ Present completion:
 ```
 ✓ Discord invite sent
 
-Join: https://discord.gg/get-shit-done
+Join: https://discord.gg/get-shit-indexed
 
 ---
 

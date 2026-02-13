@@ -1,4 +1,4 @@
-# Plan Phase Workflow
+﻿# Plan Phase Workflow
 
 <tool_requirements>
 **MANDATORY: Use MCP tools instead of native tools for all operations.**
@@ -24,7 +24,7 @@ Create execution plans for a phase using goal-backward methodology.
 @references/plan-frontmatter-reference.md
 
 # Agent Reference
-@agents/gsd-planner.md
+@agents/GSI-planner.md
 </required_reading>
 
 <process>

@@ -1,11 +1,11 @@
----
-name: gsd:help
-description: Show available GSD commands and usage guide
+﻿---
+name: GSI:help
+description: Show available GSI commands and usage guide
 allowed-tools:
   - mcp__desktop-commander__read_file
 ---
 <objective>
-Display the complete GSD command reference.
+Display the complete GSI command reference.
 
 Output ONLY the reference content below. Do NOT add:
 - Project-specific analysis
@@ -15,10 +15,10 @@ Output ONLY the reference content below. Do NOT add:
 </objective>
 
 <execution_context>
-@~/.claude/get-shit-done/workflows/help.md
+@~/.claude/get-shit-indexed/workflows/help.md
 </execution_context>
 
 <process>
-Output the complete GSD command reference from @~/.claude/get-shit-done/workflows/help.md.
+Output the complete GSI command reference from @~/.claude/get-shit-indexed/workflows/help.md.
 Display the reference content directly — no additions or modifications.
 </process>

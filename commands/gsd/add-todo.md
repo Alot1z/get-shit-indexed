@@ -1,5 +1,5 @@
----
-name: gsd:add-todo
+﻿---
+name: GSI:add-todo
 description: Capture idea or task as todo from current conversation context
 argument-hint: [optional description]
 allowed-tools:
@@ -12,7 +12,7 @@ allowed-tools:
 ---
 
 <objective>
-Capture an idea, task, or issue that surfaces during a GSD session as a structured todo for later work.
+Capture an idea, task, or issue that surfaces during a GSI session as a structured todo for later work.
 
 Routes to the add-todo workflow which handles:
 - Directory structure creation
@@ -26,11 +26,11 @@ Routes to the add-todo workflow which handles:
 
 <execution_context>
 @.planning/STATE.md
-@~/.claude/get-shit-done/workflows/add-todo.md
+@~/.claude/get-shit-indexed/workflows/add-todo.md
 </execution_context>
 
 <process>
-**Follow the add-todo workflow** from `@~/.claude/get-shit-done/workflows/add-todo.md`.
+**Follow the add-todo workflow** from `@~/.claude/get-shit-indexed/workflows/add-todo.md`.
 
 The workflow handles all logic including:
 1. Directory ensuring

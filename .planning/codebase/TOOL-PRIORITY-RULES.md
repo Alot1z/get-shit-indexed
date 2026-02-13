@@ -1,4 +1,4 @@
-# GSD Tool Priority Rules
+﻿# GSI Tool Priority Rules
 
 ## CRITICAL RULE: MCP Tools Over Native Tools
 
@@ -704,6 +704,6 @@ This is the tool priority hierarchy. Follow it always.
 
 *Version: 1.1*
 *Last Updated: 2026-02-12*
-*Purpose: Enforce MCP tool usage for GSD workflows*
-*Target: 80-90% token savings across all GSD operations*
+*Purpose: Enforce MCP tool usage for GSI workflows*
+*Target: 80-90% token savings across all GSI operations*
 *MCP Servers: DC, CI, CG (neo4j://localhost:7687)*

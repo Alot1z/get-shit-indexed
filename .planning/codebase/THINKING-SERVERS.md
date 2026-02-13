@@ -1,8 +1,8 @@
-# Thinking Servers Catalog
+﻿# Thinking Servers Catalog
 
 ## Overview
 
-This document catalogs all available thinking servers for integration with GSD workflows. Each thinking server provides specialized cognitive capabilities for different types of problems.
+This document catalogs all available thinking servers for integration with GSI workflows. Each thinking server provides specialized cognitive capabilities for different types of problems.
 
 **Available Servers:**
 - Sequential Thinking: Multi-step problem decomposition

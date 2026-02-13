@@ -1,4 +1,4 @@
-# YOLO Mode Reference
+﻿# YOLO Mode Reference
 
 Documentation for YOLO (You Only Live Once) mode - frictionless execution without checkpoint confirmations.
 
@@ -51,15 +51,15 @@ Set in `.planning/config.json`:
 ### 2. Per-Command Flag
 
 ```bash
-/gsd:execute-phase 08 --yolo
-/gsd:execute-plan 08 --yolo
+/GSI:execute-phase 08 --yolo
+/GSI:execute-plan 08 --yolo
 ```
 
 ### 3. Environment Variable
 
 ```bash
 export YOLO=true
-/gsd:execute-phase 08
+/GSI:execute-phase 08
 ```
 
 **Priority:** Per-command flag > global config > environment variable
@@ -147,7 +147,7 @@ For these operations, run with standard mode (checkpoints enabled):
 
 ```bash
 # Standard execution with checkpoints
-/gsd:execute-phase 05
+/GSI:execute-phase 05
 ```
 
 ---
@@ -196,10 +196,10 @@ After YOLO execution, verify:
 See `.planning/config.json` for YOLO configuration.
 
 See also:
-- `@get-shit-done/workflows/execute-phase.md` - Main execution workflow
-- `@get-shit-done/workflows/execute-plan.md` - Orchestrator workflow
-- `@get-shit-done/templates/summary.md` - Summary template with YOLO section
+- `@get-shit-indexed/workflows/execute-phase.md` - Main execution workflow
+- `@get-shit-indexed/workflows/execute-plan.md` - Orchestrator workflow
+- `@get-shit-indexed/templates/summary.md` - Summary template with YOLO section
 
 ---
 
-*Generated for GSD Phase 8 - Advanced Workflow Features*
+*Generated for GSI Phase 8 - Advanced Workflow Features*

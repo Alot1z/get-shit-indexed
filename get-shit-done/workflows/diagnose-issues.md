@@ -1,3 +1,5 @@
+﻿<thinking>auto</thinking>
+
 <code_index_mcp>
 desktop_commander:
   tools: ["read_file", "write_file"]
@@ -240,7 +242,7 @@ Commit updated UAT.md using MCP process tool:
 
 ```javascript
 await mcp__desktop-commander__start_process({
-  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js commit \"docs({phase}): add root causes from diagnosis\" --files \".planning/phases/XX-name/{phase}-UAT.md\"",
+  command: "node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit \"docs({phase}): add root causes from diagnosis\" --files \".planning/phases/XX-name/{phase}-UAT.md\"",
   timeout_ms: 10000
 });
 ```
@@ -252,7 +254,7 @@ await mcp__desktop-commander__start_process({
 Display:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► DIAGNOSIS COMPLETE
+ GSI ► DIAGNOSIS COMPLETE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 | Gap (Truth) | Root Cause | Files |
@@ -285,7 +287,7 @@ Agents only diagnose—plan-phase --gaps handles fixes (no fix application).
 
 **Agent times out:**
 - Check DEBUG-{slug}.md for partial progress
-- Can resume with /gsd:debug
+- Can resume with /GSI:debug
 
 **All agents fail:**
 - Something systemic (permissions, git, etc.)

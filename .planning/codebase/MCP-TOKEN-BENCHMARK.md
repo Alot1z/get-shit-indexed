@@ -1,4 +1,4 @@
-# MCP Token Efficiency Benchmark
+﻿# MCP Token Efficiency Benchmark
 
 **Generated:** 2026-02-11T18:30:00Z
 **Purpose:** Compare token efficiency between MCP tools and native Claude Code tools.
@@ -148,7 +148,7 @@
 
 ## Token Budget Impact
 
-### Typical GSD Workflow (Without MCP Optimization)
+### Typical GSI Workflow (Without MCP Optimization)
 
 ```
 1. Read 10 files: ~250,000 tokens (native Read)
@@ -189,7 +189,7 @@ All benchmarked operations show significant token savings when using MCP tools:
 
 **CG Server Integration:** neo4j://localhost:7687 is now operational, enabling golden pattern workflows with relationship awareness.
 
-**Recommendation for GSD Workflows:**
+**Recommendation for GSI Workflows:**
 
 1. **MANDATE MCP tools** for all file, search, and process operations
 2. **ENABLE CG integration** for relationship analysis in golden pattern
@@ -197,7 +197,7 @@ All benchmarked operations show significant token savings when using MCP tools:
 4. **Enforce via validation** - reject native tool usage when MCP available
 5. **Document in rules** - ensure all agents follow MCP-first approach
 
-**Impact on GSD:**
+**Impact on GSI:**
 - More context available for actual work (vs tool overhead)
 - Longer sessions before hitting token limits
 - Faster agent responses (less data to process)

@@ -1,4 +1,4 @@
----
+﻿---
 phase: 05-thinking-server-integration
 plan: 02
 subsystem: workflow-integration
@@ -22,7 +22,7 @@ tech-stack:
 
 key-files:
   created: []
-  modified: [.planning/codebase/THINKING-SERVERS.md, get-shit-done/workflows/research-phase.md, .planning/codebase/7-BMAD-METHODOLOGY.md]
+  modified: [.planning/codebase/THINKING-SERVERS.md, get-shit-indexed/workflows/research-phase.md, .planning/codebase/7-BMAD-METHODOLOGY.md]
 
 key-decisions:
   - "Tractatus thinking for WHAT (structure/logic) -> Sequential for HOW (process/steps)"
@@ -66,7 +66,7 @@ completed: 2026-02-13
 ## Files Created/Modified
 
 - `.planning/codebase/THINKING-SERVERS.md` - Tractatus thinking server documentation (appended)
-- `get-shit-done/workflows/research-phase.md` - Updated with tractatus thinking for structural research analysis
+- `get-shit-indexed/workflows/research-phase.md` - Updated with tractatus thinking for structural research analysis
 - `.planning/codebase/7-BMAD-METHODOLOGY.md` - Updated with tractatus thinking for Model/Modd circles
 
 ## Decisions Made

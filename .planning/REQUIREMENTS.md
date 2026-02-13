@@ -1,7 +1,7 @@
-# Requirements: MCP-Enhanced GSD
+﻿# Requirements: MCP-Enhanced GSI
 
 **Defined:** 2025-02-11
-**Core Value:** Token-efficient, reliable GSD workflows that leverage all three MCP servers (DC + CI + CG) using proven tool chain patterns.
+**Core Value:** Token-efficient, reliable GSI workflows that leverage all three MCP servers (DC + CI + CG) using proven tool chain patterns.
 
 ## v1 Requirements
 
@@ -10,7 +10,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### MCP Integration
 
 - [ ] **MCP-001**: Code-Index MCP (CI) fully integrated with <code_index_mcp> headers across all workflows
-- [ ] **MCP-002**: Desktop Commander (DC) fully integrated across all GSD workflows
+- [ ] **MCP-002**: Desktop Commander (DC) fully integrated across all GSI workflows
 - [ ] **MCP-003**: CodeGraphContext (CG) integrated for relationship-aware workflows
 - [ ] **MCP-004**: All 3 MCP servers (DC + CI + CG) available and properly configured
 - [ ] **MCP-005**: Tool priority rules enforced (MCP > Native) with 80-90% token savings
@@ -18,10 +18,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Workflow Updates
 
-- [ ] **WORKFLOW-001**: All 13 GSD workflow files updated with MCP tool usage instead of native bash commands
+- [ ] **WORKFLOW-001**: All 13 GSI workflow files updated with MCP tool usage instead of native bash commands
 - [ ] **WORKFLOW-002**: map-codebase.md fully MCP-integrated with wave-based agent spawning
 - [ ] **WORKFLOW-003**: `<code_index_mcp>` headers added to workflows for declarative MCP usage
-- [ ] **WORKFLOW-004**: GSD commands at `C:\Users\mose\.claude\commands\gsd` updated for all 3 MCP servers
+- [ ] **WORKFLOW-004**: GSI commands at `C:\Users\mose\.claude\commands\GSI` updated for all 3 MCP servers
 - [ ] **WORKFLOW-005**: Parallel agent orchestration with rate limiting and staggered spawning
 - [ ] **WORKFLOW-006**: Configurable model profiles (quality/balanced/budget) working across agents
 - [ ] **WORKFLOW-007**: YOLO mode (auto-approve) for frictionless execution
@@ -36,10 +36,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Repository Synchronization
 
-- [ ] **REPO-001**: Local directory `C:\Users\mose\.claude\get-shit-done` synced to cloned upstream repo
-- [ ] **REPO-002`: `C:\github-repos\my-claude-code-repos\get-shit-done-code-index` updated with all 3-MCP integrations
+- [ ] **REPO-001**: Local directory `C:\Users\mose\.claude\get-shit-indexed` synced to cloned upstream repo
+- [ ] **REPO-002`: `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index` updated with all 3-MCP integrations
 - [ ] **REPO-003**: All local changes pushed to clone maintaining bidirectional sync
-- [ ] **REPO-004**: Clone established as single source of truth for GSD enhancements
+- [ ] **REPO-004**: Clone established as single source of truth for GSI enhancements
 
 ### Thinking Server Integration
 
@@ -69,7 +69,7 @@ Deferred to future release. Tracked but not in current roadmap.
 |---------|--------|
 | Enterprise features | No teams, stakeholders, or project management overhead |
 | Complex authentication | No OAuth, SSO, or permission systems |
-| Story points | No agile ceremony — just GSD guarantees |
+| Story points | No agile ceremony — just GSI guarantees |
 | Separate documentation site | Single-source truth in workflow files |
 | Commercial hosting | No cloud services, external dependencies |
 | Database backends | No external databases, file-based only |

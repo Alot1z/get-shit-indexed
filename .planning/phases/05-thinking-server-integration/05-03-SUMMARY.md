@@ -1,4 +1,4 @@
----
+﻿---
 phase: 05-thinking-server-integration
 plan: 03
 subsystem: workflow-integration
@@ -22,7 +22,7 @@ tech-stack:
 
 key-files:
   created: []
-  modified: [.planning/codebase/THINKING-SERVERS.md, get-shit-done/templates/DEBUG.md, get-shit-done/workflows/diagnose-issues.md]
+  modified: [.planning/codebase/THINKING-SERVERS.md, get-shit-indexed/templates/DEBUG.md, get-shit-indexed/workflows/diagnose-issues.md]
 
 key-decisions:
   - "Debug thinking for systematic debugging with knowledge graph tracking"
@@ -67,8 +67,8 @@ completed: 2026-02-13
 ## Files Created/Modified
 
 - `.planning/codebase/THINKING-SERVERS.md` - Debug thinking server documentation (appended)
-- `get-shit-done/templates/DEBUG.md` - Updated with debug thinking protocol and graph structure template
-- `get-shit-done/workflows/diagnose-issues.md` - Updated with debug thinking for knowledge-based diagnosis
+- `get-shit-indexed/templates/DEBUG.md` - Updated with debug thinking protocol and graph structure template
+- `get-shit-indexed/workflows/diagnose-issues.md` - Updated with debug thinking for knowledge-based diagnosis
 
 ## Decisions Made
 

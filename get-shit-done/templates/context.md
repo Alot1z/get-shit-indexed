@@ -1,4 +1,4 @@
-# Phase Context Template
+﻿# Phase Context Template
 
 Template for `.planning/phases/XX-name/{phase}-CONTEXT.md` - captures implementation decisions for a phase.
 
@@ -7,8 +7,8 @@ Template for `.planning/phases/XX-name/{phase}-CONTEXT.md` - captures implementa
 **Key principle:** Categories are NOT predefined. They emerge from what was actually discussed for THIS phase. A CLI phase has CLI-relevant sections, a UI phase has UI-relevant sections.
 
 **Downstream consumers:**
-- `gsd-phase-researcher` — Reads decisions to focus research (e.g., "card layout" → research card component patterns)
-- `gsd-planner` — Reads decisions to create specific tasks (e.g., "infinite scroll" → task includes virtualization)
+- `GSI-phase-researcher` — Reads decisions to focus research (e.g., "card layout" → research card component patterns)
+- `GSI-planner` — Reads decisions to create specific tasks (e.g., "infinite scroll" → task includes virtualization)
 
 ---
 
@@ -277,7 +277,7 @@ The output should answer: "What does the researcher need to investigate? What ch
 
 **After creation:**
 - File lives in phase directory: `.planning/phases/XX-name/{phase}-CONTEXT.md`
-- `gsd-phase-researcher` uses decisions to focus investigation
-- `gsd-planner` uses decisions + research to create executable tasks
+- `GSI-phase-researcher` uses decisions to focus investigation
+- `GSI-planner` uses decisions + research to create executable tasks
 - Downstream agents should NOT need to ask the user again about captured decisions
 </guidelines>

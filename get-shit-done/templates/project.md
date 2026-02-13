@@ -1,4 +1,4 @@
-# PROJECT.md Template
+﻿# PROJECT.md Template
 
 Template for `.planning/PROJECT.md` — the living project context document.
 
@@ -147,7 +147,7 @@ PROJECT.md evolves throughout the project lifecycle.
 
 For existing codebases:
 
-1. **Map codebase first** via `/gsd:map-codebase`
+1. **Map codebase first** via `/GSI:map-codebase`
 
 2. **Infer Validated requirements** from existing code:
    - What does the codebase actually do?

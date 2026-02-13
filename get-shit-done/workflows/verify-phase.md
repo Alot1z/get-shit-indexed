@@ -1,3 +1,5 @@
+﻿<thinking>auto</thinking>
+
 <code_index_mcp>
 desktop_commander:
   tools: ["read_file", "write_file", "list_directory"]
@@ -32,7 +34,7 @@ Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 - mcp__code-index-mcp__find_files — Find verification files
 
 **Process Operations:**
-- mcp__desktop-commander__start_process — Run gsd-tools.js commands
+- mcp__desktop-commander__start_process — Run GSI-tools.js commands
 
 Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
 </tool_requirements>
@@ -109,7 +111,7 @@ For failed tests, spawn debug agents:
 ```javascript
 // MCP-based equivalent (80-90% token savings vs bash)
 await mcp__desktop-commander__start_process({
-  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js init debug ${test_name}",
+  command: "node ~/.claude/get-shit-indexed/bin/GSI-tools.js init debug ${test_name}",
   timeout_ms: 10000
 });
 ```
@@ -125,7 +127,7 @@ After diagnosis, group issues into gap closure phases using MCP tools:
 ```javascript
 // MCP-based equivalent for file writing (80-90% token savings vs bash)
 await mcp__desktop-commander__start_process({
-  command: "node ~/.claude/get-shit-done/bin/gsd-tools.js plan-phase ${PHASE} --gaps",
+  command: "node ~/.claude/get-shit-indexed/bin/GSI-tools.js plan-phase ${PHASE} --gaps",
   timeout_ms: 10000
 });
 ```
@@ -145,7 +147,7 @@ If issues found, offer to re-execute phase with gap closure plans:
 
 **Plan gap closure** — Create phases to fix issues
 
-`/gsd:plan-phase {PHASE} --gaps`
+`/GSI:plan-phase {PHASE} --gaps`
 
 <sub>`/clear` first → fresh context window</sub>
 
@@ -168,7 +170,7 @@ Update phase verification status in ROADMAP.md and STATE.md using MCP tools:
 
 ```javascript
 await mcp__desktop-commander__start_process({
-  command: `node ~/.claude/get-shit-done/bin/gsd-tools.js commit "docs(uat-${PHASE}): all tests passed" --files .planning/ROADMAP.md .planning/STATE.md .planning/phases/${PHASE_DIR}/*-UAT.md`,
+  command: `node ~/.claude/get-shit-indexed/bin/GSI-tools.js commit "docs(uat-${PHASE}): all tests passed" --files .planning/ROADMAP.md .planning/STATE.md .planning/phases/${PHASE_DIR}/*-UAT.md`,
   timeout_ms: 10000
 });
 ```

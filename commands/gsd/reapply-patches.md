@@ -1,5 +1,5 @@
----
-description: Reapply local modifications after a GSD update
+﻿---
+description: Reapply local modifications after a GSI update
 allowed-tools:
   - mcp__desktop-commander__read_file
   - mcp__desktop-commander__write_file
@@ -12,7 +12,7 @@ allowed-tools:
 ---
 
 <purpose>
-After a GSD update wipes and reinstalls files, this command merges user's previously saved local modifications back into the new version. Uses intelligent comparison to handle cases where the upstream file also changed.
+After a GSI update wipes and reinstalls files, this command merges user's previously saved local modifications back into the new version. Uses intelligent comparison to handle cases where the upstream file also changed.
 </purpose>
 
 <process>
@@ -23,10 +23,10 @@ Check for local patches directory:
 
 ```bash
 # Global install
-PATCHES_DIR="${HOME}/.claude/gsd-local-patches"
+PATCHES_DIR="${HOME}/.claude/GSI-local-patches"
 # Local install fallback
 if [ ! -d "$PATCHES_DIR" ]; then
-  PATCHES_DIR="./.claude/gsd-local-patches"
+  PATCHES_DIR="./.claude/GSI-local-patches"
 fi
 ```
 
@@ -36,8 +36,8 @@ Read `backup-meta.json` from the patches directory.
 ```
 No local patches found. Nothing to reapply.
 
-Local patches are automatically saved when you run /gsd:update
-after modifying any GSD workflow, command, or agent files.
+Local patches are automatically saved when you run /GSI:update
+after modifying any GSI workflow, command, or agent files.
 ```
 Exit.
 
@@ -60,7 +60,7 @@ Exit.
 
 For each file in `backup-meta.json`:
 
-1. **Read the backed-up version** (user's modified copy from `gsd-local-patches/`)
+1. **Read the backed-up version** (user's modified copy from `GSI-local-patches/`)
 2. **Read the newly installed version** (current file after update)
 3. **Compare and merge:**
 
@@ -84,15 +84,15 @@ For each file in `backup-meta.json`:
 After reapplying, regenerate the file manifest so future updates correctly detect these as user modifications:
 
 ```bash
-# The manifest will be regenerated on next /gsd:update
+# The manifest will be regenerated on next /GSI:update
 # For now, just note which files were modified
 ```
 
 ## Step 5: Cleanup option
 
 Ask user:
-- "Keep patch backups for reference?" → preserve `gsd-local-patches/`
-- "Clean up patch backups?" → remove `gsd-local-patches/` directory
+- "Keep patch backups for reference?" → preserve `GSI-local-patches/`
+- "Clean up patch backups?" → remove `GSI-local-patches/` directory
 
 ## Step 6: Report
 
