@@ -436,8 +436,354 @@ Example: "Analyze auth architecture"
 
 ---
 
+## Debug Thinking Server
+
+### Server Tool
+
+`mcp__debug-thinking__debug_thinking`
+
+### Actions
+
+| Action | Description | Key Parameters |
+|--------|-------------|----------------|
+| `create` | Add nodes to the debugging graph | `action`, `nodeType`, `content`, `parentId`, `metadata` |
+| `connect` | Link nodes with relationships | `action`, `from`, `to`, `type`, `strength` |
+| `query` | Search and analyze the graph | `action`, `queryType`, `parameters` |
+
+### Node Types (for create action)
+
+| Node Type | Description | Example |
+|-----------|-------------|---------|
+| `problem` | Error or bug to investigate | "TypeError: Cannot read property 'x' of undefined" |
+| `hypothesis` | Proposed explanation or solution | "Missing null check in async operation" |
+| `experiment` | Test to validate hypothesis | "Add optional chaining operator" |
+| `observation` | Result or finding | "Error resolved, no runtime errors" |
+| `learning` | Insight gained | "Async operations need null safety checks" |
+| `solution` | Working fix | "Use optional chaining for property access" |
+
+### Relationship Types (for connect action)
+
+| Relationship | Description | Strength |
+|--------------|-------------|----------|
+| `decomposes` | Problem breaks into sub-problems | 0-1 |
+| `hypothesizes` | Hypothesis explains problem | 0-1 |
+| `tests` | Experiment validates hypothesis | 0-1 |
+| `produces` | Experiment yields observation | 0-1 |
+| `learns` | Observation leads to learning | 0-1 |
+| `contradicts` | Evidence refutes hypothesis | 0-1 |
+| `supports` | Evidence backs hypothesis | 0-1 |
+| `solves` | Solution resolves problem | 0-1 |
+
+### Query Types (for query action)
+
+| Query Type | Description | Parameters |
+|------------|-------------|------------|
+| `similar-problems` | Find past debugging with pattern matching | `pattern`, `limit`, `minSimilarity` |
+| `recent-activity` | Show recent debugging work | `limit` |
+
+### Data Persistence
+
+- **Location**: `~/.debug-thinking-mcp/`
+- **Format**: Graph database
+- **Retention**: Persistent across sessions
+
+### Use Cases
+
+Debug thinking is ideal for:
+
+- **Systematic investigation of bugs**: Structured problem tracking
+- **Tracking debugging process over time**: Knowledge persistence
+- **Learning from past solutions**: Query-based knowledge retrieval
+- **Building knowledge base of debugging patterns**: Learning nodes
+- **Complex problems requiring multiple hypotheses**: Graph-based exploration
+
+### Tool Priority
+
+- **Priority**: 2 (Secondary use for systematic debugging)
+- **Rationale**: Supports graph-based problem tracking with knowledge reuse
+- **Integration**: Works with DC for experiments, CI for evidence search
+
+---
+
+## Graph-Based Debugging Patterns
+
+### Pattern 1: Hypothesis-Driven Debugging
+
+**Use when**: Investigating bugs with multiple possible causes
+
+**Process**:
+```
+1. CREATE problem node
+   - nodeType: "problem"
+   - content: "{error description}"
+
+2. CREATE hypothesis node
+   - nodeType: "hypothesis"
+   - content: "{proposed explanation}"
+
+3. CONNECT: hypothesis hypothesizes problem
+   - from: hypothesis_id
+   - to: problem_id
+   - type: "hypothesizes"
+   - strength: 0.7
+
+4. CREATE experiment node
+   - nodeType: "experiment"
+   - content: "{test to validate}"
+
+5. CONNECT: experiment tests hypothesis
+   - type: "tests"
+
+6. CREATE observation node
+   - nodeType: "observation"
+   - content: "{result}"
+
+7. CONNECT: observation produces experiment
+   - type: "produces"
+
+8. CONNECT: observation supports/contradicts hypothesis
+   - type: "supports" or "contradicts"
+
+9. CREATE solution node (if confirmed)
+   - nodeType: "solution"
+   - content: "{working fix}"
+
+10. CONNECT: solution solves problem
+    - type: "solves"
+```
+
+### Pattern 2: Problem Decomposition
+
+**Use when**: Complex issue with multiple components
+
+**Process**:
+```
+1. CREATE problem node
+   - content: "{complex issue}"
+
+2. CREATE sub-problem nodes
+   - Multiple nodes for each component
+
+3. CONNECT: Each sub-problem decomposes problem
+   - type: "decomposes"
+   - strength: 0-1
+
+4. Repeat decomposition until atomic problems
+
+5. QUERY: similar-problems for each sub-problem
+   - Find past solutions before investigation
+```
+
+### Pattern 3: Knowledge Reuse
+
+**Use when**: Similar problems may have been solved before
+
+**Process**:
+```
+1. QUERY: similar-problems
+   - pattern: "{error pattern}"
+   - minSimilarity: 0.5
+   - limit: 10
+
+2. Review past hypotheses, experiments, solutions
+
+3. Adapt known solutions to current problem
+
+4. CREATE learning node
+   - Links to relevant past solutions
+   - content: "{adaptation notes}"
+```
+
+### Pattern 4: Learning Capture
+
+**Use when**: Building knowledge base from debugging sessions
+
+**Process**:
+```
+1. CREATE learning node after each debug session
+   - nodeType: "learning"
+   - content: "{insight}"
+   - metadata: {tags: [...], confidence: 0.8}
+
+2. CONNECT: learning learns from observation
+   - type: "learns"
+
+3. Future queries can retrieve these learnings
+   - QUERY: similar-problems matches learning content
+```
+
+### Integration with 7-BMAD
+
+- **Method Circle**: Solutions verified through graph structure
+- **Mad Circle**: Dependencies tracked via relationships
+- **Model Circle**: Debugging patterns stored for reuse
+- **All circles**: Benefit from knowledge graph persistence
+
+---
+
+## Debug Thinking Integration Examples
+
+### Example 1: TypeError Investigation
+
+**Scenario**: "TypeError: Cannot read property 'x' of undefined in async operation"
+
+**Graph Structure**:
+```
+1. CREATE problem: "TypeError: Cannot read property 'x' of undefined"
+
+2. CREATE hypothesis: "Missing null check in async operation"
+
+3. CONNECT: hypothesis hypothesizes problem (strength: 0.7)
+
+4. CREATE experiment: "Add optional chaining operator (?.)"
+
+5. CONNECT: experiment tests hypothesis
+
+6. CREATE observation: "Error resolved, no runtime errors"
+
+7. CONNECT: observation produces experiment
+   CONNECT: observation supports hypothesis (strength: 0.9)
+
+8. CREATE solution: "Use optional chaining for property access"
+
+9. CONNECT: solution solves problem
+
+10. CREATE learning: "Async operations need null safety checks"
+
+11. CONNECT: learning learns from observation
+```
+
+### Example 2: Performance Problem Decomposition
+
+**Scenario**: "Application slow on load"
+
+**Graph Structure**:
+```
+1. CREATE problem: "Application slow on load"
+
+2. CREATE sub-problem: "Database queries slow"
+3. CREATE sub-problem: "Network latency high"
+4. CREATE sub-problem: "JavaScript blocking main thread"
+
+5. CONNECT: Each sub-problem decomposes problem (strength: 0.8)
+
+6. QUERY: similar-problems with "database slow"
+   Results: Past solutions (add index, optimize query, use cache)
+
+7. CREATE experiment: "Add database index"
+
+8. CONNECT: experiment tests sub-problem "Database queries slow"
+
+9. CREATE observation: "Query time reduced by 80%"
+
+10. CONNECT: observation supports "database slow" hypothesis
+```
+
+### Example 3: Knowledge Reuse
+
+**Scenario**: "Another TypeError undefined"
+
+**Process**:
+```
+1. QUERY: similar-problems
+   pattern: "TypeError undefined"
+   minSimilarity: 0.7
+   limit: 5
+
+2. Results: Past solutions with confidence scores
+   - Solution A: Optional chaining (confidence: 0.9)
+   - Solution B: Default values (confidence: 0.7)
+
+3. Adapt Solution A to current context
+   - Review: Similar async operation pattern
+   - Apply: Add optional chaining operator
+
+4. CREATE learning: "Optional chaining pattern effective for undefined errors"
+
+5. CONNECT: learning learns from observation
+```
+
+### Integration with Other Thinking Servers
+
+**Complete Workflow**: Tractatus → Sequential → Debug
+
+```
+1. Tractatus Thinking: Decompose problem structure
+   Concept: "Analyze {bug} structure"
+   → Identify multiplicative factors
+
+2. Sequential Thinking: Plan investigation steps
+   Thought 1: "Query similar problems"
+   Thought 2: "Create hypothesis based on past solutions"
+   Thought 3: "Design experiment to test"
+   Thought 4: "Verify fix works"
+   → Generate step-by-step investigation
+
+3. Debug Thinking: Track investigation in knowledge graph
+   CREATE problem/hypothesis/experiment nodes
+   CONNECT relationships
+   CREATE solution/learning nodes
+   → Build reusable knowledge
+```
+
+---
+
+## Token-Efficient Debug Patterns
+
+### Compression Strategies
+
+1. **Batch node creation**: Combine related nodes in single session
+2. **Query before create**: Reuse existing knowledge from graph
+3. **Minimal metadata**: Only essential tags and confidence scores
+4. **Atomic sessions**: One problem per graph interaction
+
+### When to Use Debug Thinking
+
+**Use**:
+- Complex bugs (multiple hypotheses needed)
+- Repeated issues (pattern recognition helps)
+- Learning-critical problems (knowledge worth capturing)
+
+**Skip**:
+- One-off trivial fixes (obvious solution)
+- Obvious errors (no investigation needed)
+- Quick patches (not worth tracking)
+
+### Sizing Guidelines
+
+| Complexity | Nodes | Types | Total Tokens |
+|------------|-------|-------|--------------|
+| Simple bug | 3-5 | problem, hypothesis, experiment, solution | ~1K |
+| Complex issue | 5-10 | add observations, learnings, sub-problems | ~2K |
+| Investigation | 10-20 | multiple hypotheses and experiments | ~3K |
+
+**Query first**: Check if problem already solved before creating new nodes
+
+### Integration Flow
+
+**Query (similar problems) → Create (if new) → Connect (relationships) → Query (verify)**
+
+```
+Example: "TypeError undefined"
+1. Query: Find similar past problems
+2. If found: Adapt solution, create learning
+3. If new: Create problem, hypothesis, experiment
+4. Connect: All relationships with strengths
+5. Query: Verify solution works
+```
+
+### Knowledge Graph Best Practices
+
+1. **Create learning nodes** after each debug session
+2. **Use metadata tags** for future retrieval
+3. **Set confidence scores** on relationships (0-1)
+4. **Query similar-problems** before starting investigation
+
+---
+
 *Last Updated: 2026-02-13*
 *Phase: 05-thinking-server-integration*
+
 
 
 1. **Combine Related Thoughts**: "Analyze X + Consider Y + Propose Z" in single thought

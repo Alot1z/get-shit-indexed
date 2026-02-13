@@ -4,6 +4,42 @@ Template for `.planning/debug/[slug].md` — active debug session tracking.
 
 ---
 
+## Debug Thinking Protocol
+
+Use `mcp__debug-thinking__debug_thinking` for systematic debugging:
+
+1. **Create problem node**: Document the error/issue
+2. **Query for similar problems**: Find past solutions
+3. **Create hypothesis nodes**: Based on similar cases or analysis
+4. **Create experiment nodes**: For each hypothesis to test
+5. **Track observations**: Record results of experiments
+6. **Create solution and learning nodes**: When resolved
+
+**Data persists in**: `~/.debug-thinking-mcp/` for future reference
+
+**Integration with 7-BMAD**:
+- Method Circle: Verify solution correctness
+- Mad Circle: Check all integrations work
+- Model Circle: Store pattern for reuse
+
+## Debug Graph Structure Template
+
+```
+### Debug Session: [issue-title]
+
+**Problem**: [description]
+
+**Graph Structure**:
+- Problem: [error description]
+- Hypotheses: [list of hypotheses]
+- Experiments: [list of experiments]
+- Observations: [results found]
+- Solution: [final fix]
+- Learnings: [insights for future]
+```
+
+---
+
 ## File Template
 
 ```markdown
