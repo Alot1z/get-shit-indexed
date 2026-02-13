@@ -123,7 +123,10 @@ This document defines the configuration options for the 7-BMAD validation system
       "mode",
       "mod",
       "methodd"
-    ]
+    ],
+    "criteria_reference": "references/code-review-criteria.md",
+    "workflow_reference": "references/code-review-workflow.md",
+    "templates_reference": "references/code-review-templates.md"
   }
 }
 ```
@@ -134,17 +137,43 @@ This document defines the configuration options for the 7-BMAD validation system
 - Changed files only
 - Critical checks only
 - Fastest execution
+- Duration: ~2-3 minutes
+- Token usage: ~3K tokens
 
 **Standard:**
 - Changed + related files
 - All criteria
 - Balanced execution
+- Duration: ~5 minutes
+- Token usage: ~8K tokens
 
 **Comprehensive:**
 - Full impact analysis
 - Security analysis
 - Performance analysis
 - Slowest but most thorough
+- Duration: ~10-15 minutes
+- Token usage: ~15K tokens
+
+### Strictness Options
+
+**Lenient:**
+- Only critical issues block approval
+- High issues generate warnings
+- Medium/Low issues informational only
+- Use for: Early development, prototyping
+
+**Standard:**
+- Critical + High issues block approval
+- Medium issues generate warnings
+- Low issues informational only
+- Use for: Normal development workflow
+
+**Strict:**
+- All issues must be addressed
+- Even Low issues block approval
+- Maximum quality enforcement
+- Use for: Production code, libraries
 
 ## Per-Gate Tool Mapping
 
