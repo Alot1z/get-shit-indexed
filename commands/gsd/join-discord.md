@@ -1,6 +1,8 @@
 ---
 name: gsd:join-discord
 description: Join the GSD Discord community
+allowed-tools:
+  - mcp__desktop-commander__read_file
 ---
 
 <objective>

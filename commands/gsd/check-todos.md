@@ -3,10 +3,12 @@ name: gsd:check-todos
 description: List pending todos and select one to work on
 argument-hint: [area filter]
 allowed-tools:
-  - Read
-  - Write
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__write_file
+  - mcp__desktop-commander__edit_block
+  - mcp__desktop-commander__list_directory
   - Bash
-  - AskUserQuestion
+  - Task
 ---
 
 <objective>

@@ -3,10 +3,48 @@ name: gsd:research-phase
 description: Research how to implement a phase (standalone - usually use /gsd:plan-phase instead)
 argument-hint: "[phase]"
 allowed-tools:
-  - Read
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__write_file
+  - mcp__desktop-commander__list_directory
+  - mcp__code-index-mcp__set_project_path
+  - mcp__code-index-mcp__build_deep_index
+  - mcp__code-index-mcp__search_code_advanced
+  - mcp__code-index-mcp__find_files
+  - mcp__code-index-mcp__get_file_summary
+  - mcp__code-index-mcp__get_symbol_body
+  - mcp__context7__resolve-library-id
+  - mcp__context7__get-library-docs
+  - mcp__rag-web-browser__search
+  - mcp__codegraphcontext__query
+  - mcp__codegraphcontext__find_components
+  - mcp__codegraphcontext__get_statistics
+  - mcp__codegraphcontext__analyze_impact
   - Bash
   - Task
 ---
+
+<!--
+Golden Pattern Tool Usage:
+- CG discover: CodeGraphContext for relationship analysis
+- CI understand: Code-Index for code search and symbol extraction
+- DC act: Desktop Commander for file operations
+
+CG Server: neo4j://localhost:7687
+
+CI Tools Usage:
+- set_project_path: Initialize index for codebase
+- build_deep_index: Comprehensive symbol extraction
+- search_code_advanced: Pattern research
+- find_files: Discover relevant files
+- get_file_summary: Understand file structure
+- get_symbol_body: Extract implementations
+
+CG Tools Usage:
+- query: Relationship pattern discovery
+- find_components: Subsystem analysis
+- get_statistics: Codebase metrics
+- analyze_impact: Change impact research
+-->
 
 <objective>
 Research how to implement a phase. Spawns gsd-phase-researcher agent with phase context.

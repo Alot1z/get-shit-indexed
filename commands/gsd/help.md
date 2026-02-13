@@ -1,6 +1,8 @@
 ---
 name: gsd:help
 description: Show available GSD commands and usage guide
+allowed-tools:
+  - mcp__desktop-commander__read_file
 ---
 <objective>
 Display the complete GSD command reference.

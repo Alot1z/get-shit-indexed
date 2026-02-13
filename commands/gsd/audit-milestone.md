@@ -3,12 +3,13 @@ name: gsd:audit-milestone
 description: Audit milestone completion against original intent before archiving
 argument-hint: "[version]"
 allowed-tools:
-  - Read
-  - Glob
-  - Grep
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__list_directory
+  - mcp__code-index-mcp__search_code_advanced
+  - mcp__code-index-mcp__find_files
+  - mcp__code-index-mcp__get_file_summary
   - Bash
   - Task
-  - Write
 ---
 <objective>
 Verify milestone achieved its definition of done. Check requirements coverage, cross-phase integration, and end-to-end flows.

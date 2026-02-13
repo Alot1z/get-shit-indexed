@@ -2,9 +2,13 @@
 name: gsd:pause-work
 description: Create context handoff when pausing work mid-phase
 allowed-tools:
-  - Read
-  - Write
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__write_file
+  - mcp__desktop-commander__edit_block
+  - mcp__desktop-commander__list_directory
+  - mcp__code-index-mcp__search_code_advanced
   - Bash
+  - Task
 ---
 
 <objective>

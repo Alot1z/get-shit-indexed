@@ -2,10 +2,10 @@
 name: gsd:settings
 description: Configure GSD workflow toggles and model profile
 allowed-tools:
-  - Read
-  - Write
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__write_file
+  - mcp__desktop-commander__edit_block
   - Bash
-  - AskUserQuestion
 ---
 
 <objective>
