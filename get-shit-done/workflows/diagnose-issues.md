@@ -7,6 +7,10 @@ code_index:
   tools: ["search_code_advanced"]
   priority: 2
   rationale: "Secondary use for searching error patterns across codebase"
+debug_thinking:
+  tools: ["debug_thinking"]
+  priority: 2
+  rationale: "Secondary use for graph-based problem tracking and knowledge retrieval"
 native:
   priority: 3
   rationale: "Fallback only - MCP tools provide 80-90% token savings"
@@ -92,6 +96,63 @@ Each agent will:
 
 This runs in parallel - all gaps investigated simultaneously.
 ```
+</step>
+
+<step name="graph_based_diagnosis">
+**For systematic debugging with knowledge graph:**
+
+**Use MCP tool: mcp__debug-thinking__debug_thinking**
+
+```javascript
+// Query for similar problems first
+const similar = await mcp__debug-thinking__debug_thinking({
+  action: "query",
+  queryType: "similar-problems",
+  parameters: {
+    pattern: "{error pattern or symptom}",
+    limit: 5,
+    minSimilarity: 0.5
+  }
+});
+
+// Review past solutions and adapt if applicable
+
+// Create problem node for current issue
+const problem = await mcp__debug-thinking__debug_thinking({
+  action: "create",
+  nodeType: "problem",
+  content: "{error description with context}"
+});
+
+// Create hypothesis nodes based on similar cases
+const hypothesis = await mcp__debug-thinking__debug_thinking({
+  action: "create",
+  nodeType: "hypothesis",
+  content: "{proposed explanation}",
+  parentId: problem.nodeId
+});
+
+// Connect hypothesis to problem
+await mcp__debug-thinking__debug_thinking({
+  action: "connect",
+  from: hypothesis.nodeId,
+  to: problem.nodeId,
+  type: "hypothesizes",
+  strength: 0.7
+});
+
+// Create experiment nodes for each hypothesis
+// Track results in observation nodes
+// Create solution and learning nodes when resolved
+```
+
+**Integration with agents**: Each debug agent uses debug-thinking for tracking
+
+**Knowledge graph query examples**:
+- Pattern: "TypeError undefined" → Find past null safety solutions
+- Pattern: "timeout connection" → Find past timeout fixes
+- Pattern: "authentication failed" → Find past auth debugging
+
 </step>
 
 <step name="spawn_agents">
