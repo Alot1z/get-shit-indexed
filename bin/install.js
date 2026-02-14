@@ -852,7 +852,7 @@ function uninstall(isGlobal, runtime = 'claude') {
   // 4. Remove GSI hooks
   const hooksDir = path.join(targetDir, 'hooks');
   if (fs.existsSync(hooksDir)) {
-    const GSIHooks = ['GSI-statusline.js', 'GSI-check-update.js', 'GSI-check-update.sh'];
+    const GSIHooks = ['GSI-statusline.js', 'GSI-check-update.js', 'GSI-check-update.sh', 'mcp-enforcer.js'];
     let hookCount = 0;
     for (const hook of GSIHooks) {
       const hookPath = path.join(hooksDir, hook);
@@ -901,6 +901,33 @@ function uninstall(isGlobal, runtime = 'claude') {
       // Clean up empty array
       if (settings.hooks.SessionStart.length === 0) {
         delete settings.hooks.SessionStart;
+      }
+      // Clean up empty hooks object
+      if (Object.keys(settings.hooks).length === 0) {
+        delete settings.hooks;
+      }
+    }
+
+    // Remove MCP enforcement hook from PreToolUse
+    if (settings.hooks && settings.hooks.PreToolUse) {
+      const before = settings.hooks.PreToolUse.length;
+      settings.hooks.PreToolUse = settings.hooks.PreToolUse.filter(entry => {
+        if (entry.hooks && Array.isArray(entry.hooks)) {
+          // Filter out mcp-enforcer hooks
+          const hasMCPEnforcerHook = entry.hooks.some(h =>
+            h.command && h.command.includes('mcp-enforcer')
+          );
+          return !hasMCPEnforcerHook;
+        }
+        return true;
+      });
+      if (settings.hooks.PreToolUse.length < before) {
+        settingsModified = true;
+        console.log(`  ${green}✓${reset} Removed MCP enforcement hook from settings`);
+      }
+      // Clean up empty array
+      if (settings.hooks.PreToolUse.length === 0) {
+        delete settings.hooks.PreToolUse;
       }
       // Clean up empty hooks object
       if (Object.keys(settings.hooks).length === 0) {
@@ -1475,6 +1502,31 @@ function install(isGlobal, runtime = 'claude') {
         ]
       });
       console.log(`  ${green}✓${reset} Configured update check hook`);
+    }
+
+    // Configure PreToolUse hook for MCP enforcement (blocks native tools)
+    if (!settings.hooks.PreToolUse) {
+      settings.hooks.PreToolUse = [];
+    }
+
+    const mcpEnforcerCommand = isGlobal
+      ? buildHookCommand(targetDir, 'mcp-enforcer.js')
+      : 'node ' + dirName + '/hooks/mcp-enforcer.js';
+
+    const hasMCPEnforcerHook = settings.hooks.PreToolUse.some(entry =>
+      entry.hooks && entry.hooks.some(h => h.command && h.command.includes('mcp-enforcer'))
+    );
+
+    if (!hasMCPEnforcerHook) {
+      settings.hooks.PreToolUse.push({
+        hooks: [
+          {
+            type: 'command',
+            command: mcpEnforcerCommand
+          }
+        ]
+      });
+      console.log(`  ${green}✓${reset} Configured MCP enforcement hook (PreToolUse)`);
     }
   }
 
