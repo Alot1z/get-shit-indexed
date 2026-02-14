@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 // Check for GSI updates in background, write result to cache
 // Called by SessionStart hook - runs once per session
 
