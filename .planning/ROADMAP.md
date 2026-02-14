@@ -251,7 +251,30 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 12. Theory & Practice Docs | 1/1 | Complete ✓ | 2026-02-14 |
 | 13. Comprehensive Testing | 0/1 | Plans created | - |
 
-**Overall Progress**: 41/41 plans complete (100%)
+**Overall Progress**: 41/58 plans complete (71% - 17 new plans added)
+
+**Phase 14 (MCP Tool Optimization): 6 plans created - 36 tasks total**
+- Plan 14-01: 6 tasks - read_multiple_files integration
+- Plan 14-02: 6 tasks - CodeGraphContext to commands
+- Plan 14-03: 7 tasks - CG analysis in workflows
+- Plan 14-04: 6 tasks - CI symbol navigation
+- Plan 14-05: 6 tasks - Tool usage benchmarks
+- Plan 14-06: 5 tasks - mcp-enforcer updates
+
+**Phase 15 (Thinking Enforcement): 5 plans created - 32 tasks total**
+- Plan 15-01: 7 tasks - PreToolUse thinking hook
+- Plan 15-02: 6 tasks - Thinking workflow sections
+- Plan 15-03: 7 tasks - 7-BMAD integration
+- Plan 15-04: 6 tasks - Verification checkpoints
+- Plan 15-05: 6 tasks - PostToolUse reflection hook
+
+**Phase 16 (README Transformation): 6 plans created - 44 tasks total**
+- Plan 16-01: 7 tasks - Fork attribution
+- Plan 16-02: 7 tasks - MCP comparison tables
+- Plan 16-03: 7 tasks - Thinking server docs
+- Plan 16-04: 8 tasks - Installation guide
+- Plan 16-05: 8 tasks - Feature showcase
+- Plan 16-06: 7 tasks - Final assembly
 
 **Phase 3 (Documentation Consolidation): 4 plans created - 32 tasks total**
 
@@ -448,3 +471,77 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 - Brand Consistency: 7/8 passed (87.5% - 1 skip for historical templates)
 - No critical issues found
 - Ready for release: YES
+
+### Phase 14: MCP Tool Optimization
+
+**Goal**: Optimize GSI to fully utilize all MCP servers with batch operations and CG analysis
+
+**Depends on**: Phase 13 (Comprehensive Testing)
+
+**Success Criteria**:
+1. All workflows use read_multiple_files for 3+ file reads
+2. CodeGraphContext tools integrated into commands
+3. CI symbol navigation active in workflows
+4. Tool usage benchmarks documented
+5. MCP enforcement covers all new tools
+
+**Plans**: 6 plans
+
+**Status**: Plans created
+
+**Plans**:
+- [ ] 14-01: Add read_multiple_files to workflows (6 tasks)
+- [ ] 14-02: Add CodeGraphContext to commands (6 tasks)
+- [ ] 14-03: Update workflows with CG analysis (7 tasks)
+- [ ] 14-04: Add CI symbol navigation (6 tasks)
+- [ ] 14-05: Create tool usage benchmarks (6 tasks)
+- [ ] 14-06: Update mcp-enforcer for new tools (5 tasks)
+
+### Phase 15: Thinking Server Enforcement
+
+**Goal**: Enforce thinking server usage before, during, and after tool execution
+
+**Depends on**: Phase 14 (MCP Tool Optimization)
+
+**Success Criteria**:
+1. PreToolUse thinking hook created
+2. All workflows have thinking_phase sections
+3. 7-BMAD mapped to thinking servers
+4. Thinking verification checkpoints active
+5. PostToolUse reflection hook working
+
+**Plans**: 5 plans
+
+**Status**: Plans created
+
+**Plans**:
+- [ ] 15-01: Create PreToolUse thinking hook (7 tasks)
+- [ ] 15-02: Add thinking workflow sections (6 tasks)
+- [ ] 15-03: Integrate 7-BMAD with thinking servers (7 tasks)
+- [ ] 15-04: Add thinking verification checkpoints (6 tasks)
+- [ ] 15-05: Add PostToolUse reflection hook (6 tasks)
+
+### Phase 16: README Transformation
+
+**Goal**: Create completely new README for GSI fork with MCP and thinking documentation
+
+**Depends on**: Phase 15 (Thinking Server Enforcement)
+
+**Success Criteria**:
+1. Clear fork attribution with original repo link
+2. MCP tool comparison tables with token savings
+3. Thinking server documentation complete
+4. Installation and quick start guide working
+5. Feature showcase comprehensive
+
+**Plans**: 6 plans
+
+**Status**: Plans created
+
+**Plans**:
+- [ ] 16-01: Fork attribution section (7 tasks)
+- [ ] 16-02: MCP tool comparison tables (7 tasks)
+- [ ] 16-03: Thinking server documentation (7 tasks)
+- [ ] 16-04: Installation and getting started (8 tasks)
+- [ ] 16-05: Feature showcase (8 tasks)
+- [ ] 16-06: Assemble final README (7 tasks)
