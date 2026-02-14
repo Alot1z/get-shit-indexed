@@ -10,7 +10,6 @@ allowed-tools:
   - mcp__code-index-mcp__search_code_advanced
   - mcp__code-index-mcp__find_files
   - mcp__desktop-commander__start_process
-  - Bash
   - Task
 ---
 <objective>

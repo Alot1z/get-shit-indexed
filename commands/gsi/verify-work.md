@@ -13,7 +13,6 @@ allowed-tools:
   - mcp__codegraphcontext__find_path
   - mcp__codegraphcontext__analyze_impact
   - mcp__desktop-commander__write_file
-  - Bash
   - Task
 ---
 

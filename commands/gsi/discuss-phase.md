@@ -13,7 +13,6 @@ allowed-tools:
   - mcp__codegraphcontext__query
   - mcp__codegraphcontext__find_path
   - mcp__codegraphcontext__visualize
-  - Bash
   - Task
 ---
 

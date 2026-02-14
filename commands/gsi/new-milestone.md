@@ -8,7 +8,6 @@ allowed-tools:
   - mcp__desktop-commander__list_directory
   - mcp__desktop-commander__create_directory
   - mcp__code-index-mcp__find_files
-  - Bash
   - Task
 ---
 <objective>

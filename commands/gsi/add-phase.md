@@ -9,7 +9,6 @@ allowed-tools:
   - mcp__desktop-commander__list_directory
   - mcp__desktop-commander__create_directory
   - mcp__code-index-mcp__search_code_advanced
-  - Bash
   - Task
 ---
 

@@ -19,7 +19,6 @@ allowed-tools:
   - mcp__codegraphcontext__find_components
   - mcp__codegraphcontext__get_statistics
   - mcp__codegraphcontext__analyze_impact
-  - Bash
   - Task
 ---
 

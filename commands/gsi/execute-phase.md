@@ -17,7 +17,6 @@ allowed-tools:
   - mcp__codegraphcontext__find_path
   - mcp__codegraphcontext__analyze_impact
   - ListMcpResourcesTool
-  - Bash
   - Task
 ---
 

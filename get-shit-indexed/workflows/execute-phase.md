@@ -1,5 +1,21 @@
 ﻿<thinking>auto</thinking>
 
+<tool_requirements>
+**MANDATORY: Use MCP tools instead of native tools for all operations.**
+
+**File Operations:**
+- Use `mcp__desktop-commander__read_file` instead of Read
+- Use `mcp__desktop-commander__write_file` instead of Write
+- Use `mcp__desktop-commander__start_process` instead of Bash
+
+**Code Search:**
+- Use `mcp__code-index-mcp__search_code_advanced` instead of Grep
+
+**NEVER USE native tools (Read, Write, Edit, Grep, Glob, Bash) when MCP alternatives exist.**
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
+</tool_requirements>
+
 <code_index_mcp>
 desktop_commander:
   tools: ["read_file", "write_file", "start_process"]
