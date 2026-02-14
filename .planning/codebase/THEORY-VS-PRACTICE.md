@@ -787,3 +787,339 @@ Wave 2: [Plan 03] → Execute
 ## [END OF GAP ANALYSIS SECTION]
 
 *Continue to Resolution Plans section...*
+
+---
+
+## Resolution Plans: Closing the Gaps
+
+### Priority 1: MCP Integration Gaps
+
+#### 1.1 Fix Tractatus Thinking Tool Name
+
+**Gap:** Tool name mismatch prevents usage
+**Severity:** High - Blocks architecture decisions
+**What Needs to be Done:**
+1. Investigate actual tool name via MCP server query
+2. Update GSI workflows to use correct tool name
+3. Test Tractatus Thinking integration
+4. Document correct usage pattern
+
+**Estimated Effort:** 1-2 hours
+**Dependencies:** None (can start immediately)
+**Implementation Steps:**
+```
+1. Query MCP server for available tools
+2. Identify correct tool name for Tractatus
+3. Update TOOL-PRIORITY-RULES.md
+4. Update workflow files with correct reference
+5. Test with sample architecture decision
+```
+
+**Success Criteria:**
+- Tractatus Thinking usable for architecture decisions
+- Documentation updated with correct tool name
+- Sample workflow completes successfully
+
+---
+
+#### 1.2 Configure rag-web-browser
+
+**Gap:** APIFY_TOKEN missing
+**Severity:** High - Blocks web search
+**What Needs to be Done:**
+1. Obtain APIFY_TOKEN from APIFY dashboard
+2. Set environment variable
+3. Restart MCP server or reload config
+4. Test web search functionality
+
+**Estimated Effort:** 30 minutes
+**Dependencies:** APIFY account
+**Implementation Steps:**
+```
+1. Login to APIFY dashboard
+2. Generate API token
+3. Add to environment: APIFY_TOKEN=<token>
+4. Restart rag-web-browser MCP server
+5. Test with sample search
+```
+
+**Success Criteria:**
+- rag-web-browser returns search results
+- Web search usable in GSI workflows
+- Token doesn't expire or rate-limit
+
+---
+
+#### 1.3 Install Modal CLI for deepseek-ocr
+
+**Gap:** Modal CLI not installed
+**Severity:** Medium - Blocks OCR
+**What Needs to be Done:**
+1. Install Modal CLI globally
+2. Configure API credentials
+3. Test OCR functionality
+4. Document usage pattern
+
+**Estimated Effort:** 1 hour
+**Dependencies:** Modal account
+**Implementation Steps:**
+```
+1. npm install -g modal
+2. modal login
+3. Test with sample image
+4. Document OCR workflow
+```
+
+**Success Criteria:**
+- deepseek-ocr processes images successfully
+- OCR text extraction accurate
+- Integration with GSI workflows working
+
+---
+
+#### 1.4 Test and Index CodeGraphContext
+
+**Gap:** Only 1 repository, underutilized
+**Severity:** Medium - Misses optimization
+**What Needs to be Done:**
+1. Index get-shit-done repository
+2. Test relationship analysis queries
+3. Integrate into refactoring workflows
+4. Document graph patterns
+
+**Estimated Effort:** 2-3 hours
+**Dependencies:** Neo4j running
+**Implementation Steps:**
+```
+1. Ensure Neo4j server running
+2. Add repository to CodeGraphContext
+3. Run analyze_code_relationships
+4. Test refactoring suggestions
+5. Integrate into workflow
+```
+
+**Success Criteria:**
+- get-shit-done indexed in graph
+- Relationship queries return useful results
+- Refactoring suggestions accurate
+- Documentation complete
+
+---
+
+### Priority 2: Workflow Execution Gaps
+
+#### 2.1 Auto-Configure Git Identity
+
+**Gap:** Manual git setup required
+**Severity:** High - Blocks autonomous execution
+**What Needs to be Done:**
+1. Create pre-commit hook or init script
+2. Set global git config for agents
+3. Verify identity before first commit
+4. Document agent git identity
+
+**Estimated Effort:** 1 hour
+**Dependencies:** None
+**Implementation Steps:**
+```
+1. Create hooks/auto-git-config.js
+2. Set: git config --global user.email "agent@gsi.local"
+3. Set: git config --global user.name "GSI Agent"
+4. Test commit with new identity
+5. Document in AGENT-GIT.md
+```
+
+**Success Criteria:**
+- Agents can commit without manual setup
+- Git identity consistent across sessions
+- No more "identity unknown" errors
+
+---
+
+#### 2.2 Improve Error Messages
+
+**Gap:** Cryptic errors, poor recovery
+**Severity:** High - Poor UX
+**What Needs to be Done:**
+1. Audit all error messages
+2. Add user-friendly explanations
+3. Implement automatic retry where appropriate
+4. Create error recovery guide
+
+**Estimated Effort:** 2-3 hours
+**Dependencies:** None
+**Implementation Steps:**
+```
+1. Search codebase for all error throws
+2. For each error:
+   - Add explanation
+   - Add recovery suggestion
+   - Add retry logic if transient
+3. Create ERROR-RECOVERY.md
+4. Test error scenarios
+```
+
+**Success Criteria:**
+- All errors have clear explanations
+- Transient errors auto-retry
+- Recovery guide documented
+- User can understand and fix errors
+
+---
+
+#### 2.3 Reduce Execution Time
+
+**Gap:** 2x slower than expected (5-10 min vs 5 min)
+**Severity:** Medium - Reduces efficiency
+**What Needs to be Done:**
+1. Profile slow operations
+2. Optimize file I/O batching
+3. Reduce unnecessary reads
+4. Cache repeated operations
+
+**Estimated Effort:** 2-3 hours
+**Dependencies:** Profiling tool
+**Implementation Steps:**
+```
+1. Add timing instrumentation
+2. Identify slow operations
+3. Optimize batch reads
+4. Cache frequently accessed files
+5. Re-test execution time
+```
+
+**Success Criteria:**
+- Average plan time <6 minutes
+- 95th percentile <8 minutes
+- Token efficiency maintained
+
+---
+
+### Priority 3: Quality Verification Gaps
+
+#### 3.1 Implement Auto-Validation
+
+**Gap:** Auto-validation defined but not triggered
+**Severity:** Medium - Inconsistent quality
+**What Needs to be Done:**
+1. Create validation trigger system
+2. Hook into agent completion signals
+3. Ensure all 7-BMAD gates run
+4. Add failure handling and retry
+
+**Estimated Effort:** 2-3 hours
+**Dependencies:** auto-validation.md rules
+**Implementation Steps:**
+```
+1. Create validation-spawner.js
+2. Listen for [COMPLETION] signals
+3. Load code-review-expert skill
+4. Run all 7-BMAD gates
+5. Handle failures with retry
+6. Report results
+```
+
+**Success Criteria:**
+- All completions trigger validation
+- 7-BMAD gates run automatically
+- Failures auto-retry up to 3 times
+- Quality score tracked
+
+---
+
+#### 3.2 Test Untested MCP Tools
+
+**Gap:** 6/13 MCP tools untested
+**Severity:** Medium - Unknown capabilities
+**What Needs to be Done:**
+1. Test context-crawl with proxy fix
+2. Test 4.5v-mcp image analysis
+3. Verify all CodeGraphContext tools
+4. Document test results
+
+**Estimated Effort:** 2 hours
+**Dependencies:** Network for context-crawl
+**Implementation Steps:**
+```
+1. Test context-crawl with alternative network
+2. Test 4.5v-mcp with sample images
+3. Run all CG tools
+4. Update MCP-SERVER-AUDIT.md
+```
+
+**Success Criteria:**
+- All tools tested or documented as unavailable
+- Test results in audit file
+- Unknown count reduced to 0
+
+---
+
+### Priority 4: Documentation Gaps
+
+#### 4.1 Complete GSI Rebranding
+
+**Gap:** 5% legacy "get-shit-done" references
+**Severity:** Low - Cosmetic
+**What Needs to be Done:**
+1. Search for remaining legacy references
+2. Update to GSI branding
+3. Verify all links correct
+4. Update any outdated examples
+
+**Estimated Effort:** 1 hour
+**Dependencies:** None
+**Implementation Steps:**
+```
+1. Search codebase for "get-shit-done" (case-insensitive)
+2. For each match:
+   - Replace with "GSI" or "get-shit-indexed"
+   - Update links to Alot1z fork
+3. Verify all @-references resolve
+4. Update ROADMAP.md if needed
+```
+
+**Success Criteria:**
+- 0 legacy references in codebase
+- All links point to correct fork
+- Examples current and working
+
+---
+
+### Priority 5: Token Efficiency Gaps
+
+#### 5.1 Optimize Error Handling
+
+**Gap:** 5-10% below target due to retries
+**Severity:** Medium - Good but not optimal
+**What Needs to be Done:**
+1. Reduce error retry frequency
+2. Improve error detection
+3. Add early exit for non-recoverable errors
+4. Cache error recovery patterns
+
+**Estimated Effort:** 1-2 hours
+**Dependencies:** None
+**Implementation Steps:**
+```
+1. Analyze retry patterns
+2. Identify unnecessary retries
+3. Add early exit logic
+4. Cache known error responses
+5. Re-measure token efficiency
+```
+
+**Success Criteria:**
+- Token efficiency >85%
+- Unnecessary retries eliminated
+- Error recovery fast (<2 seconds)
+
+---
+
+## [END OF RESOLUTION PLANS SECTION]
+
+*Theory vs Practice documentation complete.*
+
+**Document Status:** Complete
+**Sections:** Theory, Practice, Gap Analysis, Resolution Plans
+**Total Lines:** ~800+
+**Next:** Create LOGIC-FLOWS.md and EDGE-CASES.md
