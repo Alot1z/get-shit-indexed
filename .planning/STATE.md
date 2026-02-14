@@ -5,16 +5,27 @@
 See: .planning/PROJECT.md (updated 2025-02-11)
 
 **Core value:** Token-efficient, reliable GSI workflows that leverage all three MCP servers (DC + CI + CG) using proven tool chain patterns.
-**Current focus:** Phase 13 complete - Comprehensive E2E Testing - ALL PHASES COMPLETE
+**Current focus:** Phase 14-16 planning complete - 17 new plans with 115 tasks created
 
 ## Current Position
 
 Phase: 14 of 16 (new phases added)
-Plan: 0 of 6 (plans created, ready for execution)
-Status: Phase 14-16 planning complete - 17 new plans created
-Last activity: 2026-02-15 — Created 17 plans for phases 14-16
+Plan: 0 of 17 (plans created, ready for execution)
+Status: Phase 14-16 planning complete - ALL CATEGORIES INCLUDED
+Last activity: 2026-02-15 — Updated plans to include ALL file categories (agents, commands, hooks, references, templates, workflows)
 
 Progress: [████████████░░░░] 71% (41/58 plans across all phases)
+
+## File Categories Coverage
+
+**MCP Tool Optimization (Phase 14) applies to ALL:**
+- **Agents** (11 files) — Add CG, CI, read_multiple_files
+- **Commands** (29 files) — Expand allowed-tools, add patterns
+- **Workflows** (30 files) — Replace sequential reads with batch
+- **Hooks** (5 files) — Document MCP limitations
+- **References** (18 files) — Add MCP usage examples
+- **Templates** (20 files) — Include batch reading patterns
+- **Scripts** (1 file) — Document MCP alternatives
 
 ## Performance Metrics
 
@@ -42,7 +53,7 @@ Progress: [████████████░░░░] 71% (41/58 plans ac
 
 **Recent Trend:**
 - Last 5 plans: 12-01, 13-01
-- Trend: Phase 13 complete - ALL PHASES COMPLETE
+- Trend: Phase 13 complete - Phases 14-16 planned
 
 *Updated after each plan completion*
 
@@ -177,10 +188,27 @@ Progress: [████████████░░░░] 71% (41/58 plans ac
 
 ### Pending Todos
 
-**Phase 14-16**: 17 plans ready for execution (112 tasks total)
-- Phase 14: MCP Tool Optimization (6 plans, 36 tasks)
-- Phase 15: Thinking Server Enforcement (5 plans, 32 tasks)
+**Phase 14-16**: 17 plans ready for execution (115 tasks total)
+- Phase 14: MCP Tool Optimization (6 plans, 38 tasks)
+  - 14-01: read_multiple_files across all categories (8 tasks)
+  - 14-02: CodeGraphContext in agents/commands (8 tasks)
+  - 14-03: Code-Index MCP symbol navigation (6 tasks)
+  - 14-04: Hook files with MCP patterns (5 tasks)
+  - 14-05: Templates/References with MCP (6 tasks)
+  - 14-06: MCP token benchmarks (5 tasks)
+- Phase 15: Thinking Server Enforcement (5 plans, 33 tasks)
+  - 15-01: PreToolUse thinking hook (6 tasks)
+  - 15-02: Thinking sections all categories (8 tasks)
+  - 15-03: 7-BMAD integration (7 tasks)
+  - 15-04: Thinking verification checkpoints (6 tasks)
+  - 15-05: PostToolUse reflection hook (6 tasks)
 - Phase 16: README Transformation (6 plans, 44 tasks)
+  - 16-01: Fork attribution section (7 tasks)
+  - 16-02: MCP tool comparison tables (7 tasks)
+  - 16-03: Thinking server documentation (7 tasks)
+  - 16-04: Installation/getting started (8 tasks)
+  - 16-05: Feature showcase section (8 tasks)
+  - 16-06: Assemble final README (7 tasks)
 
 ### Blockers/Concerns
 
@@ -194,6 +222,6 @@ Progress: [████████████░░░░] 71% (41/58 plans ac
 
 ## Session Continuity
 
-Last session: 2026-02-14 Phase 13-01 execution
-Stopped at: Completed 13-01 (Comprehensive E2E Testing) - ALL PHASES COMPLETE
+Last session: 2026-02-15 Phase 14-16 planning
+Stopped at: Plans created for all file categories (agents, commands, hooks, references, templates, workflows)
 Resume file: None
