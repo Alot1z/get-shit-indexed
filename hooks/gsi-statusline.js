@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 // Claude Code Statusline - GSI Edition
 // Shows: model | current task | directory | context usage
 
