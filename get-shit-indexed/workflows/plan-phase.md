@@ -1,5 +1,32 @@
 ﻿<thinking>auto</thinking>
 
+<tool_requirements>
+**MANDATORY: Use MCP tools instead of native tools for all operations.**
+
+**File Operations:**
+- Use `mcp__desktop-commander__read_file` instead of Read
+- Use `mcp__desktop-commander__write_file` instead of Write
+- Use `mcp__desktop-commander__edit_block` instead of Edit
+- Use `mcp__desktop-commander__list_directory` instead of ls
+- Use `mcp__desktop-commander__create_directory` instead of mkdir
+
+**Code Search:**
+- Use `mcp__code-index-mcp__search_code_advanced` instead of Grep
+- Use `mcp__code-index-mcp__find_files` instead of find
+- Use `mcp__code-index-mcp__get_file_summary` for file analysis
+
+**External Research:**
+- Use `mcp__rag-web-browser__search` for web searches instead of native search
+- Use `mcp__context7__resolve-library-id` and `mcp__context7__get-library-docs` for library documentation
+
+**Process Operations:**
+- Use `mcp__desktop-commander__start_process` instead of Bash for commands
+
+**NEVER USE native tools (Read, Write, Edit, Grep, Glob, Bash) when MCP alternatives exist.**
+
+Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md
+</tool_requirements>
+
 <purpose>
 Create executable phase prompts (PLAN.md files) for a roadmap phase with integrated research and verification. Default flow: Research (if needed) -> Plan -> Verify -> Done. Orchestrates GSI-phase-researcher, GSI-planner, and GSI-plan-checker agents with a revision loop (max 3 iterations).
 </purpose>

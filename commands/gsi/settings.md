@@ -5,7 +5,6 @@ allowed-tools:
   - mcp__desktop-commander__read_file
   - mcp__desktop-commander__write_file
   - mcp__desktop-commander__edit_block
-  - Bash
 ---
 
 <objective>

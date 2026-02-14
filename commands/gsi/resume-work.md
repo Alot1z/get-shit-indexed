@@ -7,7 +7,6 @@ allowed-tools:
   - mcp__desktop-commander__edit_block
   - mcp__desktop-commander__list_directory
   - mcp__code-index-mcp__search_code_advanced
-  - Bash
   - Task
 ---
 

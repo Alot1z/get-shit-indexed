@@ -17,7 +17,6 @@ allowed-tools:
   - mcp__codegraphcontext__find_components
   - mcp__codegraphcontext__get_statistics
   - mcp__desktop-commander__start_process
-  - Bash
   - Task
 ---
 
