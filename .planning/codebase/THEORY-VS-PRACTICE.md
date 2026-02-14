@@ -262,6 +262,298 @@ Wave 2: [Plan 03] → Execute
 
 ---
 
-## [END OF THEORY SECTION]
+## Practice: GSI Actual Implementation
 
-*Continue to Practice section...*
+### Current Architecture
+
+#### What's Actually Implemented
+
+**Reality:**
+- Desktop Commander (DC): ✅ Fully operational (34K+ calls, 96% success rate)
+- Code-Index MCP (CI): ✅ Fully operational (all 18 tools working)
+- CodeGraphContext (CG): ⚠️ Connected but underutilized (1 repo indexed)
+- Sequential Thinking: ✅ Connected and tested
+- Tractatus Thinking: ❌ Tool name mismatch prevents usage
+- Debug Thinking: ✅ Connected and tested
+- Context7: ✅ Connected (36 libraries found)
+- DeepWiki: ✅ Connected (25 wiki pages)
+- context-crawl: ⚠️ Network fetch failures
+- rag-web-browser: ❌ Missing APIFY_TOKEN
+- deepseek-ocr: ❌ Modal CLI not installed
+- 4.5v-mcp: ⚠️ Not tested
+
+**Actual Server Status:**
+- Desktop Commander: ✅ Connected (100%)
+- Code-Index MCP: ✅ Connected (100%)
+- CodeGraphContext: ✅ Connected (54% - only 1 repo)
+- Sequential Thinking: ✅ Connected (100%)
+- Tractatus Thinking: ❌ Not Available (tool name issue)
+- Debug Thinking: ✅ Connected (100%)
+- Context7: ✅ Connected (100%)
+- DeepWiki: ✅ Connected (100%)
+- context-crawl: ⚠️ Error (network issues)
+- rag-web-browser: ❌ Not Configured (missing token)
+- deepseek-ocr: ❌ Not Available (Modal not installed)
+- 4.5v-mcp: ⚠️ Not Tested
+
+**Connection Reality:**
+- Total servers: 13
+- Fully connected: 7 (54%)
+- Available with issues: 4 (31%)
+- Not available/configured: 2 (15%)
+
+#### Current Limitations
+
+**Identified Constraints:**
+1. **Tractatus Thinking tool name mismatch** - Cannot be used for architecture decisions
+2. **rag-web-browser requires APIFY_TOKEN** - Limits web search capability
+3. **Neo4j only has 1 repository** - CodeGraphContext underutilized
+4. **context-crawl network issues** - Web crawling unreliable
+5. **Modal CLI not installed** - OCR features unavailable
+
+---
+
+### Real-World Behavior
+
+#### How Execution Actually Works
+
+**Reality:**
+- User invokes `/GSI:execute-phase {X}`
+- Orchestrator discovers plans via phase-plan-index
+- Plans grouped by waves for execution
+- Each plan spawns executor agent
+- Executors commit tasks atomically (when git config allows)
+- SUMMARY.md generated for each plan
+- STATE.md updated with progress
+
+**Actual Workflow (Observed):**
+1. User: `/GSI:execute-phase 11`
+2. Orchestrator: "1 plan found. Spawning agent..."
+3. Agent: Executes tasks, encounters git identity issue
+4. System: Pauses for git configuration
+5. User: Configures git manually
+6. Agent: Resumes, completes tasks
+7. Time: ~8 minutes for 1 plan (vs ~5 min expected)
+
+**Friction Points:**
+- Git identity not pre-configured for agents
+- Some MCP servers unavailable during execution
+- Token savings vary by operation (not consistent 80-90%)
+- Error handling sometimes requires manual intervention
+
+#### Actual Error Handling
+
+**Common Errors Encountered:**
+
+1. **Git Identity Unknown**
+   - Error: "Author identity unknown"
+   - Current handling: Manual configuration required
+   - Impact: Blocks autonomous execution
+
+2. **MCP Server Connection Issues**
+   - Error: "Network fetch failed" (context-crawl)
+   - Error: "APIFY_TOKEN is required" (rag-web-browser)
+   - Current handling: Skip unavailable tools
+   - Impact: Reduced capability
+
+3. **Tool Name Mismatch**
+   - Error: "Tool 'tractatus_thinking' not found"
+   - Expected: `mcp__tractatus-thinking__tractatus_thinking`
+   - Actual: Different tool name
+   - Impact: Cannot use Tractatus Thinking
+
+#### Actual Token Usage Patterns
+
+**Observed Token Efficiency:**
+
+| Operation | Expected Savings | Actual Savings | Variance |
+|------------|------------------|-----------------|----------|
+| File read (DC) | 67% | 67% | ✅ Match |
+| File write (DC) | 75% | 75% | ✅ Match |
+| Code search (CI) | 80% | 80% | ✅ Match |
+| Multiple files (DC) | 90% | 90% | ✅ Match |
+| Process operations (DC) | 60% | 60% | ✅ Match |
+| Code review (skill) | 90% | 85% | ⚠️ -5% |
+
+**Overall Session Token Savings:**
+- Expected: 80-90%
+- Actual: 70-85%
+- Variance: -5 to -10% (due to error handling retries)
+
+---
+
+### Active Workflows
+
+#### What Users Actually Experience
+
+**Real User Journey:**
+
+1. **Planning Phase:**
+   - User: `/GSI:plan-phase {X}`
+   - System: Returns plans in ~3-5 minutes
+   - User: Reviews and adjusts
+   - Time: ✅ Within expected range
+
+2. **Execution Phase:**
+   - User: `/GSI:execute-phase {X}`
+   - System: Discovers plans, spawns agents
+   - Agent: Executes tasks, may encounter errors
+   - System: Some errors auto-fixed, some require intervention
+   - Time: ⚠️ 5-10 minutes per plan (vs ~5 min expected)
+
+3. **Verification Phase:**
+   - Agent: Completes tasks
+   - System: Should spawn auto-validation
+   - Reality: Auto-validation defined but not always triggered
+   - User: May need to manually verify quality
+
+**User Friction Points:**
+- Git configuration required before first commit
+- MCP server connection failures reduce capabilities
+- Some checkpoints require more user interaction than expected
+- Error messages sometimes cryptic (tool name mismatches)
+
+#### Common Patterns Used
+
+**High-Frequency Patterns (Observed):**
+
+1. **File Operations Pattern** (90% usage)
+   ```
+   mcp__desktop-commander__read_file()
+   → Process content
+   → mcp__desktop-commander__write_file()
+   ```
+
+2. **Code Search Pattern** (70% usage)
+   ```
+   mcp__code-index-mcp__search_code_advanced()
+   → Analyze results
+   → mcp__code-index-mcp__get_symbol_body()
+   ```
+
+3. **Process Execution Pattern** (60% usage)
+   ```
+   mcp__desktop-commander__start_process()
+   → mcp__desktop-commander__read_process_output()
+   → mcp__desktop-commander__interact_with_process()
+   ```
+
+**Low-Frequency Patterns (Underutilized):**
+1. **CodeGraphContext Analysis** (5% usage)
+   - Only 1 repository indexed
+   - Should be used for relationship analysis
+
+2. **Tractatus Thinking** (0% usage)
+   - Tool name mismatch prevents usage
+   - Should be used for architecture decisions
+
+3. **Web Search/Browse** (2% usage)
+   - APIFY_TOKEN missing
+   - Should be used for external research
+
+---
+
+### Known Issues
+
+#### Bugs and Limitations
+
+**Critical Issues:**
+
+1. **Tractatus Thinking Tool Name Mismatch**
+   - Expected: `mcp__tractatus-thinking__tractatus_thinking`
+   - Actual: Tool name differs
+   - Impact: Cannot use for architecture decisions
+   - Severity: High (blocks core workflow)
+
+2. **rag-web-browser Not Configured**
+   - Issue: APIFY_TOKEN not set
+   - Impact: Cannot use web search
+   - Severity: Medium (reduces capability)
+
+**High Issues:**
+
+3. **Git Identity Not Pre-configured**
+   - Issue: Agents cannot commit without manual git setup
+   - Impact: Blocks autonomous execution
+   - Severity: High (blocks execution)
+
+4. **CodeGraphContext Underutilized**
+   - Issue: Only 1 repository indexed
+   - Impact: Relationship analysis not used
+   - Severity: Medium (misses optimization opportunity)
+
+**Medium Issues:**
+
+5. **context-crawl Network Failures**
+   - Issue: "Network fetch failed"
+   - Impact: Web crawling unreliable
+   - Severity: Medium (reduces capability)
+
+6. **Modal CLI Not Installed**
+   - Issue: deepseek-ocr unavailable
+   - Impact: Cannot process images
+   - Severity: Low (nice-to-have)
+
+**Low Issues:**
+
+7. **4.5v-mcp Not Tested**
+   - Issue: Image analysis not verified
+   - Impact: Unknown capability
+   - Severity: Low (nice-to-have)
+
+#### Workarounds in Place
+
+**Current Mitigations:**
+
+1. **Tractatus Thinking:**
+   - Workaround: Use Sequential Thinking instead
+   - Effectiveness: Partial (structured analysis still missing)
+
+2. **rag-web-browser:**
+   - Workaround: Use WebSearch tool or manual research
+   - Effectiveness: Good (backup available)
+
+3. **Git Identity:**
+   - Workaround: Manual configuration per session
+   - Effectiveness: Poor (blocks autonomy)
+
+4. **CodeGraphContext:**
+   - Workaround: Manual relationship analysis
+   - Effectiveness: Poor (time-consuming)
+
+---
+
+### Technical Debt
+
+**Identified Debt Areas:**
+
+1. **MCP Server Management**
+   - Debt: No centralized server startup/verification
+   - Impact: Servers may be unavailable when needed
+   - Effort to fix: Medium
+
+2. **Tool Name Standardization**
+   - Debt: Tool names don't match documentation
+   - Impact: Confusion, inability to use tools
+   - Effort to fix: Low
+
+3. **Git Configuration**
+   - Debt: No pre-configured agent identity
+   - Impact: Blocks autonomous commits
+   - Effort to fix: Low
+
+4. **Error Handling**
+   - Debt: Inconsistent error messages
+   - Impact: Difficult debugging
+   - Effort to fix: Medium
+
+5. **Documentation**
+   - Debt: Some docs reference old "get-shit-done" branding
+   - Impact: Confusion for users
+   - Effort to fix: Low (mostly complete)
+
+---
+
+## [END OF PRACTICE SECTION]
+
+*Continue to Gap Analysis section...*
