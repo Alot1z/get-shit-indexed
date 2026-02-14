@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 /**
  * Copy GSI hooks to dist for installation.
  */
@@ -11,8 +11,8 @@ const DIST_DIR = path.join(HOOKS_DIR, 'dist');
 
 // Hooks to copy (pure Node.js, no bundling needed)
 const HOOKS_TO_COPY = [
-  'GSI-check-update.js',
-  'GSI-statusline.js'
+  'gsi-check-update.js',
+  'gsi-statusline.js'
 ];
 
 function build() {
