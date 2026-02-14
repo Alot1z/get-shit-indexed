@@ -1,4 +1,5 @@
 {
   "preSession": ["start-cg-server.ps1"],
-  "postSession": []
+  "postSession": [],
+  "_comment": "PreToolUse hooks are configured in .claude/settings.json or user settings"
 }
