@@ -55,6 +55,42 @@ Output: DISCOVERY.md with recommendation
 4. **Code-Index MCP** - For code search in target repositories
 5. **WebSearch** - For comparisons, trends, community patterns (verify all findings)
 
+**Method Circle (Implementation) Thinking:**
+Since discovery is an implementation task, use Sequential thinking for structured research:
+1. **Step 1**: Define discovery scope and objectives
+2. **Step 2**: Identify relevant sources and MCP tools
+3. **Step 3**: Execute information gathering systematically
+4. **Step 4**: Analyze findings against criteria
+5. **Step 5**: Document results with clear recommendations
+
+**Sequential Thought Pattern:**
+```
+Step 1: Understand requirements
+- What decision needs to be made?
+- What criteria matter most?
+- What's the decision context?
+
+Step 2: Design approach
+- Which MCP tools to use?
+- What sources to prioritize?
+- How to structure the search?
+
+Step 3: Execute research
+- Gather information systematically
+- Cross-reference findings
+- Document sources
+
+Step 4: Analyze results
+- Compare alternatives
+- Evaluate against criteria
+- Identify gaps
+
+Step 5: Document conclusions
+- Summarize findings
+- Make recommendation
+- Document uncertainties
+```
+
 **Quality Checklist:**
 Before completing discovery, verify:
 - [ ] All claims have authoritative sources (Context7 or official docs)
