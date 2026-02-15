@@ -419,6 +419,1001 @@ All agent work is automatically validated against the 7-BMAD quality gates:
 | **Modd** | Tractatus | Extensibility, future-proof design |
 | **Methodd** | All servers | Documentation completeness |
 
+### 7-BMAD Mapping Diagram
+
+This diagram shows how each thinking server supports specific 7-BMAD circles and their integration patterns.
+
+#### Circle to Server Mapping
+
+```mermaid
+graph TD
+    subgraph "7-BMAD Quality Framework"
+        M1[Method Circle<br/>Implementation Correctness]
+        M2[Mad Circle<br/>Integration Completeness] 
+        M3[Model Circle<br/>Architecture Alignment]
+        M4[Mode Circle<br/>Pattern Consistency]
+        M5[Mod Circle<br/>Maintainability Standards]
+        M6[Modd Circle<br/>Extensibility Verification]
+        M7[Methodd Circle<br/>Documentation Quality]
+    end
+    
+    subgraph "Thinking Servers"
+        S1[Sequential Thinking<br/>Multi-step Process]
+        T1[Tractatus Thinking<br/>Logical Structure]
+        D1[Debug Thinking<br/>Graph-based Debugging]
+    end
+    
+    M1 --> S1
+    M1 --> D1
+    M2 --> T1
+    M2 --> D1
+    M3 --> T1
+    M4 --> S1
+    M4 --> T1
+    M4 --> D1
+    M5 --> S1
+    M5 --> D1
+    M6 --> T1
+    M7 --> S1
+    M7 --> T1
+    M7 --> D1
+```
+
+#### Circle-Specific Workflow Examples
+
+##### Method Circle (Implementation Correctness)
+**Focus**: Code compiles, meets requirements, handles edge cases
+
+**Workflow**:
+```mermaid
+graph LR
+    A[Sequential - Plan Implementation] --> B[Sequential - Build Step-by-Step]
+    B --> C[Debug - Validate Each Step]
+    C --> D[Sequential - Test Implementation]
+    D --> E[Debug - Document Learnings]
+```
+
+**Example**: Building a user authentication system
+```javascript
+// Sequential planning
+sequential_thinking: {
+  thought: "Plan authentication flow implementation",
+  nextThoughtNeeded: true,
+  thoughtNumber: 1,
+  totalThoughts: 5
+}
+
+// Step-by-step implementation
+sequential_thinking: {
+  thought: "Step 1: Create User model with validation",
+  nextThoughtNeeded: true,
+  thoughtNumber: 2,
+  totalThoughts: 5
+}
+
+// Debug validation
+debug_thinking: {
+  action: "create",
+  nodeType: "experiment",
+  content: "Test user registration with invalid email",
+  metadata: {
+    tags: ["validation", "test"]
+  }
+}
+```
+
+##### Mad Circle (Integration Completeness)
+**Focus**: All dependencies properly integrated, data flows correctly
+
+**Workflow**:
+```mermaid
+graph LR
+    A[Tractatus - Analyze Dependencies] --> B[Debug - Test Integration Points]
+    B --> C[Tractatus - Validate Contracts]
+    C --> D[Debug - Document Integration Patterns]
+```
+
+**Example**: Integrating payment gateway
+```javascript
+// Tractatus dependency analysis
+tractatus_thinking: {
+  operation: "start",
+  concept: "Payment gateway integration",
+  style: "exhaustive"
+}
+
+// Debug integration testing
+debug_thinking: {
+  action: "create",
+  nodeType: "problem",
+  content: "Payment callback not handling 3D Secure",
+  metadata: {
+    tags: ["integration", "payment", "error"]
+  }
+}
+```
+
+##### Model Circle (Architecture Alignment)
+**Focus**: Architecture follows patterns, maintains separation of concerns
+
+**Workflow**:
+```mermaid
+graph LR
+    A[Tractatus - Analyze Architecture] --> B[Tractatus - Define Structure]
+    B --> C[Sequential - Plan Refactoring]
+    C --> D[Tractatus - Verify Design]
+```
+
+**Example**: Refactoring monolithic service
+```javascript
+// Tractatus architecture analysis
+tractatus_thinking: {
+  operation: "start",
+  concept: "Microservices migration strategy",
+  depth_limit: 7,
+  style: "analytical"
+}
+
+// Structure propositions
+tractatus_thinking: {
+  operation: "add",
+  content: "Each service owns its database",
+  parent_number: "2.1",
+  confidence: 0.95
+}
+```
+
+##### Mode Circle (Pattern Consistency)
+**Focus**: Consistent coding patterns, naming conventions
+
+**Workflow**:
+```mermaid
+graph LR
+    A[Sequential - Review Patterns] --> B[Debug - Identify Inconsistencies]
+    B --> C[Tractatus - Define Standards]
+    C --> D[Sequential - Apply Consistently]
+```
+
+**Example**: Standardizing error handling
+```javascript
+// Sequential pattern review
+sequential_thinking: {
+  thought: "Analyze current error handling patterns",
+  nextThoughtNeeded: true,
+  thoughtNumber: 1,
+  totalThoughts: 4
+}
+
+// Debug inconsistency detection
+debug_thinking: {
+  action: "create",
+  nodeType: "observation",
+  content: "Some functions throw errors, others return results",
+  metadata: {
+    tags: ["pattern", "inconsistency"]
+  }
+}
+```
+
+##### Mod Circle (Maintainability Standards)
+**Focus**: Readable code, reasonable size, complexity within limits
+
+**Workflow**:
+```mermaid
+graph LR
+    A[Sequential - Assess Code] --> B[Debug - Identify Issues]
+    B --> C[Sequential - Refactor for Clarity]
+    C --> D[Debug - Document Improvements]
+```
+
+**Example**: Refactoring large functions
+```javascript
+// Sequential code assessment
+sequential_thinking: {
+  thought: "Analyze function complexity and length",
+  nextThoughtNeeded: true,
+  thoughtNumber: 1,
+  totalThoughts: 6
+}
+
+// Debug maintainability issues
+debug_thinking: {
+  action: "create",
+  nodeType: "problem",
+  content: "processData function has 50 lines and 10 nested conditions",
+  metadata: {
+    tags: ["maintainability", "complexity"]
+  }
+}
+```
+
+##### Modd Circle (Extensibility Verification)
+**Focus**: Easy to extend, configurable, no hard-coded assumptions
+
+**Workflow**:
+```mermaid
+graph LR
+    A[Tractatus - Analyze Extensibility] --> B[Debug - Test Extension Points]
+    B --> C[Tractatus - Design Extension Hooks]
+    C --> D[Sequential - Implement Extensibility]
+```
+
+**Example**: Making application configurable
+```javascript
+// Tractatus extensibility analysis
+tractatus_thinking: {
+  operation: "start",
+  concept: "Configuration system design",
+  depth_limit: 5,
+  style: "creative"
+}
+
+// Extension point identification
+tractatus_thinking: {
+  operation: "add",
+  content: "Allow custom authentication providers via plugins",
+  parent_number: "3.2",
+  is_atomic: false
+}
+```
+
+##### Methodd Circle (Documentation Quality)
+**Focus**: Complete documentation, examples, changelog updates
+
+**Workflow**:
+```mermaid
+graph LR
+    A[All Servers - Capture Learnings] --> B[Sequential - Organize Documentation]
+    B --> C[Tractatus - Structure Content]
+    C --> D[Debug - Review Completeness]
+```
+
+**Example**: Documenting API changes
+```javascript
+// Sequential documentation organization
+sequential_thinking: {
+  thought: "Structure API documentation for new endpoints",
+  nextThoughtNeeded: true,
+  thoughtNumber: 1,
+  totalThoughts: 4
+}
+
+// Tractatus content structuring
+tractatus_thinking: {
+  operation: "add",
+  content: "Document each endpoint with request/response schemas",
+  parent_number: "1.1"
+}
+```
+
+#### Integration Patterns for Common Scenarios
+
+##### Development Workflow
+```mermaid
+graph TB
+    subgraph "Planning Phase"
+        A1[Tractatus - Understand Problem]
+        A2[Sequential - Break Down Tasks]
+    end
+    
+    subgraph "Implementation Phase"  
+        B1[Sequential - Step-by-Step Build]
+        B2[Debug - Fix Issues]
+        B3[Tractatus - Verify Structure]
+    end
+    
+    subgraph "Review Phase"
+        C1[Debug - Test Thoroughly]
+        C2[Tractatus - Validate Architecture]
+        C3[Sequential - Document Learnings]
+    end
+    
+    A1 --> A2
+    A2 --> B1
+    B1 --> B2
+    B2 --> B3
+    B3 --> C1
+    C1 --> C2
+    C2 --> C3
+```
+
+##### Bug Resolution Workflow
+```mermaid
+graph LR
+    A[Debug - Identify Problem] --> B[Debug - Generate Hypotheses]
+    B --> C[Sequential - Test Hypotheses]
+    C --> D[Debug - Verify Fix]
+    D --> E[Tractatus - Prevent Recurrence]
+    E --> F[Sequential - Update Documentation]
+```
+
+##### Architecture Evolution Workflow
+```mermaid
+graph LR
+    A[Tractatus - Current State] --> B[Tractatus - Future State]
+    B --> C[Sequential - Migration Plan]
+    C --> D[Debug - Validate Migration]
+    D --> E[Tractatus - Document Changes]
+```
+
+#### Quality Assurance Integration
+
+The thinking servers work together to ensure all 7-BMAD gates pass:
+
+1. **Prevention**: Tractatus catches architectural issues early
+2. **Detection**: Sequential thinking catches implementation gaps  
+3. **Correction**: Debug thinking identifies and fixes problems
+4. **Documentation**: All servers contribute to knowledge capture
+5. **Learning**: Debug thinking builds reusable knowledge graphs
+
+**Auto-Validation Process**:
+- Every task uses thinking servers appropriate to the circles involved
+- Results are validated against 7-BMAD criteria
+- Issues trigger automatic thinking-based corrections
+- Successful solutions are captured in the debug knowledge graph
+- Documentation is automatically updated with lessons learned
+
+### Thinking Usage Examples
+
+This section provides practical examples of when and how to use each thinking server throughout the development lifecycle.
+
+#### Phase 1: Before Implementation (WHAT - Understanding Structure)
+
+**Use Tractatus thinking** to understand the problem space and define clear requirements.
+
+**Example: Planning a New Feature**
+```javascript
+// Start with Tractatus to understand WHAT you're building
+tractatus_thinking: {
+  operation: "start",
+  concept: "User notification system",
+  style: "exhaustive",
+  depth_limit: 5
+}
+
+// Define core propositions
+tractatus_thinking: {
+  operation: "add",
+  content: "Notifications should be delivered via email and SMS",
+  parent_number: "1.1",
+  confidence: 0.9
+}
+
+tractatus_thinking: {
+  operation: "add", 
+  content: "Users can customize notification preferences",
+  parent_number: "1.2",
+  confidence: 0.95
+}
+
+// Analyze for completeness
+tractatus_thinking: {
+  operation: "analyze",
+  validate_coherence: true
+}
+```
+
+**Questions Tractatus Helps Answer**:
+- What are the core components of this system?
+- How do they relate to each other?
+- What are the essential vs. accidental features?
+- What are the logical dependencies?
+
+#### Phase 2: During Implementation (HOW - Step-by-Step Building)
+
+**Use Sequential thinking** to break down implementation into manageable steps.
+
+**Example: Building the Notification System**
+```javascript
+// Plan the implementation sequence
+sequential_thinking: {
+  thought: "Need to implement notification database schema",
+  nextThoughtNeeded: true,
+  thoughtNumber: 1,
+  totalThoughts: 8
+}
+
+// Step 1: Database schema
+sequential_thinking: {
+  thought: "Step 1: Create notifications table with user_id, message, type, timestamp",
+  nextThoughtNeeded: true,
+  thoughtNumber: 2,
+  totalThoughts: 8
+}
+
+// Step 2: Email service
+sequential_thinking: {
+  thought: "Step 2: Implement email notification service with SendGrid integration",
+  nextThoughtNeeded: true,
+  thoughtNumber: 3,
+  totalThoughts: 8
+}
+
+// Step 3: SMS service  
+sequential_thinking: {
+  thought: "Step 3: Implement SMS notification service with Twilio integration",
+  nextThoughtNeeded: true,
+  thoughtNumber: 4,
+  totalThoughts: 8
+}
+
+// Continue with remaining steps...
+```
+
+**Sequential Best Practices**:
+- Start with a clear estimate of total steps
+- Be specific about each action
+- Revise estimates as needed
+- Build on previous thoughts
+
+#### Phase 3: After Implementation (VERIFY - Structure Validation)
+
+**Use Tractatus thinking** to verify the implemented structure matches the original design.
+
+**Example: Validating Implementation**
+```javascript
+// Review against original requirements
+tractatus_thinking: {
+  operation: "start",
+  concept: "Notification system implementation review",
+  style: "analytical"
+}
+
+// Check if all propositions were implemented
+tractatus_thinking: {
+  operation: "add",
+  content: "Email notification implemented ✓",
+  parent_number: "1.1.1",
+  confidence: 1.0
+}
+
+tractatus_thinking: {
+  operation: "add",
+  content: "SMS notification implemented ✓", 
+  parent_number: "1.1.2",
+  confidence: 1.0
+}
+
+tractatus_thinking: {
+  operation: "add",
+  content: "User preferences UI implemented ✓",
+  parent_number: "1.2.1",
+  confidence: 0.9
+}
+
+// Analyze for any deviations
+tractatus_thinking: {
+  operation: "analyze",
+  validate_coherence: true
+}
+```
+
+**What to Verify**:
+- All core components implemented
+- Relationships between components preserved
+- No unintended changes to architecture
+- Performance and scalability requirements met
+
+#### Phase 4: When Debugging (SYSTEMATIC Problem-Solving)
+
+**Use Debug thinking** for systematic issue resolution with knowledge persistence.
+
+**Example: Fixing a Production Bug**
+```javascript
+// Step 1: Identify the problem
+debug_thinking: {
+  action: "create",
+  nodeType: "problem",
+  content: "Notifications not being sent for users with special characters in names",
+  metadata: {
+    severity: "high",
+    tags: ["production", "notification", "bug"],
+    confidence: 0.8
+  }
+}
+
+// Step 2: Generate hypotheses
+debug_thinking: {
+  action: "create",
+  nodeType: "hypothesis",
+  content: "Email service failing on UTF-8 character encoding",
+  parentId: "problem-1",
+  metadata: {
+    confidence: 0.6
+  }
+}
+
+debug_thinking: {
+  action: "create",
+  nodeType: "hypothesis", 
+  content: "Database query escaping special characters incorrectly",
+  parentId: "problem-1",
+  metadata: {
+    confidence: 0.7
+  }
+}
+
+// Step 3: Create experiments to test hypotheses
+debug_thinking: {
+  action: "create",
+  nodeType: "experiment",
+  content: "Test notification with name containing 'ñ'",
+  metadata: {
+    hypothesis_id: "hypothesis-2"
+  }
+}
+
+// Step 4: Document observations
+debug_thinking: {
+  action: "create",
+  nodeType: "observation",
+  content: "Database error when querying users with special characters",
+  metadata: {
+    experiment_id: "experiment-1"
+  }
+}
+
+// Step 5: Implement and verify solution
+debug_thinking: {
+  action: "create",
+  nodeType: "solution",
+  content: "Fixed database query with proper parameterized queries",
+  parentId: "problem-1"
+}
+```
+
+**Debug Thinking Workflow**:
+1. **Problem**: Clearly define the issue
+2. **Hypotheses**: Generate potential causes
+3. **Experiments**: Create tests to verify hypotheses
+4. **Observations**: Document results from tests
+5. **Solutions**: Implement fixes
+6. **Learnings**: Capture lessons for future
+
+#### Complete Development Cycle Example
+
+**Feature: User Authentication System**
+
+```bash
+# Phase 1: Understand (Tractatus)
+tractatus_thinking: {
+  operation: "start",
+  concept: "Authentication system requirements",
+  style: "exhaustive"
+}
+
+# Phase 2: Plan (Sequential)  
+sequential_thinking: {
+  thought: "Plan authentication implementation steps",
+  nextThoughtNeeded: true,
+  thoughtNumber: 1,
+  totalThoughts: 6
+}
+
+# Phase 3: Implement (Sequential + Debug)
+sequential_thinking: {
+  thought: "Step 1: Implement User model validation",
+  nextThoughtNeeded: true,
+  thoughtNumber: 2,
+  totalThoughts: 6
+}
+
+debug_thinking: {
+  action: "create",
+  nodeType: "problem",
+  content: "Password validation not working",
+  metadata: { tags: ["implementation"] }
+}
+
+# Phase 4: Verify (Tractatus)
+tractatus_thinking: {
+  operation: "start", 
+  concept: "Authentication verification",
+  style: "analytical"
+}
+
+# Phase 5: Deploy & Monitor (Debug)
+debug_thinking: {
+  action: "create",
+  nodeType: "observation",
+  content: "Login rate increased by 40% after deployment",
+  metadata: { tags: ["performance"] }
+}
+```
+
+#### Common Patterns by Use Case
+
+**Simple Feature (Quick)**
+```mermaid
+graph LR
+    A[Tractatus - Requirements] --> B[Sequential - Implementation]
+    B --> C[Tractatus - Verify]
+```
+
+**Complex Feature (Standard)**
+```mermaid
+graph LR
+    A[Tractatus - Architecture] --> B[Sequential - Planning] 
+    B --> C[Sequential - Implementation]
+    C --> D[Debug - Issues]
+    D --> E[Tractatus - Validation]
+```
+
+**Critical Bug (Deep)**
+```mermaid
+graph LR
+    A[Debug - Problem Analysis] --> B[Debug - Hypotheses]
+    B --> C[Sequential - Testing]
+    C --> D[Debug - Solution]
+    D --> E[Tractatus - Prevention]
+    E --> F[Sequential - Documentation]
+```
+
+#### Tips for Effective Thinking
+
+1. **Start with the right server**: 
+   - Unknown structure → Tractatus
+   - Multi-step process → Sequential  
+   - Complex problem → Debug
+
+2. **Be specific in your thoughts**:
+   - Instead of "Fix bugs", say "Fix login validation for Unicode characters"
+   - Instead of "Build feature", say "Create database migration for user preferences"
+
+3. **Iterate and refine**:
+   - Use revision to improve previous thoughts
+   - Adjust totalThoughts as understanding grows
+   - Cross-reference between servers
+
+4. **Capture learnings**:
+   - Debug thinking automatically saves knowledge
+   - Review past solutions for similar problems
+   - Update documentation with insights
+
+### Configuration
+
+This section covers how to configure and optimize thinking server usage for your development workflow.
+
+#### Enabling Thinking Servers
+
+##### MCP Server Configuration
+
+Add the following to your Claude Code settings.json (typically at `~/.claude/settings.json`):
+
+```json
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "sequential-thinking-server",
+      "args": []
+    },
+    "tractatus-thinking": {
+      "command": "tractatus-thinking-server",
+      "args": []
+    },
+    "debug-thinking": {
+      "command": "debug-thinking-server",
+      "args": []
+    }
+  }
+}
+```
+
+##### Installation Requirements
+
+**Prerequisites**:
+- Node.js v16.0 or higher
+- npm v8.0 or higher
+- Claude Code CLI
+- Optional: Neo4j for Debug thinking persistence
+
+**Install Thinking Servers**:
+```bash
+# Install globally (recommended)
+npm install -g @mcp-sequential-thinking
+npm install -g @mcp-tractatus-thinking  
+npm install -g @mcp-debug-thinking
+
+# Or install locally to project
+npm install -D @mcp-sequential-thinking
+npm install -D @mcp-tractatus-thinking
+npm install -D @mcp-debug-thinking
+```
+
+**Verify Installation**:
+```bash
+# Check MCP server availability
+claude --list-mcp-servers
+
+# Should show:
+# - sequential-thinking
+# - tractatus-thinking  
+# - debug-thinking
+```
+
+##### Environment Configuration
+
+Create a `.env` file for environment-specific settings:
+
+```env
+# Thinking Server Configuration
+SEQUENTIAL_THINKING_TIMEOUT=30000
+TRACTATUS_THINKING_DEPTH=5
+DEBUG_THINKING_PERSISTENCE=true
+
+# Performance Settings
+THINKING_TOKEN_LIMIT=3000
+THINKING_BATCH_SIZE=3
+THINKING_CACHE_ENABLED=true
+
+# Debug Persistence Path
+DEBUG_THINKING_PATH=~/.debug-thinking-mcp
+
+# Optional: Neo4j for Debug thinking
+NEO4J_URI=neo4j://localhost:7687
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=your_password
+```
+
+#### MCP Server Requirements
+
+##### System Requirements
+
+| Component | Minimum | Recommended | Purpose |
+|-----------|---------|-------------|---------|
+| **Memory** | 2GB RAM | 4GB+ RAM | Multiple thinking servers |
+| **CPU** | 2 cores | 4+ cores | Parallel thinking operations |
+| **Storage** | 1GB | 10GB+ | Debug thinking persistence |
+| **Network** | Stable | Reliable | MCP server communication |
+
+##### Dependency Requirements
+
+**Core Dependencies**:
+```json
+{
+  "dependencies": {
+    "@mcp-sequential-thinking": "^1.0.0",
+    "@mcp-tractatus-thinking": "^1.0.0", 
+    "@mcp-debug-thinking": "^1.0.0",
+    "@modelcontextprotocol/server": "^0.1.0"
+  }
+}
+```
+
+**Optional Dependencies**:
+```json
+{
+  "optionalDependencies": {
+    "neo4j-driver": "^5.0.0",  // For debug thinking persistence
+    "winston": "^3.0.0"        // For logging
+  }
+}
+```
+
+##### Integration Requirements
+
+**With Desktop Commander**:
+- Already included in GSI installation
+- No additional configuration needed
+- Supports thinking-aware file operations
+
+**With Code-Index MCP**:
+- Automatic integration for code analysis
+- Thinking servers enhance code search results
+- Symbol navigation benefits from structural analysis
+
+**With CodeGraphContext**:
+- Debug thinking can query code relationships
+- Tractatus thinking analyzes graph structure
+- Sequential thinking plans refactoring workflows
+
+#### Performance Considerations
+
+##### Token Usage Optimization
+
+| Operation Type | Base Usage | Optimized | Savings |
+|----------------|------------|-----------|---------|
+| **Sequential Thinking** | 3K tokens/session | 1-2K | 33-67% |
+| **Tractatus Thinking** | 3K tokens/session | 1-2K | 33-67% |
+| **Debug Thinking** | 3K tokens/session | 1-2K | 33-67% |
+| **Combined Operations** | 9K tokens | 3-5K | 44-67% |
+
+**Optimization Strategies**:
+1. **Batch Operations**: Group related thoughts
+2. **Selective Usage**: Use only needed servers
+3. **Cache Results**: Reuse previous insights
+4. **Lightweight Mode**: Reduce depth for simple tasks
+
+##### Response Time Benchmarks
+
+| Server | Base Response | Optimized | Improvement |
+|--------|---------------|-----------|-------------|
+| **Sequential** | 5-8 seconds | 2-4 seconds | 50-70% |
+| **Tractatus** | 6-10 seconds | 3-5 seconds | 50-60% |
+| **Debug** | 8-12 seconds | 4-6 seconds | 50-60% |
+
+**Performance Tips**:
+- Use `lightweight` mode for quick operations
+- Set appropriate `depth_limit` for Tractatus thinking
+- Control `totalThoughts` estimates for Sequential thinking
+- Enable thinking caching where available
+
+##### Memory Usage
+
+| Component | Base Memory | Optimized | Savings |
+|-----------|-------------|-----------|---------|
+| **Sequential Server** | 100MB | 50MB | 50% |
+| **Tractatus Server** | 120MB | 60MB | 50% |
+| **Debug Server** | 150MB | 75MB | 50% |
+| **Total** | 370MB | 185MB | 50% |
+
+**Memory Management**:
+- Monitor server memory usage
+- Restart servers if memory exceeds 200MB
+- Use garbage collection hints when available
+- Consider horizontal scaling for large projects
+
+##### Concurrency Considerations
+
+**Safe Concurrent Usage**:
+- Sequential thinking: Multiple instances safe
+- Tractatus thinking: Single instance recommended (global state)
+- Debug thinking: Multiple instances with separate graphs
+- Mixed usage: Safe with proper isolation
+
+**Configuration for Concurrency**:
+```json
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "sequential-thinking-server",
+      "args": ["--concurrency", "4"],
+      "maxInstances": 4
+    },
+    "tractatus-thinking": {
+      "command": "tractatus-thinking-server", 
+      "args": ["--single-instance", "true"],
+      "maxInstances": 1
+    },
+    "debug-thinking": {
+      "command": "debug-thinking-server",
+      "args": ["--graph-per-instance", "true"],
+      "maxInstances": 2
+    }
+  }
+}
+```
+
+#### Advanced Configuration
+
+##### Custom Thinking Patterns
+
+Create custom thinking workflows for specific project needs:
+
+```json
+{
+  "thinkingPatterns": {
+    "microservice": {
+      "pre": "tractatus",
+      "during": "sequential", 
+      "post": "debug",
+      "description": "For microservice development"
+    },
+    "bugfix": {
+      "pre": "debug",
+      "during": "sequential",
+      "post": "tractatus",
+      "description": "For bug resolution"
+    },
+    "research": {
+      "pre": "tractatus",
+      "during": "sequential",
+      "post": "tractatus",
+      "description": "For research tasks"
+    }
+  }
+}
+```
+
+##### Performance Monitoring
+
+Enable performance monitoring:
+
+```bash
+# Enable verbose logging
+export THINKING_VERBOSE=true
+
+# Track token usage
+export THINKING_TOKEN_TRACKING=true
+
+# Monitor response times
+export THINKING_TIMING=true
+
+# Generate performance report
+thinking-perf-report --output performance.json
+```
+
+**Monitor These Metrics**:
+- Average response time per server
+- Token usage per session
+- Memory usage trends
+- Success/failure rates
+- Cache hit/miss ratios
+
+##### Troubleshooting Configuration
+
+**Common Issues and Solutions**:
+
+1. **Servers not starting**:
+   ```bash
+   # Check ports
+   netstat -tulpn | grep thinking
+   
+   # Restart with debug
+   sequential-thinking-server --debug
+   ```
+
+2. **High memory usage**:
+   ```bash
+   # Enable garbage collection
+   export THINKING_GC=true
+   export THINKING_GC_INTERVAL=300
+   
+   # Reduce cache size
+   export THINKING_CACHE_MAX_SIZE=100
+   ```
+
+3. **Slow response times**:
+   ```bash
+   # Enable compression
+   export THINKING_COMPRESSION=true
+   
+   # Use connection pooling
+   export THINKING_POOL_SIZE=3
+   ```
+
+4. **Token limits exceeded**:
+   ```bash
+   # Reduce token limits
+   export THINKING_TOKEN_LIMIT=2000
+   
+   # Enable lighter mode
+   export THINKING_LIGHTWEIGHT=true
+   ```
+
+#### Best Practices for Configuration
+
+1. **Start minimal**: Enable only needed servers
+2. **Monitor usage**: Track token and performance metrics
+3. **Scale gradually**: Add servers as needed
+4. **Cache strategically**: Enable caching for repeated operations
+5. **Optimize for your workflow**: Configure based on project needs
+6. **Regular maintenance**: Restart servers periodically
+7. **Document changes**: Keep configuration version history
+8. **Test changes**: Validate configuration in development first
+
+#### Migration Guide
+
+**Upgrading from Previous Versions**:
+```bash
+# Backup current configuration
+cp ~/.claude/settings.json ~/.claude/settings.json.backup
+
+# Install new versions
+npm update -g @mcp-sequential-thinking
+npm update -g @mcp-tractatus-thinking
+npm update -g @mcp-debug-thinking
+
+# Apply new configuration format
+thinking-migrate-config --from v1.0 --to v2.0
+```
+
+**Breaking Changes in v2.0**:
+- Configuration format changed to JSON
+- New performance optimization features
+- Debug thinking persistence requires Neo4j
+- Token limits now enforced by default
+
 ### Thinking Server Patterns
 
 #### Standard Development Workflow
