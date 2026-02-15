@@ -1209,6 +1209,66 @@ gsi execute
 gsi status
 ```
 
+### Troubleshooting Common Issues
+
+#### MCP Server Connection Issues
+```bash
+# Check MCP server status
+gsi mcp:status
+
+# Restart MCP servers
+gsi mcp:restart
+
+# Verify Neo4j connection (if using CG)
+gsi cg:verify
+```
+
+#### Token Optimization Issues
+```bash
+# Check token usage
+gsi metrics --token
+
+# Optimize token usage
+gsi config set token_optimization true
+
+# Clear cache
+gsi cache:clear
+```
+
+#### Execution Issues
+```bash
+# Run with debug mode
+gsi execute --debug
+
+# Check execution logs
+gsi logs
+
+# Reset execution state
+gsi reset
+```
+
+### Advanced Configuration
+
+#### Model Profiles
+```bash
+# Set model profile
+gsi config set model_profile quality    # Maximum quality
+gsi config set model_profile balanced   # Balanced approach
+gsi config set model_profile budget    # Maximum speed
+```
+
+#### Hook Configuration
+```bash
+# Enable pre-tool thinking hooks
+gsi config set pre_thinking true
+
+# Enable post-tool reflection hooks
+gsi config set post_thinking true
+
+# Custom hook path
+gsi config set hook_path ./custom-hooks
+```
+
 ## Available Commands
 
 ### Project Management (6 commands)
