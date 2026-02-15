@@ -812,15 +812,31 @@ function uninstall(isGlobal, runtime = 'claude') {
           removedCount++;
         }
       }
-      console.log(`  ${green}✓${reset} Removed GSI commands from command/`);
+      console.log(`  ${green}✓${reset} Removed gsi commands from command/`);
     }
   } else {
-    // Claude Code & Gemini: remove commands/GSI/ directory
+    // Claude Code & Gemini: remove commands/gsi/ (and legacy GSI/, gsd/ directories)
+    const gsiCommandsDir = path.join(targetDir, 'commands', 'gsi');
     const GSICommandsDir = path.join(targetDir, 'commands', 'GSI');
+    const gsdCommandsDir = path.join(targetDir, 'commands', 'gsd');
+
+    // Remove lowercase gsi/
+    if (fs.existsSync(gsiCommandsDir)) {
+      fs.rmSync(gsiCommandsDir, { recursive: true });
+      removedCount++;
+      console.log(`  ${green}✓${reset} Removed commands/gsi/`);
+    }
+    // Remove legacy uppercase GSI/
     if (fs.existsSync(GSICommandsDir)) {
       fs.rmSync(GSICommandsDir, { recursive: true });
       removedCount++;
-      console.log(`  ${green}✓${reset} Removed commands/GSI/`);
+      console.log(`  ${green}✓${reset} Removed legacy commands/GSI/`);
+    }
+    // Remove legacy gsd/
+    if (fs.existsSync(gsdCommandsDir)) {
+      fs.rmSync(gsdCommandsDir, { recursive: true });
+      removedCount++;
+      console.log(`  ${green}✓${reset} Removed legacy commands/gsd/`);
     }
   }
 
@@ -1200,7 +1216,7 @@ function generateManifest(dir, baseDir) {
  */
 function writeManifest(configDir) {
   const GSIDir = path.join(configDir, 'get-shit-indexed');
-  const commandsDir = path.join(configDir, 'commands', 'GSI');
+  const commandsDir = path.join(configDir, 'commands', 'gsi');
   const agentsDir = path.join(configDir, 'agents');
   const manifest = { version: pkg.version, timestamp: new Date().toISOString(), files: {} };
 
@@ -1351,13 +1367,13 @@ function install(isGlobal, runtime = 'claude') {
     const commandsDir = path.join(targetDir, 'commands');
     fs.mkdirSync(commandsDir, { recursive: true });
     
-    const GSISrc = path.join(src, 'commands', 'GSI');
-    const GSIDest = path.join(commandsDir, 'GSI');
+    const GSISrc = path.join(src, 'commands', 'gsi');
+    const GSIDest = path.join(commandsDir, 'gsi');
     copyWithPathReplacement(GSISrc, GSIDest, pathPrefix, runtime);
-    if (verifyInstalled(GSIDest, 'commands/GSI')) {
-      console.log(`  ${green}✓${reset} Installed commands/GSI`);
+    if (verifyInstalled(GSIDest, 'commands/gsi')) {
+      console.log(`  ${green}✓${reset} Installed commands/gsi`);
     } else {
-      failures.push('commands/GSI');
+      failures.push('commands/gsi');
     }
   }
 
