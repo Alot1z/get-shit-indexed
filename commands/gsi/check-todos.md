@@ -7,6 +7,9 @@ allowed-tools:
   - mcp__desktop-commander__write_file
   - mcp__desktop-commander__edit_block
   - mcp__desktop-commander__list_directory
+  - mcp__code-index-mcp__search_code_advanced
+  - mcp__code-index-mcp__find_files
+  - mcp__code-index-mcp__get_file_summary
   - Task
 ---
 
@@ -40,3 +43,21 @@ The workflow handles all logic including:
 7. STATE.md updates
 8. Git commits
 </process>
+
+<code_index_mcp>
+**Priority: HIGH** - Direct CI usage for todo file processing
+
+**CI Tools Integration:**
+- `search_code_advanced`: Find todos across project by keywords or patterns
+- `find_files`: Discover todo files in specific directories or areas
+- `get_file_summary`: Quickly understand todo file structure before reading
+
+**Usage Context:**
+When checking todos, CI tools help:
+- Locate todo files without manual directory traversal
+- Search for specific todo content across all files
+- Get summaries of todo files before full reads
+- Filter todos by technical patterns (e.g., "bug", "feature", "refactor")
+
+**Token Savings:** ~70% vs manual file operations for todo discovery
+</code_index_mcp>

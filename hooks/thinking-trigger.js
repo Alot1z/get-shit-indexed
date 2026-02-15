@@ -67,7 +67,7 @@ class ThinkingTrigger {
     /**
      * Calculate operation complexity
      */
-    calculateComplexity(toolName, args) {
+    calculateComplexity(toolName, args = {}) {
         let complexity = 1; // Base complexity
         
         // Tool-specific complexity

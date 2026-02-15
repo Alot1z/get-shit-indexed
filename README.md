@@ -216,112 +216,441 @@ mcp__CodeGraphContext__execute_cypher_query: {
 
 ## Thinking Server Integration
 
+GSI integrates three powerful thinking servers that enhance cognitive capabilities during development. Each server serves a specific purpose and can be used individually or in combination for comprehensive problem-solving.
+
 ### Available Thinking Servers
 
 #### 1. Sequential Thinking Server
-- **Purpose**: Multi-step problem decomposition
-- **Tool**: `mcp__sequential-thinking__sequentialthinking`
-- **Best For**: Complex tasks requiring step-by-step analysis
-- **Token Usage**: 1-3K per session
+**Tool**: `mcp__sequential-thinking__sequentialthinking`  
+**Purpose**: Multi-step problem decomposition through dynamic and reflective thinking
+
+**Key Capabilities**:
+- Breaks down complex problems into manageable steps
+- Each thought can build on, question, or revise previous insights
+- Adapts and evolves understanding as analysis progresses
+- Handles multi-step implementation planning
+
+**Parameters**:
+- `thought`: Current thinking step (required)
+- `nextThoughtNeeded`: Whether another thought step is needed (boolean)
+- `thoughtNumber`: Current step number (starts at 1)
+- `totalThoughts`: Estimated total thoughts needed (can be adjusted)
+- `is_revision`: Indicates if this thought revises previous thinking
+- `revises_thought`: Which thought number is being reconsidered
+- `branch_from_thought`: Branching point for new paths
+- `branch_id`: Identifier for current branch
+
+**7-BMAD Mapping**: Method Circle (Implementation Correctness)
+- Ensures solutions are built step-by-step with proper validation
+- Validates logic matches requirements exactly
+- Handles edge cases through sequential analysis
+- Ensures performance requirements are met
+
+**Best For**:
+- Complex task planning and breakdown
+- Multi-step implementation processes
+- Iterative refinement of approaches
+- When you need to work through problems methodically
+
+**Token Usage**: 1-3K per session
+
+**Example Workflow**:
+```javascript
+// Start planning a complex feature
+sequential_thinking: {
+  thought: "Need to implement user authentication system",
+  nextThoughtNeeded: true,
+  thoughtNumber: 1,
+  totalThoughts: 5
+}
+
+// Continue with detailed breakdown
+sequential_thinking: {
+  thought: "Step 1: Design database schema for users and sessions",
+  nextThoughtNeeded: true,
+  thoughtNumber: 2,
+  totalThoughts: 5
+}
+```
 
 #### 2. Tractatus Thinking Server
-- **Purpose**: Logical structure analysis
-- **Tool**: `mcp__tractatus-thinking__tractatus_thinking`
-- **Best For**: Architecture analysis and conceptual clarity
-- **Token Usage**: 1-3K per session
+**Tool**: `mcp__tractatus-thinking__tractatus_thinking`  
+**Purpose**: Logical structure analysis and conceptual clarity
+
+**Key Capabilities**:
+- Breaks down complex ideas into fundamental components
+- Reveals logical structure beneath surface complexity
+- Separates essential from accidental concepts
+- Creates precise definitions that eliminate confusion
+- Discovers multiplicative relationships (A × B × C)
+
+**Operations**:
+- `start`: Begin analysis of a concept
+- `add`: Build understanding with new propositions
+- `analyze`: Check completeness and coherence
+- `export`: Capture insights in structured format
+- `navigate`: Explore relationships between propositions
+- `revise`: Refine and restructure propositions
+- `undo`: Reconsider previous decisions
+
+**Node Types**:
+- Propositions can be atomic (cannot decompose further) or composite
+- Each proposition has confidence level (0.1-1.0)
+- Hierarchical structure with parent-child relationships
+- Supports multiple analysis styles: analytical, exhaustive, creative
+
+**7-BMAD Mapping**: Model Circle (Architecture Alignment)
+- Ensures architecture follows project patterns
+- Maintains separation of concerns
+- Adheres to design principles
+- Provides structural clarity for complex systems
+
+**Best For**:
+- Architecture analysis and design
+- Understanding complex systems
+- Creating precise definitions
+- Strategic planning and high-level design
+- When concepts feel fuzzy or bundled
+
+**Token Usage**: 1-3K per session
+
+**Example Workflow**:
+```javascript
+// Analyze system architecture
+tractatus_thinking: {
+  operation: "start",
+  concept: "Microservices architecture",
+  depth_limit: 5,
+  style: "analytical"
+}
+
+// Add specific architectural propositions
+tractatus_thinking: {
+  operation: "add",
+  content: "Services should be independently deployable",
+  parent_number: "1.1",
+  confidence: 0.9
+}
+```
 
 #### 3. Debug Thinking Server
-- **Purpose**: Graph-based problem-solving
-- **Tool**: `mcp__debug-thinking__debug_thinking`
-- **Best For**: Systematic debugging with 7-BMAD methodology
-- **Token Usage**: 1-3K per session
+**Tool**: `mcp__debug-thinking__debug_thinking`  
+**Purpose**: Graph-based problem-solving with systematic debugging methodology
 
-### 7-BMAD Quality Framework
+**Key Capabilities**:
+- Creates and manages a debugging knowledge graph
+- Tracks debugging process systematically
+- Retrieves past solutions and patterns
+- Supports multiple node types and relationships
+- Maintains persistence in ~/.debug-thinking-mcp/
 
-All agent work is validated against the 7-BMAD circles:
+**Node Types**:
+- `problem`: Issues to solve
+- `hypothesis`: Potential causes or solutions
+- `experiment`: Tests to verify hypotheses
+- `observation`: Results from experiments
+- `learning`: Insights gained
+- `solution`: Completed fixes
 
-1. **Method Circle** - Implementation correctness
-2. **Mad Circle** - Integration completeness
-3. **Model Circle** - Architecture alignment
-4. **Mode Circle** - Pattern consistency
-5. **Mod Circle** - Maintainability standards
-6. **Modd Circle** - Extensibility verification
-7. **Methodd Circle** - Documentation quality
+**Relationship Types**:
+- `decomposes`: Breaks down complex problems
+- `hypothesizes`: Proposes explanations
+- `tests`: Verifies through experimentation
+- `produces`: Generates outcomes
+- `learns`: Captures insights
+- `contradicts`: Shows conflicting information
+- `supports`: Validates other nodes
+- `solves`: Resolves problems
 
-### Integration Patterns
+**7-BMAD Mapping**: All Circles (Comprehensive Debugging)
+- Method: Ensures fixes are correct and complete
+- Mad: Validates integration with existing systems
+- Model: Checks architectural compatibility
+- Mode: Verifies pattern consistency
+- Mod: Ensures maintainable solutions
+- Modd: Confirms extensibility for future fixes
+- Methodd: Documents debugging process and solutions
 
-#### Standard Workflow
-```mermaid
-graph LR
-    A[Tractatus - Structure] --> B[Sequential - Process]
-    B --> C[Debug - Verify]
-    C --> D[Execute]
+**Best For**:
+- Systematic debugging of complex issues
+- Creating debugging knowledge bases
+- Tracking debugging patterns over time
+- When you need to understand root causes
+- Reproducible debugging workflows
+
+**Token Usage**: 1-3K per session
+
+**Example Workflow**:
+```javascript
+// Start debugging a production issue
+debug_thinking: {
+  action: "create",
+  nodeType: "problem",
+  content: "API returning 500 errors under load",
+  metadata: {
+    confidence: 0.8,
+    tags: ["production", "api", "error"]
+  }
+}
+
+// Add hypothesis about cause
+debug_thinking: {
+  action: "create", 
+  nodeType: "hypothesis",
+  content: "Database connection pool exhausted",
+  parentId: "problem-1",
+  metadata: {
+    confidence: 0.6
+  }
+}
 ```
 
-#### Quick Analysis
+### 7-BMAD Quality Framework Integration
+
+All agent work is automatically validated against the 7-BMAD quality gates:
+
+| Circle | Thinking Server Role | Validation Criteria |
+|--------|---------------------|-------------------|
+| **Method** | Sequential + Debug | Implementation correctness, logic validation |
+| **Mad** | Tractatus + Debug | Integration completeness, dependency validation |
+| **Model** | Tractatus | Architecture alignment, design principles |
+| **Mode** | All servers | Pattern consistency, naming conventions |
+| **Mod** | Sequential + Debug | Maintainability, code clarity |
+| **Modd** | Tractatus | Extensibility, future-proof design |
+| **Methodd** | All servers | Documentation completeness |
+
+### Thinking Server Patterns
+
+#### Standard Development Workflow
 ```mermaid
 graph LR
-    A[Sequential - Quick] --> B[Execute]
+    A[Tractatus - Structure Analysis] --> B[Sequential - Implementation Planning]
+    B --> C[Sequential - Step-by-Step Building]
+    C --> D[Debug - Issue Resolution]
+    D --> E[Tractatus - Verification]
 ```
 
-#### Deep Analysis
+#### Quick Problem Solving
 ```mermaid
 graph LR
-    A[Tractatus - Deep] --> B[Sequential - Process] --> C[Debug - Verify] --> D[Ultrathink]
+    A[Sequential - Quick Analysis] --> B[Debug - Targeted Fix]
+    B --> C[Execute]
 ```
 
-### 7-BMAD Quality Gate Enforcement
+#### Deep Architectural Analysis
+```mermaid
+graph LR
+    A[Tractatus - Deep Analysis] --> B[Sequential - Detailed Planning]
+    B --> C[Debug - Implementation Testing]
+    C --> D[Tractatus - Final Verification]
+    D --> E[Ultrathink - Comprehensive Review]
+```
 
-GSI automatically validates all work against 7-BMAD quality gates:
+### Configuration and Setup
 
-1. **Method Circle**: Code compiles and meets requirements exactly
-2. **Mad Circle**: All dependencies properly integrated
-3. **Model Circle**: Architecture follows project patterns
-4. **Mode Circle**: Consistent coding patterns followed
-5. **Mod Circle**: Code is maintainable and clear
-6. **Modd Circle**: Easy to extend and modify
-7. **Methodd Circle**: Documentation is complete
+#### Tool Mapping by Operation Type
+| Operation Type | Recommended Thinking | Servers | Why |
+|----------------|---------------------|---------|-----|
+| **File Operations** | Lightweight | Sequential | Fast step-by-step processing |
+| **Code Analysis** | Standard | Tractatus + Sequential + Debug | Comprehensive understanding |
+| **Relationship Queries** | Comprehensive | All servers | Deep contextual analysis |
+| **Quick Fixes** | Quick | Sequential | Fast resolution |
+| **Architecture Design** | Deep | Tractatus | Structural clarity |
+| **Debugging** | Standard | Debug + Sequential | Systematic problem-solving |
 
-**Quality Assurance**: All GSI work automatically undergoes validation with automatic retry on failure.
+#### Cycle Mapping for Different Depths
+```javascript
+// Lightweight (Quick operations)
+{
+  "description": "Quick thinking for simple operations",
+  "cycles": [1, 3],
+  "servers": ["sequential"]
+}
 
-### Configuration
+// Standard (Normal operations)  
+{
+  "description": "Full thinking for normal operations", 
+  "servers": ["tractatus", "sequential", "debug"]
+}
 
-#### Tool Mapping
-- **File Operations**: Lightweight thinking (Sequential)
-- **Code Analysis**: Standard thinking (Tractatus + Sequential + Debug)
-- **Relationship Queries**: Comprehensive thinking (All servers)
+// Comprehensive (Complex operations)
+{
+  "description": "Deep thinking for complex operations",
+  "cycles": [1, 2, 3, 4, 5, 6, 7],
+  "servers": ["tractatus", "sequential", "debug"],
+  "ultrathink": true
+}
+```
 
-#### Cycle Mapping
-- **Cycle 1**: Tractatus → Sequential → Debug
-- **Cycle 2**: Sequential → Debug → Tractatus
-- **Cycle 3**: Debug → Tractatus → Sequential
-- **Cycle 4-7**: Rotating combinations with Ultrathink
+### Practical Usage Examples
 
-### Examples
-
-#### Planning a Feature
+#### Before Implementation (What to Build)
 ```bash
-# Use Tractatus to understand structure
-tractatus_thinking: "Analyze current authentication architecture"
+# Use Tractatus to understand WHAT you're building
+tractatus_thinking: {
+  operation: "start",
+  concept: "User authentication system",
+  style: "exhaustive"
+}
 
-# Use Sequential to plan implementation
-sequential_thinking: "Step-by-step feature implementation plan"
+# Add key architectural propositions
+tractatus_thinking: {
+  operation: "add", 
+  content: "Authentication should support multiple providers",
+  parent_number: "1.1"
+}
 
-# Use Debug to verify approach
-debug_thinking: "Identify potential issues in plan"
+# Sequential planning for implementation steps
+sequential_thinking: {
+  thought: "Research OAuth 2.0 flow implementation",
+  nextThoughtNeeded: true,
+  thoughtNumber: 1,
+  totalThoughts: 5
+}
 ```
 
-#### Debugging Complex Issues
+#### During Implementation (How to Build)
 ```bash
-# Use Debug for systematic analysis
-debug_thinking: "Apply 7-BMAD methodology to error"
+# Sequential step-by-step implementation
+sequential_thinking: {
+  thought: "Step 1: Create User model with email/password fields",
+  nextThoughtNeeded: true,
+  thoughtNumber: 1,
+  totalThoughts: 8
+}
 
-# Use Sequential to trace execution
-sequential_thinking: "Step-by-step execution trace"
+# Continue with next implementation step
+sequential_thinking: {
+  thought: "Step 2: Implement password hashing with bcrypt",
+  nextThoughtNeeded: true,
+  thoughtNumber: 2,
+  totalThoughts: 8
+}
 
-# Use Tractatus to understand root cause
-tractatus_thinking: "Logical structure of the problem"
+# Debug any issues encountered
+debug_thinking: {
+  action: "create",
+  nodeType: "problem",
+  content: "bcrypt hash not working correctly",
+  metadata: {
+    tags: ["implementation", "password", "error"]
+  }
+}
 ```
+
+#### After Implementation (Verification)
+```bash
+# Tractatus verification of architecture
+tractatus_thinking: {
+  operation: "analyze",
+  validate_coherence: true,
+  style: "analytical"
+}
+
+# Debug knowledge building
+debug_thinking: {
+  action: "create",
+  nodeType: "solution",
+  content: "Authentication system successfully implemented",
+  parentId: "problem-1"
+}
+```
+
+#### When Debugging Complex Issues
+```bash
+# Debug systematic approach
+debug_thinking: {
+  action: "create",
+  nodeType: "problem",
+  content: "Production performance degradation",
+  metadata: {
+    confidence: 0.9,
+    tags: ["critical", "performance"]
+  }
+}
+
+# Add hypotheses
+debug_thinking: {
+  action: "create",
+  nodeType: "hypothesis", 
+  content: "Database queries not optimized",
+  parentId: "problem-1"
+}
+
+# Sequential testing approach
+sequential_thinking: {
+  thought: "Test database query performance",
+  nextThoughtNeeded: true,
+  thoughtNumber: 1,
+  totalThoughts: 4
+}
+```
+
+### Configuration Guide
+
+#### MCP Server Setup
+
+Add these to your Claude settings.json:
+
+```json
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "sequential-thinking-server",
+      "args": []
+    },
+    "tractatus-thinking": {
+      "command": "tractatus-thinking-server", 
+      "args": []
+    },
+    "debug-thinking": {
+      "command": "debug-thinking-server",
+      "args": []
+    }
+  }
+}
+```
+
+#### Performance Considerations
+
+- **Token Optimization**: Each session uses 1-3K tokens
+- **Response Time**: Typically 2-5 seconds per operation
+- **Memory Usage**: ~50MB per thinking server
+- **Persistence**: Debug thinking saves to ~/.debug-thinking-mcp/
+
+#### Best Practices
+
+1. **Start with Tractatus** for complex problems to understand structure
+2. **Use Sequential** for multi-step implementation processes
+3. **Use Debug** for systematic issue resolution and knowledge building
+4. **Combine servers** for comprehensive problem-solving
+5. **Review cycle outputs** to ensure understanding aligns with goals
+
+### Troubleshooting
+
+#### Common Issues
+
+**Thinking not helpful?**
+- Check if you're using the right server for the problem type
+- Ensure parameters are specific and actionable
+- Try breaking the problem into smaller components
+
+**Token usage too high?**
+- Use lightweight mode for simple operations
+- Be concise in your thought descriptions
+- Focus on one thinking server at a time
+
+**Sessions not persisting?**
+- Debug thinking automatically persists to ~/.debug-thinking-mcp/
+- Other servers maintain session context within conversation
+- Check MCP server logs for connection issues
+
+#### Getting Help
+
+- Check individual server documentation in the MCP docs
+- Review the 7-BMAD integration examples above
+- Experiment with different thinking patterns for your use case
+- Start with simple problems and gradually increase complexity
 
 ## Installation
 
