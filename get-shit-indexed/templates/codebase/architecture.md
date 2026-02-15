@@ -13,6 +13,40 @@ Template for `.planning/codebase/ARCHITECTURE.md` - captures conceptual code org
 
 **Analysis Date:** [YYYY-MM-DD]
 
+## Model Circle (Architecture) Thinking
+
+Since architecture analysis is a Model Circle task, use Tractatus thinking for structural analysis:
+
+**Tractatus Operations:**
+1. **start**: Begin with overall architectural pattern
+2. **add**: Add components incrementally
+3. **analyze**: Verify relationships and integrity
+
+**Operation Sequence:**
+```
+1. Start: Identify architectural pattern
+   - Single executable vs distributed
+   - Layered vs event-driven
+   - Monolithic vs microservices
+
+2. Add: Define components
+   - Entry points
+   - Service layers
+   - Data stores
+   - External integrations
+
+3. Add: Map relationships
+   - Dependencies between components
+   - Data flow patterns
+   - Communication protocols
+
+4. Analyze: Validate structure
+   - Clear separation of concerns
+   - No circular dependencies
+   - Scalability considerations
+   - Maintainability factors
+```
+
 ## Pattern Overview
 
 **Overall:** [Pattern name: e.g., "Monolithic CLI", "Serverless API", "Full-stack MVC"]
