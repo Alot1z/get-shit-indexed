@@ -74,10 +74,57 @@ async function analyzePlan(planPath) {
   }
 }
 
-// TODO: Implement main run function
+/**
+ * Main hook run function.
+ * Orchestrates full complexity prediction flow:
+ * 1. Check if trigger conditions met
+ * 2. Extract plan path from context
+ * 3. Analyze plan to get metrics
+ * 4. Calculate complexity score
+ * 5. Decide action based on model thresholds
+ *
+ * @param {string} toolName - Name of the tool being called
+ * @param {object} context - Tool call context (may contain planFile)
+ * @returns {Promise<object>} Complexity assessment with score, action, reason, metrics
+ */
+async function run(toolName, context) {
+  // Check if complexity prediction should trigger
+  if (!shouldTrigger(toolName, context)) {
+    return { skip: true };
+  }
+
+  // Extract plan path from context
+  const planPath = context?.planFile || context?.arguments?.planFile;
+  if (!planPath) {
+    return { skip: true, reason: "No plan file in context" };
+  }
+
+  // Resolve to absolute path if relative
+  const absolutePath = path.isAbsolute(planPath)
+    ? planPath
+    : path.join(process.cwd(), planPath);
+
+  // Analyze plan to extract complexity metrics
+  const planMetrics = await analyzePlan(absolutePath);
+
+  // Calculate complexity score
+  const score = calculateComplexityScore(planMetrics);
+
+  // Decide action based on score and model thresholds
+  const action = await decideAction(score);
+
+  return {
+    score,
+    action: action.action,
+    reason: action.reason,
+    metrics: planMetrics,
+    options: action.options,
+    subPhaseCount: action.subPhaseCount
+  };
+}
 
 module.exports = {
-  run: async () => ({ skip: true, reason: "Not implemented yet" }),
+  run,
   shouldTrigger,
   analyzePlan
 };
