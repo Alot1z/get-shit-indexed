@@ -31,6 +31,12 @@ Template for spawning GSI-planner agent. The agent contains all planning experti
 @.planning/phases/{phase_dir}/{phase}-VERIFICATION.md
 @.planning/phases/{phase_dir}/{phase}-UAT.md
 
+**MCP Tool Priority:**
+- Use CodeGraphContext (CG) for relationship analysis before planning
+- Use Code-Index MCP (CI) for code search and symbol navigation
+- Use Desktop Commander's `read_multiple_files` for batch file reading
+- Follow tool hierarchy: Skills > MCP > Native
+
 </planning_context>
 
 <downstream_consumer>
@@ -50,6 +56,8 @@ Before returning PLANNING COMPLETE:
 - [ ] Dependencies correctly identified
 - [ ] Waves assigned for parallel execution
 - [ ] must_haves derived from phase goal
+- [ ] MCP tool patterns included in task descriptions
+- [ ] Relationship analysis documented for complex changes
 </quality_gate>
 ```
 

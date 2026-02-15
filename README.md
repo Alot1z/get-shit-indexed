@@ -81,6 +81,47 @@ Both the original GSD and this GSI fork are licensed under MIT. All original wor
 - **Dynamic Workflows**: Adaptive planning based on project needs
 - **Quality Assurance**: Comprehensive testing and verification
 
+### 🌟 Unique Differentiators
+
+#### Wave-Based Parallel Execution
+Execute multiple plans simultaneously with intelligent resource management:
+```bash
+# Run multiple plans in parallel
+gsi wave plan1 plan2 plan3
+
+# Check wave status
+gsi wave:status
+```
+
+#### YOLO Mode
+Maximum speed mode for rapid development:
+```bash
+# Enable YOLO mode
+gsi config set yolo true
+
+# Execute with maximum speed
+gsi execute --yolo
+```
+
+#### Three Model Profiles
+Choose the right balance of quality and speed:
+- **Quality**: Maximum capability (Claude Opus 4.6)
+- **Balanced**: Standard performance (Claude Sonnet 4.5)
+- **Budget**: Maximum speed (Claude Haiku 4.5)
+
+#### Hook System
+Extensible hook system for custom workflows:
+- PreToolUse thinking hooks
+- PostToolUse reflection hooks
+- Custom validation hooks
+- Event-driven execution
+
+#### Token Optimization Achievements
+- **87% average token savings** across all operations
+- **Batch operations** with smart deduplication
+- **Compression strategies** for large files
+- **Lazy loading** for improved performance
+
 ## MCP Tool Integration
 
 ### Tool Performance Comparison
@@ -806,7 +847,7 @@ gsi status
 
 ## Available Commands
 
-### Project Management
+### Project Management (6 commands)
 | Command | Description | Category |
 |---------|-------------|----------|
 | `gsi init [project]` | Initialize new GSI project | Core |
@@ -816,7 +857,7 @@ gsi status
 | `gsi roadmap` | Display project roadmap | Core |
 | `gsi transition` | Transition between phases | Core |
 
-### Development Tools
+### Development Tools (5 commands)
 | Command | Description | Category |
 |---------|-------------|----------|
 | `gsi build` | Build project | Build |
@@ -825,7 +866,7 @@ gsi status
 | `gsi format` | Format code | Build |
 | `gsi deploy` | Deploy project | Build |
 
-### Analysis Tools
+### Analysis Tools (4 commands)
 | Command | Description | Category |
 |---------|-------------|----------|
 | `gsi search [pattern]` | Search code | Analysis |
@@ -833,7 +874,7 @@ gsi status
 | `gsi graph` | Show dependency graph | Analysis |
 | `gsi metrics` | Display project metrics | Analysis |
 
-### MCP Tools
+### MCP Tools (5 commands)
 | Command | Description | Category |
 |---------|-------------|----------|
 | `gsi ci:search [pattern]` | Code-Index search | MCP |
@@ -842,13 +883,29 @@ gsi status
 | `gsi cg:visualize` | Visualize graph | MCP |
 | `gsi dc:read [file]` | Desktop Commander read | MCP |
 
-### Documentation
+### Documentation (4 commands)
 | Command | Description | Category |
 |---------|-------------|----------|
 | `gsi docs` | Open documentation | Docs |
 | `gsi guide [topic]` | Get guide for topic | Docs |
 | `gsi examples` | Show examples | Docs |
 | `gsi reference` | Command reference | Docs |
+
+### Wave Execution (2 commands)
+| Command | Description | Category |
+|---------|-------------|----------|
+| `gsi wave` | Execute multiple plans in parallel | Wave |
+| `gsi wave:status` | Check wave execution status | Wave |
+
+### Total: 26 GSI Commands
+
+**Command Categories**:
+- Core: 6 commands (project management)
+- Build: 5 commands (development workflow)
+- Analysis: 4 commands (code analysis)
+- MCP: 5 commands (MCP tool access)
+- Docs: 4 commands (documentation)
+- Wave: 2 commands (parallel execution)
 
 ## Documentation
 
