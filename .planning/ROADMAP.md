@@ -618,10 +618,82 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 
 **Plans**: 4 plans
 
-**Status**: Context gathered, ready for planning
+**Status**: Plans created, ready for execution
 
 **Plans**:
 - [ ] 19-01: Command interception layer (7 tasks)
 - [ ] 19-02: Cognitive enhancement engine (8 tasks)
 - [ ] 19-03: User confirmation UI (6 tasks)
 - [ ] 19-04: Pattern learning integration (6 tasks)
+
+### Phase 20: Thinking Integration Completion
+
+**Goal**: Complete thinking server integration so thinking happens before, during, and after ALL tool executions
+
+**Depends on**: Phase 17 (Complexity Prediction System), Phase 19 (Prompt Enhancer)
+
+**Success Criteria**:
+1. Hooks registered in Claude settings (not just hooks.json)
+2. Thinking servers called before tool operations (PreToolUse)
+3. Reflection captured after tool operations (PostToolUse)
+4. All GSI commands have thinking integration
+5. All workflows have thinking phases
+
+**Plans**: 5 plans in 5 waves
+
+**Status**: Plans created
+
+**Plans**:
+- [ ] 20-01: Hook Registration in Claude Settings (7 tasks) - Wave 1
+- [ ] 20-02: PreToolUse Thinking Integration (8 tasks) - Wave 2
+- [ ] 20-03: PostToolUse Reflection System (7 tasks) - Wave 3
+- [ ] 20-04: Command Thinking Integration (7 tasks) - Wave 4
+- [ ] 20-05: Workflow Thinking Phases (7 tasks) - Wave 5
+
+**Key Gap Addressed**:
+The thinking infrastructure from Phase 15/17 exists as code but is NOT actually being invoked during tool execution. This phase connects the code to actual Claude tool execution through proper hook registration and thinking orchestrators.
+
+**Extended Plans** (split from original):
+- [ ] 20-02a: Thinking Mode Selector (6 tasks) - Split for granularity
+- [ ] 20-02b: Thinking Orchestrator (7 tasks) - Split for granularity
+- [ ] 20-04a: Command Thinking Wrapper (6 tasks) - Split for granularity
+
+### Phase 21: GSD Update Integration
+
+**Goal**: Monitor original GSD npm package for updates and integrate relevant changes into GSI
+
+**Depends on**: Phase 20 (Thinking Integration Completion)
+
+**Success Criteria**:
+1. Automated GSD version checking
+2. Change analysis and categorization
+3. Integration suggestions generated
+4. CLI commands for update management
+5. Update history tracked
+
+**Plans**: 1 plan
+
+**Status**: Plans created
+
+**Plans**:
+- [ ] 21-01: GSD Update Monitoring System (7 tasks)
+
+### Phase 22: Advanced Pattern Learning
+
+**Goal**: Create advanced pattern learning system that learns from operations and predicts optimal approaches
+
+**Depends on**: Phase 20 (Thinking Integration Completion)
+
+**Success Criteria**:
+1. Pattern recognition engine working
+2. Pattern storage and retrieval
+3. Prediction system active
+4. Learning loop integrated with thinking
+5. Visualization of learned patterns
+
+**Plans**: 1 plan
+
+**Status**: Plans created
+
+**Plans**:
+- [ ] 22-01: Advanced Pattern Learning System (7 tasks)
