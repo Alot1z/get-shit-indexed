@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2025-02-11)
 ## Current Position
 
 Phase: 20 of 22 (Thinking Integration Completion)
-Plan: 3 of 7 (20-01, 20-02a, 20-02b complete, 4 remaining)
-Status: IN_PROGRESS - 20-01, 20-02a, 20-02b complete, 4 plans remaining in Phase 20
-Last activity: 2026-02-15 — Completed Phase 20-02b Thinking Orchestrator
+Plan: 4 of 7 (20-01, 20-02a, 20-02b, 20-03 complete, 3 remaining)
+Status: IN_PROGRESS - 20-01, 20-02a, 20-02b, 20-03 complete, 3 plans remaining in Phase 20
+Last activity: 2026-02-16 — Completed Phase 20-03 PostToolUse Reflection System
 
-Progress: [██████████████████░] 95% (83/90 plans across all phases)
+Progress: [██████████████████░] 96% (84/90 plans across all phases)
 
 ## File Categories Coverage
 
@@ -382,10 +382,26 @@ Progress: [██████████████████░] 95% (83/90
 - Unified API: Single import for all thinking functions
 - Documentation: Complete API reference with examples
 
+**From Phase 20-03 (PostToolUse Reflection System)**: 1 plan completed (7/7 tasks)
+- Reflection schema created - ReflectionTypes (SUCCESS, ERROR, PARTIAL, INSIGHT), PatternTypes, InsightTypes
+- Capture engine implemented - Analyzes tool results for success/failure, patterns, performance
+- Debug-thinking integration created - Stores observations in ~/.debug-thinking-mcp/reflections
+- Pattern extraction system - Identifies SEQUENCE, CONDITIONAL, ERROR_RECOVERY patterns with frequency/success tracking
+- Insight generation system - Generates OPTIMIZATION, SAFETY, CLARITY insights with impact/feasibility ranking
+- PostToolUse hook enhanced - Uses full reflection system with capture, patterns, insights
+- CLI commands added - gsi reflection list/patterns/insights/graph for viewing captured learnings
+
+**Key Decisions from Phase 20-03:**
+- Storage location: ~/.debug-thinking-mcp/reflections (aligned with debug-thinking MCP)
+- Data format: JSONL for observations.jsonl (efficient line-by-line querying)
+- Non-blocking error handling: Reflection capture failures must never break hooks
+- Pattern tracking: Frequency + success rate for pattern quality assessment
+- Insight priority: impact (3-point) × feasibility (3-point) = 9-point scale
+
 ## Session Continuity
 
-Last session: 2026-02-15 Completed Phase 20-02b Thinking Orchestrator
-Stopped at: Phase 20-02b complete, ready for 20-03 (PostToolUse Reflection)
+Last session: 2026-02-16 Completed Phase 20-03 PostToolUse Reflection System
+Stopped at: Phase 20-03 complete, ready for 20-04 (Command Thinking Wrapper) or 20-05 (Workflow Thinking Phases)
 Resume file: None
 
 **Critical Discovery**: Thinking servers are not actually being called during tool execution. The code exists but hooks are not registered in Claude settings. Phase 20 addresses this gap.
@@ -398,13 +414,12 @@ Resume file: None
 ## Project Status
 
 **Phase 20 Ready for Execution**: 7 plans created (49 tasks)
-- 20-01: Hook Registration in Claude Settings (7 tasks)
-- 20-02a: Thinking Mode Selector (6 tasks) - SPLIT
-- 20-02b: Thinking Orchestrator (7 tasks) - SPLIT
-- 20-03: PostToolUse Reflection System (7 tasks)
-- 20-04a: Command Thinking Wrapper (6 tasks) - SPLIT
-- 20-05: Workflow Thinking Phases (7 tasks)
-- Plus 20-04 (original, may consolidate)
+- 20-01: Hook Registration in Claude Settings (7 tasks) ✅
+- 20-02a: Thinking Mode Selector (6 tasks) ✅
+- 20-02b: Thinking Orchestrator (7 tasks) ✅
+- 20-03: PostToolUse Reflection System (7 tasks) ✅
+- 20-04a: Command Thinking Wrapper (6 tasks) - READY
+- 20-05: Workflow Thinking Phases (7 tasks) - PENDING
 
 **Phase 21 Planned**: 1 plan (7 tasks) - GSD Update Integration
 - 21-01: GSD Update Monitoring System
