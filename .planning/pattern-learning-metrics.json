@@ -1,0 +1,31 @@
+{
+  "sessions": {
+    "total": 0,
+    "withPatterns": 0,
+    "avgPatternsPerSession": 0
+  },
+  "predictions": {
+    "total": 0,
+    "accurate": 0,
+    "accuracy": 0
+  },
+  "optimizations": {
+    "suggested": 0,
+    "accepted": 0,
+    "acceptanceRate": 0,
+    "totalTokensSaved": 0,
+    "totalTimeSaved": 0
+  },
+  "patterns": {
+    "sequencesLearned": 0,
+    "conditionsLearned": 0,
+    "optimizationsLearned": 0,
+    "totalPatterns": 0
+  },
+  "efficiency": {
+    "avgSessionTokens": 0,
+    "avgSessionDuration": 0,
+    "tokenImprovement": 0,
+    "timeImprovement": 0
+  }
+}

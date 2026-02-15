@@ -3400,6 +3400,24 @@ function cmdProgressRender(cwd, format, raw) {
   }
 }
 
+// ─── Progress Patterns (Pattern Learning Metrics) ─────────────────────────────
+
+async function cmdProgressPatterns(cwd, raw) {
+  try {
+    const { getMetrics, getMetricsSummary } = require('../lib/pattern-learning/metrics');
+    const metricsSummary = getMetricsSummary();
+
+    if (raw) {
+      process.stdout.write(metricsSummary);
+    } else {
+      const metrics = getMetrics();
+      output(metrics, null, metricsSummary);
+    }
+  } catch (e) {
+    error(`Failed to get pattern learning metrics: ${e.message}`);
+  }
+}
+
 // ─── Todo Complete ────────────────────────────────────────────────────────────
 
 function cmdTodoComplete(cwd, filename, raw) {
@@ -4847,7 +4865,11 @@ async function main() {
 
     case 'progress': {
       const subcommand = args[1] || 'json';
-      cmdProgressRender(cwd, subcommand, raw);
+      if (subcommand === 'pattern-learning' || subcommand === 'patterns') {
+        await cmdProgressPatterns(cwd, raw);
+      } else {
+        cmdProgressRender(cwd, subcommand, raw);
+      }
       break;
     }
 
