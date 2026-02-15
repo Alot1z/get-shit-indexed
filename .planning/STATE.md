@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2025-02-11)
 ## Current Position
 
 Phase: 17 of 19 (Three-Layer Intelligence)
-Plan: 1 of 5 (Model Awareness System complete)
-Status: Layer 1 complete, ready for Layer 2
-Last activity: 2026-02-15 — Completed 17-01 (Model Awareness System)
+Plan: 3 of 5 (Integrated Cognitive Orchestration complete)
+Status: Three-phase cognitive flow implemented, ready for workflow integration
+Last activity: 2026-02-15 — Completed 17-03 (Integrated Cognitive Orchestration)
 
-Progress: [███████████████░] 86% (60/71 plans across all phases)
+Progress: [████████████████] 88% (62/71 plans across all phases)
 
 ## File Categories Coverage
 
@@ -30,9 +30,9 @@ Progress: [███████████████░] 86% (60/71 plans ac
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 60
+- Total plans completed: 61
 - Average duration: 5.3 min
-- Total execution time: 221 min
+- Total execution time: 228 min
 
 **By Phase:**
 
@@ -252,13 +252,28 @@ Progress: [███████████████░] 86% (60/71 plans ac
 - 16-05: Feature showcase section created - Highlights unique GSI capabilities
 - 16-06: Final README assembled - Professional comprehensive documentation (477 lines)
 
-**From Phase 17 (Complexity Prediction System) - Context Gathered:**
-- Multi-layer prediction architecture: PreToolUse hook + Planning + Execution + Manual command
-- Auto-split behavior: Score > 70 = auto-split, 40-70 = warn with options
-- Learning system: debug-thinking capture + thresholds.json auto-updates
-- Complexity scoring formula with weighted file/symbol/CG operations
-- Model-specific thresholds: haiku(<40 safe), sonnet(<50), opus(<60)
-- Privacy-first design: All learning local-only, no external hosting
+**From Phase 17-03 (Integrated Cognitive Orchestration - Layer 2):**
+- Three-phase cognitive flow implemented with iterative execution (not parallel)
+- Phase 1 (Structure): Tractatus thinking + Code-Index MCP for structural analysis
+- Phase 2 (Process): Sequential thinking + CodeGraph MCP for dependency assessment
+- Phase 3 (Learning): Debug thinking + Desktop Commander for pattern learning
+- ComplexityResult class provides type-safe API (shouldSplit(), shouldWarn(), canProceed())
+- Graceful degradation: Each phase has fallback logic for MCP server failures
+- Score combination: Base 50% + Structure 25% + Process 25%
+- Learning-first approach: Query past patterns BEFORE creating new nodes
+- PreToolUse hook upgraded to use full cognitive flow instead of simple scoring
+- Unified API: lib/complexity/ exports all Layer 1 + Layer 2 functions
+- Token optimization: File analysis limited to first 10 files
+
+**From Phase 17-02 (PreToolUse Complexity Hook - Layer 2):**
+- Complexity scoring module created with 5 weighted factors (fileOp=2, symbolQuery=5, cgQuery=8, task=10, crossRef=3)
+- decideAction function implements auto-split logic based on model thresholds
+- PreToolUse hook (hooks/pre-tool-use/complexity-check.js) with trigger detection (Task, execute-phase, execute-plan)
+- Plan analysis via XML element counting (<task>, <files>, @-references)
+- Score normalization to 0-100 scale for intuitive thresholds
+- Unified API: lib/complexity/ exports 7 functions (Layer 1 + Layer 2)
+- Verified: 17-02-PLAN.md analysis returns score 2.0 (9 tasks, 7 fileOps)
+- Verified: score 85 → auto-split, score 30 → execute (sonnet thresholds)
 
 **From Phase 17-01 (Model Awareness System - Layer 1):**
 - Model detection implemented with 3-strategy fallback (env var → config → default)
@@ -267,18 +282,26 @@ Progress: [███████████████░] 86% (60/71 plans ac
 - In-memory model change detection across session (logs changes)
 - Clean API module: lib/complexity/ exports 4 functions (detectCurrentModel, loadModelSpecs, detectModelChange, getModelThresholds)
 
+**From Phase 17 (Complexity Prediction System) - Architecture:**
+- Multi-layer prediction architecture: PreToolUse hook + Planning + Execution + Manual command
+- Auto-split behavior: Score > split_threshold = auto-split, warn-threshold to split = warn with options
+- Learning system: debug-thinking capture + thresholds.json auto-updates
+- Privacy-first design: All learning local-only, no external hosting
+
 ## Session Continuity
 
-Last session: 2026-02-15 Completed 17-01 (Model Awareness System)
-Stopped at: Layer 1 complete, ready for Layer 2 (Complexity Assessment)
+Last session: 2026-02-15 Completed 17-03 (Integrated Cognitive Orchestration)
+Stopped at: Three-phase cognitive flow complete, ready for workflow integration
 Resume file: None
 
 ## Project Status
 
 **Current Phase**: 17 - Complexity Prediction System
 **Plan 17-01**: Model Awareness System (Layer 1) ✅ COMPLETE
-**Next Plan**: 17-02 - Complexity Assessment (Layer 2)
+**Plan 17-02**: PreToolUse Complexity Hook (Layer 2) ✅ COMPLETE
+**Plan 17-03**: Integrated Cognitive Orchestration (Layer 2) ✅ COMPLETE
+**Next Plan**: 17-04 - Planning Workflow Integration
 
 **Remaining Work**:
-- Phase 17: 4 more plans (17-02 through 17-05)
-- Focus: Layer 2 (assessment) + Layer 3 (auto-split decision)
+- Phase 17: 2 more plans (17-04, 17-05)
+- Focus: Workflow integration (planning + execution) + manual command + learning system
