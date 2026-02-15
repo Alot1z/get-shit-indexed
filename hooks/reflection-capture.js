@@ -541,7 +541,223 @@ class ReflectionCaptureHook {
       return false;
     }
   }
-}
+  
+  // Task 3: Add Sequential Reflection
+  async captureSequentialReflection(sequentialContext) {
+    if (!this.config.enabled || !this.triggerConditions.sequential) {
+      return null;
+    }
+    
+    const reflection = {
+      id: this.generateId(),
+      timestamp: new Date().toISOString(),
+      toolType: 'sequential',
+      toolName: 'sequential-thinking',
+      toolOutcome: { success: true },
+      reflectionType: 'learning',
+      context: sequentialContext,
+      summary: this.generateSequentialSummary(sequentialContext),
+      insights: this.extractSequentialInsights(sequentialContext),
+      recommendations: this.generateSequentialRecommendations(sequentialContext)
+    };
+    
+    await this.captureReflection('sequential', 'sequential-thinking', 
+      { success: true, sequential: true }, sequentialContext);
+    
+    return reflection;
+  }
+  
+  generateSequentialSummary(context) {
+    if (!context || !context.thoughtSequence) {
+      return 'Sequential thinking completed';
+    }
+    
+    const totalSteps = context.thoughtSequence.steps || 0;
+    const totalTime = context.thoughtSequence.totalTime || 0;
+    
+    return `Sequential thinking completed with ${totalSteps} steps in ${totalTime}ms`;
+  }
+  
+  extractSequentialInsights(context) {
+    const insights = [];
+    
+    if (!context) return insights;
+    
+    if (context.thoughtSequence) {
+      const { steps, totalTime, cycles } = context.thoughtSequence;
+      
+      if (steps > 10) {
+        insights.push('Complex task decomposed into manageable steps');
+      }
+      
+      if (totalTime > 10000) {
+        insights.push('Sequential thinking took longer than expected');
+      }
+      
+      if (cycles > 3) {
+        insights.push('Multi-cycle thinking required');
+      }
+      
+      if (context.thoughtSequence.success) {
+        insights.push('Thought sequence completed successfully');
+      }
+      
+      if (context.thoughtSequence.conclusion) {
+        insights.push(`Final conclusion: ${context.thoughtSequence.conclusion}`);
+      }
+    }
+    
+    if (context.toolUsage) {
+      const fileOps = context.toolUsage.filter(op => op.type.includes('file')).length;
+      const codeOps = context.toolUsage.filter(op => op.type.includes('code')).length;
+      
+      if (fileOps > 3) {
+        insights.push('Multiple file operations performed');
+      }
+      
+      if (codeOps > 2) {
+        insights.push('Code analysis and modification performed');
+      }
+    }
+    
+    return insights;
+  }
+  
+  generateSequentialRecommendations(context) {
+    const recommendations = [];
+    
+    if (!context) return recommendations;
+    
+    if (context.thoughtSequence) {
+      const { steps, totalTime, cycles } = context.thoughtSequence;
+      
+      if (steps > 15) {
+        recommendations.push('Consider breaking down into smaller thought sequences');
+      }
+      
+      if (totalTime > 15000) {
+        recommendations.push('Optimize sequential thinking for better performance');
+      }
+      
+      if (cycles > 5) {
+        recommendations.push('Reduce thinking cycles for better efficiency');
+      }
+    }
+    
+    if (context.futureTasks) {
+      recommendations.push('Apply similar thinking patterns to future tasks');
+    }
+    
+    if (context.bottlenecks) {
+      recommendations.push('Address identified bottlenecks in process');
+    }
+    
+    return recommendations;
+  }
+  
+  // Task 4: Add Tractatus Reflection
+  async captureTractatusReflection(tractatusContext) {
+    if (!this.config.enabled || !this.triggerConditions.tractatus) {
+      return null;
+    }
+    
+    const reflection = {
+      id: this.generateId(),
+      timestamp: new Date().toISOString(),
+      toolType: 'tractatus',
+      toolName: 'tractatus-thinking',
+      toolOutcome: { success: true },
+      reflectionType: 'learning',
+      context: tractatusContext,
+      summary: this.generateTractatusSummary(tractatusContext),
+      insights: this.extractTractatusInsights(tractatusContext),
+      recommendations: this.generateTractatusRecommendations(tractatusContext)
+    };
+    
+    await this.captureReflection('tractatus', 'tractatus-thinking', 
+      { success: true, tractatus: true }, tractatusContext);
+    
+    return reflection;
+  }
+  
+  generateTractatusSummary(context) {
+    if (!context || !context.structure) {
+      return 'Tractatus thinking completed';
+    }
+    
+    const { propositions, depth, complexity } = context.structure;
+    const totalProps = propositions.length;
+    
+    return `Tractatus thinking completed with ${totalProps} propositions at depth ${depth} (complexity: ${complexity})`;
+  }
+  
+  extractTractatusInsights(context) {
+    const insights = [];
+    
+    if (!context) return insights;
+    
+    if (context.structure) {
+      const { propositions, depth, complexity } = context.structure;
+      
+      if (complexity > 5) {
+        insights.push('High complexity logical structure analyzed');
+      }
+      
+      if (depth > 4) {
+        insights.push('Deep hierarchical structure decomposed');
+      }
+      
+      if (propositions.length > 10) {
+        insights.push('Multiple propositions analyzed and connected');
+      }
+      
+      if (context.structure.multiplicativeRelationships) {
+        insights.push('Multiplicative relationships identified');
+      }
+    }
+    
+    if (context.exportedStructure) {
+      insights.push('Structure exported for future reuse');
+    }
+    
+    if (context.patternsFound) {
+      insights.push('Patterns identified in logical structure');
+    }
+    
+    return insights;
+  }
+  
+  generateTractatusRecommendations(context) {
+    const recommendations = [];
+    
+    if (!context) return recommendations;
+    
+    if (context.structure) {
+      const { propositions, depth, complexity } = context.structure;
+      
+      if (complexity > 7) {
+        recommendations.push('Consider simplifying the logical structure');
+      }
+      
+      if (depth > 5) {
+        recommendations.push('Reduce structural depth for better clarity');
+      }
+      
+      if (propositions.length > 20) {
+        recommendations.push('Break down into smaller structural units');
+      }
+    }
+    
+    if (context.exportedStructure) {
+      recommendations.push('Use exported structure for similar problems');
+    }
+    
+    if (context.patternsFound) {
+      recommendations.push('Apply identified patterns to future analyses');
+    }
+    
+    return recommendations;
+  }
 
 // Export the hook
 module.exports = ReflectionCaptureHook;
