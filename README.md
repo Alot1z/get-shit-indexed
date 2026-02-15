@@ -1901,10 +1901,10 @@ After setup, verify all servers are working:
 
 ```bash
 # Test GSI installation
-/GSI:help
+/gsi:help
 
 # Verify MCP servers (should see DC, CI, CG in responses)
-/GSI:progress
+/gsi:progress
 
 # Check MCP server status in Claude Code
 claude --list-mcp-servers
@@ -1966,7 +1966,7 @@ Once installed, start your first GSI project:
 #### 1. Create New Project
 
 ```bash
-/GSI:new-project
+/gsi:new-project
 ```
 
 Follow the prompts to describe your idea. GSI will:
@@ -1980,7 +1980,7 @@ Follow the prompts to describe your idea. GSI will:
 If you already have code, analyze it first:
 
 ```bash
-/GSI:map-codebase
+/gsi:map-codebase
 ```
 
 This spawns parallel agents to analyze your stack, architecture, conventions, and concerns. Subsequent commands will understand your existing codebase.
@@ -1990,7 +1990,7 @@ This spawns parallel agents to analyze your stack, architecture, conventions, an
 Discuss the phase first to capture your preferences:
 
 ```bash
-/GSI:discuss-phase 1
+/gsi:discuss-phase 1
 ```
 
 This captures your vision before planning (layout, interactions, API design, etc.). The deeper you go here, the more GSI builds what you actually want.
@@ -1998,7 +1998,7 @@ This captures your vision before planning (layout, interactions, API design, etc
 Then create the plan:
 
 ```bash
-/GSI:plan-phase 1
+/gsi:plan-phase 1
 ```
 
 GSI researches the domain and creates atomic task plans.
@@ -2008,7 +2008,7 @@ GSI researches the domain and creates atomic task plans.
 Run all plans in parallel waves:
 
 ```bash
-/GSI:execute-phase 1
+/gsi:execute-phase 1
 ```
 
 Each task gets its own commit with clean git history.
@@ -2018,7 +2018,7 @@ Each task gets its own commit with clean git history.
 Confirm it works as expected:
 
 ```bash
-/GSI:verify-work 1
+/gsi:verify-work 1
 ```
 
 Walk through key features and report any issues. GSI automatically diagnoses failures and creates fix plans.
@@ -2030,7 +2030,7 @@ Walk through key features and report any issues. GSI automatically diagnoses fai
 Choose your balance of quality and token efficiency:
 
 ```bash
-/GSI:settings
+/gsi:settings
 ```
 
 | Profile | Planning | Execution | Verification | Best For |
@@ -2041,7 +2041,7 @@ Choose your balance of quality and token efficiency:
 
 Switch profiles:
 ```bash
-/GSI:set-profile budget
+/gsi:set-profile budget
 ```
 
 #### YOLO Mode Toggle
@@ -2061,7 +2061,7 @@ echo '{"mode": "interactive"}' > .planning/config.json
 GSI automatically uses MCP tools when available. To see current configuration:
 
 ```bash
-/GSI:settings
+/gsi:settings
 ```
 
 Look for MCP server status and tool priority settings.
@@ -2088,12 +2088,12 @@ Look for MCP server status and tool priority settings.
 claude --list-mcp-servers
 
 # Test file access manually
-/GSI:progress
+/gsi:progress
 ```
 
 **Code-Index MCP errors**
 - Ensure you're in a project directory
-- Run `/GSI:map-codebase` to initialize code index
+- Run `/gsi:map-codebase` to initialize code index
 - Check project path configuration
 
 **Neo4j Connection Issues**

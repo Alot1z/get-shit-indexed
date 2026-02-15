@@ -1,6 +1,6 @@
 ﻿---
-name: GSI:research-phase
-description: Research how to implement a phase (standalone - usually use /GSI:plan-phase instead)
+name: gsi:research-phase
+description: Research how to implement a phase (standalone - usually use /gsi:plan-phase instead)
 argument-hint: "[phase]"
 allowed-tools:
   - mcp__desktop-commander__read_file
@@ -48,7 +48,7 @@ CG Tools Usage:
 <objective>
 Research how to implement a phase. Spawns GSI-phase-researcher agent with phase context.
 
-**Note:** This is a standalone research command. For most workflows, use `/GSI:plan-phase` which integrates research automatically.
+**Note:** This is a standalone research command. For most workflows, use `/gsi:plan-phase` which integrates research automatically.
 
 **Use this command when:**
 - You want to research without planning yet
@@ -146,7 +146,7 @@ Mode: ecosystem
 </context>
 
 <downstream_consumer>
-Your RESEARCH.md will be loaded by `/GSI:plan-phase` which uses specific sections:
+Your RESEARCH.md will be loaded by `/gsi:plan-phase` which uses specific sections:
 - `## Standard Stack` → Plans use these libraries
 - `## Architecture Patterns` → Task structure follows these
 - `## Don't Hand-Roll` → Tasks NEVER build custom solutions for listed problems

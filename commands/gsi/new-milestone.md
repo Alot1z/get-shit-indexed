@@ -1,5 +1,5 @@
 ﻿---
-name: GSI:new-milestone
+name: gsi:new-milestone
 description: Start a new milestone cycle — update PROJECT.md and route to requirements
 argument-hint: "[milestone name, e.g., 'v1.1 Notifications']"
 allowed-tools:
@@ -25,7 +25,7 @@ Brownfield equivalent of new-project. Project exists, PROJECT.md has history. Ga
 - `.planning/ROADMAP.md` — phase structure (continues numbering)
 - `.planning/STATE.md` — reset for new milestone
 
-**After:** `/GSI:plan-phase [N]` to start execution.
+**After:** `/gsi:plan-phase [N]` to start execution.
 
 <code_index_mcp>
 **Priority: HIGH** - Critical for milestone research and analysis
@@ -64,7 +64,7 @@ Milestone name: $ARGUMENTS (optional - will prompt if not provided)
 @.planning/MILESTONES.md
 @.planning/config.json
 
-**Load milestone context (if exists, from /GSI:discuss-milestone):**
+**Load milestone context (if exists, from /gsi:discuss-milestone):**
 @.planning/MILESTONE-CONTEXT.md
 </context>
 

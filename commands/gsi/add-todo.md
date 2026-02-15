@@ -1,5 +1,5 @@
 ﻿---
-name: GSI:add-todo
+name: gsi:add-todo
 description: Capture idea or task as todo from current conversation context
 argument-hint: [optional description]
 allowed-tools:

@@ -1,5 +1,5 @@
 ﻿---
-name: GSI:resume-work
+name: gsi:resume-work
 description: Resume work from previous session with full context restoration
 allowed-tools:
   - mcp__desktop-commander__read_file

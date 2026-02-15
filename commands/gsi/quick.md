@@ -1,5 +1,5 @@
 ﻿---
-name: GSI:quick
+name: gsi:quick
 description: Execute a quick task with GSI guarantees (atomic commits, state tracking) but skip optional agents
 argument-hint: ""
 allowed-tools:

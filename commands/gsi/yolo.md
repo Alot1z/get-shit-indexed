@@ -12,13 +12,13 @@ examples:
 
 ```bash
 # Enable YOLO mode
-/GSI:yolo on
+/gsi:yolo on
 
 # Disable YOLO mode  
-/GSI:yolo off
+/gsi:yolo off
 
 # Check status
-/GSI:yolo
+/gsi:yolo
 ```
 
 ---
@@ -72,25 +72,25 @@ When `mode: "yolo"`, all workflows skip confirmations and proceed automatically.
 ### Enable YOLO for quick iteration
 
 ```bash
-$ /GSI:yolo on
+$ /gsi:yolo on
 ✓ YOLO mode enabled
-$ /GSI:execute-phase 08
+$ /gsi:execute-phase 08
 # Executes all tasks without checkpoint pauses
 ```
 
 ### Disable YOLO for careful execution
 
 ```bash
-$ /GSI:yolo off
+$ /gsi:yolo off
 ✓ YOLO mode disabled
-$ /GSI:execute-phase 08
+$ /gsi:execute-phase 08
 # Normal checkpoint behavior
 ```
 
 ### Check current status
 
 ```bash
-$ /GSI:yolo
+$ /gsi:yolo
 Current YOLO mode: off
 ```
 

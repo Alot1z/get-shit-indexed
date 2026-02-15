@@ -1,5 +1,5 @@
 ﻿---
-name: GSI:help
+name: gsi:help
 description: Show available GSI commands and usage guide
 allowed-tools:
   - mcp__desktop-commander__read_file

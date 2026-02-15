@@ -1,5 +1,5 @@
 ﻿---
-name: GSI:plan-milestone-gaps
+name: gsi:plan-milestone-gaps
 description: Create phases to close all gaps identified by milestone audit
 allowed-tools:
   - mcp__desktop-commander__read_file
@@ -11,11 +11,11 @@ allowed-tools:
   - Task
 ---
 <objective>
-Create all phases necessary to close gaps identified by `/GSI:audit-milestone`.
+Create all phases necessary to close gaps identified by `/gsi:audit-milestone`.
 
 Reads MILESTONE-AUDIT.md, groups gaps into logical phases, creates phase entries in ROADMAP.md, and offers to plan each phase.
 
-One command creates all fix phases — no manual `/GSI:add-phase` per gap.
+One command creates all fix phases — no manual `/gsi:add-phase` per gap.
 </objective>
 
 <execution_context>

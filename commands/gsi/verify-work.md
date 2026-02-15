@@ -1,5 +1,5 @@
 ﻿---
-name: GSI:verify-work
+name: gsi:verify-work
 description: Validate built features through conversational UAT
 argument-hint: "[phase number, e.g., '4']"
 allowed-tools:
@@ -33,7 +33,7 @@ Validate built features through conversational testing with persistent state.
 
 Purpose: Confirm what Claude built actually works from user's perspective. One test at a time, plain text responses, no interrogation. When issues are found, automatically diagnose, plan fixes, and prepare for execution.
 
-Output: {phase}-UAT.md tracking all test results. If issues found: diagnosed gaps, verified fix plans ready for /GSI:execute-phase
+Output: {phase}-UAT.md tracking all test results. If issues found: diagnosed gaps, verified fix plans ready for /gsi:execute-phase
 </objective>
 
 <execution_context>

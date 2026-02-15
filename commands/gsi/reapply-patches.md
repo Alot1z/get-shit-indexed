@@ -35,7 +35,7 @@ Read `backup-meta.json` from the patches directory.
 ```
 No local patches found. Nothing to reapply.
 
-Local patches are automatically saved when you run /GSI:update
+Local patches are automatically saved when you run /gsi:update
 after modifying any GSI workflow, command, or agent files.
 ```
 Exit.
@@ -83,7 +83,7 @@ For each file in `backup-meta.json`:
 After reapplying, regenerate the file manifest so future updates correctly detect these as user modifications:
 
 ```bash
-# The manifest will be regenerated on next /GSI:update
+# The manifest will be regenerated on next /gsi:update
 # For now, just note which files were modified
 ```
 
