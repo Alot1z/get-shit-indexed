@@ -550,24 +550,69 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 
 ### Phase 17: Complexity Prediction System
 
-**Goal**: Intelligent complexity prediction that analyzes plans before execution and auto-recovers through sub-phase splitting
+**Goal**: Intelligent complexity prediction with Three-Layer Intelligence architecture that auto-detects model specs and adapts thresholds
 
 **Depends on**: Phase 16 (README Transformation)
 
 **Success Criteria**:
-1. PreToolUse complexity hook runs before every execution
-2. Multi-layer prediction: hook + planning + execution + manual command
-3. Auto-split for high-complexity plans (score > 70)
-4. Learning captured in debug-thinking for pattern recognition
+1. Layer 1 (Model Awareness): Auto-detect model specs without internet search
+2. Layer 2 (Complexity Analysis): Integrated Cognitive Orchestration (Tractatus+CI, Sequential+CG, Debug+DC)
+3. Layer 3 (Auto-Split): Automatic phase splitting when score exceeds threshold
+4. Learning system captures patterns in debug-thinking for continuous improvement
 5. Context limit failures reduced from 35% to <5%
 
-**Plans**: 5 plans (estimated)
+**Plans**: 5 plans in 3 waves
+
+**Status**: Plans created, ready for execution
+
+**Plans**:
+- [ ] 17-01: Model Awareness System - Layer 1 (7 tasks) - Wave 1
+- [ ] 17-02: PreToolUse Complexity Hook (7 tasks) - Wave 1
+- [ ] 17-03: Integrated Cognitive Orchestration - Layer 2 (8 tasks) - Wave 2
+- [ ] 17-04: Auto-Split Decision Engine - Layer 3 (7 tasks) - Wave 2
+- [ ] 17-05: Learning & Threshold Adaptation (6 tasks) - Wave 3
+
+### Phase 18: Naming Standardization
+
+**Goal**: Standardize all GSI naming to lowercase gsi convention with no legacy gsd references
+
+**Depends on**: Phase 17 (Complexity Prediction System)
+
+**Success Criteria**:
+1. All gsd-* agent files renamed to gsi-* in place
+2. Command prefix standardized to /gsi: lowercase
+3. Command directories consolidated to single commands/gsi/
+4. No broken references after rename
+5. Git history preserved
+
+**Plans**: 3 plans
 
 **Status**: Context gathered, ready for planning
 
 **Plans**:
-- [ ] 17-01: PreToolUse complexity hook with scoring (7 tasks)
-- [ ] 17-02: Planning workflow complexity integration (6 tasks)
-- [ ] 17-03: Execute-plan mid-flight adjustment (7 tasks)
-- [ ] 17-04: Learning system with debug-thinking (6 tasks)
-- [ ] 17-05: `/GSI:check-complexity` command (5 tasks)
+- [ ] 18-01: Rename gsd-* agents to gsi-* (6 tasks)
+- [ ] 18-02: Update command prefix documentation (6 tasks)
+- [ ] 18-03: Consolidate command directories (5 tasks)
+
+### Phase 19: Prompt Enhancer
+
+**Goal**: Create Integrated Prompt Enhancer that rewrites user input for clarity using cognitive flow
+
+**Depends on**: Phase 17 (Complexity Prediction System), Phase 18 (Naming Standardization)
+
+**Success Criteria**:
+1. All /gsi: commands can be enhanced before execution
+2. Three-Layer Cognitive Flow integrated (Tractatus+CI, Sequential+CG, Debug+DC)
+3. User confirmation respects YOLO mode
+4. Pattern learning captures enhancement history
+5. Enhancement is optional (can be bypassed)
+
+**Plans**: 4 plans
+
+**Status**: Context gathered, ready for planning
+
+**Plans**:
+- [ ] 19-01: Command interception layer (7 tasks)
+- [ ] 19-02: Cognitive enhancement engine (8 tasks)
+- [ ] 19-03: User confirmation UI (6 tasks)
+- [ ] 19-04: Pattern learning integration (6 tasks)
