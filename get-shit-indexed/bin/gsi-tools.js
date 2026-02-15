@@ -129,6 +129,14 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+// Pattern visualization module (try-exit for optional dependency)
+let patternViz = null;
+try {
+  patternViz = require('../lib/pattern-learning/visualization');
+} catch (e) {
+  // Module not available yet
+}
+
 // ─── Model Profile Table ─────────────────────────────────────────────────────
 
 const MODEL_PROFILES = {
@@ -4350,6 +4358,216 @@ function cmdReflectionGraph(cwd, options, raw) {
   }
 }
 
+// ─── Pattern Report Command ─────────────────────────────────────────────────────
+
+async function cmdPatternReport(cwd, reportType, raw) {
+  if (!patternViz) {
+    error('Pattern learning module not available. Run from gsi repository root.');
+  }
+
+  try {
+    let report;
+
+    if (reportType === 'visualization' || reportType === 'viz') {
+      report = await patternViz.generateVisualizationReport();
+    } else {
+      report = await patternViz.generatePatternReport();
+    }
+
+    if (raw) {
+      process.stdout.write(report);
+    } else {
+      console.log(report);
+    }
+
+    // Optionally export to file
+    const exportPath = path.join(cwd, '.planning', 'pattern-learning-report.md');
+    patternViz.exportReport(exportPath, report);
+    console.error(`\nReport exported to: ${exportPath}`);
+  } catch (err) {
+    error(`Failed to generate pattern report: ${err.message}`);
+  }
+}
+
+// ─── GSD Integration Commands ───────────────────────────────────────────────────
+
+async function cmdCheckGSDUpdates(cwd, options, raw) {
+  const { hasUpdateAvailable } = require('../lib/gsd-integration/version-checker');
+  const { downloadGSDPackage, cleanupDownload } = require('../lib/gsd-integration/downloader');
+  const { analyzeChanges } = require('../lib/gsd-integration/change-analyzer');
+  const { categorizeChanges, assessChanges } = require('../lib/gsd-integration/change-analyzer');
+  const { suggestIntegrations, generateIntegrationPlan } = require('../lib/gsd-integration/suggester');
+  const { recordUpdate } = require('../lib/gsd-integration/tracker');
+
+  try {
+    console.log('Checking for GSD updates...');
+    const updateInfo = await hasUpdateAvailable();
+
+    if (updateInfo.cached) {
+      console.log(`(Using cached check from ${new Date(updateInfo.lastCheck).toLocaleString()})`);
+    }
+
+    if (!updateInfo.hasUpdate) {
+      console.log('No updates available.');
+      console.log(`Current: ${updateInfo.installedVersion || 'unknown'}`);
+      console.log(`Latest: ${updateInfo.latestVersion}`);
+      return;
+    }
+
+    console.log(`Update available!`);
+    console.log(`Current: ${updateInfo.installedVersion || 'unknown'}`);
+    console.log(`Latest: ${updateInfo.latestVersion}`);
+
+    // Download and analyze
+    console.log('\nDownloading package...');
+    const { packageDir, tempDir } = await downloadGSDPackage(updateInfo.latestVersion);
+
+    try {
+      console.log('Analyzing changes...');
+      const changes = await analyzeChanges(cwd, packageDir);
+      const categorized = categorizeChanges(changes);
+      const impact = await assessChanges(changes, cwd);
+
+      // Record detection
+      await recordUpdate(updateInfo.latestVersion, changes);
+
+      // Display summary
+      console.log('\n=== Change Summary ===');
+      console.log(`Total changes: ${changes.total}`);
+      console.log(`  Added: ${changes.added.length}`);
+      console.log(`  Removed: ${changes.removed.length}`);
+      console.log(`  Modified: ${changes.modified.length}`);
+
+      console.log('\n=== Categories ===');
+      for (const [category, items] of Object.entries(categorized)) {
+        if (items.length > 0) {
+          console.log(`${category}: ${items.length}`);
+        }
+      }
+
+      // Generate suggestions
+      const suggestions = suggestIntegrations(categorized, impact);
+      if (suggestions.length > 0) {
+        console.log(`\n=== Integratable Changes (${suggestions.length}) ===`);
+        suggestions.slice(0, 10).forEach(s => {
+          console.log(`  [${s.priority}] ${s.description}`);
+        });
+
+        if (suggestions.length > 10) {
+          console.log(`  ... and ${suggestions.length - 10} more`);
+        }
+
+        console.log(`\nRun 'gsi integrate-gsd-change <id>' to integrate a specific change`);
+      }
+
+      // Generate plan
+      const plan = generateIntegrationPlan(suggestions);
+      console.log(`\n=== Integration Plan ===`);
+      console.log(`Estimated effort: ${plan.estimatedEffort}`);
+      console.log(`Phases: ${plan.steps.length}`);
+      plan.steps.forEach(step => {
+        console.log(`  - ${step.phase}: ${step.changes.length} changes`);
+      });
+
+      if (plan.warnings.length > 0) {
+        console.log(`\nWarnings:`);
+        plan.warnings.forEach(w => console.log(`  ⚠️  ${w}`));
+      }
+
+    } finally {
+      await cleanupDownload(tempDir);
+    }
+
+  } catch (error) {
+    console.error(`Error checking for updates: ${error.message}`);
+    process.exit(1);
+  }
+}
+
+function cmdIntegrateGSDChange(cwd, changeId, raw) {
+  const { getUpdateHistory } = require('../lib/gsd-integration/tracker');
+  const { recordIntegration } = require('../lib/gsd-integration/tracker');
+  const { downloadGSDPackage, cleanupDownload } = require('../lib/gsd-integration/downloader');
+  const { analyzeChanges, categorizeChanges, assessChanges } = require('../lib/gsd-integration/change-analyzer');
+  const { suggestIntegrations, createMergeStrategy } = require('../lib/gsd-integration/suggester');
+  const fs = require('fs').promises;
+  const path = require('path');
+
+  (async () => {
+    try {
+      // Find change in recent history
+      const history = await getUpdateHistory(5);
+      let targetChange = null;
+      let targetVersion = null;
+
+      for (const entry of history) {
+        // This is simplified - in reality we'd need to store suggestions
+        // For now, just show a message
+        console.log(`Checking version ${entry.version}...`);
+      }
+
+      console.log(`Change integration not yet implemented.`);
+      console.log(`Change ID: ${changeId}`);
+      console.log(`\nThis would:`);
+      console.log(`1. Locate the change in the downloaded package`);
+      console.log(`2. Apply the merge strategy`);
+      console.log(`3. Update tracking file`);
+      console.log(`4. Commit the integration`);
+
+    } catch (error) {
+      console.error(`Error integrating change: ${error.message}`);
+      process.exit(1);
+    }
+  })();
+}
+
+async function cmdGSDUpdateHistory(cwd, options, raw) {
+  const { getUpdateHistory, getIntegratedChanges, getDeferredChanges, getIntegrationStats } = require('../lib/gsd-integration/tracker');
+
+  try {
+    const history = await getUpdateHistory(20);
+    const integrated = await getIntegratedChanges();
+    const deferred = await getDeferredChanges();
+    const stats = await getIntegrationStats();
+
+    const result = {
+      stats,
+      recent_detections: history,
+      integrations: integrated.slice(-20),
+      deferred: deferred.slice(-20)
+    };
+
+    if (raw) {
+      console.log(`=== GSD Update History ===`);
+      console.log(`\nStatistics:`);
+      console.log(`  Versions detected: ${stats.totalDetected}`);
+      console.log(`  Changes integrated: ${stats.totalIntegrated}`);
+      console.log(`  Changes deferred: ${stats.totalDeferred}`);
+      console.log(`  Integration rate: ${stats.integrationRate}%`);
+
+      if (history.length > 0) {
+        console.log(`\nRecent detections:`);
+        history.forEach(h => {
+          console.log(`  ${h.version} (${new Date(h.detectedAt).toLocaleDateString()}): ${h.changes.total} changes`);
+        });
+      }
+
+      if (integrated.length > 0) {
+        console.log(`\nRecent integrations:`);
+        integrated.slice(-10).forEach(i => {
+          console.log(`  ${i.changeId} (${i.version}): ${i.status}`);
+        });
+      }
+    } else {
+      output(result, raw);
+    }
+
+  } catch (error) {
+    console.error(`Error getting history: ${error.message}`);
+    process.exit(1);
+  }
+}
+
 // ─── CLI Router ───────────────────────────────────────────────────────────────
 
 async function main() {
@@ -4754,6 +4972,25 @@ async function main() {
       break;
     }
 
+    case 'check-gsd-updates': {
+      await cmdCheckGSDUpdates(cwd, {}, raw);
+      break;
+    }
+
+    case 'integrate-gsd-change': {
+      const changeId = args[1];
+      if (!changeId) {
+        error('Usage: gsi integrate-gsd-change <change-id>');
+      }
+      cmdIntegrateGSDChange(cwd, changeId, raw);
+      break;
+    }
+
+    case 'gsd-update-history': {
+      await cmdGSDUpdateHistory(cwd, {}, raw);
+      break;
+    }
+
     case 'websearch': {
       const query = args[1];
       const limitIdx = args.indexOf('--limit');
@@ -4762,6 +4999,11 @@ async function main() {
         limit: limitIdx !== -1 ? parseInt(args[limitIdx + 1], 10) : 10,
         freshness: freshnessIdx !== -1 ? args[freshnessIdx + 1] : null,
       }, raw);
+      break;
+    }
+
+    case 'pattern-report': {
+      await cmdPatternReport(cwd, args[1], raw);
       break;
     }
 
