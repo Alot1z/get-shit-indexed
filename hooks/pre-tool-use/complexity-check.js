@@ -1,9 +1,9 @@
-// PreToolUse Hook: Complexity Prediction
-// Triggers before agent spawn to analyze plan complexity
+// PreToolUse Hook: Complexity Prediction (Layer 2: Cognitive Flow)
+// Triggers before agent spawn to analyze plan complexity using three-phase cognitive analysis
 
 const fs = require('fs').promises;
 const path = require('path');
-const { calculateComplexityScore, decideAction } = require('../../lib/complexity/scorer');
+const { runCognitiveFlow, ComplexityResult } = require('../../lib/complexity/cognitive-flow');
 
 /**
  * Tools that trigger complexity prediction.
@@ -76,16 +76,16 @@ async function analyzePlan(planPath) {
 
 /**
  * Main hook run function.
- * Orchestrates full complexity prediction flow:
+ * Orchestrates full cognitive complexity prediction flow:
  * 1. Check if trigger conditions met
  * 2. Extract plan path from context
  * 3. Analyze plan to get metrics
- * 4. Calculate complexity score
- * 5. Decide action based on model thresholds
+ * 4. Run three-phase cognitive flow (Structure → Process → Learning)
+ * 5. Return ComplexityResult with rich analysis
  *
  * @param {string} toolName - Name of the tool being called
  * @param {object} context - Tool call context (may contain planFile)
- * @returns {Promise<object>} Complexity assessment with score, action, reason, metrics
+ * @returns {Promise<ComplexityResult|object>} ComplexityResult or skip object
  */
 async function run(toolName, context) {
   // Check if complexity prediction should trigger
@@ -107,20 +107,51 @@ async function run(toolName, context) {
   // Analyze plan to extract complexity metrics
   const planMetrics = await analyzePlan(absolutePath);
 
-  // Calculate complexity score
-  const score = calculateComplexityScore(planMetrics);
+  // Add files array to metrics (extracted from content)
+  const files = await extractFiles(absolutePath);
+  planMetrics.files = files;
+  planMetrics.projectPath = process.cwd();
 
-  // Decide action based on score and model thresholds
-  const action = await decideAction(score);
+  // Run full three-phase cognitive flow
+  const cognitiveResult = await runCognitiveFlow(absolutePath, planMetrics);
 
-  return {
-    score,
-    action: action.action,
-    reason: action.reason,
-    metrics: planMetrics,
-    options: action.options,
-    subPhaseCount: action.subPhaseCount
-  };
+  // Return structured ComplexityResult
+  return new ComplexityResult(cognitiveResult);
+}
+
+/**
+ * Extract file paths from plan content.
+ * Looks for paths in <files> elements and @-references.
+ *
+ * @param {string} planPath - Path to plan file
+ * @returns {Promise<string[]>} Array of file paths
+ */
+async function extractFiles(planPath) {
+  try {
+    const content = await fs.readFile(planPath, 'utf-8');
+    
+    // Extract file paths from <files> elements
+    const filesMatch = content.match(/<files>([\s\S]*?)<\/files>/g);
+    const files = [];
+    
+    if (filesMatch) {
+      for (const match of filesMatch) {
+        const paths = match
+          .replace(/<\/?files>/g, '')
+          .trim()
+          .split('\n')
+          .map(f => f.trim())
+          .filter(f => f && !f.startsWith('@')); // Filter out @-references
+        
+        files.push(...paths);
+      }
+    }
+    
+    return files;
+  } catch (error) {
+    console.error(`[ComplexityCheck] Error extracting files: ${error.message}`);
+    return [];
+  }
 }
 
 module.exports = {
