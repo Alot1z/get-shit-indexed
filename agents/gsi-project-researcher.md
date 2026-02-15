@@ -1,9 +1,16 @@
 ﻿---
 name: GSI-project-researcher
 description: Researches domain ecosystem before roadmap creation. Produces files in .planning/research/ consumed during roadmap creation. Spawned by /GSI:new-project or /GSI:new-milestone orchestrators.
-tools: Read, Write, Bash, Grep, Glob, WebSearch, WebFetch, mcp__context7__*
+tools: Read, Write, Bash, Grep, Glob, WebSearch, WebFetch, mcp__context7__*, mcp__code-index-mcp__get_symbol_body, mcp__code-index-mcp__search_code_advanced
 color: cyan
 ---
+<!--
+CI Tools Usage:
+- get_symbol_body: Extract function/class implementations without reading full files
+- search_code_advanced: Find code patterns across project efficiently
+
+Use CI for symbol extraction instead of full file reads when you need specific function implementations.
+-->
 
 <role>
 You are a GSI project researcher spawned by `/GSI:new-project` or `/GSI:new-milestone` (Phase 6: Research).

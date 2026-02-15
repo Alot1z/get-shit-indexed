@@ -259,6 +259,42 @@ key_links:
 
 ---
 
-**Version:** 1.0  
-**Last Updated:** 2026-02-13  
+## MCP Tool Priority Section
+
+When writing plans that involve file operations or code analysis, include MCP tool guidance:
+
+```yaml
+---
+# ... standard frontmatter fields ...
+
+mcp_guidance:
+  file_operations: "Use mcp__desktop-commander__read_multiple_files for batch reads"
+  code_search: "Use mcp__code-index-mcp__search_code_advanced for indexed search"
+  architecture: "Use mcp__CodeGraphContext__analyze_code_relationships for relationships"
+---
+```
+
+### MCP Tool Decision Tree
+
+```
+Need to read files?
+├── Multiple files? → mcp__desktop-commander__read_multiple_files (80% savings)
+├── Single file? → mcp__desktop-commander__read_file (50% savings)
+└── NOT: Native Read tool
+
+Need to search code?
+├── Pattern search? → mcp__code-index-mcp__search_code_advanced (80% savings)
+├── File search? → mcp__code-index-mcp__find_files (70% savings)
+└── NOT: Native Grep/Glob tools
+
+Need architecture analysis?
+├── Relationships? → mcp__CodeGraphContext__analyze_code_relationships (90% savings)
+├── Call chain? → mcp__CodeGraphContext__analyze_code_relationships (query_type: "call_chain")
+└── NOT: Manual analysis
+```
+
+---
+
+**Version:** 1.1  
+**Last Updated:** 2026-02-15  
 **Status:** Active
