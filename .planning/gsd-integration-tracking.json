@@ -1,19 +1,9 @@
 {
-  "last_integrated_version": "1.17.0",
-  "last_check_date": "2026-02-15",
-  "integrated_changes": [
-    {
-      "gsd_version": "1.17.0",
-      "date": "2026-02-15",
-      "changes": ["Initial fork - all features baseline from GSD 1.17.0"],
-      "files_modified": ["All files - fork creation"]
-    }
-  ],
-  "skipped_changes": [],
-  "notes": [
-    "GSI fork created from GSD 1.17.0",
-    "gsd/ commands are aliases pointing to gsi/",
-    "Check monthly for GSD updates",
-    "Integrate only valuable changes, skip GSD-specific branding"
-  ]
+  "installedVersion": null,
+  "latestVersion": null,
+  "lastCheck": null,
+  "hasUpdate": false,
+  "versionHistory": [],
+  "integratedChanges": [],
+  "deferredChanges": []
 }
