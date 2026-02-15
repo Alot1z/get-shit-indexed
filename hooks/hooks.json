@@ -34,5 +34,23 @@
       }
     }
   },
-  "_comment": "PreToolUse hooks are configured in .claude/settings.json or user settings"
+  "_comment": "PreToolUse hooks are configured in .claude/settings.json or user settings",
+  "posttooluse": {
+    "reflection-capture": {
+      "enabled": true,
+      "useMCP": true,
+      "triggerConditions": {
+        "always": false,
+        "errors": true,
+        "significant": true,
+        "thinking": true,
+        "sequential": true,
+        "tractatus": true,
+        "debug": true,
+        "file_operations": true,
+        "code_operations": true,
+        "relationship_operations": true
+      }
+    }
+  }
 }
