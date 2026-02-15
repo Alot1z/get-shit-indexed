@@ -699,6 +699,22 @@ function cleanupOrphanedFiles(configDir) {
     'hooks/GSI-notify.sh',  // Removed in v1.6.x
     'hooks/statusline.js',  // Renamed to GSI-statusline.js in v1.9.0
   ];
+  
+  // Clean up old uppercase manifest and patches directory (renamed to lowercase in v1.18.0)
+  const oldManifest = path.join(configDir, 'GSI-file-manifest.json');
+  if (fs.existsSync(oldManifest)) {
+    fs.unlinkSync(oldManifest);
+    console.log(`  ${dim}Cleaned up old GSI-file-manifest.json${reset}`);
+  }
+  
+  const oldPatchesDir = path.join(configDir, 'GSI-local-patches');
+  if (fs.existsSync(oldPatchesDir)) {
+    const newPatchesDir = path.join(configDir, PATCHES_DIR_NAME);
+    if (!fs.existsSync(newPatchesDir)) {
+      fs.renameSync(oldPatchesDir, newPatchesDir);
+      console.log(`  ${dim}Renamed GSI-local-patches to gsi-local-patches${reset}`);
+    }
+  }
 
   for (const relPath of orphanedFiles) {
     const fullPath = path.join(configDir, relPath);
@@ -1180,8 +1196,8 @@ function verifyFileInstalled(filePath, description) {
 // Local Patch Persistence
 // ──────────────────────────────────────────────────────
 
-const PATCHES_DIR_NAME = 'GSI-local-patches';
-const MANIFEST_NAME = 'GSI-file-manifest.json';
+const PATCHES_DIR_NAME = 'gsi-local-patches';
+const MANIFEST_NAME = 'gsi-file-manifest.json';
 
 /**
  * Compute SHA256 hash of file contents
@@ -1302,7 +1318,7 @@ function reportLocalPatches(configDir) {
     }
     console.log('');
     console.log('  Your modifications are saved in ' + cyan + PATCHES_DIR_NAME + '/' + reset);
-    console.log('  Run ' + cyan + '/GSI:reapply-patches' + reset + ' to merge them into the new version.');
+    console.log('  Run ' + cyan + '/gsi:reapply-patches' + reset + ' to merge them into the new version.');
     console.log('  Or manually compare and merge the files.');
     console.log('');
   }
@@ -1375,6 +1391,24 @@ function install(isGlobal, runtime = 'claude') {
     } else {
       failures.push('commands/gsi');
     }
+
+    // Create gsd/ command aliases for backward compatibility (both /gsd: and /gsi: work)
+    const GSDDest = path.join(commandsDir, 'gsd');
+    if (!fs.existsSync(GSDDest)) {
+      fs.mkdirSync(GSDDest, { recursive: true });
+    }
+    // Copy gsi commands to gsd with gsd: prefix instead of gsi:
+    const gsiFiles = fs.readdirSync(GSIDest).filter(f => f.endsWith('.md'));
+    for (const file of gsiFiles) {
+      let content = fs.readFileSync(path.join(GSIDest, file), 'utf8');
+      // Replace gsi: prefix with gsd: in the command name
+      content = content.replace(/^name:\s*gsi:/m, 'name: gsd:');
+      content = content.replace(/\/gsi:/g, '/gsd:');
+      fs.writeFileSync(path.join(GSDDest, file), content);
+    }
+    if (verifyInstalled(GSDDest, 'commands/gsd')) {
+      console.log(`  ${green}✓${reset} Installed commands/gsd (backward compatibility)`);
+    }
   }
 
   // Copy get-shit-indexed skill with path replacement
@@ -1385,6 +1419,18 @@ function install(isGlobal, runtime = 'claude') {
     console.log(`  ${green}✓${reset} Installed get-shit-indexed`);
   } else {
     failures.push('get-shit-indexed');
+  }
+
+  // Copy bin/gsi-tools.js to installed location
+  const binSrc = path.join(src, 'get-shit-indexed', 'bin');
+  const binDest = path.join(skillDest, 'bin');
+  if (fs.existsSync(binSrc)) {
+    fs.mkdirSync(binDest, { recursive: true });
+    const binFiles = fs.readdirSync(binSrc);
+    for (const file of binFiles) {
+      fs.copyFileSync(path.join(binSrc, file), path.join(binDest, file));
+    }
+    console.log(`  ${green}✓${reset} Installed get-shit-indexed/bin/ (${binFiles.length} files)`);
   }
 
   // Copy agents to agents directory
