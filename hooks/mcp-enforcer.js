@@ -65,6 +65,8 @@ function buildRecommendation(toolName, toolConfig, additionalInfo = '') {
     message += `   Example: mcp__desktop-commander__read_multiple_files({\n`;
     message += `     paths: ["file1.md", "file2.md", "file3.md"]\n`;
     message += `   })\n`;
+    message += `   ⚡ Token savings: 90% vs sequential reads\n`;
+    message += `   🎯 Best for: Multiple related files in same operation\n`;
   }
   
   // CodeGraphContext alternative for relationship analysis
@@ -73,10 +75,30 @@ function buildRecommendation(toolName, toolConfig, additionalInfo = '') {
     message += `   Use ${toolConfig.relationshipAlt}\n`;
     message += `   Query types: find_callers, find_callees, class_hierarchy\n`;
     message += `   Requires: Neo4j at localhost:7687 (start-cg-server.ps1)\n`;
+    message += `   🎯 Best for: Code dependencies, impact analysis, refactoring\n`;
   }
   
   // Token savings
   message += `\n💰 Token savings: ${toolConfig.savings} per MCP-TOKEN-BENCHMARK.md`;
+  
+  // Pattern examples
+  message += `\n\n📝 Usage Patterns:\n`;
+  
+  if (toolName === 'Read') {
+    message += `   • Single file: ${toolConfig.replacement}({ path: "file.md" })\n`;
+    message += `   • Multiple files: ${toolConfig.batchAlternative}({\n`;
+    message += `       paths: ["file1.md", "file2.md", "file3.md"]\n`;
+    message += `     })\n`;
+  } else if (toolName === 'Grep') {
+    message += `   • Simple search: ${toolConfig.replacement}({\n`;
+    message += `       pattern: "function name",\n`;
+    message += `       file_pattern: "*.js"\n`;
+    message += `     })\n`;
+    message += `   • Relationships: ${toolConfig.relationshipAlt}({\n`;
+    message += `       query_type: "find_callers",\n`;
+    message += `       target: "function_name"\n`;
+    message += `     })\n`;
+  }
   
   if (additionalInfo) {
     message += `\n\n${additionalInfo}`;
