@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2025-02-11)
 
 ## Current Position
 
-Phase: 17 of 19 (Three-Layer Intelligence)
-Plan: 5 of 5 (Learning & Threshold Adaptation complete)
-Status: Phase 17 COMPLETE - All 5 plans executed successfully
-Last activity: 2026-02-15 — Completed 17-05 (Learning & Threshold Adaptation)
+Phase: 18 of 19 (Naming Standardization)
+Plan: 1 of 3 (Agent file renames complete)
+Status: In Progress - 18-01 complete
+Last activity: 2026-02-15 — Completed 18-01 (Rename gsd-* Agents to gsi-*)
 
-Progress: [████████████████] 90% (64/71 plans across all phases)
+Progress: [█████████████████░] 91% (65/71 plans across all phases)
 
 ## File Categories Coverage
 
@@ -310,22 +310,28 @@ Progress: [████████████████] 90% (64/71 plans ac
 - Privacy-first design: All learning local-only, no external hosting
 - Three-layer complexity prediction: Model awareness → Cognitive flow → Auto-split/warnings/learning
 
+**From Phase 18-01 (Rename gsd-* Agents to gsi-*):**
+- All 12 agent files renamed from gsd-*.md to gsi-*.md in ~/.claude/agents/
+- All internal references updated from gsd-* to gsi-* (names, descriptions, roles, commands)
+- All command prefixes updated from /gsd: to /gsi:
+- File rename used instead of git mv (~/.claude is not a git repository)
+- Pre-existing gsi-*.md files deleted before renaming to avoid conflicts
+- No gsd references remain in any agent file
+
 ## Session Continuity
 
-Last session: 2026-02-15 Completed 17-05 (Learning & Threshold Adaptation)
-Stopped at: Phase 17 COMPLETE - All 5 plans executed
+Last session: 2026-02-15 Completed 18-01 (Rename gsd-* Agents to gsi-*)
+Stopped at: Phase 18 Plan 1 complete - Plans 2-3 remaining
 Resume file: None
 
 ## Project Status
 
-**Phase 17 COMPLETE**: All 5 plans executed successfully
-- 17-01: Model Awareness System (Layer 1) ✅ COMPLETE
-- 17-02: PreToolUse Complexity Hook (Layer 2) ✅ COMPLETE
-- 17-03: Integrated Cognitive Orchestration (Layer 2) ✅ COMPLETE
-- 17-04: Auto-Split Decision Engine (Layer 3) ✅ COMPLETE
-- 17-05: Learning & Threshold Adaptation (Layer 3) ✅ COMPLETE
+**Phase 18 In Progress**: 1 of 3 plans executed
+- 18-01: Rename gsd-* Agents to gsi-* ✅ COMPLETE
+- 18-02: (pending)
+- 18-03: (pending)
 
 **Remaining Work**:
-- Phase 17: COMPLETE
-- Next phase: 18 - Documentation & Integration
-- Focus: Integrate complexity prediction into planning workflows
+- Phase 18: 2 plans remaining
+- Next: 18-02 (command directory consolidation)
+- Focus: Standardize all GSI naming to lowercase gsi convention
