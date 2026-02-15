@@ -106,13 +106,14 @@ function getGlobalDir(runtime, explicitDir = null) {
   return path.join(os.homedir(), '.claude');
 }
 
+const purple = '\x1b[38;5;183m';  // Tokyo Night purple (for I)
 const banner = '\n' +
-  cyan + '   ██████╗ ███████╗██████╗\n' +
-  '  ██╔════╝ ██╔════╝██╔══██╗\n' +
-  '  ██║  ███╗███████╗██║  ██║\n' +
-  '  ██║   ██║╚════██║██║  ██║\n' +
-  '  ╚██████╔╝███████║██████╔╝\n' +
-  '   ╚═════╝ ╚══════╝╚═════╝' + reset + '\n' +
+  cyan + '   ██████╗ ' + purple + '███████╗' + cyan + '██████╗\n' +
+  cyan + '  ██╔════╝ ' + purple + '██╔════╝' + cyan + '██╔══██╗\n' +
+  cyan + '  ██║  ███╗' + purple + '███████╗' + cyan + '██║  ██║\n' +
+  cyan + '  ██║   ██║' + purple + '╚════██║' + cyan + '██║  ██║\n' +
+  cyan + '  ╚██████╔╝' + purple + '███████║' + cyan + '██████╔╝\n' +
+  cyan + '   ╚═════╝ ' + purple + '╚══════╝' + cyan + '╚═════╝' + reset + '\n' +
   '\n' +
   '  Get Shit Indexed ' + dim + 'v' + pkg.version + reset + '\n' +
   '  A meta-prompting, context engineering and spec-driven\n' +
