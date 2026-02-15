@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2025-02-11)
 ## Current Position
 
 Phase: 17 of 19 (Three-Layer Intelligence)
-Plan: 0 of 5 (Ready to execute)
-Status: Phase 17 planned, Phases 18-19 context gathered
-Last activity: 2026-02-15 — Created Phase 18 (Naming) and Phase 19 (Prompt Enhancer) contexts
+Plan: 1 of 5 (Model Awareness System complete)
+Status: Layer 1 complete, ready for Layer 2
+Last activity: 2026-02-15 — Completed 17-01 (Model Awareness System)
 
-Progress: [███████████████░] 85% (59/71 plans across all phases)
+Progress: [███████████████░] 86% (60/71 plans across all phases)
 
 ## File Categories Coverage
 
@@ -30,9 +30,9 @@ Progress: [███████████████░] 85% (59/71 plans ac
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 41
-- Average duration: 5.2 min
-- Total execution time: 213 min
+- Total plans completed: 60
+- Average duration: 5.3 min
+- Total execution time: 221 min
 
 **By Phase:**
 
@@ -260,18 +260,25 @@ Progress: [███████████████░] 85% (59/71 plans ac
 - Model-specific thresholds: haiku(<40 safe), sonnet(<50), opus(<60)
 - Privacy-first design: All learning local-only, no external hosting
 
+**From Phase 17-01 (Model Awareness System - Layer 1):**
+- Model detection implemented with 3-strategy fallback (env var → config → default)
+- Embedded model specs cache instead of file reading (simpler, faster)
+- Model-specific thresholds: haiku(40), sonnet(50), opus(60) for safe complexity
+- In-memory model change detection across session (logs changes)
+- Clean API module: lib/complexity/ exports 4 functions (detectCurrentModel, loadModelSpecs, detectModelChange, getModelThresholds)
+
 ## Session Continuity
 
-Last session: 2026-02-15 Phase 17 context gathered
-Stopped at: Phase 17 designed, ready for planning
-Resume file: .planning/phases/17-complexity-prediction/17-CONTEXT.md
+Last session: 2026-02-15 Completed 17-01 (Model Awareness System)
+Stopped at: Layer 1 complete, ready for Layer 2 (Complexity Assessment)
+Resume file: None
 
 ## Project Status
 
 **Current Phase**: 17 - Complexity Prediction System
-**Context**: Gathered ✅
-**Planning**: Not started
+**Plan 17-01**: Model Awareness System (Layer 1) ✅ COMPLETE
+**Next Plan**: 17-02 - Complexity Assessment (Layer 2)
 
 **Remaining Work**:
-- Phase 17: 5 plans to create (31 tasks estimated)
-- Focus: Make GSI self-aware of context limitations
+- Phase 17: 4 more plans (17-02 through 17-05)
+- Focus: Layer 2 (assessment) + Layer 3 (auto-split decision)
