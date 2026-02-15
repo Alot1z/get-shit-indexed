@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2025-02-11)
 ## Current Position
 
 Phase: 17 of 19 (Three-Layer Intelligence)
-Plan: 4 of 5 (Auto-Split Decision Engine complete)
-Status: Layer 3 complete, auto-split and warning systems operational
-Last activity: 2026-02-15 — Completed 17-04 (Auto-Split Decision Engine)
+Plan: 5 of 5 (Learning & Threshold Adaptation complete)
+Status: Phase 17 COMPLETE - All 5 plans executed successfully
+Last activity: 2026-02-15 — Completed 17-05 (Learning & Threshold Adaptation)
 
-Progress: [████████████████] 89% (63/71 plans across all phases)
+Progress: [████████████████] 90% (64/71 plans across all phases)
 
 ## File Categories Coverage
 
@@ -293,27 +293,39 @@ Progress: [████████████████] 89% (63/71 plans ac
 - In-memory model change detection across session (logs changes)
 - Clean API module: lib/complexity/ exports 4 functions (detectCurrentModel, loadModelSpecs, detectModelChange, getModelThresholds)
 
-**From Phase 17 (Complexity Prediction System) - Architecture:**
+**From Phase 17-05 (Learning & Threshold Adaptation - Complete System):**
+- complexity-history.json created with assessment tracking and adaptation history
+- recordAssessment: Saves to history file and creates debug-thinking observation nodes
+- queryPatterns: Retrieves similar assessments from debug graph and local history
+- adaptFromHistory: Analyzes success rates by 10-point score buckets, identifies problem ranges
+- adaptThresholds: Lowers thresholds by -5 points when problem ranges overlap current thresholds
+- Conservative adaptation: Minimum bounds (warn >=30, split >=50), requires 10+ assessments
+- Unified API: Complete three-layer system exported from lib/complexity/
+- Phase 17 COMPLETE: All 5 plans (17-01 through 17-05) successfully implemented
+
+**From Phase 17 (Complexity Prediction System) - COMPLETE:**
 - Multi-layer prediction architecture: PreToolUse hook + Planning + Execution + Manual command
 - Auto-split behavior: Score > split_threshold = auto-split, warn-threshold to split = warn with options
-- Learning system: debug-thinking capture + thresholds.json auto-updates
+- Learning system: debug-thinking capture + complexity-history.json tracking + threshold auto-adaptation
 - Privacy-first design: All learning local-only, no external hosting
+- Three-layer complexity prediction: Model awareness → Cognitive flow → Auto-split/warnings/learning
 
 ## Session Continuity
 
-Last session: 2026-02-15 Completed 17-04 (Auto-Split Decision Engine)
-Stopped at: Layer 3 complete, auto-split and warning systems operational
+Last session: 2026-02-15 Completed 17-05 (Learning & Threshold Adaptation)
+Stopped at: Phase 17 COMPLETE - All 5 plans executed
 Resume file: None
 
 ## Project Status
 
-**Current Phase**: 17 - Complexity Prediction System
-**Plan 17-01**: Model Awareness System (Layer 1) ✅ COMPLETE
-**Plan 17-02**: PreToolUse Complexity Hook (Layer 2) ✅ COMPLETE
-**Plan 17-03**: Integrated Cognitive Orchestration (Layer 2) ✅ COMPLETE
-**Plan 17-04**: Auto-Split Decision Engine (Layer 3) ✅ COMPLETE
-**Next Plan**: 17-05 - Learning System
+**Phase 17 COMPLETE**: All 5 plans executed successfully
+- 17-01: Model Awareness System (Layer 1) ✅ COMPLETE
+- 17-02: PreToolUse Complexity Hook (Layer 2) ✅ COMPLETE
+- 17-03: Integrated Cognitive Orchestration (Layer 2) ✅ COMPLETE
+- 17-04: Auto-Split Decision Engine (Layer 3) ✅ COMPLETE
+- 17-05: Learning & Threshold Adaptation (Layer 3) ✅ COMPLETE
 
 **Remaining Work**:
-- Phase 17: 1 more plan (17-05)
-- Focus: Learning system with auto-tuning thresholds
+- Phase 17: COMPLETE
+- Next phase: 18 - Documentation & Integration
+- Focus: Integrate complexity prediction into planning workflows
