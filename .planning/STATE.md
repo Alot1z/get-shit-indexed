@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2025-02-11)
 ## Current Position
 
 Phase: 17 of 19 (Three-Layer Intelligence)
-Plan: 3 of 5 (Integrated Cognitive Orchestration complete)
-Status: Three-phase cognitive flow implemented, ready for workflow integration
-Last activity: 2026-02-15 — Completed 17-03 (Integrated Cognitive Orchestration)
+Plan: 4 of 5 (Auto-Split Decision Engine complete)
+Status: Layer 3 complete, auto-split and warning systems operational
+Last activity: 2026-02-15 — Completed 17-04 (Auto-Split Decision Engine)
 
-Progress: [████████████████] 88% (62/71 plans across all phases)
+Progress: [████████████████] 89% (63/71 plans across all phases)
 
 ## File Categories Coverage
 
@@ -252,6 +252,17 @@ Progress: [████████████████] 88% (62/71 plans ac
 - 16-05: Feature showcase section created - Highlights unique GSI capabilities
 - 16-06: Final README assembled - Professional comprehensive documentation (477 lines)
 
+**From Phase 17-04 (Auto-Split Decision Engine - Layer 3):**
+- Auto-split decision engine implemented with model-aware sub-phase calculation
+- calculateSubPhaseCount: Math.ceil(score / split_threshold) capped at 5
+- splitPlan: Distributes tasks evenly across sub-phases
+- executeAutoSplit: Creates sub-phase plan files with proper naming (PART01, PART02, etc.)
+- Warning system with generateWarning: Returns null for safe scores, structured object for warnings
+- User response handler with handleUserResponse: Processes proceed/split/manual decisions
+- YOLO mode bypass: Console log marker for automatic splitting without confirmation
+- Unified index.js exports all Layer 1, 2, and 3 functions
+- Three warning options: Proceed (high risk), Split (low risk, recommended), Manual (medium risk)
+
 **From Phase 17-03 (Integrated Cognitive Orchestration - Layer 2):**
 - Three-phase cognitive flow implemented with iterative execution (not parallel)
 - Phase 1 (Structure): Tractatus thinking + Code-Index MCP for structural analysis
@@ -290,8 +301,8 @@ Progress: [████████████████] 88% (62/71 plans ac
 
 ## Session Continuity
 
-Last session: 2026-02-15 Completed 17-03 (Integrated Cognitive Orchestration)
-Stopped at: Three-phase cognitive flow complete, ready for workflow integration
+Last session: 2026-02-15 Completed 17-04 (Auto-Split Decision Engine)
+Stopped at: Layer 3 complete, auto-split and warning systems operational
 Resume file: None
 
 ## Project Status
@@ -300,8 +311,9 @@ Resume file: None
 **Plan 17-01**: Model Awareness System (Layer 1) ✅ COMPLETE
 **Plan 17-02**: PreToolUse Complexity Hook (Layer 2) ✅ COMPLETE
 **Plan 17-03**: Integrated Cognitive Orchestration (Layer 2) ✅ COMPLETE
-**Next Plan**: 17-04 - Planning Workflow Integration
+**Plan 17-04**: Auto-Split Decision Engine (Layer 3) ✅ COMPLETE
+**Next Plan**: 17-05 - Learning System
 
 **Remaining Work**:
-- Phase 17: 2 more plans (17-04, 17-05)
-- Focus: Workflow integration (planning + execution) + manual command + learning system
+- Phase 17: 1 more plan (17-05)
+- Focus: Learning system with auto-tuning thresholds
