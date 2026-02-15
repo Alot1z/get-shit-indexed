@@ -429,13 +429,41 @@ Resume file: None
 
 ## Project Status
 
-**Phase 20 Ready for Execution**: 7 plans created (49 tasks)
+**Phase 20 Ready for Execution**: 7 plans (49 tasks) - 5 COMPLETE, 2 remaining
 - 20-01: Hook Registration in Claude Settings (7 tasks) ✅
 - 20-02a: Thinking Mode Selector (6 tasks) ✅
 - 20-02b: Thinking Orchestrator (7 tasks) ✅
 - 20-03: PostToolUse Reflection System (7 tasks) ✅
 - 20-04a: Command Thinking Wrapper (6 tasks) ✅
-- 20-05: Workflow Thinking Phases (7 tasks) - READY
+- 20-05: Workflow Thinking Phases (7 tasks) ✅
+- 20-04b: (optional) Advanced Thinking Integration - NOT STARTED
+
+**Phase 20-05 Complete**: Workflow Thinking Phases
+**Date:** 2026-02-16
+**Summary:** Integrated thinking phases into all 4 existing GSI workflows with validator enforcement
+
+**Key Deliverables:**
+- Created templates/workflow-thinking.md (249 lines) with phase types and server guidelines
+- Updated workflows/plan-phase.md with Tractatus/Sequential/Debug thinking at all steps
+- Updated workflows/execute-plan.md with thinking phases and per-task reflection
+- Updated workflows/check-plan.md with structural analysis and validation thinking
+- Updated workflows/verify-phase.md with Debug thinking for issue detection
+- Created lib/workflow-thinking/validator.js (404 lines) with comprehensive checks
+- Added npm script: npm run validate:workflows
+
+**Thinking Phase Pattern:**
+- PRE_WORKFLOW: Tractatus (structure) or Sequential (process planning)
+- PRE_STEP: Server appropriate to step type
+- POST_STEP: Debug for learning capture
+- POST_WORKFLOW: Tractatus (structural insights) or Sequential (process review)
+
+**Validation:**
+- Server validity (tractatus/sequential/debug)
+- Timeout range (1000-10000ms recommended)
+- Phase balance (PRE + POST workflow)
+- Coverage (2+ phases recommended)
+
+**Note:** Tasks 4 and 6 referenced non-existent workflows (research-phase, map-codebase, check-health, yolo-mode, manage-todos). These should be created when needed.
 
 **Phase 21 Planned**: 1 plan (7 tasks) - GSD Update Integration
 - 21-01: GSD Update Monitoring System
@@ -444,7 +472,7 @@ Resume file: None
 - 22-01: Advanced Pattern Learning System
 
 **Remaining Work**:
-- Phase 20: 7 plans (49 tasks) - Thinking Integration Completion
+- Phase 20: 7 plans (49 tasks) - 5 complete, 1 optional remaining (Thinking Integration)
 - Phase 21: 1 plan (7 tasks) - GSD Update Integration
 - Phase 22: 1 plan (7 tasks) - Advanced Pattern Learning
-- Focus: Complete thinking infrastructure, then GSD updates, then pattern learning
+- Focus: Complete thinking infrastructure (optional 20-04b), then GSD updates, then pattern learning
