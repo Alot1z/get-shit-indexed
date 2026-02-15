@@ -20,16 +20,58 @@ Validate plan quality against 6 dimensions:
 - @references/plan-checker.md available
 - Plan frontmatter complete
 
+## Thinking Phase: Pre-Workflow
+
+<server>tractatus</server>
+<prompt>Analyze plan verification structure:
+1. What are the structural components of a valid plan?
+2. How do validation dimensions relate to each other?
+3. What are the critical dependencies in plan structure?
+4. What makes a plan structurally sound?</prompt>
+<expected_output>Understanding of plan structure and validation relationships</expected_output>
+<timeout>4000</timeout>
+<integration>Apply structural understanding to comprehensive plan validation</integration>
+
 ## Validation Steps
 
 ### Step 1: Load Plan
+
+#### Thinking Phase: Pre-Step - Load Plan
+
+<server>sequential</server>
+<prompt>Plan the validation approach:
+1. What information do we need from the plan?
+2. How do we organize validation checks?
+3. What validation order is most efficient?</prompt>
+<expected_output>Step-by-step validation approach</expected_output>
+<timeout>3000</timeout>
 
 Read plan file using DesktopCommander:
 ```
 File: .planning/phases/XX-name/{phase}-{plan}-PLAN.md
 ```
 
+#### Thinking Phase: Post-Step - Plan Loaded
+
+<server>debug</server>
+<prompt>Reflect on plan structure:
+1. Was the plan structure clear?
+2. What patterns in plan quality emerged?
+3. What should be remembered about this plan type?</prompt>
+<expected_output>Plan structure patterns stored for reference</expected_output>
+<timeout>2000</timeout>
+
 ### Step 2: Validate Frontmatter
+
+#### Thinking Phase: Pre-Step - Validate Frontmatter
+
+<server>tractatus</server>
+<prompt>Analyze frontmatter structure:
+1. What are the required frontmatter fields?
+2. How do frontmatter fields relate to plan structure?
+3. What makes frontmatter complete?</prompt>
+<expected_output>Understanding of frontmatter structure and completeness criteria</expected_output>
+<timeout>2000</timeout>
 
 Check all required fields present:
 - [ ] phase
@@ -74,9 +116,41 @@ For each task:
 
 ### Step 7: Verify Must-Haves Derivation
 
+#### Thinking Phase: Pre-Step - Verify Must-Haves
+
+<server>tractatus</server>
+<prompt>Analyze must-have derivation:
+1. What is the logical structure of must-haves?
+2. How do truths connect to artifacts?
+3. What makes key links testable?</prompt>
+<expected_output>Understanding of must-have structure and testability</expected_output>
+<timeout>3000</timeout>
+
 - Truths are user-observable
 - Artifacts are specific file paths
 - Key links have testable patterns
+
+#### Thinking Phase: Post-Step - Must-Haves Verified
+
+<server>debug</server>
+<prompt>Reflect on must-have verification:
+1. Were must-haves properly derived?
+2. What patterns in must-have quality emerged?
+3. What should be remembered for future plans?</prompt>
+<expected_output>Must-have quality patterns stored for learning</expected_output>
+<timeout>2000</timeout>
+
+## Thinking Phase: Post-Workflow - Validation Complete
+
+<server>debug</server>
+<prompt>Comprehensive validation reflection:
+1. What validation patterns emerged?
+2. What common issues were found?
+3. What validation improvements are needed?
+4. What should be remembered about plan quality?</prompt>
+<expected_output>Validation patterns and quality insights stored in debug-thinking graph</expected_output>
+<timeout>4000</timeout>
+<integration>Store validation learnings, improve validation workflow if needed</integration>
 
 ## Output Format
 
