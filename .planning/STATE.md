@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2025-02-11)
 ## Current Position
 
 Phase: 20 of 22 (Thinking Integration Completion)
-Plan: 1 of 7 (20-01 complete, 6 remaining)
-Status: IN_PROGRESS - 20-01 complete, 6 plans remaining in Phase 20
-Last activity: 2026-02-15 — Completed Phase 20-01 Hook Registration
+Plan: 2 of 7 (20-01, 20-02a complete, 5 remaining)
+Status: IN_PROGRESS - 20-01 and 20-02a complete, 5 plans remaining in Phase 20
+Last activity: 2026-02-15 — Completed Phase 20-02a Thinking Mode Selector
 
-Progress: [██████████████████░] 93% (81/90 plans across all phases)
+Progress: [██████████████████░] 94% (82/90 plans across all phases)
 
 ## File Categories Coverage
 
@@ -348,10 +348,26 @@ Progress: [██████████████████░] 93% (81/90
 - Pattern visualization with Mermaid diagrams
 - Metrics tracking for learning effectiveness
 
+**From Phase 20-02a (Thinking Mode Selector)**: 1 plan completed (6/6 tasks)
+- Tool categorization system created - All 50+ MCP tools grouped into 6 categories
+- Server mapping implemented - Categories mapped to thinking servers with fallback logic
+- Mode selection logic created - Intelligent selection based on file size, operation count, error state
+- Prompt templates created - Templates for Sequential, Tractatus, and Debug thinking servers
+- Unified selector API built - Single API with caching, metrics, and configuration overrides
+- Test suite complete - 28 test cases covering all tool types and context factors
+
+**Key Decisions from Phase 20-02a:**
+- File size thresholds: <10KB (lightweight), >1MB (comprehensive)
+- Operation count thresholds: 1 (lightweight), >10 (comprehensive)
+- Error state always triggers comprehensive mode with debug server
+- COMBINED mode for complex operations (Tractatus + Sequential)
+- Cache TTL: 1 minute for mode selection results
+- Configuration override support: forceMode, forceServer, disableThinking, timeoutMultiplier
+
 ## Session Continuity
 
-Last session: 2026-02-15 Completed Phase 20-22 planning (Extended Thinking Integration)
-Stopped at: Phases 20-22 plans created - Ready for execution
+Last session: 2026-02-15 Completed Phase 20-02a Thinking Mode Selector
+Stopped at: Phase 20-02a complete, ready for 20-02b (Thinking Orchestrator)
 Resume file: None
 
 **Critical Discovery**: Thinking servers are not actually being called during tool execution. The code exists but hooks are not registered in Claude settings. Phase 20 addresses this gap.
