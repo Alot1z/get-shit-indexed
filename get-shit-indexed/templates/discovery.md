@@ -50,8 +50,10 @@ Output: DISCOVERY.md with recommendation
 
 **Source Priority:**
 1. **Context7 MCP** - For library/framework documentation (current, authoritative)
-2. **Official Docs** - For platform-specific or non-indexed libraries
-3. **WebSearch** - For comparisons, trends, community patterns (verify all findings)
+2. **CodeGraphContext MCP** - For ecosystem analysis and relationship discovery
+3. **Official Docs** - For platform-specific or non-indexed libraries
+4. **Code-Index MCP** - For code search in target repositories
+5. **WebSearch** - For comparisons, trends, community patterns (verify all findings)
 
 **Quality Checklist:**
 Before completing discovery, verify:
@@ -61,6 +63,9 @@ Before completing discovery, verify:
 - [ ] WebSearch findings cross-checked with authoritative sources
 - [ ] Recent updates/changelogs checked for breaking changes
 - [ ] Alternative approaches considered (not just first solution found)
+- [ ] MCP tools used for batch operations when reading multiple files
+- [ ] CodeGraphContext used for understanding ecosystem relationships
+- [ ] Code-Index MCP used for code search in relevant repositories
 
 **Confidence Levels:**
 - HIGH: Context7 or official docs confirm
@@ -124,6 +129,7 @@ Create `.planning/phases/XX-name/DISCOVERY.md`:
 - Clear primary recommendation
 - Low-confidence findings marked with validation checkpoints
 - Ready to inform PLAN.md creation
+- MCP tool patterns documented for future use
 </success_criteria>
 
 <guidelines>
