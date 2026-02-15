@@ -141,46 +141,54 @@ process.stdin.on('end', () => {
           { 
             pattern: /\bcat\s+/i, 
             replacement: 'mcp__desktop-commander__read_file',
-            tip: 'For multiple files: use read_multiple_files'
+            tip: 'For multiple files: use read_multiple_files',
+            savings: '80-90%'
           },
           { 
             pattern: /\bls\s+/i, 
             replacement: 'mcp__desktop-commander__list_directory',
-            tip: 'Recursive listing supported with depth parameter'
+            tip: 'Recursive listing supported with depth parameter',
+            savings: '70%'
           },
           { 
             pattern: /\bgrep\s+/i, 
             replacement: 'mcp__code-index-mcp__search_code_advanced',
-            tip: 'For relationships: use CodeGraphContext tools'
+            tip: 'For relationships: use CodeGraphContext tools',
+            savings: '50-70%'
           },
           { 
             pattern: /\bfind\s+/i, 
             replacement: 'mcp__code-index-mcp__find_files',
-            tip: 'Uses indexed search for faster results'
+            tip: 'Uses indexed search for faster results',
+            savings: '50-70%'
           },
           { 
             pattern: /\bmkdir\s+/i, 
             replacement: 'mcp__desktop-commander__create_directory',
-            tip: 'Supports recursive creation'
+            tip: 'Supports recursive creation',
+            savings: '80%'
           },
           { 
             pattern: /\brm\s+/i, 
-            replacement: 'mcp__desktop-commander__* (appropriate file op)',
-            tip: 'Use desktop-commander for safe file operations'
+            replacement: 'mcp__desktop-commander__delete_file',
+            tip: 'Use desktop-commander for safe file operations',
+            savings: '80%'
           },
           { 
             pattern: /\bmv\s+/i, 
             replacement: 'mcp__desktop-commander__move_file',
-            tip: 'Atomic move/rename operation'
+            tip: 'Atomic move/rename operation',
+            savings: '80%'
           },
           { 
             pattern: /\bcp\s+/i, 
             replacement: 'mcp__desktop-commander__read_file + write_file',
-            tip: 'Use read + write for file copying'
+            tip: 'Use read + write for file copying',
+            savings: '80%'
           },
         ];
         
-        for (const { pattern, replacement, tip } of fileOpPatterns) {
+        for (const { pattern, replacement, tip, savings } of fileOpPatterns) {
           if (pattern.test(command)) {
             const response = {
               action: 'block',
@@ -188,7 +196,7 @@ process.stdin.on('end', () => {
                        `📋 Use MCP tool: ${replacement}\n` +
                        `💡 Tip: ${tip}\n\n` +
                        `Command: ${command}\n\n` +
-                       `💰 Token savings: 80-90% per MCP-TOKEN-BENCHMARK.md`
+                       `💰 Token savings: ${savings} per MCP-TOKEN-BENCHMARK.md`
             };
             console.log(JSON.stringify(response));
             process.exit(0);
