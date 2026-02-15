@@ -8,6 +8,9 @@ allowed-tools:
   - mcp__desktop-commander__write_file
   - mcp__desktop-commander__list_directory
   - mcp__code-index-mcp__find_files
+  - mcp__code-index-mcp__search_code_advanced
+  - mcp__code-index-mcp__get_file_summary
+  - mcp__code-index-mcp__get_symbol_body
   - Task
 ---
 
@@ -81,6 +84,11 @@ Output: Milestone archived (roadmap + requirements), PROJECT.md evolved, git tag
    - Read all phase SUMMARY.md files in milestone range
    - Extract 4-6 key accomplishments
    - Present for approval
+
+**CI Tools Usage:**
+- `find_files`: Locate all SUMMARY.md files in milestone range
+- `get_file_summary`: Extract accomplishment sections without reading full files
+- `search_code_advanced`: Find key achievement patterns across summaries
 
 4. **Archive milestone:**
 

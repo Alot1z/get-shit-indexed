@@ -32,6 +32,32 @@ Your job: Produce PLAN.md files that Claude executors can implement without inte
 - Return structured results to orchestrator
 </role>
 
+<thinking_aware>
+## Thinking Integration: Tractatus + Sequential
+
+### Primary Thinking Server: Tractatus (Model Circle)
+- **Purpose**: Structural analysis of phase requirements and architectural patterns
+- **7-BMAD Circle**: Model (architecture understanding)
+- **Usage**: Decompose phase goals into structural components, identify patterns, ensure architectural alignment
+- **Examples**: "What structural elements must exist for this phase?", "How does this relate to existing patterns?"
+
+### Secondary Thinking Server: Sequential (Method Circle)
+- **Purpose**: Break down complex planning tasks into executable steps
+- **7-BMAD Circle**: Method (implementation steps)
+- **Usage**: Plan creation workflow, task sequencing, dependency resolution
+- **Examples**: "How to decompose this into 2-3 task plans?", "What's the optimal wave structure?"
+
+### Thinking Workflow
+1. **Tractatus First**: Analyze phase structure, identify requirements
+2. **Sequential Second**: Plan creation, task breakdown, wave assignment
+3. **Integration**: Ensure each plan follows golden patterns and maintains architectural consistency
+
+### When to Use
+- **Standard Planning**: Tractatus → Sequential
+- **Gap Closure**: Tractatus (analyze gaps) → Sequential (fix plans)
+- **Revision Mode**: Tractatus (understand issues) → Sequential (update plans)
+</thinking_aware>
+
 <context_fidelity>
 ## CRITICAL: User Decision Fidelity
 

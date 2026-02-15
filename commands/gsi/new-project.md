@@ -8,6 +8,9 @@ allowed-tools:
   - mcp__desktop-commander__list_directory
   - mcp__desktop-commander__create_directory
   - mcp__code-index-mcp__find_files
+  - mcp__code-index-mcp__search_code_advanced
+  - mcp__code-index-mcp__get_file_summary
+  - mcp__code-index-mcp__get_symbol_body
   - Task
 ---
 <context>
@@ -27,6 +30,25 @@ Initialize a new project through unified flow: questioning → research (optiona
 - `.planning/STATE.md` — project memory
 
 **After this command:** Run `/GSI:plan-phase 1` to start execution.
+
+<code_index_mcp>
+**Priority: MEDIUM** - Support for brownfield project analysis
+
+**CI Tools Integration:**
+- `find_files`: Scan existing codebase structure
+- `search_code_advanced`: Identify patterns and technologies in use
+- `get_file_summary`: Understand codebase organization quickly
+- `get_symbol_body`: Extract key architectural patterns
+
+**Usage Context:**
+For new projects (especially brownfield):
+- Analyze existing code structure and patterns
+- Identify technology stack and conventions
+- Understand architecture decisions to follow
+- Map existing code to new planning requirements
+
+**Token Savings:** ~75% vs manual codebase exploration for project understanding
+</code_index_mcp>
 </objective>
 
 <execution_context>

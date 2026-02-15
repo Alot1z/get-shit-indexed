@@ -8,6 +8,9 @@ allowed-tools:
   - mcp__desktop-commander__list_directory
   - mcp__desktop-commander__create_directory
   - mcp__code-index-mcp__find_files
+  - mcp__code-index-mcp__search_code_advanced
+  - mcp__code-index-mcp__get_file_summary
+  - mcp__code-index-mcp__get_symbol_body
   - Task
 ---
 <objective>
@@ -23,6 +26,25 @@ Brownfield equivalent of new-project. Project exists, PROJECT.md has history. Ga
 - `.planning/STATE.md` — reset for new milestone
 
 **After:** `/GSI:plan-phase [N]` to start execution.
+
+<code_index_mcp>
+**Priority: HIGH** - Critical for milestone research and analysis
+
+**CI Tools Integration:**
+- `find_files`: Discover existing project documents and research
+- `search_code_advanced`: Analyze previous milestones for patterns
+- `get_file_summary`: Understand existing project structure quickly
+- `get_symbol_body`: Extract key patterns from previous work
+
+**Usage Context:**
+During new milestone creation:
+- Analyze previous milestones for continuity
+- Research domain patterns across codebase
+- Understand existing architecture and conventions
+- Identify areas that need research vs reuse
+
+**Token Savings:** ~80% vs manual document analysis for understanding existing work
+</code_index_mcp>
 </objective>
 
 <execution_context>
