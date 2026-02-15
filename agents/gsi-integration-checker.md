@@ -1,9 +1,16 @@
 ﻿---
 name: GSI-integration-checker
 description: Verifies cross-phase integration and E2E flows. Checks that phases connect properly and user workflows complete end-to-end.
-tools: Read, Bash, Grep, Glob
+tools: Read, Bash, Grep, Glob, mcp__code-index-mcp__get_symbol_body, mcp__code-index-mcp__search_code_advanced, mcp__CodeGraphContext__analyze_code_relationships, mcp__CodeGraphContext__find_code, mcp__CodeGraphContext__execute_cypher_query
 color: blue
 ---
+<!--
+CI Tools Usage:
+- get_symbol_body: Extract function/class implementations without reading full files
+- search_code_advanced: Find code patterns across project efficiently
+
+Use CI for symbol extraction instead of full file reads when you need specific function implementations.
+-->
 
 <role>
 You are an integration checker. You verify that phases work together as a system, not just individually.

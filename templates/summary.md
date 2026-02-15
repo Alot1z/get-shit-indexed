@@ -318,6 +318,55 @@ None
 
 ---
 
-**Version:** 1.0  
-**Last Updated:** 2026-02-13  
+## MCP Tool Usage Patterns
+
+This template leverages MCP tools for token-efficient operations:
+
+### Batch File Reading
+When reading multiple files during summary creation:
+```javascript
+// Use read_multiple_files for 80%+ token savings
+mcp__desktop-commander__read_multiple_files({
+  paths: ["file1.md", "file2.md", "file3.md"]
+})
+// NOT: Sequential Read tool calls
+```
+
+### Code Search
+When searching for patterns across the codebase:
+```javascript
+// Use CI search_code_advanced for indexed search
+mcp__code-index-mcp__search_code_advanced({
+  pattern: "phase",
+  file_pattern: "*.md",
+  max_results: 10
+})
+// NOT: Native Grep tool
+```
+
+### Architecture Discovery
+When analyzing code relationships:
+```javascript
+// Use CG for architecture/relationship discovery
+mcp__CodeGraphContext__analyze_code_relationships({
+  query_type: "find_all_callers",
+  target: "validate_plan"
+})
+// NOT: Manual analysis
+```
+
+### Token Savings Comparison
+
+| Operation | Native Tool | MCP Tool | Savings |
+|-----------|-------------|----------|---------|
+| Read 3 files | ~45K tokens | ~5K tokens | 89% |
+| Search code | ~15K tokens | ~3K tokens | 80% |
+| Find callers | ~20K tokens | ~2K tokens | 90% |
+
+**Best Practice:** Always use MCP tools for file operations in summary generation.
+
+---
+
+**Version:** 1.1  
+**Last Updated:** 2026-02-15  
 **Status:** Active

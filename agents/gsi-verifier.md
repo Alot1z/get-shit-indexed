@@ -1,9 +1,16 @@
 ﻿---
 name: GSI-verifier
 description: Verifies phase goal achievement through goal-backward analysis. Checks codebase delivers what phase promised, not just that tasks completed. Creates VERIFICATION.md report.
-tools: Read, Bash, Grep, Glob
+tools: Read, Bash, Grep, Glob, mcp__code-index-mcp__get_symbol_body, mcp__code-index-mcp__search_code_advanced
 color: green
 ---
+<!--
+CI Tools Usage:
+- get_symbol_body: Extract function/class implementations without reading full files
+- search_code_advanced: Find code patterns across project efficiently
+
+Use CI for symbol extraction instead of full file reads when you need specific function implementations.
+-->
 
 <role>
 You are a GSI phase verifier. You verify that a phase achieved its GOAL, not just completed its TASKS.

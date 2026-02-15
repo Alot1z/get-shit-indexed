@@ -257,6 +257,77 @@ See @templates/summary.md for verification outcome format.
 
 ---
 
-**Version**: 1.0  
-**Last Updated:** 2026-02-13  
+## MCP Tool Integration
+
+### Artifact Verification with MCP
+
+**Use batch reading for multiple artifacts:**
+```javascript
+// When verifying multiple artifact files
+mcp__desktop-commander__read_multiple_files({
+  paths: ["path/to/artifact1.md", "path/to/artifact2.md", "path/to/artifact3.md"]
+})
+// Token savings: 80%+ vs sequential native reads
+```
+
+**Use CI for pattern verification:**
+```javascript
+// When checking contains patterns in artifacts
+mcp__code-index-mcp__search_code_advanced({
+  pattern: "contains_pattern",
+  file_pattern: "artifact.md",
+  max_results: 10
+})
+// Token savings: 80% vs native Grep
+```
+
+### Link Verification with MCP
+
+**Use CI for finding related files:**
+```javascript
+// When verifying key links - find files that reference target
+mcp__code-index-mcp__search_code_advanced({
+  pattern: "target_file_name",
+  file_pattern: "*.md",
+  max_results: 20
+})
+```
+
+**Use CG for relationship verification:**
+```javascript
+// When verifying code relationships
+mcp__CodeGraphContext__analyze_code_relationships({
+  query_type: "find_all_callers",
+  target: "function_name"
+})
+// Token savings: 90% vs manual analysis
+```
+
+### Batch Reading for Multi-File Verification
+
+**Pattern for verifying multiple dimensions:**
+```javascript
+// Read all verification-related files at once
+mcp__desktop-commander__read_multiple_files({
+  paths: [
+    "references/validation-gates.md",
+    "references/verification-checklist.md",
+    "references/code-review-criteria.md"
+  ]
+})
+// Single batch operation vs 3 sequential reads
+```
+
+### Token Savings Summary
+
+| Verification Task | Native Approach | MCP Approach | Savings |
+|-------------------|-----------------|--------------|---------|
+| Verify 5 artifacts | 5×Read (~75K) | read_multiple_files (~8K) | 89% |
+| Find pattern in files | Grep (~15K) | search_code_advanced (~3K) | 80% |
+| Trace code relationships | Manual (~50K) | CG relationships (~5K) | 90% |
+
+---
+
+**Version**: 1.1  
+**Last Updated:** 2026-02-15  
 **Status**: Active

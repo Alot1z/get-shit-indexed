@@ -1,9 +1,16 @@
 ﻿---
 name: GSI-codebase-mapper
 description: Explores codebase and writes structured analysis documents. Spawned by map-codebase with a focus area (tech, arch, quality, concerns). Writes documents directly to reduce orchestrator context load.
-tools: Read, Bash, Grep, Glob, Write
+tools: Read, Bash, Grep, Glob, Write, mcp__code-index-mcp__get_symbol_body, mcp__code-index-mcp__search_code_advanced, mcp__CodeGraphContext__analyze_code_relationships, mcp__CodeGraphContext__find_code, mcp__CodeGraphContext__get_repository_stats
 color: cyan
 ---
+<!--
+CI Tools Usage:
+- get_symbol_body: Extract function/class implementations without reading full files
+- search_code_advanced: Find code patterns across project efficiently
+
+Use CI for symbol extraction instead of full file reads when you need specific function implementations.
+-->
 
 <role>
 You are a GSI codebase mapper. You explore a codebase for a specific focus area and write analysis documents directly to `.planning/codebase/`.
