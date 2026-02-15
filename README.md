@@ -298,6 +298,379 @@ OPENAI_API_KEY=your_openai_key
 ANTHROPIC_API_KEY=your_anthropic_key
 ```
 
+## Installation & Getting Started
+
+This guide covers installation, setup, and first steps with Get Shit Indexed (GSI).
+
+### Prerequisites
+
+Before installing GSI, ensure you have the following:
+
+- **Node.js** version 18 or higher
+  - Download from [nodejs.org](https://nodejs.org/)
+  - Verify: `node --version` (should show v18.x+)
+  
+- **npm or yarn**
+  - npm comes with Node.js
+  - Verify: `npm --version` or `yarn --version`
+  
+- **Neo4j Community Edition** (for CodeGraphContext)
+  - Download from [neo4j.com](https://neo4j.com/download/)
+  - Install and start Neo4j Desktop or Server
+  - Default connection: `neo4j://localhost:7687`
+  
+- **Git**
+  - Download from [git-scm.com](https://git-scm.com/)
+  - Verify: `git --version`
+  
+- **Claude Code CLI**
+  - Download from [Anthropic](https://www.anthropic.com/cli)
+  - Verify: `claude --version`
+
+### Quick Install
+
+Install GSI globally in one command:
+
+```bash
+# Install via npm
+npm install -g get-shit-indexed-cc
+
+# Or run directly from npx (recommended for testing)
+npx get-shit-indexed-cc --claude --global
+```
+
+**Non-interactive Install Options:**
+
+```bash
+# Claude Code runtime (most common)
+npx get-shit-indexed-cc --claude --global   # Install to ~/.claude/
+npx get-shit-indexed-cc --claude --local    # Install to ./.claude/
+
+# OpenCode runtime (open source, free models)
+npx get-shit-indexed-cc --opencode --global # Install to ~/.config/opencode/
+
+# Gemini CLI
+npx get-shit-indexed-cc --gemini --global   # Install to ~/.gemini/
+
+# All runtimes
+npx get-shit-indexed-cc --all --global      # Install to all directories
+```
+
+Use `--global` (`-g`) or `--local` (`-l`) to skip the location prompt.
+Use `--claude`, `--opencode`, `--gemini`, or `--all` to skip the runtime prompt.
+
+### MCP Server Setup
+
+GSI requires MCP servers for optimal functionality. Set up these 3 operational servers:
+
+#### 1. Desktop Commander MCP Server
+
+Handles all file and process operations.
+
+```bash
+# Install globally
+npm install -g @mcp-desktop-commander
+
+# Configure in Claude settings (add to .claude/settings.json)
+{
+  "mcpServers": {
+    "desktop-commander": {
+      "command": "mcp-desktop-commander",
+      "args": []
+    }
+  }
+}
+```
+
+#### 2. Code-Index MCP Server
+
+Provides fast code search and analysis.
+
+```bash
+# Install globally
+npm install -g @mcp-code-index
+
+# Configure in Claude settings
+{
+  "mcpServers": {
+    "code-index-mcp": {
+      "command": "mcp-code-index",
+      "args": ["--project-path", "/path/to/your/project"]
+    }
+  }
+}
+```
+
+#### 3. CodeGraphContext + Neo4j Server
+
+Enables relationship analysis and graph queries.
+
+```bash
+# Start Neo4j if not already running
+# Neo4j Desktop or neo4j console
+
+# Install CodeGraphContext MCP server
+npm install -g @mcp-codegraphcontext
+
+# Configure in Claude settings
+{
+  "mcpServers": {
+    "codegraphcontext": {
+      "command": "mcp-codegraphcontext",
+      "args": ["--uri", "neo4j://localhost:7687"]
+    }
+  }
+}
+```
+
+#### Verification Commands
+
+After setup, verify all servers are working:
+
+```bash
+# Test GSI installation
+/GSI:help
+
+# Verify MCP servers (should see DC, CI, CG in responses)
+/GSI:progress
+
+# Check MCP server status in Claude Code
+claude --list-mcp-servers
+```
+
+### Thinking Server Setup
+
+Optional but recommended for enhanced reasoning capabilities:
+
+#### 1. Sequential Thinking Server
+
+Multi-step problem decomposition.
+
+```json
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "sequential-thinking-server",
+      "args": []
+    }
+  }
+}
+```
+
+#### 2. Tractatus Thinking Server
+
+Logical structure analysis.
+
+```json
+{
+  "mcpServers": {
+    "tractatus-thinking": {
+      "command": "tractatus-thinking-server",
+      "args": []
+    }
+  }
+}
+```
+
+#### 3. Debug Thinking Server
+
+Graph-based problem-solving with persistence.
+
+```json
+{
+  "mcpServers": {
+    "debug-thinking": {
+      "command": "debug-thinking-server",
+      "args": []
+    }
+  }
+}
+```
+
+### First Project Walkthrough
+
+Once installed, start your first GSI project:
+
+#### 1. Create New Project
+
+```bash
+/GSI:new-project
+```
+
+Follow the prompts to describe your idea. GSI will:
+- Ask questions until it understands your vision
+- Research the domain (optional but recommended)
+- Extract requirements (v1, v2, out of scope)
+- Create a roadmap
+
+#### 2. For Existing Codebases
+
+If you already have code, analyze it first:
+
+```bash
+/GSI:map-codebase
+```
+
+This spawns parallel agents to analyze your stack, architecture, conventions, and concerns. Subsequent commands will understand your existing codebase.
+
+#### 3. Plan Your Implementation
+
+Discuss the phase first to capture your preferences:
+
+```bash
+/GSI:discuss-phase 1
+```
+
+This captures your vision before planning (layout, interactions, API design, etc.). The deeper you go here, the more GSI builds what you actually want.
+
+Then create the plan:
+
+```bash
+/GSI:plan-phase 1
+```
+
+GSI researches the domain and creates atomic task plans.
+
+#### 4. Execute the Plan
+
+Run all plans in parallel waves:
+
+```bash
+/GSI:execute-phase 1
+```
+
+Each task gets its own commit with clean git history.
+
+#### 5. Verify the Work
+
+Confirm it works as expected:
+
+```bash
+/GSI:verify-work 1
+```
+
+Walk through key features and report any issues. GSI automatically diagnoses failures and creates fix plans.
+
+### Configuration Options
+
+#### Model Profile Selection
+
+Choose your balance of quality and token efficiency:
+
+```bash
+/GSI:settings
+```
+
+| Profile | Planning | Execution | Verification | Best For |
+|---------|----------|-----------|--------------|----------|
+| `quality` | Opus | Opus | Sonnet | Maximum capability |
+| `balanced` (default) | Opus | Sonnet | Sonnet | General use |
+| `budget` | Sonnet | Sonnet | Haiku | Quick iterations |
+
+Switch profiles:
+```bash
+/GSI:set-profile budget
+```
+
+#### YOLO Mode Toggle
+
+Enable automatic approvals for faster workflows:
+
+```bash
+# Enable YOLO mode
+echo '{"mode": "yolo"}' > .planning/config.json
+
+# Disable (return to interactive)
+echo '{"mode": "interactive"}' > .planning/config.json
+```
+
+#### MCP Tool Preferences
+
+GSI automatically uses MCP tools when available. To see current configuration:
+
+```bash
+/GSI:settings
+```
+
+Look for MCP server status and tool priority settings.
+
+### Troubleshooting
+
+#### Common Installation Issues
+
+**Commands not found after install?**
+- Restart Claude Code to reload commands
+- Verify files exist in `~/.claude/commands/GSI/`
+- Re-run install: `npx get-shit-indexed-cc@latest`
+
+**Permission denied errors**
+- Use `--global` flag for system-wide installs
+- Check file permissions in installation directory
+- Try with `sudo` if needed on Linux/Mac
+
+#### MCP Server Connection Problems
+
+**Desktop Commander not working?**
+```bash
+# Check if MCP server is running
+claude --list-mcp-servers
+
+# Test file access manually
+/GSI:progress
+```
+
+**Code-Index MCP errors**
+- Ensure you're in a project directory
+- Run `/GSI:map-codebase` to initialize code index
+- Check project path configuration
+
+**Neo4j Connection Issues**
+```bash
+# Verify Neo4j is running
+neo4j console
+# Or check Neo4j Desktop
+
+# Test connection
+curl neo4j://localhost:7687
+```
+
+#### Neo4j Startup Issues
+
+1. **Neo4j won't start**
+   - Check port 7687 is available
+   - Verify Neo4j Desktop isn't already running
+   - Try `neo4j start` from command line
+
+2. **Authentication failed**
+   - Default credentials: neo4j/password
+   - Reset password: `neo4j-admin reset-password`
+
+3. **Out of memory**
+   - Increase Neo4j memory limits in conf
+   - Or use Neo4j Desktop for easier management
+
+#### Permission Issues
+
+**File access errors**
+```bash
+# Check Claude Code permissions
+claude --check-permissions
+
+# Add specific permissions if needed
+echo 'Read(/**)' >> .claude/settings.json
+```
+
+**Git commit errors**
+```bash
+# Check git configuration
+git config --global user.name
+git config --global user.email
+
+# Set if missing
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+```
+
 ## Quick Start
 
 ### 1. Initialize Your Project
