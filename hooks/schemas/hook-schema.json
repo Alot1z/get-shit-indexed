@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Claude Code Hook Registration Schema",
+  "description": "Schema for registering hooks in Claude Code settings.json",
+  "type": "object",
+  "properties": {
+    "hooks": {
+      "type": "object",
+      "properties": {
+        "preToolUse": {
+          "type": "array",
+          "description": "Hooks that execute before tool use",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pattern": {
+                "type": "string",
+                "description": "Regex pattern matching tool names to trigger this hook",
+                "examples": [
+                  ".*",
+                  "Task|execute-phase|execute-plan",
+                  "Read|Write|Edit",
+                  "mcp__desktop-commander__.*",
+                  "mcp__code-index-mcp__.*"
+                ]
+              },
+              "command": {
+                "type": "string",
+                "description": "Command to execute the hook script",
+                "examples": ["node", "python", "bash"]
+              },
+              "args": {
+                "type": "array",
+                "description": "Arguments to pass to the command",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "examples": [
+                  ["C:\\path\\to\\hook.js"],
+                  ["node", "C:\\path\\to\\hook.js", "--option"]
+                ]
+              },
+              "timeout": {
+                "type": "number",
+                "description": "Hook execution timeout in milliseconds (optional)",
+                "default": 5000,
+                "minimum": 1000,
+                "maximum": 30000
+              },
+              "enabled": {
+                "type": "boolean",
+                "description": "Whether this hook is enabled",
+                "default": true
+              }
+            },
+            "required": ["pattern", "command", "args"],
+            "additionalProperties": false
+          }
+        },
+        "postToolUse": {
+          "type": "array",
+          "description": "Hooks that execute after tool use",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pattern": {
+                "type": "string",
+                "description": "Regex pattern matching tool names to trigger this hook"
+              },
+              "command": {
+                "type": "string",
+                "description": "Command to execute the hook script"
+              },
+              "args": {
+                "type": "array",
+                "description": "Arguments to pass to the command"
+              },
+              "timeout": {
+                "type": "number",
+                "description": "Hook execution timeout in milliseconds",
+                "default": 5000
+              },
+              "enabled": {
+                "type": "boolean",
+                "description": "Whether this hook is enabled",
+                "default": true
+              }
+            },
+            "required": ["pattern", "command", "args"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["preToolUse", "postToolUse"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["hooks"],
+  "additionalProperties": false
+}
