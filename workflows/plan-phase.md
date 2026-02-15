@@ -91,6 +91,13 @@ Use template from `.planning/templates/plan-template.md`
 <step name="validate_plans">
 After writing PLAN.md files, run plan checker validation:
 
+**Method Circle (Sequential) Thinking for Validation:**
+1. **Step 1**: Understand validation requirements
+2. **Step 2**: Map requirements to validation criteria
+3. **Step 3**: Execute validation checks systematically
+4. **Step 4**: Analyze results for completeness
+5. **Step 5**: Document findings and recommendations
+
 **Checklist:**
 - [ ] Requirement coverage validated (each requirement mapped to task)
 - [ ] Task completeness validated (each task has files, action, verify, done)
