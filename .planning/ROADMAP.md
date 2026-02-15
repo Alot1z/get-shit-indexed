@@ -536,12 +536,38 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 
 **Plans**: 6 plans
 
-**Status**: Plans created
+**Status**: Complete ✓ (2026-02-15)
+
+**Completed**: 2026-02-15
 
 **Plans**:
-- [ ] 16-01: Fork attribution section (7 tasks)
-- [ ] 16-02: MCP tool comparison tables (7 tasks)
-- [ ] 16-03: Thinking server documentation (7 tasks)
-- [ ] 16-04: Installation and getting started (8 tasks)
-- [ ] 16-05: Feature showcase (8 tasks)
-- [ ] 16-06: Assemble final README (7 tasks)
+- [x] 16-01: Fork attribution section (7 tasks)
+- [x] 16-02: MCP tool comparison tables (7 tasks)
+- [x] 16-03: Thinking server documentation (7 tasks)
+- [x] 16-04: Installation and getting started (8 tasks)
+- [x] 16-05: Feature showcase (8 tasks)
+- [x] 16-06: Assemble final README (7 tasks)
+
+### Phase 17: Complexity Prediction System
+
+**Goal**: Intelligent complexity prediction that analyzes plans before execution and auto-recovers through sub-phase splitting
+
+**Depends on**: Phase 16 (README Transformation)
+
+**Success Criteria**:
+1. PreToolUse complexity hook runs before every execution
+2. Multi-layer prediction: hook + planning + execution + manual command
+3. Auto-split for high-complexity plans (score > 70)
+4. Learning captured in debug-thinking for pattern recognition
+5. Context limit failures reduced from 35% to <5%
+
+**Plans**: 5 plans (estimated)
+
+**Status**: Context gathered, ready for planning
+
+**Plans**:
+- [ ] 17-01: PreToolUse complexity hook with scoring (7 tasks)
+- [ ] 17-02: Planning workflow complexity integration (6 tasks)
+- [ ] 17-03: Execute-plan mid-flight adjustment (7 tasks)
+- [ ] 17-04: Learning system with debug-thinking (6 tasks)
+- [ ] 17-05: `/GSI:check-complexity` command (5 tasks)
