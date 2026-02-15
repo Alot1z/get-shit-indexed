@@ -65,6 +65,42 @@ Common types: Tech stack, Timeline, Budget, Dependencies, Compatibility, Perform
 
 ---
 *Last updated: [date] after [trigger]*
+
+## 7-BMAD Thinking Integration
+
+This project uses the 7-BMAD methodology integrated with thinking servers for quality assurance:
+
+### Mode Circle (Pattern Consistency) → Sequential Thinking
+**Purpose:** Ensure consistent patterns across the project
+**Sequential Pattern:**
+1. Identify existing patterns
+2. Document pattern rules
+3. Apply consistently
+4. Validate adherence
+5. Refactor deviations
+
+### Mod Circle (Maintainability) → Tractatus Thinking
+**Purpose:** Analyze and improve code structure
+**Tractatus Operations:**
+- `start`: Begin structural analysis
+- `add`: Refactor for maintainability
+- `analyze`: Verify improvements
+
+### Modd Circle (Extensibility) → Tractatus Thinking
+**Purpose:** Design future-proof architecture
+**Tractatus Focus:**
+- Identify extension points
+- Design pluggable components
+- Ensure backward compatibility
+
+### Methodd Circle (Documentation) → Sequential Thinking
+**Purpose:** Structure documentation creation
+**Sequential Process:**
+1. Understand audience needs
+2. Structure content logically
+3. Create drafts
+4. Review and refine
+5. Publish and maintain
 ```
 
 </template>
