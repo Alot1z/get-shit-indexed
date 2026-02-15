@@ -43,6 +43,25 @@ Phase number: $ARGUMENTS (required)
 4. Gather feedback and offer next steps
 </process>
 
+<code_index_mcp>
+**Priority: HIGH** - Core to phase understanding before planning
+
+**CI Tools Integration:**
+- `search_code_advanced`: Analyze existing patterns and approaches
+- `find_files`: Discover related phase work and examples
+- `get_file_summary`: Understand similar phase implementations
+- `get_symbol_body`: Extract key architectural patterns from related work
+
+**Usage Context:**
+When surfacing phase assumptions:
+- Analyze previous phases for technical patterns
+- Understand established approaches for similar work
+- Identify dependencies and integration points
+- Surface risks based on existing codebase complexity
+
+**Token Savings:** ~75% vs manual pattern analysis for assumption surfacing
+</code_index_mcp>
+
 <success_criteria>
 
 - Phase validated against roadmap
