@@ -594,14 +594,14 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 4. No broken references after rename
 5. Git history preserved
 
-**Plans**: 3 plans
+**Plans**: 3 plans in 3 waves
 
-**Status**: Context gathered, ready for planning
+**Status**: Plans created
 
 **Plans**:
-- [ ] 18-01: Rename gsd-* agents to gsi-* (6 tasks)
-- [ ] 18-02: Update command prefix documentation (6 tasks)
-- [ ] 18-03: Consolidate command directories (5 tasks)
+- [ ] 18-01: Rename gsd-* agents to gsi-* (6 tasks) - Wave 1
+- [ ] 18-02: Update command prefix documentation (6 tasks) - Wave 2
+- [ ] 18-03: Consolidate command directories (5 tasks) - Wave 3
 
 ### Phase 19: Prompt Enhancer
 
