@@ -7,6 +7,8 @@ allowed-tools:
   - mcp__desktop-commander__edit_block
   - mcp__desktop-commander__list_directory
   - mcp__code-index-mcp__search_code_advanced
+  - mcp__code-index-mcp__find_files
+  - mcp__code-index-mcp__get_file_summary
   - Task
 ---
 
@@ -36,3 +38,22 @@ The workflow handles all logic including:
 4. Git commit
 5. Confirmation with resume instructions
 </process>
+
+<code_index_mcp>
+**Priority: MEDIUM** - Support for state context gathering
+
+**CI Tools Integration:**
+- `search_code_advanced`: Find recent work patterns and context
+- `find_files`: Locate relevant planning and execution files
+- `get_file_summary`: Quickly understand phase progress and status
+- `get_symbol_body`: Extract key implementation details for context
+
+**Usage Context:**
+When pausing work:
+- Gather recent work patterns and progress
+- Understand current implementation state
+- Identify key files and context for resumption
+- Surface decision points and next steps clearly
+
+**Token Savings:** ~60% vs manual file exploration for state gathering
+</code_index_mcp>
