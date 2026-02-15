@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2025-02-11)
 
 ## Current Position
 
-Phase: 19 of 19 (Prompt Enhancer)
-Plan: 0 of 4 (All plans created, ready for execution)
-Status: PLANNED - 4 plans with 27 tasks ready
-Last activity: 2026-02-15 — Completed Phase 19 planning
+Phase: 20 of 22 (Thinking Integration Completion)
+Plan: 1 of 7 (20-01 complete, 6 remaining)
+Status: IN_PROGRESS - 20-01 complete, 6 plans remaining in Phase 20
+Last activity: 2026-02-15 — Completed Phase 20-01 Hook Registration
 
-Progress: [██████████████████] 100% (72/75 plans across all phases)
+Progress: [██████████████████░] 93% (81/90 plans across all phases)
 
 ## File Categories Coverage
 
@@ -318,20 +318,68 @@ Progress: [██████████████████] 100% (72/75 p
 - Pre-existing gsi-*.md files deleted before renaming to avoid conflicts
 - No gsd references remain in any agent file
 
+**From Phase 20 Planning (Thinking Integration Completion):**
+- **Critical Gap Discovered**: Thinking infrastructure from Phase 15/17 exists but is NOT being invoked during tool execution
+- hooks/hooks.json is configuration only, not actual hook registration
+- Claude settings.json requires explicit preToolUse/postToolUse hook registration
+- complexity-check.js only triggers on Task, execute-phase, execute-plan (not regular tools)
+- Thinking servers (sequential, tractatus, debug) are never called between tool calls
+- 7 plans created (expanded from 5 for granularity):
+  - 20-01: Hook registration in Claude settings
+  - 20-02a: Thinking Mode Selector (split)
+  - 20-02b: Thinking Orchestrator (split)
+  - 20-03: PostToolUse reflection capture
+  - 20-04a: Command Thinking Wrapper (split)
+  - 20-05: Workflow thinking phases
+
+**From Phase 21 Planning (GSD Update Integration):**
+- GSD Update Monitoring System planned
+- Version checking via npm registry
+- Change analysis and categorization (BUG_FIX, NEW_FEATURE, REFACTOR, GSD_SPECIFIC)
+- Integration suggestions generated automatically
+- CLI commands: gsi check-gsd-updates, integrate-gsd-change, gsd-update-history
+- Scheduled daily checks via hooks
+
+**From Phase 22 Planning (Advanced Pattern Learning):**
+- Pattern Recognition Engine to identify operation sequences
+- Pattern storage in .planning/patterns/ directory
+- Predictor for suggesting optimal approaches
+- Learning loop integrated with thinking system
+- Pattern visualization with Mermaid diagrams
+- Metrics tracking for learning effectiveness
+
 ## Session Continuity
 
-Last session: 2026-02-15 Completed 18-01 (Rename gsd-* Agents to gsi-*)
-Stopped at: Phase 18 Plan 1 complete - Plans 2-3 remaining
+Last session: 2026-02-15 Completed Phase 20-22 planning (Extended Thinking Integration)
+Stopped at: Phases 20-22 plans created - Ready for execution
 Resume file: None
+
+**Critical Discovery**: Thinking servers are not actually being called during tool execution. The code exists but hooks are not registered in Claude settings. Phase 20 addresses this gap.
+
+**Extended Planning**:
+- Phase 20 split into 7 granular plans (was 5)
+- Phase 21 added for GSD update integration
+- Phase 22 added for advanced pattern learning
 
 ## Project Status
 
-**Phase 18 In Progress**: 1 of 3 plans executed
-- 18-01: Rename gsd-* Agents to gsi-* ✅ COMPLETE
-- 18-02: (pending)
-- 18-03: (pending)
+**Phase 20 Ready for Execution**: 7 plans created (49 tasks)
+- 20-01: Hook Registration in Claude Settings (7 tasks)
+- 20-02a: Thinking Mode Selector (6 tasks) - SPLIT
+- 20-02b: Thinking Orchestrator (7 tasks) - SPLIT
+- 20-03: PostToolUse Reflection System (7 tasks)
+- 20-04a: Command Thinking Wrapper (6 tasks) - SPLIT
+- 20-05: Workflow Thinking Phases (7 tasks)
+- Plus 20-04 (original, may consolidate)
+
+**Phase 21 Planned**: 1 plan (7 tasks) - GSD Update Integration
+- 21-01: GSD Update Monitoring System
+
+**Phase 22 Planned**: 1 plan (7 tasks) - Advanced Pattern Learning
+- 22-01: Advanced Pattern Learning System
 
 **Remaining Work**:
-- Phase 18: 2 plans remaining
-- Next: 18-02 (command directory consolidation)
-- Focus: Standardize all GSI naming to lowercase gsi convention
+- Phase 20: 7 plans (49 tasks) - Thinking Integration Completion
+- Phase 21: 1 plan (7 tasks) - GSD Update Integration
+- Phase 22: 1 plan (7 tasks) - Advanced Pattern Learning
+- Focus: Complete thinking infrastructure, then GSD updates, then pattern learning
