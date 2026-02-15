@@ -9,6 +9,9 @@ allowed-tools:
   - mcp__desktop-commander__list_directory
   - mcp__desktop-commander__create_directory
   - mcp__code-index-mcp__search_code_advanced
+  - mcp__code-index-mcp__find_files
+  - mcp__code-index-mcp__get_file_summary
+  - mcp__code-index-mcp__get_symbol_body
   - Task
 ---
 
@@ -35,3 +38,22 @@ Arguments: $ARGUMENTS (format: <after-phase-number> <description>)
 Execute the insert-phase workflow from @~/.claude/get-shit-indexed/workflows/insert-phase.md end-to-end.
 Preserve all validation gates (argument parsing, phase verification, decimal calculation, roadmap updates).
 </process>
+
+<code_index_mcp>
+**Priority: MEDIUM** - Support for phase relationship analysis
+
+**CI Tools Integration:**
+- `search_code_advanced`: Find contextual relationships for inserted phase
+- `find_files`: Locate adjacent phase documents
+- `get_file_summary`: Understand neighboring phase content
+- `get_symbol_body`: Extract integration patterns from related work
+
+**Usage Context:**
+When inserting decimal phases:
+- Analyze relationships between existing phases
+- Understand integration points for the new phase
+- Identify dependencies and impact on existing work
+- Maintain consistency with phase naming and structure
+
+**Token Savings:** ~70% vs manual phase relationship analysis
+</code_index_mcp>
