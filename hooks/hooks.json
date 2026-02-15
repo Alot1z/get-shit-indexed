@@ -1,5 +1,38 @@
 {
   "preSession": ["start-cg-server.ps1"],
   "postSession": [],
+  "thinking": {
+    "enabled": true,
+    "toolMapping": {
+      "start_process": "standard",
+      "execute": "standard",
+      "interact_with_process": "standard",
+      "read_multiple_files": "lightweight",
+      "write_file": "standard",
+      "edit_block": "standard",
+      "search_code_advanced": "standard",
+      "build_deep_index": "comprehensive",
+      "query": "comprehensive",
+      "analyze_code_relationships": "comprehensive"
+    },
+    "modes": {
+      "lightweight": {
+        "description": "Quick thinking for simple operations",
+        "cycles": [1, 3],
+        "thinkingServers": ["sequential"]
+      },
+      "standard": {
+        "description": "Full thinking for normal operations",
+        "cycles": [1, 2, 3, 7],
+        "thinkingServers": ["tractatus", "sequential", "debug"]
+      },
+      "comprehensive": {
+        "description": "Deep thinking for complex operations",
+        "cycles": [1, 2, 3, 4, 5, 6, 7],
+        "thinkingServers": ["tractatus", "sequential", "debug"],
+        "ultrathink": true
+      }
+    }
+  },
   "_comment": "PreToolUse hooks are configured in .claude/settings.json or user settings"
 }
