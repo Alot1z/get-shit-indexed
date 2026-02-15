@@ -1,38 +1,56 @@
 # Phase 17: Complexity Prediction System - Context
 
 **Gathered:** 2026-02-15
-**Status:** Ready for planning
+**Status:** Ready for planning (enhanced with Integrated Cognitive Orchestration)
 
 <domain>
 ## Phase Boundary
 
-Create an intelligent complexity prediction system that analyzes plans before execution, predicts context limit issues, and automatically recovers through sub-phase splitting. This is a meta-cognitive layer for GSI that makes it self-aware of its own limitations.
+Create an intelligent complexity prediction system that uses Integrated Cognitive Orchestration - combining all 3 thinking servers (Tractatus, Sequential, Debug) with all 3 MCP servers (CI, CG, DC) in an iterative, learning-first flow. This revolutionizes how thinking servers work: instead of isolated thoughts, they interleave with MCP tools in a continuous cognitive loop.
 
 </domain>
 
 <decisions>
 ## Implementation Decisions
 
-### Multi-Layer Prediction Architecture
-- **PreToolUse Hook** - Primary prediction layer, runs before any tool execution
-- **During Planning** - Complexity assessment integrated into plan-phase workflow
-- **Execute-Plan Workflow** - Mid-flight adjustment capability when patterns detected
-- **Separate Pre-Flight Command** - `/GSI:check-complexity` for manual verification
-- All four layers work together for comprehensive coverage
+### Cognitive Flow Architecture (REVOLUTIONARY)
+- **NOT parallel flows** - Each step must feed the next (sequential dependency)
+- **Three-phase flow**: Structure → Process → Learning (iterative interleave)
+- **Learning-first**: Debug queries patterns BEFORE analysis begins
+- **Result feeding**: Each MCP tool output feeds next thinking server decision
+
+### Phase 1: Structure Analysis (Tractatus + CI)
+- Tractatus: Start analysis of plan structure and complexity factors
+- CI Integration: `get_file_summary`, `find_files` to count operations
+- Tractatus: Decompose into atomic complexity propositions
+- CI Integration: `search_code_advanced` for symbol references
+- Tractatus: Export structural analysis with file complexity weights
+
+### Phase 2: Process Assessment (Sequential + CG)
+- Sequential: Thought 1 - Identify what needs dependency analysis
+- CG Integration: `find_path` for cross-file dependencies
+- Sequential: Thought 2 - Calculate dependency impact weight
+- CG Integration: `query` for relationship complexity
+- Sequential: Thought 3 - Sum all complexity factors into score
+- Sequential: Final thought - Decision on split/warn/execute
+
+### Phase 3: Pattern Learning (Debug + DC)
+- Debug: Query similar past plans FIRST (learning-first approach)
+- DC Integration: `read_file` for complexity-thresholds.json
+- Debug: Create node for this assessment in knowledge graph
+- DC Integration: `write_file` for updated thresholds if pattern changes
+- Debug: Connect to similar patterns in graph for future predictions
+
+### Intelligent MCP Selection (NOT fallback)
+- **Research-based**: Best tool selected based on situation analysis
+- **Result-driven**: Tool selection adapts based on previous results
+- **No generic fallback**: Each phase has specific tools, not "all available"
+- **Flexible within phase**: Dynamic selection within defined boundaries
 
 ### Auto-Split Behavior
 - Plans with complexity score > 70: Auto-split into sub-phases
-- Plans with complexity score 40-70: Warn user, offer options:
-  - "Auto-split now" - Immediate split into sub-phases
-  - "Discuss first" - Launch discuss-phase for the split strategy
-  - "Proceed anyway" - Execute with monitoring (may fail)
-- Auto-discussion logic: If split involves architectural decisions, auto-trigger discuss-phase
-
-### Learning System Architecture
-- **Primary**: Capture patterns in `~/.debug-thinking-mcp/` for future predictions
-- **Secondary**: Update `complexity-thresholds.json` based on failure patterns
-- **Pattern Storage**: Local-only, no external hosting required
-- **Privacy**: All learning stays on user's machine (100% privacy safe)
+- Plans with complexity score 40-70: Warn user, offer options
+- Learning captured in debug-thinking for every decision
 
 ### Complexity Scoring Formula
 ```
@@ -54,58 +72,75 @@ Score = (
 
 ### Claude's Discretion
 - Exact scoring weights (tune based on empirical data)
-- How to present warnings to user (verbosity level)
-- Which patterns to prioritize for learning
-- Threshold adjustment algorithms
+- Which MCP tool to select for each situation
+- Threshold adjustment algorithms based on learning
+- How to present warnings to user
 
 </decisions>
 
 <specifics>
 ## Specific Ideas
 
-### PreToolUse Hook Flow
-```
-1. Intercept tool call
-2. Parse plan/task context
-3. Calculate complexity score
-4. If score > threshold:
-   - Block execution
-   - Log warning
-   - Offer auto-split options
-5. If score OK: Allow execution
-```
-
-### Execute-Plan Mid-Flight Adjustment
-```
-1. Monitor token usage during execution
-2. If approaching limit (80% of context):
-   - Pause execution
-   - Create checkpoint
-   - Suggest split or continue with smaller scope
-3. Resume with adjusted strategy
-```
-
-### Learning Pattern Format (debug-thinking)
+### Integrated Cognitive Flow (New Concept)
 ```javascript
-{
-  nodeType: "complexity_pattern",
-  content: "Plan X-Y with N files failed at Z% context",
-  metadata: {
-    fileCount: N,
-    symbolQueries: M,
-    score: S,
-    model: "haiku",
-    outcome: "failed" | "split" | "success"
-  }
+// NOT isolated: sequential-thinking → done
+// NEW: iterative interleave with result feeding
+
+async function complexityAssessment(plan) {
+  // Phase 1: Structure (Tractatus + CI)
+  const structure = await tractatus_thinking({operation: "start", concept: "Analyze plan structure"});
+  const fileFacts = await ci.get_file_summary(plan.files); // Feeds thinking
+  await tractatus_thinking({operation: "add", content: `Files: ${fileFacts.length}`});
+  const structuralAnalysis = await tractatus_thinking({operation: "export"});
+  
+  // Phase 2: Process (Sequential + CG)
+  const dependencies = await cg.find_path(plan.affectedFiles); // Feeds thinking
+  const process = await sequential_thinking({thought: `Dependencies: ${dependencies.length}`, ...});
+  const score = await sequential_thinking({thought: "Calculate score", ...});
+  
+  // Phase 3: Learning (Debug + DC)
+  const pastPatterns = await debug_thinking({action: "query", pattern: "complexity"}); // Learning-first
+  const thresholds = await dc.read_file("complexity-thresholds.json");
+  await debug_thinking({action: "create", content: `Score: ${score}`, metadata: {...}});
+  
+  return {score, action: decideAction(score)};
 }
 ```
 
-### Future Enhancement: Pattern Sharing (Optional)
-- Local-first design: No hosting required
-- If user wants to share: Export anonymized patterns
-- Community patterns could be imported as `.json` files
-- No PII ever leaves user's machine
-- NOT implementing now - just architecture consideration
+### Learning-First Approach
+```javascript
+// Query patterns BEFORE analysis, not after
+const similarPlans = await debug_thinking({
+  action: "query",
+  queryType: "similar-problems",
+  parameters: {pattern: "plan-complexity", limit: 5}
+});
+
+// Use historical data to inform current assessment
+if (similarPlans.length > 0) {
+  const avgScore = similarPlans.reduce((a, b) => a + b.score, 0) / similarPlans.length;
+  // Adjust thresholds based on history
+}
+```
+
+### Result Feeding Pattern
+```
+Tractatus analysis → produces structure propositions
+     ↓ feeds
+CI get_file_summary → produces file facts
+     ↓ feeds
+Sequential thinking → uses file facts in thoughts
+     ↓ feeds
+CG find_path → produces dependency graph
+     ↓ feeds
+Debug capture → stores enriched pattern with all data
+```
+
+### Multi-Layer Prediction Architecture
+- **PreToolUse Hook** - Primary prediction layer using full cognitive flow
+- **During Planning** - Complexity assessment integrated into plan-phase
+- **Execute-Plan Workflow** - Mid-flight adjustment with learning capture
+- **Separate Pre-Flight Command** - `/GSI:check-complexity` for manual verification
 
 </specifics>
 
@@ -114,8 +149,8 @@ Score = (
 
 - Cloud-based pattern database - Privacy concerns, hosting costs
 - Real-time model switching based on complexity - Requires API changes
-- Machine learning for threshold optimization - Overkill for current needs
-- Cross-user pattern aggregation - Privacy and hosting concerns
+- Parallel thinking flows - User confirmed sequential dependency needed
+- Generic "all tools available" fallback - User wants intelligent selection instead
 
 </deferred>
 
@@ -123,3 +158,4 @@ Score = (
 
 *Phase: 17-complexity-prediction*
 *Context gathered: 2026-02-15*
+*Enhanced: Integrated Cognitive Orchestration architecture*
