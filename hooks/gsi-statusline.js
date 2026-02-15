@@ -1,10 +1,20 @@
 #!/usr/bin/env node
 // Claude Code Statusline - GSI Edition
 // Shows: model | current task | directory | context usage
+// 
+// NOTE: This hook uses native Node.js because it runs BEFORE MCP tools are initialized.
+// MCP alternatives would require full agent environment and server connections.
 
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+
+// MCP ALTERNATIVES (for agents, not hooks):
+// - File reading: mcp__desktop-commander__read_multiple_files (90% token savings)
+//   Example: Read multiple todo files in one operation
+// - Directory listing: mcp__desktop-commander__list_directory
+//   Example: Get todos directory contents with metadata
+// - For batch processing: mcp__desktop-commander__read_multiple_files for cache files
 
 // Read JSON from stdin
 let input = '';
@@ -47,6 +57,14 @@ process.stdin.on('end', () => {
     let task = '';
     const homeDir = os.homedir();
     const todosDir = path.join(homeDir, '.claude', 'todos');
+    
+    // TOKEN EFFICIENCY NOTE:
+    // This hook uses multiple fs operations for todo file discovery and reading.
+    // As an agent, this could use:
+    // 1. mcp__desktop-commander__list_directory to get todosDir contents
+    // 2. mcp__desktop-commander__read_multiple_files to read all todo files
+    // 3. Estimated savings: 80-90% tokens for similar file operations
+    
     if (session && fs.existsSync(todosDir)) {
       try {
         const files = fs.readdirSync(todosDir)
