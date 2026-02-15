@@ -29,6 +29,15 @@
  *   websearch <query>                  Search web via Brave API (if configured)
  *     [--limit N] [--freshness day|week|month]
  *
+ * Reflection Operations:
+ *   reflection list                    Show recent reflections and stats
+ *     [--tool <name>] [--type <type>]
+ *   reflection patterns                Show extracted patterns
+ *     [--min-success N] [--min-freq N] [--type successful|anti]
+ *   reflection insights                Show generated insights
+ *     [--type <type>] [--impact <level>] [--limit N]
+ *   reflection graph                   Show debug-thinking graph stats
+ *
  * Phase Operations:
  *   phase next-decimal <phase>         Calculate next decimal phase number
  *   phase add <description>            Append new phase to roadmap + create dir
@@ -4209,6 +4218,138 @@ function cmdInitProgress(cwd, includes, raw) {
   output(result, raw);
 }
 
+// ─── Reflection Commands ───────────────────────────────────────────────────────
+
+function cmdReflectionList(cwd, options, raw) {
+  const ReflectionCapture = require('../lib/reflection/capture');
+  const DebugThinkingIntegration = require('../lib/reflection/debug-integration');
+
+  const capture = new ReflectionCapture();
+  const debugIntegration = new DebugThinkingIntegration();
+
+  // Get stats
+  const captureStats = capture.getStats();
+  const debugStats = debugIntegration.getStats();
+
+  const result = {
+    capture_stats: captureStats,
+    debug_stats: debugStats,
+    recent_reflections: capture.captureHistory.slice(-10).reverse()
+  };
+
+  if (raw) {
+    const lines = [
+      `Total reflections: ${debugStats.total}`,
+      `By type: ${Object.entries(debugStats.byType).map(([k, v]) => `${k}: ${v}`).join(', ')}`,
+      `Errors: ${debugStats.byType.ERROR || 0}`,
+      `Success rate: ${debugStats.total > 0 ? ((debugStats.total - (debugStats.byType.ERROR || 0)) / debugStats.total * 100).toFixed(1) : 0}%`
+    ];
+    process.stdout.write(lines.join('\n'));
+  } else {
+    output(result, raw);
+  }
+}
+
+function cmdReflectionPatterns(cwd, options, raw) {
+  const PatternExtractor = require('../lib/reflection/patterns');
+  const extractor = new PatternExtractor();
+
+  const { minSuccess, minFrequency, type } = options;
+
+  let patterns;
+  if (type === 'anti') {
+    patterns = extractor.getAntiPatterns(
+      minSuccess || 0.3,
+      minFrequency || 2
+    );
+  } else if (type === 'successful') {
+    patterns = extractor.getSuccessfulPatterns(
+      minSuccess || 0.7,
+      minFrequency || 2
+    );
+  } else {
+    patterns = extractor.patterns.slice(-20);
+  }
+
+  const result = {
+    total: patterns.length,
+    patterns: patterns.map(p => ({
+      name: p.name,
+      type: p.type,
+      frequency: p.frequency,
+      successRate: p.successRate.toFixed(2)
+    }))
+  };
+
+  if (raw) {
+    patterns.forEach(p => {
+      process.stdout.write(`${p.name} (${p.type}): freq=${p.frequency}, success=${(p.successRate * 100).toFixed(0)}%\n`);
+    });
+  } else {
+    output(result, raw);
+  }
+}
+
+function cmdReflectionInsights(cwd, options, raw) {
+  const InsightGenerator = require('../lib/reflection/insights');
+  const generator = new InsightGenerator();
+
+  const { type, impact, limit } = options;
+
+  let insights;
+  if (type) {
+    insights = generator.getInsightsByType(type.toUpperCase());
+  } else if (impact) {
+    insights = generator.getInsightsByImpact(impact);
+  } else {
+    insights = generator.getTopInsights(limit || 10);
+  }
+
+  const result = {
+    total: insights.length,
+    insights: insights.map(i => ({
+      title: i.title,
+      type: i.type,
+      impact: i.impact,
+      priority: i.priority,
+      applied: i.applied
+    }))
+  };
+
+  if (raw) {
+    insights.forEach(i => {
+      process.stdout.write(`[${i.impact.toUpperCase()}] ${i.title} (priority: ${i.priority})\n`);
+    });
+  } else {
+    output(result, raw);
+  }
+}
+
+function cmdReflectionGraph(cwd, options, raw) {
+  const DebugThinkingIntegration = require('../lib/reflection/debug-integration');
+  const integration = new DebugThinkingIntegration();
+
+  const stats = integration.getStats();
+
+  const result = {
+    total_observations: stats.total,
+    by_type: stats.byType,
+    by_tool: stats.byTool,
+    graph_path: path.join(process.env.USERPROFILE || process.env.HOME || '', '.debug-thinking-mcp', 'reflections')
+  };
+
+  if (raw) {
+    const lines = [
+      `Total observations: ${result.total_observations}`,
+      `By type: ${Object.entries(stats.byType).map(([k, v]) => `${k}: ${v}`).join(', ')}`,
+      `Graph path: ${result.graph_path}`
+    ];
+    process.stdout.write(lines.join('\n'));
+  } else {
+    output(result, raw);
+  }
+}
+
 // ─── CLI Router ───────────────────────────────────────────────────────────────
 
 async function main() {
@@ -4221,7 +4362,7 @@ async function main() {
   const cwd = process.cwd();
 
   if (!command) {
-    error('Usage: GSI-tools <command> [args] [--raw]\nCommands: state, resolve-model, find-phase, commit, verify-summary, verify, frontmatter, template, generate-slug, current-timestamp, list-todos, verify-path-exists, config-ensure-section, init');
+    error('Usage: GSI-tools <command> [args] [--raw]\nCommands: state, resolve-model, find-phase, commit, verify-summary, verify, frontmatter, template, generate-slug, current-timestamp, list-todos, verify-path-exists, config-ensure-section, reflection, init');
   }
 
   switch (command) {
@@ -4575,6 +4716,41 @@ async function main() {
       const fieldsIndex = args.indexOf('--fields');
       const fields = fieldsIndex !== -1 ? args[fieldsIndex + 1].split(',') : null;
       cmdSummaryExtract(cwd, summaryPath, fields, raw);
+      break;
+    }
+
+    case 'reflection': {
+      const subcommand = args[1];
+      if (subcommand === 'list') {
+        const toolIdx = args.indexOf('--tool');
+        const typeIdx = args.indexOf('--type');
+        cmdReflectionList(cwd, {
+          tool: toolIdx !== -1 ? args[toolIdx + 1] : null,
+          type: typeIdx !== -1 ? args[typeIdx + 1] : null
+        }, raw);
+      } else if (subcommand === 'patterns') {
+        const successIdx = args.indexOf('--min-success');
+        const freqIdx = args.indexOf('--min-freq');
+        const typeIdx = args.indexOf('--type');
+        cmdReflectionPatterns(cwd, {
+          minSuccess: successIdx !== -1 ? parseFloat(args[successIdx + 1]) : null,
+          minFrequency: freqIdx !== -1 ? parseInt(args[freqIdx + 1], 10) : null,
+          type: typeIdx !== -1 ? args[typeIdx + 1] : null
+        }, raw);
+      } else if (subcommand === 'insights') {
+        const typeIdx = args.indexOf('--type');
+        const impactIdx = args.indexOf('--impact');
+        const limitIdx = args.indexOf('--limit');
+        cmdReflectionInsights(cwd, {
+          type: typeIdx !== -1 ? args[typeIdx + 1] : null,
+          impact: impactIdx !== -1 ? args[impactIdx + 1] : null,
+          limit: limitIdx !== -1 ? parseInt(args[limitIdx + 1], 10) : 10
+        }, raw);
+      } else if (subcommand === 'graph') {
+        cmdReflectionGraph(cwd, {}, raw);
+      } else {
+        error('Unknown reflection subcommand. Available: list, patterns, insights, graph');
+      }
       break;
     }
 
