@@ -1,5 +1,5 @@
 ﻿---
-name: GSI:update
+name: gsi:update
 description: Update GSI to latest version with changelog display
 allowed-tools:
   - mcp__desktop-commander__read_file

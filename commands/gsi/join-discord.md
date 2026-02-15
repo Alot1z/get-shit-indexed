@@ -1,5 +1,5 @@
 ﻿---
-name: GSI:join-discord
+name: gsi:join-discord
 description: Join the GSI Discord community
 allowed-tools:
   - mcp__desktop-commander__read_file

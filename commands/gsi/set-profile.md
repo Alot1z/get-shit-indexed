@@ -7,7 +7,7 @@ color: cyan
 ## Usage
 
 ```bash
-/GSI:set-profile [quality|balanced|budget]
+/gsi:set-profile [quality|balanced|budget]
 ```
 
 ## Examples
@@ -15,7 +15,7 @@ color: cyan
 ### Switch to quality profile (maximum capability)
 
 ```bash
-/GSI:set-profile quality
+/gsi:set-profile quality
 ```
 
 Uses Opus for all agents (executor, planner, verifier).
@@ -24,7 +24,7 @@ Best for: Complex analysis, architectural decisions, critical tasks.
 ### Switch to balanced profile (recommended)
 
 ```bash
-/GSI:set-profile balanced
+/gsi:set-profile balanced
 ```
 
 Uses Sonnet for execution/planning, Opus for verification.
@@ -33,7 +33,7 @@ Best for: Standard workflows, most development tasks.
 ### Switch to budget profile (maximum speed)
 
 ```bash
-/GSI:set-profile budget
+/gsi:set-profile budget
 ```
 
 Uses Haiku for execution/verification, Sonnet for planning.
@@ -42,7 +42,7 @@ Best for: Quick iterations, experimental features, cost-sensitive operations.
 ### Check current profile status
 
 ```bash
-/GSI:set-profile
+/gsi:set-profile
 ```
 
 Displays current active profile without changing it.

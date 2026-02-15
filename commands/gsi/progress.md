@@ -1,5 +1,5 @@
 ﻿---
-name: GSI:progress
+name: gsi:progress
 description: Check project progress, show context, and route to next action (execute or plan)
 allowed-tools:
   - mcp__desktop-commander__read_file

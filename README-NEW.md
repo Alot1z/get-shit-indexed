@@ -149,7 +149,7 @@ The installer prompts you to choose:
 1. **Runtime** — Claude Code (recommended), OpenCode, or Gemini
 2. **Location** — Global (all projects) or local (current project only)
 
-Verify with `/GSI:help` inside Claude Code.
+Verify with `/gsi:help` inside Claude Code.
 
 ### Non-interactive Install
 
@@ -175,30 +175,30 @@ claude --dangerously-skip-permissions
 
 | Command | Description |
 |---------|-------------|
-| `/GSI:new-project` | Initialize: questions → research → requirements → roadmap |
-| `/GSI:plan-phase [N]` | Research + plan + verify for a phase |
-| `/GSI:execute-phase <N>` | Execute plans in parallel waves |
-| `/GSI:verify-work [N]` | Manual user acceptance testing |
-| `/GSI:complete-milestone` | Archive milestone, tag release |
+| `/gsi:new-project` | Initialize: questions → research → requirements → roadmap |
+| `/gsi:plan-phase [N]` | Research + plan + verify for a phase |
+| `/gsi:execute-phase <N>` | Execute plans in parallel waves |
+| `/gsi:verify-work [N]` | Manual user acceptance testing |
+| `/gsi:complete-milestone` | Archive milestone, tag release |
 
 ### Utilities
 
 | Command | Description |
 |---------|-------------|
-| `/GSI:map-codebase` | Analyze existing codebase before new-project |
-| `/GSI:progress` | Show current position and next steps |
-| `/GSI:quick` | Execute ad-hoc task with GSI guarantees |
-| `/GSI:debug` | Systematic debugging with persistent state |
-| `/GSI:settings` | Configure model profile and workflow agents |
+| `/gsi:map-codebase` | Analyze existing codebase before new-project |
+| `/gsi:progress` | Show current position and next steps |
+| `/gsi:quick` | Execute ad-hoc task with GSI guarantees |
+| `/gsi:debug` | Systematic debugging with persistent state |
+| `/gsi:settings` | Configure model profile and workflow agents |
 
 ### Phase Management
 
 | Command | Description |
 |---------|-------------|
-| `/GSI:add-phase` | Append phase to roadmap |
-| `/GSI:insert-phase [N]` | Insert urgent work between phases |
-| `/GSI:pause-work` | Create handoff when stopping mid-phase |
-| `/GSI:resume-work` | Restore from last session |
+| `/gsi:add-phase` | Append phase to roadmap |
+| `/gsi:insert-phase [N]` | Insert urgent work between phases |
+| `/gsi:pause-work` | Create handoff when stopping mid-phase |
+| `/gsi:resume-work` | Restore from last session |
 
 ---
 
@@ -207,7 +207,7 @@ claude --dangerously-skip-permissions
 ### 1. Initialize Project
 
 ```
-/GSI:new-project
+/gsi:new-project
 ```
 
 The system:
@@ -219,7 +219,7 @@ The system:
 ### 2. Plan Phase
 
 ```
-/GSI:plan-phase 1
+/gsi:plan-phase 1
 ```
 
 1. **Researches** — Investigates how to implement
@@ -229,7 +229,7 @@ The system:
 ### 3. Execute Phase
 
 ```
-/GSI:execute-phase 1
+/gsi:execute-phase 1
 ```
 
 1. **Runs plans in waves** — Parallel where possible
@@ -274,7 +274,7 @@ Model profiles for quality vs token balance:
 | `balanced` (default) | Opus | Sonnet | Sonnet |
 | `budget` | Sonnet | Sonnet | Haiku |
 
-Switch: `/GSI:set-profile budget`
+Switch: `/gsi:set-profile budget`
 
 ---
 

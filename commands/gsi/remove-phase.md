@@ -1,5 +1,5 @@
 ﻿---
-name: GSI:remove-phase
+name: gsi:remove-phase
 description: Remove a future phase from roadmap and renumber subsequent phases
 argument-hint: <phase-number>
 allowed-tools:

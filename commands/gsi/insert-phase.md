@@ -1,5 +1,5 @@
 ﻿---
-name: GSI:insert-phase
+name: gsi:insert-phase
 description: Insert urgent work as decimal phase (e.g., 72.1) between existing phases
 argument-hint: <after> <description>
 allowed-tools:

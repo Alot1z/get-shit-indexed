@@ -1,5 +1,5 @@
 ﻿---
-name: GSI:settings
+name: gsi:settings
 description: Configure GSI workflow toggles and model profile
 allowed-tools:
   - mcp__desktop-commander__read_file

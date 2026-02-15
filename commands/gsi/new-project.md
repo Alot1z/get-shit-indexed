@@ -1,5 +1,5 @@
 ﻿---
-name: GSI:new-project
+name: gsi:new-project
 description: Initialize a new project with deep context gathering and PROJECT.md
 argument-hint: "[--auto]"
 allowed-tools:
@@ -29,7 +29,7 @@ Initialize a new project through unified flow: questioning → research (optiona
 - `.planning/ROADMAP.md` — phase structure
 - `.planning/STATE.md` — project memory
 
-**After this command:** Run `/GSI:plan-phase 1` to start execution.
+**After this command:** Run `/gsi:plan-phase 1` to start execution.
 
 <code_index_mcp>
 **Priority: MEDIUM** - Support for brownfield project analysis
