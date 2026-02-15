@@ -19,6 +19,7 @@ class ReflectionCaptureHook {
   constructor() {
     this.config = {
       enabled: true,
+      useMCP: true,              // Use debug-thinking MCP server if available
       // Hook configuration will be loaded from hooks/hooks.json
     };
     
@@ -55,6 +56,27 @@ class ReflectionCaptureHook {
     
     // Debug thinking graph integration
     this.debugGraphPath = path.join(process.env.HOME, '.debug-thinking-mcp');
+    
+    // Initialize MCP client for debug-thinking server
+    this.debugClient = null;
+    if (this.config.useMCP) {
+      this.initializeDebugMCP();
+    }
+  }
+  
+  async initializeDebugMCP() {
+    try {
+      // Try to import the debug-thinking MCP server
+      const debugMCP = require('@debug-thinking/debug-thinking-mcp');
+      this.debugClient = new debugMCP.client();
+      
+      // Test connection
+      await this.debugClient.ping();
+      console.log('Debug-thinking MCP server connected successfully');
+    } catch (error) {
+      console.log('Debug-thinking MCP server not available, falling back to file storage');
+      this.debugClient = null;
+    }
   }
   
   async loadConfig() {
@@ -295,10 +317,7 @@ class ReflectionCaptureHook {
   
   async storeInDebugGraph(reflection) {
     try {
-      // Ensure debug-thinking directory exists
-      await fs.mkdir(this.debugGraphPath, { recursive: true });
-      
-      // Create learning node
+      // Create learning node structure
       const learningNode = {
         nodeType: 'learning',
         content: reflection.summary,
@@ -311,26 +330,73 @@ class ReflectionCaptureHook {
           recommendations: reflection.recommendations
         },
         parentId: reflection.context.parentId || null,
-        tags: ['reflection', reflection.reflectionType, reflection.toolType]
+        tags: ['reflection', reflection.reflectionType, reflection.toolType],
+        confidence: 0.8
       };
       
-      // Create debug-thinking node for persistence
+      // Use MCP server if available
+      if (this.debugClient) {
+        await this.storeWithMCP(learningNode);
+      } else {
+        await this.storeWithFile(learningNode, reflection.id);
+      }
+      
+    } catch (error) {
+      console.error('Failed to store reflection in debug graph:', error);
+    }
+  }
+  
+  async storeWithMCP(learningNode) {
+    try {
+      // Create debug-thinking node using MCP
+      const debugNode = {
+        nodeType: 'learning',
+        content: learningNode.content,
+        metadata: learningNode.metadata,
+        is_atomic: false,
+        confidence: learningNode.confidence,
+        tags: learningNode.tags
+      };
+      
+      // Store using debug-thinking MCP server
+      await this.debugClient.create({
+        nodeType: 'learning',
+        content: debugNode.content,
+        metadata: debugNode.metadata,
+        is_atomic: debugNode.is_atomic,
+        confidence: debugNode.confidence
+      });
+      
+      console.log(`Reflection stored in debug-thinking MCP graph: ${learningNode.metadata.id}`);
+      
+    } catch (error) {
+      console.error('MCP storage failed, falling back to file:', error);
+      await this.storeWithFile(learningNode, learningNode.metadata.id);
+    }
+  }
+  
+  async storeWithFile(learningNode, reflectionId) {
+    try {
+      // Ensure debug-thinking directory exists
+      await fs.mkdir(this.debugGraphPath, { recursive: true });
+      
+      // Create debug-thinking node for file persistence
       const debugNode = {
         action: 'create',
         nodeType: 'learning',
-        content: `Reflection: ${reflection.toolName} (${reflection.toolType})`,
+        content: `Reflection: ${learningNode.metadata.toolName} (${learningNode.metadata.toolType})`,
         metadata: {
-          id: reflection.id,
-          timestamp: reflection.timestamp,
-          toolType: reflection.toolType,
-          toolName: reflection.toolName,
-          reflectionType: reflection.reflectionType,
-          summary: reflection.summary,
-          insights: reflection.insights,
-          recommendations: reflection.recommendations
+          id: reflectionId,
+          timestamp: learningNode.metadata.timestamp,
+          toolType: learningNode.metadata.toolType,
+          toolName: learningNode.metadata.toolName,
+          reflectionType: learningNode.metadata.reflectionType,
+          summary: learningNode.content,
+          insights: learningNode.metadata.insights,
+          recommendations: learningNode.metadata.recommendations
         },
-        is_atomic: false,
-        confidence: 0.8
+        is_atomic: learningNode.is_atomic,
+        confidence: learningNode.confidence
       };
       
       // Write to debug-thinking storage
@@ -348,7 +414,50 @@ class ReflectionCaptureHook {
       await fs.writeFile(debugFilePath, JSON.stringify(reflections, null, 2));
       
     } catch (error) {
-      console.error('Failed to store reflection in debug graph:', error);
+      console.error('File storage failed:', error);
+      throw error;
+    }
+  }
+  
+  async createDebugLearningNode(reflection) {
+    try {
+      // Map to 7-BMAD circle
+      let bmadCircle = 'Methodd'; // Default to documentation/learning
+      
+      if (reflection.reflectionType === 'debugging') bmadCircle = 'Method';
+      if (reflection.reflectionType === 'optimization') bmadCircle = 'Mod';
+      if (reflection.reflectionType === 'caution') bmadCircle = 'Mode';
+      
+      // Create learning node with 7-BMAD integration
+      const node = {
+        nodeType: 'learning',
+        content: reflection.summary,
+        metadata: {
+          id: reflection.id,
+          timestamp: reflection.timestamp,
+          toolType: reflection.toolType,
+          toolName: reflection.toolName,
+          reflectionType: reflection.reflectionType,
+          bmadCircle: bmadCircle,
+          insights: reflection.insights,
+          recommendations: reflection.recommendations,
+          context: reflection.context
+        },
+        tags: [
+          'reflection', 
+          reflection.reflectionType, 
+          reflection.toolType,
+          '7-BMAD',
+          bmadCircle
+        ],
+        confidence: 0.8,
+        is_atomic: false
+      };
+      
+      return node;
+    } catch (error) {
+      console.error('Failed to create debug learning node:', error);
+      throw error;
     }
   }
   
