@@ -4580,7 +4580,7 @@ async function main() {
   const cwd = process.cwd();
 
   if (!command) {
-    error('Usage: GSI-tools <command> [args] [--raw]\nCommands: state, resolve-model, find-phase, commit, verify-summary, verify, frontmatter, template, generate-slug, current-timestamp, list-todos, verify-path-exists, config-ensure-section, reflection, init');
+    error('Usage: GSI-tools <command> [args] [--raw]\nCommands: state, resolve-model, find-phase, commit, verify-summary, verify, frontmatter, template, generate-slug, current-timestamp, list-todos, verify-path-exists, config-ensure-section, reflection, check-gsd-updates, integrate-gsd-change, gsd-update-history, init');
   }
 
   switch (command) {
