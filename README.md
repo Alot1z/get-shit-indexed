@@ -756,6 +756,23 @@ NEO4J_PASSWORD=your_password
 # API Keys (Optional)
 OPENAI_API_KEY=your_openai_key
 ANTHROPIC_API_KEY=your_anthropic_key
+
+# Model Configuration
+GSI_MODEL_PROFILE=quality
+GSI_MAX_TOKENS=200000
+GSI_TEMPERATURE=0.1
+
+# MCP Server Configuration
+DC_ENABLED=true
+CI_ENABLED=true
+CG_ENABLED=true
+THINKING_ENABLED=true
+
+# Execution Configuration
+YOLO_MODE=false
+PARALLEL_EXECUTION=true
+MAX_CONCURRENT_AGENTS=3
+WAVE_TIMEOUT_SECONDS=300
 ```
 
 ## Installation & Getting Started
