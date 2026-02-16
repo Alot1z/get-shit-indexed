@@ -386,7 +386,7 @@ BEST (Skill with DesktopCommander):
 - @references/code-review-criteria.md - Detailed code review criteria
 - @references/validation-gates.md - 7-BMAD quality gate specifications
 - @references/code-review-templates.md - Standardized output templates
-- @C:\Users\mose\.claude\rules\code-review.md - Code review integration rules
+- @~/.claude/get-shit-indexed/references/rules/code-review.md - Code review integration rules
 
 ---
 
