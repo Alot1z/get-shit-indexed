@@ -901,4 +901,116 @@ return "verification_failed"
 
 *Golden Pattern Documentation*
 *Created: 2026-02-11*
+*Updated: 2026-02-16*
 *Reference: MCP-Tool-Chain-Full-Analysis.md*
+
+---
+
+## Thinking Server Integration
+
+### When to Enhance Golden Pattern with Thinking
+
+The Golden Pattern is inherently complex. Add thinking servers when:
+
+- **Planning multi-step refactors** requiring coordination
+- **Analyzing impact** before executing changes
+- **Verifying completeness** after each step
+- **Learning from patterns** for future workflows
+
+### Recommended Thinking Flow
+
+**Before Golden Pattern (Planning):**
+```
+Sequential Thinking:
+Thought 1: "What is the scope of changes needed?"
+Thought 2: "Which files/components are affected?"
+Thought 3: "What is the optimal step order?"
+Thought 4: "What verification criteria define success?"
+```
+
+**During Golden Pattern (Analysis):**
+```
+Tractatus Thinking:
+Concept: "Analyze {component} architecture"
+Propositions:
+1. Component A depends on B and C
+2. Changes to B affect A, D, E
+3. All dependencies must be updated (multiplicative)
+4. Verification: All imports resolve correctly
+```
+
+**After Golden Pattern (Learning):**
+```
+Debug Thinking:
+Query: "Similar refactoring patterns"
+Create: Observation about successful pattern
+Create: Learning for future similar work
+```
+
+### Step-by-Step Thinking Enhancement
+
+| Golden Step | Thinking Server | Purpose |
+|-------------|-----------------|---------|
+| CG discover | Tractatus | Decompose relationship structure |
+| CI understand | Sequential | Plan analysis queries |
+| CI understand | - | Execute queries (no thinking needed) |
+| DC act | Sequential | Plan edit sequence |
+| DC verify | Sequential | Verify each change |
+| CI verify | Tractatus | Analyze completeness |
+
+### Token Impact with Thinking
+
+| Phase | Without Thinking | With Thinking | Notes |
+|-------|------------------|---------------|-------|
+| Planning | 0 (none) | ~2K (Sequential) | Better planning reduces rework |
+| Execution | ~33K | ~33K | No change - MCP tools same |
+| Learning | 0 (none) | ~1K (Debug) | Captures patterns for reuse |
+| **Total** | ~33K | ~36K | 9% increase, but 50% less rework |
+
+### Integration Pattern
+
+```
+1. Sequential Planning (2K tokens)
+   - Analyze scope
+   - Plan step sequence
+   - Define verification criteria
+   |
+   v
+2. Tractatus Structure Analysis (1K tokens)
+   - Decompose relationships
+   - Identify multiplicative factors
+   |
+   v
+3. Golden Pattern Execution (33K tokens)
+   - Follow planned sequence
+   - MCP tools execute
+   |
+   v
+4. Debug Learning Capture (1K tokens)
+   - Record successful pattern
+   - Query for similar past work
+```
+
+### Example: Add Auth with Thinking
+
+**Sequential Planning:**
+```
+Thought 1: "CG discover will find 2 route files needing updates"
+Thought 2: "CI understand must analyze middleware pattern first"
+Thought 3: "DC act will add import + middleware to each route"
+Thought 4: "CI verify confirms all routes protected"
+```
+
+**Tractatus Analysis:**
+```
+Concept: "Route protection architecture"
+Proposition 1: "All user routes need authenticate middleware"
+Proposition 2: "Middleware must be imported before use"
+Proposition 3: "Protection = import × middleware × verification"
+```
+
+**Debug Learning:**
+```
+Create learning: "Route protection pattern: import → use → verify"
+Connect: To similar auth patterns in debug graph
+```
