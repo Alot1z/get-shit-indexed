@@ -1,0 +1,15 @@
+{
+  "patterns": [],
+  "statistics": {
+    "totalEnhancements": 0,
+    "avgImprovement": 0,
+    "topPatterns": [],
+    "acceptanceRate": 0,
+    "editRate": 0,
+    "skipRate": 0
+  },
+  "version": "1.0.0",
+  "created": "2026-02-16",
+  "lastUpdated": "2026-02-16",
+  "description": "Enhancement pattern storage and statistics for prompt learning"
+}
