@@ -295,6 +295,74 @@ Need architecture analysis?
 
 ---
 
-**Version:** 1.1  
-**Last Updated:** 2026-02-15  
+## Thinking Phase Integration
+
+Plans can include thinking phase guidance for cognitive enhancement:
+
+```yaml
+---
+# ... standard frontmatter fields ...
+
+thinking:
+  required: true
+  phases:
+    PRE_PLANNING:
+      server: tractatus
+      prompt: "Analyze existing code structure and identify integration points"
+      timeout: 5000
+    DURING_PLANNING:
+      server: sequential
+      prompt: "Break down tasks into atomic steps with verification criteria"
+      timeout: 8000
+    POST_PLANNING:
+      server: debug
+      prompt: "Validate plan completeness and check for edge cases"
+      timeout: 5000
+---
+```
+
+### Thinking Phase Types
+
+| Phase | Server | Purpose |
+|-------|--------|---------|
+| `PRE_PLANNING` | Tractatus | Structural analysis before planning |
+| `DURING_PLANNING` | Sequential | Task breakdown during planning |
+| `POST_PLANNING` | Debug | Validation after planning |
+
+### Thinking Checkpoint Markers
+
+Add thinking checkpoints within task sections:
+
+```markdown
+### Task 1: Example Task
+
+<thinking_checkpoint phase="PRE_EXECUTION">
+Use Sequential thinking to:
+- List required operations
+- Identify dependencies
+- Plan verification steps
+</thinking_checkpoint>
+
+<!-- Task implementation here -->
+
+<thinking_checkpoint phase="POST_EXECUTION">
+Use Debug thinking to:
+- Verify task completion
+- Extract learnings
+- Document any deviations
+</thinking_checkpoint>
+```
+
+### Backward Compatibility
+
+Plans without thinking metadata continue to work normally. The thinking system uses graceful degradation:
+
+1. If no thinking section: Skip cognitive enhancement
+2. If thinking server unavailable: Mark as degraded, continue execution
+3. If thinking timeout: Use cached/default result
+
+---
+
+**Version:** 1.2  
+**Last Updated:** 2026-02-16  
 **Status:** Active
