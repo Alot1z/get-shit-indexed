@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000">
+  <defs>
+    <style>
+      .bg-white { fill: #ffffff; }
+      .cyan { fill: #7dcfff; }
+      .purple { fill: #bb9af7; }
+      .ring-red { fill: none; stroke: #f7768e; }
+      .ring-yellow { fill: none; stroke: #e0af68; }
+      .ring-green { fill: none; stroke: #9ece6a; }
+      .ring-purple { fill: none; stroke: #bb9af7; }
+      .outline { fill: none; stroke: #c0caf5; stroke-width: 8; }
+    </style>
+    
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- White background -->
+  <rect class="bg-white" width="2000" height="2000"/>
+  
+  <!-- Ring effects (horizontal ellipses) -->
+  <g transform="translate(1000, 1000)">
+    <!-- Outer ring - Red -->
+    <ellipse cx="0" cy="0" rx="600" ry="200" class="ring-red" stroke-width="12" opacity="0.5"/>
+    <!-- Second ring - Yellow -->
+    <ellipse cx="0" cy="0" rx="500" ry="165" class="ring-yellow" stroke-width="10" opacity="0.6"/>
+    <!-- Third ring - Green -->
+    <ellipse cx="0" cy="0" rx="400" ry="130" class="ring-green" stroke-width="8" opacity="0.7"/>
+    <!-- Inner ring - Purple -->
+    <ellipse cx="0" cy="0" rx="300" ry="100" class="ring-purple" stroke-width="6" opacity="0.8"/>
+  </g>
+  
+  <!-- GSI Letters -->
+  <g transform="translate(1000, 1000)" text-anchor="middle" dominant-baseline="middle">
+    <!-- G - Cyan -->
+    <g transform="translate(-320, 0)" filter="url(#glow)">
+      <text class="cyan" font-family="'SF Mono', 'Fira Code', monospace" font-size="400" font-weight="bold">G</text>
+      <text class="outline" font-family="'SF Mono', 'Fira Code', monospace" font-size="400" font-weight="bold">G</text>
+    </g>
+    
+    <!-- S - Cyan -->
+    <g transform="translate(0, 0)" filter="url(#glow)">
+      <text class="cyan" font-family="'SF Mono', 'Fira Code', monospace" font-size="400" font-weight="bold">S</text>
+      <text class="outline" font-family="'SF Mono', 'Fira Code', monospace" font-size="400" font-weight="bold">S</text>
+    </g>
+    
+    <!-- I - Purple (with extra glow) -->
+    <g transform="translate(320, 0)" filter="url(#glow)">
+      <text class="purple" font-family="'SF Mono', 'Fira Code', monospace" font-size="400" font-weight="bold">I</text>
+      <text class="outline" font-family="'SF Mono', 'Fira Code', monospace" font-size="400" font-weight="bold">I</text>
+    </g>
+  </g>
+  
+  <!-- Indexed dots spreading outward -->
+  <g opacity="0.6">
+    <circle cx="1700" cy="900" r="12" fill="#bb9af7"/>
+    <circle cx="1750" cy="1100" r="8" fill="#bb9af7"/>
+    <circle cx="1680" cy="1150" r="10" fill="#bb9af7"/>
+    <circle cx="300" cy="950" r="12" fill="#bb9af7"/>
+    <circle cx="250" cy="1050" r="8" fill="#bb9af7"/>
+    <circle cx="320" cy="1100" r="10" fill="#bb9af7"/>
+  </g>
+</svg>
