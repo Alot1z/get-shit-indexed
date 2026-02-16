@@ -7,7 +7,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [1.21.0] - 2026-02-16
 
 ### Changed
-- **README overhaul** — Simplified to match original GSD style, removed AI-slop (emojis, excessive Mermaid diagrams), focused on clarity
+- **README overhaul** — Simplified to match original GSD style, (emojis, excessive Mermaid diagrams), focused on clarity
 - **CodeGraphContext replaced** — All CG references replaced with code-index-mcp tools (search_code_advanced, get_symbol_body, get_file_summary)
 - Simplified to 2 MCP servers: Desktop Commander + Code-Index MCP only
 - Terminal image now at top of README like original GSD
