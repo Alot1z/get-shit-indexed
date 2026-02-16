@@ -246,3 +246,56 @@ When updating this template:
 - `docs/thinking/THINKING-SERVERS.md` - Thinking server API reference
 - `docs/thinking/7-BMAD-THINKING.md` - 7-BMAD methodology
 - `workflows/` - All workflow implementations using this template
+
+---
+
+## Template Metadata
+
+```yaml
+---
+template_type: workflow-thinking
+thinking_required: true
+thinking_servers:
+  - tractatus
+  - sequential
+  - debug
+thinking_phases:
+  - PRE_WORKFLOW
+  - PRE_STEP
+  - POST_STEP
+  - POST_WORKFLOW
+default_timeout: 3000
+complex_timeout: 5000
+deep_timeout: 8000
+version: 1.1
+last_updated: 2026-02-16
+---
+```
+
+### Registry Entry
+
+This template is registered in the template registry:
+
+```javascript
+// lib/template-registry.js
+templates['workflow-thinking.md'] = {
+  type: 'thinking',
+  thinking: {
+    required: true,
+    servers: ['tractatus', 'sequential', 'debug'],
+    phases: ['PRE_WORKFLOW', 'PRE_STEP', 'POST_STEP', 'POST_WORKFLOW'],
+    timeouts: {
+      quick: 2000,
+      standard: 3000,
+      complex: 5000,
+      deep: 8000
+    }
+  },
+  used_by: [
+    'workflows/plan-phase.md',
+    'workflows/execute-plan.md',
+    'workflows/check-plan.md',
+    'workflows/verify-phase.md'
+  ]
+};
+```
