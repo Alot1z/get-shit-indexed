@@ -1,0 +1,11 @@
+{
+  "patterns": [],
+  "statistics": {
+    "totalEnhancements": 0,
+    "avgImprovement": 0,
+    "topPatterns": []
+  },
+  "version": "1.0.0",
+  "created": "2026-02-16",
+  "description": "Learned patterns for prompt enhancement"
+}
