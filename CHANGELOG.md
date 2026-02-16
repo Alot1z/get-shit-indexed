@@ -22,13 +22,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Truncates long task names and directory names
 
 ### Fixed
-- Git author rewrite — all commits now show "Mose" as author instead of "Claude Opus 4.6"
 - Removed duplicate `get-shit-done/` directory (only `get-shit-indexed/` remains)
 - Logo files updated to exact terminal block ASCII style (no 3D effects, no rings on logos)
 - terminal.svg updated with diagonal "INDEX" text with ring effects
 
 ### Added
-- `rewrite-author.bat` — Windows batch file for git author rewrite
 - `gsi-logo-dark.svg` — Block ASCII GSI logo for dark backgrounds
 - `gsi-logo-white.svg` — Block ASCII GSI logo for light backgrounds
 - Tokyo Night color scheme: Cyan G/S (#7dcfff), Purple I (#bb9af7)
