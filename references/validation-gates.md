@@ -619,7 +619,7 @@ After Attempt 3: If still failing → Detailed report to user
 
 ## References
 
-- @C:\Users\mose\.claude\rules\auto-validation.md - Auto-validation system rules
+- @~/.claude/get-shit-indexed/references/rules/auto-validation.md - Auto-validation system rules
 - @references/code-review-criteria.md - Detailed code review criteria
 - @references/code-review-workflow.md - Code review workflow with skill integration
 - @references/validation-workflow.md - End-to-end validation workflow

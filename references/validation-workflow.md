@@ -477,7 +477,7 @@ Total validation: 5 minutes
 - @references/agent-completion-signal.md - Completion signal format
 - @references/code-review-criteria.md - Detailed code review criteria
 - @references/validation-config.md - Configuration options
-- @C:\Users\mose\.claude\rules\auto-validation.md - Auto-validation system rules
+- @~/.claude/get-shit-indexed/references/rules/auto-validation.md - Auto-validation system rules
 
 ---
 
