@@ -51,33 +51,50 @@
     <!-- Prompt line -->
     <text class="text prompt" font-size="15" y="0">~</text>
     <text class="text dim" font-size="15" x="16" y="0">$</text>
-    <text class="text command" font-size="15" x="36" y="0">npx get-shit-indexed</text>
+    <text class="text command" font-size="15" x="36" y="0">npx get-shit-indexed-cc@latest</text>
 
-    <!-- GSI ASCII Art Banner -->
-    <!-- G letter in cyan -->
-    <text class="text cyan" font-size="14" y="48" xml:space="preserve">   ██████╗ ███████╗██████╗</text>
-    <text class="text cyan" font-size="14" y="68" xml:space="preserve">  ██╔════╝ ██╔════╝██╔══██╗</text>
-    <text class="text cyan" font-size="14" y="88" xml:space="preserve">  ██║  ███╗███████╗██║  ██║</text>
-    <text class="text cyan" font-size="14" y="108" xml:space="preserve">  ██║   ██║╚════██║██║  ██║</text>
-    <text class="text cyan" font-size="14" y="128" xml:space="preserve">  ╚██████╔╝███████║██████╔╝</text>
-    <text class="text cyan" font-size="14" y="148" xml:space="preserve">   ╚═════╝ ╚══════╝╚═════╝</text>
+    <!-- GSI ASCII Art Banner - G and S in Cyan, I in Purple -->
+    <!-- G letter -->
+    <text class="text cyan" font-size="14" y="48" xml:space="preserve">   ██████╗ </text>
+    <text class="text cyan" font-size="14" y="68" xml:space="preserve">  ██╔════╝ </text>
+    <text class="text cyan" font-size="14" y="88" xml:space="preserve">  ██║  ███╗</text>
+    <text class="text cyan" font-size="14" y="108" xml:space="preserve">  ██║   ██║</text>
+    <text class="text cyan" font-size="14" y="128" xml:space="preserve">  ╚██████╔╝</text>
+    <text class="text cyan" font-size="14" y="148" xml:space="preserve">   ╚═════╝ </text>
+
+    <!-- S letter (offset to appear next to G) -->
+    <text class="text cyan" font-size="14" y="48" x="130" xml:space="preserve">███████╗</text>
+    <text class="text cyan" font-size="14" y="68" x="130" xml:space="preserve">██╔════╝</text>
+    <text class="text cyan" font-size="14" y="88" x="130" xml:space="preserve">███████╗</text>
+    <text class="text cyan" font-size="14" y="108" x="130" xml:space="preserve">╚════██║</text>
+    <text class="text cyan" font-size="14" y="128" x="130" xml:space="preserve">███████║</text>
+    <text class="text cyan" font-size="14" y="148" x="130" xml:space="preserve">╚══════╝</text>
+
+    <!-- I letter in Purple (offset further) -->
+    <text class="text purple" font-size="14" y="48" x="240" xml:space="preserve">██╗</text>
+    <text class="text purple" font-size="14" y="68" x="240" xml:space="preserve">██║</text>
+    <text class="text purple" font-size="14" y="88" x="240" xml:space="preserve">██║</text>
+    <text class="text purple" font-size="14" y="108" x="240" xml:space="preserve">██║</text>
+    <text class="text purple" font-size="14" y="128" x="240" xml:space="preserve">██║</text>
+    <text class="text purple" font-size="14" y="148" x="240" xml:space="preserve">╚═╝</text>
 
     <!-- Title and subtitle -->
-    <text class="text white" font-size="15" y="188">  Get Shit Indexed <tspan class="dim">v1.0.0</tspan></text>
-    <text class="text white" font-size="15" y="212">  A code indexing, graph analysis, and context</text>
-    <text class="text white" font-size="15" y="232">  engineering system for Claude Code.</text>
+    <text class="text white" font-size="15" y="188">  Get Shit Indexed <tspan class="dim">v1.20.0</tspan></text>
+    <text class="text white" font-size="15" y="212">  MCP tools, thinking servers, and 80-90%</text>
+    <text class="text white" font-size="15" y="232">  token savings for Claude Code.</text>
 
     <!-- Install output -->
-    <text class="text" font-size="15" y="280"><tspan class="green">  ✓</tspan><tspan class="white"> Indexed codebase</tspan></text>
-    <text class="text" font-size="15" y="304"><tspan class="green">  ✓</tspan><tspan class="white"> Built graph relationships</tspan></text>
+    <text class="text" font-size="15" y="280"><tspan class="green">  ✓</tspan><tspan class="white"> Installed 26 GSI commands</tspan></text>
+    <text class="text" font-size="15" y="304"><tspan class="green">  ✓</tspan><tspan class="white"> MCP tools ready (DC, CI, CG)</tspan></text>
+    <text class="text" font-size="15" y="328"><tspan class="green">  ✓</tspan><tspan class="white"> Thinking servers configured</tspan></text>
 
     <!-- Done message -->
-    <text class="text" font-size="15" y="352"><tspan class="green">  Indexed!</tspan><tspan class="white"> Run </tspan><tspan class="cyan">/gsi:search</tspan><tspan class="white"> to query.</tspan></text>
+    <text class="text" font-size="15" y="376"><tspan class="green">  Ready!</tspan><tspan class="white"> Run </tspan><tspan class="cyan">/gsi:help</tspan><tspan class="white"> to get started.</tspan></text>
 
     <!-- New prompt -->
-    <text class="text prompt" font-size="15" y="400">~</text>
-    <text class="text dim" font-size="15" x="16" y="400">$</text>
-    <text class="text white" font-size="15" x="36" y="400">▌</text>
+    <text class="text prompt" font-size="15" y="424">~</text>
+    <text class="text dim" font-size="15" x="16" y="424">$</text>
+    <text class="text white" font-size="15" x="36" y="424">▌</text>
   </g>
 
   <!-- I letter with ring effects (positioned in top-right area as overlay accent) -->
@@ -104,13 +121,5 @@
       <rect x="44" y="76" width="12" height="4" fill="#bb9af7"/>
       <rect x="48" y="24" width="4" height="52" fill="#bb9af7"/>
     </g>
-    
-    <!-- Subtle pulse animation for I -->
-    <animate 
-      xlink:href="#i-glow"
-      attributeName="opacity"
-      values="0.8;1;0.8"
-      dur="2s"
-      repeatCount="indefinite"/>
   </g>
 </svg>
