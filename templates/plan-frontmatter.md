@@ -270,7 +270,7 @@ When writing plans that involve file operations or code analysis, include MCP to
 mcp_guidance:
   file_operations: "Use mcp__desktop-commander__read_multiple_files for batch reads"
   code_search: "Use mcp__code-index-mcp__search_code_advanced for indexed search"
-  architecture: "Use mcp__CodeGraphContext__analyze_code_relationships for relationships"
+  symbol_extraction: "Use mcp__code-index-mcp__get_symbol_body for function/class extraction"
 ---
 ```
 
@@ -287,10 +287,10 @@ Need to search code?
 ├── File search? → mcp__code-index-mcp__find_files (70% savings)
 └── NOT: Native Grep/Glob tools
 
-Need architecture analysis?
-├── Relationships? → mcp__CodeGraphContext__analyze_code_relationships (90% savings)
-├── Call chain? → mcp__CodeGraphContext__analyze_code_relationships (query_type: "call_chain")
-└── NOT: Manual analysis
+Need symbol extraction?
+├── Function body? → mcp__code-index-mcp__get_symbol_body (85% savings)
+├── File summary? → mcp__code-index-mcp__get_file_summary (90% savings)
+└── NOT: Manual file reading
 ```
 
 ---

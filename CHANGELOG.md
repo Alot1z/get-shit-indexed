@@ -8,7 +8,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 - **README overhaul** — Simplified to match original GSD style, removed AI-slop (emojis, excessive Mermaid diagrams), focused on clarity
-- Removed CodeGraphContext from documentation — using only Desktop Commander + Code-Index MCP for simpler architecture
+- **CodeGraphContext replaced** — All CG references replaced with code-index-mcp tools (search_code_advanced, get_symbol_body, get_file_summary)
+- Simplified to 2 MCP servers: Desktop Commander + Code-Index MCP only
 - Terminal image now at top of README like original GSD
 - Command references updated to `npx get-shit-indexed-cc@latest`
 
@@ -25,7 +26,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Tokyo Night color scheme: Cyan G/S (#7dcfff), Purple I (#bb9af7)
 
 ### Removed
-- CodeGraphContext references from README (simplified to DC + CI only)
+- `hooks/start-cg-server.ps1` — No longer needed (CodeGraphContext removed)
 - Excessive Mermaid diagrams that bloated README
 - Duplicate `get-shit-done/` directory
 - Old GSD logo files (gsd-logo-2000*)

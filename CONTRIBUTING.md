@@ -167,11 +167,10 @@ get-shit-indexed/
 
 ## MCP Integration
 
-GSI integrates with three MCP servers:
+GSI integrates with two MCP servers:
 
 - **Desktop Commander (DC)**: File operations, process management
-- **Code Index MCP (CI)**: Code search, symbol navigation
-- **CodeGraphContext (CG)**: Code relationships, dependency analysis
+- **Code Index MCP (CI)**: Code search, symbol navigation, file summaries
 
 When contributing features that involve file operations or code analysis, consider using these MCP tools for optimal performance.
 

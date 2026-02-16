@@ -293,14 +293,14 @@ mcp__code-index-mcp__search_code_advanced({
 })
 ```
 
-**Use CG for relationship verification:**
+**Use CI for symbol verification:**
 ```javascript
-// When verifying code relationships
-mcp__CodeGraphContext__analyze_code_relationships({
-  query_type: "find_all_callers",
-  target: "function_name"
+// When verifying function implementations
+mcp__code-index-mcp__get_symbol_body({
+  file_path: "/path/to/file.ts",
+  symbol_name: "function_name"
 })
-// Token savings: 90% vs manual analysis
+// Token savings: 85% vs reading entire file
 ```
 
 ### Batch Reading for Multi-File Verification
@@ -324,7 +324,7 @@ mcp__desktop-commander__read_multiple_files({
 |-------------------|-----------------|--------------|---------|
 | Verify 5 artifacts | 5×Read (~75K) | read_multiple_files (~8K) | 89% |
 | Find pattern in files | Grep (~15K) | search_code_advanced (~3K) | 80% |
-| Trace code relationships | Manual (~50K) | CG relationships (~5K) | 90% |
+| Extract symbol | Read file (~20K) | get_symbol_body (~3K) | 85% |
 
 ---
 

@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-Analysis of tool usage patterns across GSI workflows to identify optimal chaining strategies and integrate CodeGraphContext MCP server capabilities.
+Analysis of tool usage patterns across GSI workflows to identify optimal chaining strategies using Desktop Commander and Code-Index MCP servers.
 
 ## Tool Priority Order (from tool-priority.md)
 
@@ -61,21 +61,20 @@ GOOD: toolA, toolB, toolC (3 different tools)
 
 **Analysis:** Reuse indicates optimal tool selection was achieved, or tool provides batching.
 
-## CodeGraphContext Integration Opportunities
+## Code-Index MCP Extended Capabilities
 
-### Available Tools (from user config)
+### Available Tools
 ```json
 {
   "tools": {
     "alwaysAllow": [
-      "add_code_to_graph",
-      "add_package_to_graph",
-      "check_job_status",
-      "find_code",
-      "analyze_code_relationships",
-      "execute_cypher_query",
-      "calculate_cyclomatic_complexity",
-      "find_most_complex_functions"
+      "search_code_advanced",
+      "find_files",
+      "get_file_summary",
+      "get_symbol_body",
+      "build_deep_index",
+      "refresh_index",
+      "set_project_path"
     ]
   }
 }
@@ -83,16 +82,16 @@ GOOD: toolA, toolB, toolC (3 different tools)
 
 ### Potential Workflows
 
-1. **Codebase Mapping** - Use `find_code` + `analyze_code_relationships` for architecture analysis
-2. **Complexity Analysis** - Use `calculate_cyclomatic_complexity` + `find_most_complex_functions`
-3. **Code Query** - Use `execute_cypher_query` for pattern-based code navigation
-4. **Relationship Discovery** - Use `analyze_code_relationships` to find hidden dependencies
+1. **Codebase Mapping** - Use `search_code_advanced` + `find_files` for architecture analysis
+2. **Symbol Analysis** - Use `get_symbol_body` + `get_file_summary` for code extraction
+3. **Pattern Discovery** - Use `search_code_advanced` with context_lines for code navigation
+4. **Index Management** - Use `build_deep_index` + `refresh_index` for project indexing
 
 ## Optimal Tool Flow Design
 
 ### Discovery → Analysis → Action
 ```
-find_code → analyze_code_relationships → execute_cypher_query
+search_code_advanced → get_symbol_body → write_file
 ```
 
 ### Batch → Process → Batch
@@ -100,13 +99,9 @@ find_code → analyze_code_relationships → execute_cypher_query
 Multiple files → read_multiple_files → process → write_multiple_files
 ```
 
-### Circular Thinking Pattern (3-server rotation)
+### Symbol-First Pattern
 ```
-iteration 1: tractatus-thinking (structural)
-iteration 2: sequential-thinking (step-by-step)
-iteration 3: debug-thinking (problem-solving)
-→ measure which combination best for each workflow type
-→ repeat to refine patterns
+get_file_summary → get_symbol_body → search_code_advanced (for related code)
 ```
 
 ## Key Findings
@@ -116,7 +111,7 @@ iteration 3: debug-thinking (problem-solving)
 1. **Batch Multiple Operations** - Use `read_multiple_files` instead of sequential `read_file`
 2. **Reuse Tool Results** - Cache and reuse outputs when possible
 3. **Minimize Tool Switching** - Stay within same tool category when possible
-4. **Use Specialized Tools** - CodeGraphContext has 11 specialized code analysis tools
+4. **Use Symbol Extraction** - `get_symbol_body` is 85% more efficient than reading entire files
 
 ### Workflow-Specific Recommendations
 
@@ -129,6 +124,8 @@ iteration 3: debug-thinking (problem-solving)
 
 ## Conclusion
 
-Current GSI workflows already demonstrate strong MCP tool compliance. The migration to MCP tools (DesktopCommander + Code-Index) achieving 80-90% token savings is complete and functional.
+Current GSI workflows demonstrate strong MCP tool compliance using Desktop Commander and Code-Index MCP servers, achieving 80-90% token savings over native tools.
 
-CodeGraphContext integration should complement existing tools by adding graph-based code analysis capabilities not currently available in GSI.
+The two-server architecture (DC + CI) provides comprehensive coverage:
+- **Desktop Commander**: All file and process operations
+- **Code-Index MCP**: Code search, symbol extraction, and file summaries

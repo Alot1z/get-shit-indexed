@@ -8,10 +8,10 @@ This document provides verification patterns using MCP tools for efficient and c
 
 | Tool | Purpose | Pattern |
 |------|---------|---------|
-| CodeGraphContext | Relationship analysis | CG analyze_code_relationships |
 | Code-Index MCP | Symbol extraction | CI get_symbol_body |
-| Desktop Commander | Batch file reading | DC read_multiple_files |
 | Code-Index MCP | Code search | CI search_code_advanced |
+| Desktop Commander | Batch file reading | DC read_multiple_files |
+| Code-Index MCP | File summaries | CI get_file_summary |
 
 ## Verification Patterns
 
@@ -46,27 +46,27 @@ const summaries = await Promise.all([
 
 **Token Savings:** 80-90% vs sequential file reads
 
-### Pattern 2: Relationship Verification
+### Pattern 2: Symbol Verification
 
-**Use Case:** Verify function calls, imports, and dependencies
-**MCP Tools:** CG analyze_code_relationships, CI search_code_advanced
+**Use Case:** Verify function implementations match expected behavior
+**MCP Tools:** CI get_symbol_body, CI get_file_summary
 
 ```javascript
-// Verify all callers of a function
-const callers = await mcp__CodeGraphContext__analyze_code_relationships({
-  query_type: "find_all_callers",
-  target: "function_name"
+// Extract function implementation for verification
+const implementation = await mcp__code-index-mcp__get_symbol_body({
+  file_path: "/path/to/file.ts",
+  symbol_name: "function_name"
 });
 
-// Verify function calls specific patterns
-const calls = await mcp__code-index-mcp__search_code_advanced({
+// Search for specific patterns in code
+const patterns = await mcp__code-index-mcp__search_code_advanced({
   pattern: "function_name",
   file_pattern: "*.ts",
   context_lines: 5
 });
 ```
 
-**Token Savings:** 90% vs manual analysis
+**Token Savings:** 85% vs reading entire file
 
 ### Pattern 3: Symbol Verification
 
@@ -91,7 +91,7 @@ const summary = await mcp__code-index-mcp__get_file_summary({
 ### Pattern 4: Code Pattern Verification
 
 **Use Case:** Verify specific code patterns are implemented correctly
-**MCP Tools:** CI search_code_advanced, CG find_code
+**MCP Tools:** CI search_code_advanced, CI get_file_summary
 
 ```javascript
 // Search for required patterns
@@ -102,9 +102,9 @@ const patterns = await mcp__code-index-mcp__search_code_advanced({
   context_lines: 10
 });
 
-// Find all instances of a pattern
-const instances = await mcp__CodeGraphContext__find_code({
-  query: "required_pattern"
+// Get file summary for quick analysis
+const summary = await mcp__code-index-mcp__get_file_summary({
+  file_path: "/path/to/file.ts"
 });
 ```
 
@@ -121,19 +121,18 @@ const instances = await mcp__CodeGraphContext__find_code({
    });
    ```
 
-2. **Analyze Relationships**
-   ```javascript
-   const relationships = await mcp__CodeGraphContext__analyze_code_relationships({
-     query_type: "find_all_callees",
-     target: "function_to_test"
-   });
-   ```
-
-3. **Extract Symbols**
+2. **Extract Symbols**
    ```javascript
    const symbols = await mcp__code-index-mcp__get_symbol_body({
      file_path: "/path/to/test/file.ts",
      symbol_name: "functionUnderTest"
+   });
+   ```
+
+3. **Get Summaries**
+   ```javascript
+   const summary = await mcp__code-index-mcp__get_file_summary({
+     file_path: "/path/to/file.ts"
    });
    ```
 
@@ -238,19 +237,17 @@ const files = await mcp__desktop-commander__read_multiple_files({
 });
 ```
 
-### Anti-Pattern 2: Manual Relationship Analysis
+### Anti-Pattern 2: Reading Entire File for Symbol Verification
 
 ```javascript
-// BAD: Manual search
-const grep_results = await mcp__code-index-mcp__search_code_advanced({
-  pattern: "function_name"
-});
-// Then manually analyze each result
+// BAD: Read entire file to find one symbol
+const file = await mcp__desktop-commander__read_file({ path: "file.ts" });
+// Then manually find function
 
-// GOOD: Direct CG query
-const relationships = await mcp__CodeGraphContext__analyze_code_relationships({
-  query_type: "find_all_callers",
-  target: "function_name"
+// GOOD: Extract symbol directly
+const symbol = await mcp__code-index-mcp__get_symbol_body({
+  file_path: "/path/to/file.ts",
+  symbol_name: "function_name"
 });
 ```
 
@@ -278,14 +275,13 @@ echo "Savings: 90%"
 # Check MCP servers
 mcp__desktop-commander__get_config({})
 mcp__code-index-mcp__get_settings_info({})
-mcp__CodeGraphContext__list_indexed_repositories({})
 ```
 
 ## Best Practices
 
 1. **Batch Operations**: Always use `read_multiple_files` for 2+ files
-2. **Relationship First**: Use CG before manual analysis
-3. **Symbol Extraction**: Use CI get_symbol_body instead of reading files
+2. **Symbol Extraction First**: Use CI get_symbol_body before reading entire files
+3. **Get Summaries**: Use CI get_file_summary for quick file analysis
 4. **Context Lines**: Use CI search_code_advanced with context_lines to avoid extra reads
 5. **Anti-Pattern Avoidance**: Never use native tools when MCP is available
 

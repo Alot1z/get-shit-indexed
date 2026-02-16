@@ -344,15 +344,15 @@ mcp__code-index-mcp__search_code_advanced({
 // NOT: Native Grep tool
 ```
 
-### Architecture Discovery
-When analyzing code relationships:
+### Symbol Extraction
+When extracting function/class implementations:
 ```javascript
-// Use CG for architecture/relationship discovery
-mcp__CodeGraphContext__analyze_code_relationships({
-  query_type: "find_all_callers",
-  target: "validate_plan"
+// Use CI for symbol extraction
+mcp__code-index-mcp__get_symbol_body({
+  file_path: "/path/to/file.ts",
+  symbol_name: "validate_plan"
 })
-// NOT: Manual analysis
+// NOT: Reading entire file
 ```
 
 ### Token Savings Comparison
@@ -361,7 +361,7 @@ mcp__CodeGraphContext__analyze_code_relationships({
 |-----------|-------------|----------|---------|
 | Read 3 files | ~45K tokens | ~5K tokens | 89% |
 | Search code | ~15K tokens | ~3K tokens | 80% |
-| Find callers | ~20K tokens | ~2K tokens | 90% |
+| Extract symbol | ~20K tokens | ~3K tokens | 85% |
 
 **Best Practice:** Always use MCP tools for file operations in summary generation.
 

@@ -9,8 +9,7 @@ This document provides a complete reference for MCP tools used in GSI workflows,
 | Server | Prefix | Purpose | Token Savings |
 |--------|--------|---------|---------------|
 | Desktop Commander | `mcp__desktop-commander__` | File/process operations | 50-90% |
-| Code-Index MCP | `mcp__code-index-mcp__` | Code search/navigation | 70-80% |
-| CodeGraphContext | `mcp__CodeGraphContext__` | Architecture/relationships | 85-95% |
+| Code-Index MCP | `mcp__code-index-mcp__` | Code search/navigation | 70-90% |
 
 ---
 
@@ -193,98 +192,57 @@ mcp__code-index-mcp__refresh_index({})
 
 ---
 
-## CodeGraphContext (CG)
+## Symbol Extraction (Code-Index MCP Extended)
 
-### Relationship Analysis
+### Advanced Symbol Operations
 
-#### analyze_code_relationships
-Analyze code relationships (callers, callees, hierarchy).
+#### get_symbol_body
+Extract specific function/class implementation.
 ```javascript
-mcp__CodeGraphContext__analyze_code_relationships({
-  query_type: "find_all_callers", // find_callees, class_hierarchy, etc.
-  target: "function_name",
-  context: "/optional/file/path"
+mcp__code-index-mcp__get_symbol_body({
+  file_path: "/absolute/path/to/file.ts",
+  symbol_name: "functionName"
 })
 ```
-**Token Savings:** 90% vs manual analysis
+**Token Savings:** 85% vs reading entire file
 
-**Query Types:**
-- `find_callers` - Direct callers of function
-- `find_callees` - Direct callees of function
-- `find_all_callers` - Transitive callers
-- `find_all_callees` - Transitive callees
-- `find_importers` - Files importing module
-- `class_hierarchy` - Class inheritance tree
-- `overrides` - Method overrides
-- `dead_code` - Unused functions
-- `call_chain` - Path between functions
-- `module_deps` - Module dependencies
-
-#### find_code
-Find code snippets by keyword.
+#### get_file_summary
+Get file overview with complexity metrics.
 ```javascript
-mcp__CodeGraphContext__find_code({
-  query: "authentication"
+mcp__code-index-mcp__get_file_summary({
+  file_path: "/absolute/path/to/file.ts"
 })
 ```
+**Token Savings:** 90% vs reading entire file
 
-#### find_most_complex_functions
-Find highest complexity functions.
+**Returns:** Line count, function definitions, import statements, complexity metrics
+
+### Index Management
+
+#### build_deep_index
+Build complete symbol index for project.
 ```javascript
-mcp__CodeGraphContext__find_most_complex_functions({
-  limit: 10
-})
+mcp__code-index-mcp__build_deep_index({})
 ```
 
-#### find_dead_code
-Find potentially unused functions.
+#### set_project_path
+Set base project path for indexing.
 ```javascript
-mcp__CodeGraphContext__find_dead_code({
-  exclude_decorated_with: ["@app.route"]
+mcp__code-index-mcp__set_project_path({
+  path: "/absolute/project/path"
 })
 ```
 
-### Graph Operations
-
-#### execute_cypher_query
-Run custom Cypher query.
+#### refresh_index
+Refresh file index after changes.
 ```javascript
-mcp__CodeGraphContext__execute_cypher_query({
-  cypher_query: "MATCH (f:Function) RETURN f.name LIMIT 10"
-})
+mcp__code-index-mcp__refresh_index({})
 ```
 
-#### visualize_graph_query
-Generate visualization URL for query.
+#### get_settings_info
+Get current index settings and project info.
 ```javascript
-mcp__CodeGraphContext__visualize_graph_query({
-  cypher_query: "MATCH (f:Function)-[:CALLS]->(g:Function) RETURN f, g LIMIT 20"
-})
-```
-
-### Repository Management
-
-#### add_code_to_graph
-Index repository into graph.
-```javascript
-mcp__CodeGraphContext__add_code_to_graph({
-  path: "/absolute/repo/path",
-  is_dependency: false
-})
-```
-
-#### list_indexed_repositories
-List all indexed repositories.
-```javascript
-mcp__CodeGraphContext__list_indexed_repositories({})
-```
-
-#### get_repository_stats
-Get statistics for repository.
-```javascript
-mcp__CodeGraphContext__get_repository_stats({
-  repo_path: "/absolute/repo/path"
-})
+mcp__code-index-mcp__get_settings_info({})
 ```
 
 ---
@@ -307,14 +265,13 @@ What operation do you need?
 ├── Search code?
 │   ├── Pattern in files? → mcp__code-index-mcp__search_code_advanced (80% savings)
 │   ├── Find files by name? → mcp__code-index-mcp__find_files (70% savings)
-│   ├── Find keyword? → mcp__CodeGraphContext__find_code (85% savings)
+│   ├── Get symbol only? → mcp__code-index-mcp__get_symbol_body (85% savings)
 │   └── NOT: Native Grep/Glob tools
 │
-├── Analyze relationships?
-│   ├── Call chain? → mcp__CodeGraphContext__analyze_code_relationships (90% savings)
-│   ├── Class hierarchy? → mcp__CodeGraphContext__analyze_code_relationships
-│   ├── Dependencies? → mcp__CodeGraphContext__analyze_code_relationships
-│   └── NOT: Manual analysis
+├── Analyze file structure?
+│   ├── Get summary? → mcp__code-index-mcp__get_file_summary (90% savings)
+│   ├── Extract symbol? → mcp__code-index-mcp__get_symbol_body (85% savings)
+│   └── NOT: Reading entire file
 │
 ├── Run commands?
 │   ├── Start process? → mcp__desktop-commander__start_process
@@ -337,8 +294,8 @@ What operation do you need?
 | Read 10 files | ~150,000 | ~15,000 | 90% |
 | Search code pattern | ~15,000 | ~3,000 | 80% |
 | Find file by name | ~10,000 | ~3,000 | 70% |
-| Analyze call chain | ~50,000 | ~5,000 | 90% |
 | Get symbol body | ~20,000 | ~3,000 | 85% |
+| Get file summary | ~20,000 | ~2,000 | 90% |
 | Edit file block | ~15,000 | ~5,000 | 67% |
 | List directory | ~8,000 | ~2,500 | 69% |
 
@@ -361,17 +318,16 @@ mcp__desktop-commander__read_multiple_files({
 })
 ```
 
-### Pattern 2: Finding Function Callers
+### Pattern 2: Extracting Function Implementation
 ```javascript
-// Before: Manual search (50K tokens)
-Grep: "function_name"
-Read: each file found
-Analyze: manually
+// Before: Read entire file (20K tokens)
+Read: file.ts
+// Then manually find function
 
-// After: CG relationship query (5K tokens)
-mcp__CodeGraphContext__analyze_code_relationships({
-  query_type: "find_all_callers",
-  target: "function_name"
+// After: CI symbol extraction (3K tokens)
+mcp__code-index-mcp__get_symbol_body({
+  file_path: "/path/to/file.ts",
+  symbol_name: "functionName"
 })
 ```
 
@@ -419,18 +375,16 @@ mcp__desktop-commander__read_file({ path: "/path/to/file.md" })
 // Overhead: ~5K tokens
 ```
 
-### Anti-Pattern 3: Manual Analysis
+### Anti-Pattern 3: Manual File Reading for Symbol Extraction
 ```javascript
-// BAD: Read all files, analyze manually
-Read: file1.ts
-Read: file2.ts
-Read: file3.ts
-// Then manually trace call chain
+// BAD: Read entire file to find one function
+Read: { file_path: "/path/to/file.ts" }
+// Then manually find function
 
-// GOOD: Use CG for analysis
-mcp__CodeGraphContext__analyze_code_relationships({
-  query_type: "call_chain",
-  target: "start_function"
+// GOOD: Extract symbol directly
+mcp__code-index-mcp__get_symbol_body({
+  file_path: "/path/to/file.ts",
+  symbol_name: "functionName"
 })
 ```
 
@@ -445,15 +399,11 @@ mcp__desktop-commander__get_config({})
 
 // Check CI
 mcp__code-index-mcp__get_settings_info({})
-
-// Check CG
-mcp__CodeGraphContext__list_indexed_repositories({})
 ```
 
 ### Server Connection Details
 - **Desktop Commander:** Local process, always available
 - **Code-Index MCP:** Local process, requires `set_project_path`
-- **CodeGraphContext:** Neo4j at `neo4j://localhost:7687`
 
 ---
 
