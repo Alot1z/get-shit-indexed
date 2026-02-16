@@ -1,13 +1,14 @@
 # Tool Chain Reference Guide
 
 **Created:** 2026-02-13
-**Purpose:** Unified reference for all 24 proven tool chain patterns
+**Updated:** 2026-02-16
+**Purpose:** Unified reference for all 24 proven tool chain patterns with thinking integration
 
 ---
 
 ## Overview
 
-This guide consolidates all tool chain patterns into a single reference with visual diagrams.
+This guide consolidates all tool chain patterns into a single reference with visual diagrams and thinking server integration.
 
 ### Pattern Categories
 
@@ -16,12 +17,16 @@ This guide consolidates all tool chain patterns into a single reference with vis
 | Linear Patterns | 15 | Sequential one-way flows | Straightforward operations |
 | Circular Patterns | 4 | Loops for iterative refinement | Verification, TDD, refinement |
 | Hybrid Patterns | 5 | Complex multi-path workflows | Parallel ops, adaptive selection |
+| Thinking-Enhanced | 9 | Cognitive enhancement patterns | Complex problems requiring analysis |
 
 ### Server Legend
 
 - **DC** = Desktop Commander (files, processes)
 - **CI** = Code-Index MCP (search, symbols)
 - **CG** = CodeGraphContext (relationships, dependencies)
+- **SEQ** = Sequential Thinking (multi-step planning)
+- **TR** = Tractatus Thinking (structure analysis)
+- **DBG** = Debug Thinking (problem investigation)
 
 ### Quick Decision Flow
 
@@ -371,6 +376,154 @@ flowchart TB
 
 ---
 
+## Thinking-Enhanced Patterns (25-33)
+
+Thinking servers add cognitive enhancement to tool chains. Use BEFORE MCP tools for complex problems.
+
+### Pattern 25: Sequential -> CI -> DC (Planning Flow)
+```mermaid
+flowchart LR
+    A[SEQ: Plan Steps] --> B[CI: Search]
+    B --> C[DC: Execute]
+```
+**Use:** Multi-step implementation planning
+**Thinking:** Sequential thinking decomposes problem into steps
+**MCP:** CI finds existing patterns, DC implements
+**Token:** ~2K (SEQ) + ~15K (CI+DC) = ~17K total
+**Example:** Plan auth flow → Find existing patterns → Implement
+
+### Pattern 26: Tractatus -> CG -> CI (Structure Flow)
+```mermaid
+flowchart LR
+    A[TR: Analyze Structure] --> B[CG: Query Relations]
+    B --> C[CI: Search Details]
+```
+**Use:** Architecture analysis and dependency mapping
+**Thinking:** Tractatus decomposes architecture into propositions
+**MCP:** CG maps relationships, CI finds implementation details
+**Token:** ~2K (TR) + ~8K (CG+CI) = ~10K total
+**Example:** Analyze module structure → Map dependencies → Find usage
+
+### Pattern 27: Debug -> CI -> DC (Investigation Flow)
+```mermaid
+flowchart LR
+    A[DBG: Query Similar] --> B[CI: Search Evidence]
+    B --> C[DC: Apply Fix]
+```
+**Use:** Bug investigation and fix
+**Thinking:** Debug queries similar problems, creates hypothesis
+**MCP:** CI finds code evidence, DC applies fix
+**Token:** ~1K (DBG query) + ~8K (CI+DC) = ~9K total
+**Example:** Query past bugs → Find related code → Apply fix
+
+### Pattern 28: Tractatus -> CG -> DC (Architecture Change)
+```mermaid
+flowchart LR
+    A[TR: Decompose Architecture] --> B[CG: Map Impact]
+    B --> C[DC: Multi-file Edit]
+```
+**Use:** Architecture refactoring
+**Thinking:** Tractatus analyzes what needs to change
+**MCP:** CG finds all affected files, DC makes coordinated edits
+**Token:** ~3K (TR) + ~20K (CG+DC) = ~23K total
+**Example:** Analyze refactoring → Map affected files → Update all
+
+### Pattern 29: Sequential -> Golden Pattern (Complex Change)
+```mermaid
+flowchart LR
+    A[SEQ: Plan Refactor] --> B[CG: Discover]
+    B --> C[CI: Understand]
+    C --> D[DC: Act]
+    D --> E[SEQ: Verify]
+```
+**Use:** Complex multi-file refactor with planning
+**Thinking:** Sequential plans steps, verifies completion
+**MCP:** Golden pattern executes planned changes
+**Token:** ~2K (SEQ plan) + ~33K (Golden) + ~1K (SEQ verify) = ~36K total
+**Savings:** ~85% vs native equivalent (~240K)
+
+### Pattern 30: Debug -> CI -> DC -> DBG (Learning Loop)
+```mermaid
+flowchart TB
+    A[DBG: Query Problem] --> B[CI: Search Code]
+    B --> C[DC: Apply Fix]
+    C --> D[DBG: Record Learning]
+```
+**Use:** Bug fix with knowledge capture
+**Thinking:** Debug tracks investigation and captures learning
+**MCP:** CI finds code, DC fixes
+**Token:** ~2K (DBG) + ~10K (CI+DC) + ~1K (DBG record) = ~13K total
+**Example:** Query similar bugs → Find root cause → Fix → Record learning
+
+### Pattern 31: Tractatus -> CI -> Tractatus (Verification Flow)
+```mermaid
+flowchart LR
+    A[TR: Define Structure] --> B[CI: Search Implementation]
+    B --> C[TR: Verify Completeness]
+```
+**Use:** Requirements verification
+**Thinking:** Tractatus defines expected structure, verifies completeness
+**MCP:** CI searches for implementation
+**Token:** ~2K (TR define) + ~5K (CI) + ~1K (TR verify) = ~8K total
+**Example:** Define auth requirements → Find implementation → Verify complete
+
+### Pattern 32: Sequential -> DC (Planned Execution)
+```mermaid
+flowchart LR
+    A[SEQ: Plan Steps] --> B[DC: Execute Step 1]
+    B --> C[DC: Execute Step 2]
+    C --> D[DC: Execute Step 3]
+```
+**Use:** Multi-file creation with plan
+**Thinking:** Sequential thinks through file dependencies
+**MCP:** DC creates files in planned order
+**Token:** ~1.5K (SEQ) + ~10K (DC) = ~11.5K total
+**Example:** Plan file structure → Create files in order
+
+### Pattern 33: Thinking + Circular Pattern (Iterative Refinement)
+```mermaid
+flowchart TB
+    A[SEQ: Analyze] --> B[CI: Search]
+    B --> C{Pass?}
+    C -->|No| D[TR: Identify Gap]
+    D --> E[DC: Fix]
+    E --> B
+    C -->|Yes| F[DBG: Record Learning]
+```
+**Use:** Complex verification with learning
+**Thinking:** Multiple servers for different phases
+**MCP:** CI/DC for execution
+**Token:** ~3K (thinking) + ~15K (MCP per iteration) = ~18K first iteration
+**Example:** Analyze requirements → Check implementation → Identify gaps → Fix → Record
+
+### Thinking Pattern Selection Guide
+
+| Problem Type | Pattern | Thinking Server | MCP Flow |
+|--------------|---------|-----------------|----------|
+| Multi-step implementation | 25 | Sequential | CI -> DC |
+| Architecture analysis | 26, 28 | Tractatus | CG -> CI/DC |
+| Bug investigation | 27, 30 | Debug | CI -> DC |
+| Complex refactor | 29 | Sequential | Golden Pattern |
+| Requirements verification | 31 | Tractatus | CI -> TR |
+| Multi-file creation | 32 | Sequential | DC only |
+| Iterative refinement | 33 | All | Circular |
+
+### Token Impact Analysis
+
+| Pattern | Thinking Cost | MCP Cost | Total | vs Native |
+|---------|---------------|----------|-------|-----------|
+| 25: SEQ->CI->DC | ~2K | ~15K | ~17K | ~85% savings |
+| 26: TR->CG->CI | ~2K | ~8K | ~10K | ~90% savings |
+| 27: DBG->CI->DC | ~1K | ~8K | ~9K | ~91% savings |
+| 28: TR->CG->DC | ~3K | ~20K | ~23K | ~88% savings |
+| 29: SEQ->Golden | ~3K | ~33K | ~36K | ~85% savings |
+| 30: DBG->CI->DC->DBG | ~3K | ~10K | ~13K | ~89% savings |
+| 31: TR->CI->TR | ~3K | ~5K | ~8K | ~92% savings |
+| 32: SEQ->DC | ~1.5K | ~10K | ~11.5K | ~88% savings |
+| 33: Thinking+Circular | ~3K | ~15K+ | ~18K+ | ~82% savings |
+
+---
+
 ## Pattern Selection Decision Tree
 
 ### Decision Questions
@@ -445,9 +598,12 @@ flowchart TB
 | Golden | 13-14 | Complex multi-file |
 | Circular | 16-19 | Iterative refinement |
 | Hybrid | 20-24 | Parallel/adaptive |
+| Thinking-Enhanced | 25-33 | Cognitive enhancement |
 
 ---
 
 *Tool Chain Reference Guide*
 *Created: 2026-02-13*
+*Updated: 2026-02-16*
 *Reference: TOOL-CHAIN-PATTERNS.md*
+*Thinking Servers: Sequential, Tractatus, Debug*
