@@ -560,4 +560,63 @@ Need verification loop?
 
 *Decision Trees for MCP Tool Chain Selection*
 *Created: 2026-02-13*
+*Updated: 2026-02-16*
 *Related: CODE-INDEX-MCP-GUIDE.md, TOOL-CHAIN-REFERENCE.md, TOOL-PRIORITY-RULES.md, GOLDEN-PATTERN.md*
+
+---
+
+## Thinking Server Integration
+
+### When to Use Thinking with Decision Trees
+
+Decision trees benefit from thinking servers when:
+
+- **Complex decisions** with multiple interdependent factors
+- **Uncertainty** about which path to take
+- **Architecture decisions** affecting multiple components
+- **Verification planning** for complex workflows
+
+### Recommended Thinking Servers
+
+| Decision Tree | Thinking Server | Use Case |
+|---------------|-----------------|----------|
+| Tool Selection | Sequential | Multi-factor tool comparison |
+| Pattern Selection | Tractatus | Analyze pattern structure requirements |
+| Complexity Escalation | Sequential | Step-by-step escalation reasoning |
+| Workflow Routing | Tractatus | Decompose workflow into atomic decisions |
+
+### Thinking Prompt Examples
+
+**Tool Selection (Sequential):**
+```
+Thought 1: "What operation type am I performing?"
+Thought 2: "Is a skill available for this?"
+Thought 3: "Do I need relationship discovery (CG)?"
+Thought 4: "Hypothesis: Use {tool} for this operation"
+```
+
+**Pattern Selection (Tractatus):**
+```
+Concept: "Analyze pattern requirements"
+Propositions:
+1. Operation is file-only (atomic)
+2. Relationships needed (complex)
+3. Multi-file coordination (very complex)
+4. Pattern = complexity x dependencies x verification
+```
+
+**Complexity Escalation (Sequential):**
+```
+Thought 1: "Start with simplest pattern (3K tokens)"
+Thought 2: "What does CG discover reveal?"
+Thought 3: "Should I escalate to medium (15-30K)?"
+Thought 4: "Is Golden Pattern (30-50K) justified?"
+```
+
+### Integration Pattern
+
+1. **Before decision tree traversal:** Use Sequential thinking to clarify decision factors
+2. **During traversal:** Follow tree logic, use Tractatus for structural decisions
+3. **After selection:** Use Debug thinking to verify decision correctness
+
+**Token Budget:** ~1-2K for thinking, saves ~10-50K in wrong pattern selection

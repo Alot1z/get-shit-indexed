@@ -224,3 +224,47 @@ mcp__code-index-mcp__clear_settings() // Reset CI
 ---
 
 **Status:** ✅ Quick reference complete
+
+---
+
+## Thinking Server Quick Reference
+
+### When to Use Which Server
+
+| Problem Type | Server | Prompt Pattern |
+|--------------|--------|----------------|
+| Multi-step task | Sequential | "Thought 1: Plan... Thought 2: Execute... Thought 3: Verify" |
+| Architecture analysis | Tractatus | "Concept: 'Analyze X'. Add propositions. Export findings." |
+| Bug investigation | Debug | "Query similar problems. Create hypothesis. Test. Record learning." |
+
+### Thinking + MCP Integration
+
+```
+1. THINK (plan with Sequential/Tractatus)
+   |
+   v
+2. MCP TOOLS (execute with DC/CI/CG)
+   |
+   v
+3. THINK (verify with Sequential/Debug)
+```
+
+### Quick Token Guide
+
+| Server | Tokens | Best For |
+|--------|--------|----------|
+| Sequential | 1-3K | Multi-step planning, verification |
+| Tractatus | 1-2K | Structure analysis, architecture |
+| Debug | 1-2K | Bug tracking, pattern learning |
+
+### 7-BMAD Quick Mapping
+
+| Circle | Thinking | MCP Tools |
+|--------|----------|-----------|
+| Method | Sequential | DC/CI (implement) |
+| Mad | Debug | CG (integrate) |
+| Model | Tractatus | CG (architecture) |
+| Mode | Tractatus | CI (patterns) |
+| Mod | Sequential | DC/CI (maintain) |
+| Modd | Tractatus | CG (extend) |
+| Methodd | Sequential | DC (document) |
