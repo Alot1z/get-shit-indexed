@@ -367,6 +367,117 @@ mcp__CodeGraphContext__analyze_code_relationships({
 
 ---
 
-**Version:** 1.1  
-**Last Updated:** 2026-02-15  
+## Thinking and Reflection Integration
+
+Summaries can include structured reflection for continuous learning:
+
+### Reflection Section Template
+
+Add after "Next Phase Readiness":
+
+```markdown
+## Reflection
+
+<thinking_phase server="debug" timeout="5000">
+Capture learnings for future phases:
+- What worked well that should be repeated
+- What could be improved next time
+- Patterns discovered during execution
+</thinking_phase>
+
+### What Worked Well
+- [Approach/tool/pattern that was effective]
+- [Another success worth repeating]
+
+### What Could Be Improved
+- [Challenge encountered and how to avoid it]
+- [Inefficiency that could be optimized]
+
+### Patterns Discovered
+- [Reusable pattern identified]
+- [Anti-pattern to avoid]
+
+### Learning Capture
+{{LEARNING_CAPTURE:pattern}}
+Patterns stored in: ~/.debug-thinking-mcp/observations.jsonl
+
+{{LEARNING_CAPTURE:insight}}
+Key insights for similar future work.
+```
+
+### Learning Capture Placeholders
+
+| Placeholder | Output | Storage |
+|-------------|--------|---------|
+| `{{LEARNING_CAPTURE:success}}` | What worked well | debug-thinking graph |
+| `{{LEARNING_CAPTURE:improvement}}` | Improvement opportunities | debug-thinking graph |
+| `{{LEARNING_CAPTURE:pattern}}` | Reusable patterns | observations.jsonl |
+| `{{LEARNING_CAPTURE:insight}}` | Key insights | debug-thinking graph |
+
+### Debug-Thinking Integration
+
+Reflection data is persisted to the debug-thinking knowledge graph:
+
+```
+~/.debug-thinking-mcp/
+├── reflections/
+│   └── {phase}-{plan}-reflection.json
+├── observations.jsonl
+└── patterns/
+    └── {pattern-type}-{hash}.json
+```
+
+### Querying Past Learnings
+
+Use debug-thinking to retrieve similar past work:
+
+```javascript
+mcp__debug-thinking__debug_thinking({
+  action: "query",
+  queryType: "similar-problems",
+  parameters: {
+    pattern: "authentication implementation",
+    limit: 5
+  }
+})
+```
+
+### Automatic Reflection Trigger
+
+Reflection can be automatically triggered via PostToolUse hook:
+
+```javascript
+// In hooks/post-tool-use/reflection-capture.js
+if (toolName === 'create_summary') {
+  await captureReflection(summaryContent);
+}
+```
+
+### Example Reflection Section
+
+```markdown
+## Reflection
+
+### What Worked Well
+- **Sequential task breakdown**: Breaking complex auth into 5 atomic tasks kept execution focused
+- **MCP batch reading**: Using read_multiple_files saved ~40K tokens across 8 file reads
+- **Early deviation detection**: Rule 2 caught missing bcrypt before code review
+
+### What Could Be Improved
+- **Dependency checking**: jose was missing - should verify dependencies in planning phase
+- **Test coverage**: Should have included edge case tests for token expiration
+
+### Patterns Discovered
+- **Pattern: JWT + Database Sessions**: Combining stateless JWT with database-tracked refresh tokens provides both performance and revocation capability
+- **Pattern: MCP-First File Ops**: Always use read_multiple_files when reading 2+ files
+
+### Learning Capture
+Patterns stored: ~/.debug-thinking-mcp/patterns/jwt-session-hybrid-{hash}.json
+Observations: ~/.debug-thinking-mcp/observations.jsonl (lines 142-148)
+```
+
+---
+
+**Version:** 1.2  
+**Last Updated:** 2026-02-16  
 **Status:** Active
