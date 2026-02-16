@@ -640,6 +640,30 @@ function copyFlattenedCommands(srcDir, destDir, prefix, pathPrefix, runtime) {
 }
 
 /**
+ * Recursively copy directory without path replacement
+ * Simple directory copy for non-markdown content
+ * @param {string} srcDir - Source directory
+ * @param {string} destDir - Destination directory
+ */
+function copyDirectoryRecursive(srcDir, destDir) {
+  if (fs.existsSync(destDir)) {
+    fs.rmSync(destDir, { recursive: true });
+  }
+  fs.mkdirSync(destDir, { recursive: true });
+
+  const entries = fs.readdirSync(srcDir, { withFileTypes: true });
+  for (const entry of entries) {
+    const srcPath = path.join(srcDir, entry.name);
+    const destPath = path.join(destDir, entry.name);
+    if (entry.isDirectory()) {
+      copyDirectoryRecursive(srcPath, destPath);
+    } else if (entry.isFile()) {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
+/**
  * Recursively copy directory, replacing paths in .md files
  * Deletes existing destDir first to remove orphaned files from previous versions
  * @param {string} srcDir - Source directory
@@ -1512,6 +1536,70 @@ function install(isGlobal, runtime = 'claude') {
       console.log(`  ${green}✓${reset} Installed rules (validation, code-review, tool-priority)`);
     } else {
       failures.push('rules');
+    }
+  }
+
+  // Copy lib directory (prompt-enhancer, thinking, complexity, etc.)
+  const libSrc = path.join(src, 'lib');
+  if (fs.existsSync(libSrc)) {
+    const libDest = path.join(targetDir, 'get-shit-indexed', 'lib');
+    copyDirectoryRecursive(libSrc, libDest);
+    const libCount = fs.readdirSync(libDest).length;
+    if (verifyInstalled(libDest, 'lib')) {
+      console.log(`  ${green}✓${reset} Installed lib (${libCount} modules)`);
+    } else {
+      failures.push('lib');
+    }
+  }
+
+  // Copy workflows directory
+  const workflowsSrc = path.join(src, 'workflows');
+  if (fs.existsSync(workflowsSrc)) {
+    const workflowsDest = path.join(targetDir, 'get-shit-indexed', 'workflows');
+    copyDirectoryRecursive(workflowsSrc, workflowsDest);
+    const workflowCount = fs.readdirSync(workflowsDest).filter(f => f.endsWith('.md')).length;
+    if (verifyInstalled(workflowsDest, 'workflows')) {
+      console.log(`  ${green}✓${reset} Installed workflows (${workflowCount} files)`);
+    } else {
+      failures.push('workflows');
+    }
+  }
+
+  // Copy templates directory
+  const templatesSrc = path.join(src, 'templates');
+  if (fs.existsSync(templatesSrc)) {
+    const templatesDest = path.join(targetDir, 'get-shit-indexed', 'templates');
+    copyDirectoryRecursive(templatesSrc, templatesDest);
+    if (verifyInstalled(templatesDest, 'templates')) {
+      console.log(`  ${green}✓${reset} Installed templates`);
+    } else {
+      failures.push('templates');
+    }
+  }
+
+  // Copy references directory (validation files, etc.)
+  const refsSrc = path.join(src, 'references');
+  if (fs.existsSync(refsSrc)) {
+    const refsDest = path.join(targetDir, 'get-shit-indexed', 'references');
+    // Copy all except rules (already handled above)
+    const refEntries = fs.readdirSync(refsSrc, { withFileTypes: true });
+    for (const entry of refEntries) {
+      if (entry.name !== 'rules') {
+        const entrySrc = path.join(refsSrc, entry.name);
+        const entryDest = path.join(refsDest, entry.name);
+        if (entry.isDirectory()) {
+          copyDirectoryRecursive(entrySrc, entryDest);
+        } else if (entry.isFile()) {
+          fs.mkdirSync(refsDest, { recursive: true });
+          fs.copyFileSync(entrySrc, entryDest);
+        }
+      }
+    }
+    const refCount = fs.readdirSync(refsDest).filter(f => f.endsWith('.md')).length;
+    if (verifyInstalled(refsDest, 'references')) {
+      console.log(`  ${green}✓${reset} Installed references (${refCount} files)`);
+    } else {
+      failures.push('references');
     }
   }
 
