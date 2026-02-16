@@ -19,6 +19,7 @@ Transform Get Shit Indexed (GSI) system to fully leverage three MCP servers—De
 - [ ] **Phase 11: Resources & Links Audit** - Verify all external and internal resources
 - [ ] **Phase 12: Theory & Practice Docs** - Document conceptual model vs actual implementation
 - [ ] **Phase 13: Comprehensive Testing** - End-to-end testing of all GSI functionality
+- [ ] **Phase 23: Package Self-Containment** - Make GSI package fully self-contained with no global dependencies
 
 ## Phase Details
 
@@ -702,7 +703,33 @@ The thinking infrastructure from Phase 15/17 exists as code but is NOT actually 
 
 **Plans**: 1 plan
 
+**Status**: Complete ✓ (2026-02-16)
+
+**Plans**:
+- [x] 22-01: Advanced Pattern Learning System (7 tasks)
+
+### Phase 23: Package Self-Containment
+
+**Goal**: Make GSI package fully self-contained with all required files in source code, no dependencies on global modifications made during development
+
+**Depends on**: Phase 22 (Advanced Pattern Learning)
+
+**Success Criteria**:
+1. All global rules files copied to source code repository
+2. All absolute path references replaced with package-relative paths
+3. Install script copies rules directory during installation
+4. No hardcoded user paths remain in source code
+5. Package is installable on any system without prior setup
+
+**Plans**: 4 plans in 3 waves
+
 **Status**: Plans created
 
 **Plans**:
-- [ ] 22-01: Advanced Pattern Learning System (7 tasks)
+- [ ] 23-01: Move Global Rules to Source Code (5 tasks) - Wave 1
+- [ ] 23-02: Update Absolute Path References (6 tasks) - Wave 1
+- [ ] 23-03: Update Install Script for Rules (6 tasks) - Wave 2
+- [ ] 23-04: Verification & Testing (7 tasks) - Wave 3
+
+**Key Gap Addressed**:
+The global rules files (auto-validation.md, code-review.md, tool-priority.md, README.md) in ~/.claude/rules/ were created during development but never added to the source code package. This means users installing via npm wouldn't get these critical files.
