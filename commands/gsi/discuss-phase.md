@@ -10,9 +10,6 @@ allowed-tools:
   - mcp__code-index-mcp__get_file_summary
   - mcp__code-index-mcp__get_symbol_body
   - mcp__code-index-mcp__find_files
-  - mcp__codegraphcontext__query
-  - mcp__codegraphcontext__find_path
-  - mcp__codegraphcontext__visualize
   - Task
 ---
 
@@ -20,13 +17,8 @@ allowed-tools:
 CI Tools Usage:
 - search_code_advanced: Find relevant code
 - get_file_summary: Understand file context
-- get_symbol_body: Inspect implementations
+- get_symbol_body: Inspect implementations and trace dependencies
 - find_files: Discover related files
-
-CG Tools Usage:
-- query: Explore code relationships
-- find_path: Trace dependencies
-- visualize: Relationship visualization
 -->
 
 <objective>

@@ -15,20 +15,13 @@ allowed-tools:
   - mcp__context7__resolve-library-id
   - mcp__context7__get-library-docs
   - mcp__rag-web-browser__search
-  - mcp__codegraphcontext__query
-  - mcp__codegraphcontext__find_components
-  - mcp__codegraphcontext__get_statistics
-  - mcp__codegraphcontext__analyze_impact
   - Task
 ---
 
 <!--
 Golden Pattern Tool Usage:
-- CG discover: CodeGraphContext for relationship analysis
 - CI understand: Code-Index for code search and symbol extraction
 - DC act: Desktop Commander for file operations
-
-CG Server: neo4j://localhost:7687
 
 CI Tools Usage:
 - set_project_path: Initialize index for codebase
@@ -36,13 +29,7 @@ CI Tools Usage:
 - search_code_advanced: Pattern research
 - find_files: Discover relevant files
 - get_file_summary: Understand file structure
-- get_symbol_body: Extract implementations
-
-CG Tools Usage:
-- query: Relationship pattern discovery
-- find_components: Subsystem analysis
-- get_statistics: Codebase metrics
-- analyze_impact: Change impact research
+- get_symbol_body: Extract implementations and analyze relationships
 -->
 
 <objective>

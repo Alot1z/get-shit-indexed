@@ -13,6 +13,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Terminal image now at top of README like original GSD
 - Command references updated to `npx get-shit-indexed-cc@latest`
 
+### Added
+- **GSI Statusline v2.0** — Tokyo Night edition with cyan/purple branding, phase display, improved progress bar
+  - Shows: `GSI ◆ model │ task │ phase │ directory │ context`
+  - Tokyo Night colors: Cyan (#7dcfff) for G/S, Purple (#bb9af7) for I
+  - Auto-detects current phase from STATE.md
+  - 8-segment gradient progress bar for context usage
+  - Truncates long task names and directory names
+
 ### Fixed
 - Git author rewrite — all commits now show "Mose" as author instead of "Claude Opus 4.6"
 - Removed duplicate `get-shit-done/` directory (only `get-shit-indexed/` remains)

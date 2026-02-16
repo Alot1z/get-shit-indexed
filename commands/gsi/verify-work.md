@@ -5,14 +5,11 @@ argument-hint: "[phase number, e.g., '4']"
 allowed-tools:
   - mcp__desktop-commander__read_file
   - mcp__desktop-commander__list_directory
+  - mcp__desktop-commander__write_file
   - mcp__code-index-mcp__search_code_advanced
   - mcp__code-index-mcp__find_files
   - mcp__code-index-mcp__get_file_summary
   - mcp__code-index-mcp__get_symbol_body
-  - mcp__codegraphcontext__query
-  - mcp__codegraphcontext__find_path
-  - mcp__codegraphcontext__analyze_impact
-  - mcp__desktop-commander__write_file
   - Task
 ---
 
@@ -21,12 +18,7 @@ CI Tools Usage:
 - search_code_advanced: Find code patterns across project
 - find_files: Discover plan/summary/verification files
 - get_file_summary: Understand file structure
-- get_symbol_body: Extract implementation details
-
-CG Tools Usage:
-- query: Verifying integration relationships
-- find_path: Verifying call chains
-- analyze_impact: Checking ripple effects
+- get_symbol_body: Extract implementation details and function bodies
 -->
 <objective>
 Validate built features through conversational testing with persistent state.

@@ -11,9 +11,6 @@ allowed-tools:
   - mcp__code-index-mcp__get_file_summary
   - mcp__code-index-mcp__get_symbol_body
   - mcp__code-index-mcp__build_deep_index
-  - mcp__codegraphcontext__query
-  - mcp__codegraphcontext__find_path
-  - mcp__codegraphcontext__analyze_impact
   - Task
 ---
 
@@ -22,13 +19,8 @@ CI Tools Usage:
 - search_code_advanced: Find code patterns for error sources
 - find_files: Discover relevant files
 - get_file_summary: Understand file context
-- get_symbol_body: Inspect problematic functions
+- get_symbol_body: Inspect problematic functions and trace relationships
 - build_deep_index: Fresh symbol extraction
-
-CG Tools Usage:
-- query: Trace relationship chains
-- find_path: Find impact paths
-- analyze_impact: Understand error propagation
 -->
 
 <objective>
