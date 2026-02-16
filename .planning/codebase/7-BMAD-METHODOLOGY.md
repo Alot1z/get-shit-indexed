@@ -259,6 +259,109 @@ Thought 7: "Confirm Methodd Circle (documentation) - docs complete"
 
 ---
 
+## Thinking Server Mapping
+
+### Detailed Circle-to-Server Mapping
+
+| Circle | Primary Server | Secondary | Use Case | Example Prompt |
+|--------|----------------|-----------|----------|----------------|
+| **Method** | Sequential | Debug | Step-by-step implementation verification | "Thought 1: Verify code compiles. Thought 2: Test edge cases. Thought 3: Check performance." |
+| **Mad** | Debug | Sequential | Integration issue tracking and dependency verification | "Query: similar integration issues. Create: hypothesis about missing dependency. Test: add import and verify." |
+| **Model** | Tractatus | - | Architecture alignment analysis | "Concept: 'Analyze architecture alignment'. Propositions: 1. Follows layer pattern 2. Separates concerns 3. Consistent with codebase" |
+| **Mode** | Tractatus | Sequential | Pattern consistency verification | "Concept: 'Verify pattern consistency'. Decompose: naming, error handling, state management. Analyze: compliance with established patterns" |
+| **Mod** | Sequential | Tractatus | Maintainability assessment | "Thought 1: Check function complexity. Thought 2: Verify comments appropriate. Thought 3: Assess duplication." |
+| **Modd** | Tractatus | - | Extensibility decomposition | "Concept: 'Extensibility requirements'. Propositions: 1. No hard-coded values 2. Clear extension points 3. Configurable behavior" |
+| **Methodd** | Sequential | - | Documentation completeness check | "Thought 1: Check README updated. Thought 2: Verify API docs complete. Thought 3: Confirm examples provided." |
+
+### Combined Circle Analysis
+
+When validating multiple circles simultaneously, use this workflow:
+
+```
+1. Tractatus: Analyze Model + Mode + Modd (structural circles)
+   - Concept: "Analyze structural quality"
+   - Add propositions for architecture, patterns, extensibility
+   - Export findings
+
+2. Sequential: Verify Method + Mod + Methodd (process circles)
+   - Thought 1-2: Implementation correctness (Method)
+   - Thought 3-4: Maintainability check (Mod)
+   - Thought 5-6: Documentation review (Methodd)
+
+3. Debug: Track Mad Circle (integration)
+   - Query: similar integration issues
+   - Create: integration verification nodes
+   - Connect: dependencies in graph
+```
+
+### Example Prompts by Circle
+
+#### Method Circle (Sequential)
+```
+Thought 1: "Does the code compile without errors?"
+Thought 2: "Do edge cases produce expected results?"
+Thought 3: "Are performance requirements met?"
+Thought 4: "Hypothesis: Implementation is correct if all tests pass"
+```
+
+#### Mad Circle (Debug)
+```
+Query: "Find similar integration issues"
+Create hypothesis: "Missing dependency between modules A and B"
+Create experiment: "Add explicit import and test"
+Record observation: "Integration works after adding import"
+Create learning: "Module dependencies must be explicit"
+```
+
+#### Model Circle (Tractatus)
+```
+Concept: "Analyze architecture alignment"
+Proposition 1: "Code follows established layer pattern"
+Proposition 2: "Separation of concerns maintained"
+Proposition 3: "Consistent with existing codebase architecture"
+Analyze: Check completeness
+Export: Architecture compliance report
+```
+
+#### Mode Circle (Tractatus)
+```
+Concept: "Verify pattern consistency"
+Proposition 1: "Naming conventions followed"
+Proposition 2: "Error handling pattern matches codebase"
+Proposition 3: "State management pattern aligned"
+Analyze: Identify pattern violations
+Export: Pattern compliance findings
+```
+
+#### Mod Circle (Sequential)
+```
+Thought 1: "Is cyclomatic complexity under 10 per function?"
+Thought 2: "Are functions under 50 lines?"
+Thought 3: "Is code duplication under 3%?"
+Thought 4: "Hypothesis: Code meets maintainability standards"
+```
+
+#### Modd Circle (Tractatus)
+```
+Concept: "Analyze extensibility requirements"
+Proposition 1: "No hard-coded values prevent extension"
+Proposition 2: "Plugin/extension points clearly defined"
+Proposition 3: "Configuration allows customization"
+Proposition 4: "Multiplicative: All factors must be present"
+Analyze: Verify atomic extensibility points
+```
+
+#### Methodd Circle (Sequential)
+```
+Thought 1: "Is README updated with new features?"
+Thought 2: "Are API docs complete for new endpoints?"
+Thought 3: "Are usage examples provided?"
+Thought 4: "Is CHANGELOG updated?"
+Thought 5: "Hypothesis: Documentation is complete"
+```
+
+---
+
 ## Success Criteria
 
 All 7-BMAD validation passes when:
@@ -273,5 +376,6 @@ All 7-BMAD validation passes when:
 
 ---
 
-*Last Updated: 2026-02-13*
-*Phase: 05-thinking-server-integration*
+*Last Updated: 2026-02-16*
+*Phase: 20-04c*
+*Thinking Servers: Sequential, Tractatus, Debug*
