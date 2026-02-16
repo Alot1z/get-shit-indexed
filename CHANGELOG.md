@@ -4,6 +4,25 @@ All notable changes to GSI will be documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.22.0] - 2026-02-16
+
+### Added
+- **Prompt Enhancement System** — Phase 24-01 & 24-02 complete
+  - `lib/prompt-enhancer/risk-engine.js` — Risk assessment with 0-100 scoring
+  - `lib/prompt-enhancer/mode-selector.js` — Mode selection (none/light/standard/full)
+  - `lib/prompt-enhancer/enhancement-templates.js` — 5 templates (Engineering, Clarity, Decomposed, Academic, Security)
+  - `lib/prompt-enhancer/prompt-rewriter.js` — Intelligent template application
+  - `lib/prompt-enhancer/index.js` — Unified API
+  - Unit tests for risk engine and enhancement templates
+  - Complete README documentation
+- **README updated** — Added Prompt Enhancement System section with examples
+
+### Technical Details
+- Risk assessment: <1ms response time, no external API calls
+- Mode thresholds: none(0-9), light(10-29), standard(30-59), full(60-100)
+- Template selection based on prompt content and risk score
+- Skip patterns for simple inputs (single words, URLs, confirmations)
+
 ## [1.21.0] - 2026-02-16
 
 ### Changed

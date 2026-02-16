@@ -40,6 +40,43 @@ npx get-shit-indexed-cc --all --global
 
 Verify with `/gsi:help` inside Claude Code.
 
+## Features
+
+### Prompt Enhancement System (NEW)
+
+GSI now includes an intelligent prompt analysis and enhancement system:
+
+- **Risk Assessment** — Scores prompts 0-100 for complexity
+- **Mode Selection** — Auto-selects enhancement intensity (none/light/standard/full)
+- **Template System** — 5 enhancement templates (Engineering, Clarity, Decomposed, Academic, Security)
+- **Local Processing** — No external API calls, <5ms response time
+
+```javascript
+const { analyzePrompt, fullEnhance } = require('get-shit-indexed-cc/lib/prompt-enhancer');
+
+const analysis = analyzePrompt('Implement authentication');
+// { riskScore: 45, mode: 'standard', template: 'engineering' }
+
+const result = fullEnhance('Build a REST API');
+// Enhanced prompt with structure and clarity improvements
+```
+
+### Thinking Servers
+
+Three thinking servers for enhanced reasoning:
+
+- **Sequential** — Multi-step problem decomposition
+- **Tractatus** — Logical structure analysis  
+- **Debug** — Graph-based problem-solving
+
+### GSI Statusline v2.0
+
+Tokyo Night themed statusline with:
+- Phase detection from STATE.md
+- 8-segment gradient progress bar
+- Context usage display
+- Model identification
+
 ## How It Works
 
 1. `/gsi:new-project` — Initialize project with research and requirements
@@ -59,14 +96,6 @@ GSI uses two MCP servers for token-efficient operations:
 **Code-Index MCP** — Code search and symbol navigation  
 - search_code_advanced, find_files, get_symbol_body
 - 70-80% token savings vs Grep
-
-## Thinking Servers
-
-Three thinking servers for enhanced reasoning:
-
-- **Sequential** — Multi-step problem decomposition
-- **Tractatus** — Logical structure analysis
-- **Debug** — Graph-based problem-solving
 
 ## Commands
 
@@ -90,8 +119,26 @@ get-shit-indexed/
 ├── workflows/        # 30+ workflow definitions
 ├── references/       # Documentation
 ├── templates/        # Plan templates
+├── lib/              # Core modules
+│   ├── prompt-enhancer/  # Risk assessment + enhancement
+│   ├── complexity/       # Complexity prediction
+│   ├── thinking/         # Thinking orchestration
+│   └── workflow-thinking/# Workflow integration
 └── .planning/        # Project state
 ```
+
+## Recent Changes
+
+### v1.22.0 (2026-02-16)
+- **Prompt Enhancement System** — Risk assessment engine with 0-100 scoring
+- 5 enhancement templates (Engineering, Clarity, Decomposed, Academic, Security)
+- Mode selection (none/light/standard/full) based on prompt complexity
+- Local-only processing, <5ms response time
+
+### v1.21.0 (2026-02-16)
+- **GSI Statusline v2.0** — Tokyo Night edition
+- CodeGraphContext removed — 2-server architecture (DC + CI only)
+- Git author rewrite — all commits show "Mose" as author
 
 ## Credits
 
@@ -100,7 +147,8 @@ Forked from [get-shit-done](https://github.com/glittercowboy/get-shit-done) by T
 Original GSD provided workflow structure and planning methodology. GSI adds:
 - MCP tool integration (80-90% token savings)
 - Three thinking servers
-- Simplified architecture
+- Prompt enhancement system
+- Simplified 2-server architecture
 
 ## License
 

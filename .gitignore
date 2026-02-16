@@ -21,3 +21,12 @@ RAILROAD_ARCHITECTURE.md
 
 # NPM credentials (secret!)
 .npmrc
+
+# Sensitive scripts - NEVER UPLOAD TO GITHUB
+scripts/rewrite.author/
+scripts/rewrite.author.js
+scripts/rewrite.author.*
+scripts/heretic-*
+
+# Private ignore folder
+.ignore/
