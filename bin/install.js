@@ -1495,6 +1495,26 @@ function install(isGlobal, runtime = 'claude') {
     failures.push('VERSION');
   }
 
+  // Copy rules directory (auto-validation, code-review, tool-priority rules)
+  const rulesSrc = path.join(src, 'references', 'rules');
+  if (fs.existsSync(rulesSrc)) {
+    const rulesDest = path.join(targetDir, 'get-shit-indexed', 'references', 'rules');
+    fs.mkdirSync(rulesDest, { recursive: true });
+    const rulesEntries = fs.readdirSync(rulesSrc, { withFileTypes: true });
+    for (const entry of rulesEntries) {
+      if (entry.isFile() && entry.name.endsWith('.md')) {
+        const srcFile = path.join(rulesSrc, entry.name);
+        const destFile = path.join(rulesDest, entry.name);
+        fs.copyFileSync(srcFile, destFile);
+      }
+    }
+    if (verifyInstalled(rulesDest, 'rules')) {
+      console.log(`  ${green}✓${reset} Installed rules (validation, code-review, tool-priority)`);
+    } else {
+      failures.push('rules');
+    }
+  }
+
   // Copy hooks from dist/ (bundled with dependencies)
   const hooksSrc = path.join(src, 'hooks', 'dist');
   if (fs.existsSync(hooksSrc)) {
