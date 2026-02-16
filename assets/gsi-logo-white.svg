@@ -1,15 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 180">
   <defs>
     <style>
       .bg-white { fill: #ffffff; }
       .cyan { fill: #7dcfff; }
       .purple { fill: #bb9af7; }
-      .ring-red { fill: none; stroke: #f7768e; }
-      .ring-yellow { fill: none; stroke: #e0af68; }
-      .ring-green { fill: none; stroke: #9ece6a; }
     </style>
     <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
       <feMerge>
         <feMergeNode in="coloredBlur"/>
         <feMergeNode in="SourceGraphic"/>
@@ -17,56 +14,41 @@
     </filter>
   </defs>
   
-  <rect class="bg-white" width="800" height="300"/>
-  
-  <!-- Ring effects -->
-  <g transform="translate(400, 150)">
-    <ellipse cx="0" cy="0" rx="350" ry="100" class="ring-red" stroke-width="4" opacity="0.4"/>
-    <ellipse cx="0" cy="0" rx="280" ry="80" class="ring-yellow" stroke-width="3" opacity="0.5"/>
-    <ellipse cx="0" cy="0" rx="210" ry="60" class="ring-green" stroke-width="2" opacity="0.6"/>
-  </g>
+  <rect class="bg-white" width="500" height="180"/>
   
   <!-- G - Block style -->
-  <g transform="translate(200, 80)" filter="url(#glow)">
-    <text class="cyan" font-family="monospace" font-size="18">
+  <g transform="translate(80, 30)" filter="url(#glow)">
+    <text class="cyan" font-family="monospace" font-size="16">
       <tspan x="0" y="0">   ██████╗ </tspan>
-      <tspan x="0" y="20">  ██╔════╝ </tspan>
-      <tspan x="0" y="40">  ██║  ███╗</tspan>
-      <tspan x="0" y="60">  ██║   ██║</tspan>
-      <tspan x="0" y="80">  ╚██████╔╝</tspan>
-      <tspan x="0" y="100">   ╚═════╝ </tspan>
+      <tspan x="0" y="18">  ██╔════╝ </tspan>
+      <tspan x="0" y="36">  ██║  ███╗</tspan>
+      <tspan x="0" y="54">  ██║   ██║</tspan>
+      <tspan x="0" y="72">  ╚██████╔╝</tspan>
+      <tspan x="0" y="90">   ╚═════╝ </tspan>
     </text>
   </g>
   
   <!-- S - Block style -->
-  <g transform="translate(300, 80)" filter="url(#glow)">
-    <text class="cyan" font-family="monospace" font-size="18">
+  <g transform="translate(180, 30)" filter="url(#glow)">
+    <text class="cyan" font-family="monospace" font-size="16">
       <tspan x="0" y="0">███████╗</tspan>
-      <tspan x="0" y="20">██╔════╝</tspan>
-      <tspan x="0" y="40">███████╗</tspan>
-      <tspan x="0" y="60">╚════██║</tspan>
-      <tspan x="0" y="80">███████║</tspan>
-      <tspan x="0" y="100">╚══════╝</tspan>
+      <tspan x="0" y="18">██╔════╝</tspan>
+      <tspan x="0" y="36">███████╗</tspan>
+      <tspan x="0" y="54">╚════██║</tspan>
+      <tspan x="0" y="72">███████║</tspan>
+      <tspan x="0" y="90">╚══════╝</tspan>
     </text>
   </g>
   
   <!-- I - Block style, Purple -->
-  <g transform="translate(400, 80)" filter="url(#glow)">
-    <text class="purple" font-family="monospace" font-size="18">
+  <g transform="translate(280, 30)" filter="url(#glow)">
+    <text class="purple" font-family="monospace" font-size="16">
       <tspan x="0" y="0">██╗</tspan>
-      <tspan x="0" y="20">██║</tspan>
-      <tspan x="0" y="40">██║</tspan>
-      <tspan x="0" y="60">██║</tspan>
-      <tspan x="0" y="80">██║</tspan>
-      <tspan x="0" y="100">╚═╝</tspan>
+      <tspan x="0" y="18">██║</tspan>
+      <tspan x="0" y="36">██║</tspan>
+      <tspan x="0" y="54">██║</tspan>
+      <tspan x="0" y="72">██║</tspan>
+      <tspan x="0" y="90">╚═╝</tspan>
     </text>
   </g>
-  
-  <!-- Indexed dots -->
-  <circle cx="680" cy="120" r="6" fill="#bb9af7" opacity="0.5"/>
-  <circle cx="700" cy="150" r="4" fill="#bb9af7" opacity="0.4"/>
-  <circle cx="720" cy="180" r="5" fill="#bb9af7" opacity="0.3"/>
-  <circle cx="120" cy="130" r="6" fill="#bb9af7" opacity="0.5"/>
-  <circle cx="100" cy="160" r="4" fill="#bb9af7" opacity="0.4"/>
-  <circle cx="80" cy="190" r="5" fill="#bb9af7" opacity="0.3"/>
 </svg>

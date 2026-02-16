@@ -20,9 +20,8 @@
       .ring-green { fill: none; stroke: #9ece6a; }
     </style>
     
-    <!-- Glow filter for I letter -->
     <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
       <feMerge>
         <feMergeNode in="coloredBlur"/>
         <feMergeNode in="SourceGraphic"/>
@@ -62,7 +61,7 @@
     <text class="text cyan" font-size="14" y="128" xml:space="preserve">  ╚██████╔╝</text>
     <text class="text cyan" font-size="14" y="148" xml:space="preserve">   ╚═════╝ </text>
 
-    <!-- S letter (offset to appear next to G) -->
+    <!-- S letter -->
     <text class="text cyan" font-size="14" y="48" x="130" xml:space="preserve">███████╗</text>
     <text class="text cyan" font-size="14" y="68" x="130" xml:space="preserve">██╔════╝</text>
     <text class="text cyan" font-size="14" y="88" x="130" xml:space="preserve">███████╗</text>
@@ -70,7 +69,7 @@
     <text class="text cyan" font-size="14" y="128" x="130" xml:space="preserve">███████║</text>
     <text class="text cyan" font-size="14" y="148" x="130" xml:space="preserve">╚══════╝</text>
 
-    <!-- I letter in Purple (offset further) -->
+    <!-- I letter in Purple -->
     <text class="text purple" font-size="14" y="48" x="240" xml:space="preserve">██╗</text>
     <text class="text purple" font-size="14" y="68" x="240" xml:space="preserve">██║</text>
     <text class="text purple" font-size="14" y="88" x="240" xml:space="preserve">██║</text>
@@ -97,29 +96,30 @@
     <text class="text white" font-size="15" x="36" y="424">▌</text>
   </g>
 
-  <!-- I letter with ring effects (positioned in top-right area as overlay accent) -->
-  <g transform="translate(780, 280)">
-    <!-- Horizontal ellipse rings (outside to inside: Red → Yellow → Green → Purple I) -->
-    <!-- Outer ring - Red -->
-    <ellipse cx="50" cy="50" rx="70" ry="25" class="ring-red" stroke-width="2" opacity="0.6"/>
-    <!-- Middle ring - Yellow -->
-    <ellipse cx="50" cy="50" rx="55" ry="20" class="ring-yellow" stroke-width="2" opacity="0.7"/>
-    <!-- Inner ring - Green -->
-    <ellipse cx="50" cy="50" rx="40" ry="14" class="ring-green" stroke-width="2" opacity="0.8"/>
+  <!-- INDEX text - smaller, diagonal, same block style, with rings -->
+  <g transform="translate(750, 200) rotate(25)">
+    <!-- Ring effects around INDEX -->
+    <ellipse cx="70" cy="50" rx="90" ry="35" class="ring-red" stroke-width="2" opacity="0.5"/>
+    <ellipse cx="70" cy="50" rx="70" ry="27" class="ring-yellow" stroke-width="2" opacity="0.6"/>
+    <ellipse cx="70" cy="50" rx="50" ry="20" class="ring-green" stroke-width="1.5" opacity="0.7"/>
     
-    <!-- Indexed dots spreading outward from I -->
-    <circle cx="130" cy="45" r="3" fill="#bb9af7" opacity="0.4"/>
-    <circle cx="145" cy="55" r="2" fill="#bb9af7" opacity="0.3"/>
-    <circle cx="125" cy="60" r="2" fill="#bb9af7" opacity="0.35"/>
-    <circle cx="-30" cy="48" r="3" fill="#bb9af7" opacity="0.4"/>
-    <circle cx="-40" cy="58" r="2" fill="#bb9af7" opacity="0.3"/>
-    
-    <!-- I letter with glow effect - Purple -->
+    <!-- INDEX in smaller block letters, purple -->
     <g filter="url(#glow)">
-      <!-- I letter block art -->
-      <rect x="44" y="20" width="12" height="4" fill="#bb9af7"/>
-      <rect x="44" y="76" width="12" height="4" fill="#bb9af7"/>
-      <rect x="48" y="24" width="4" height="52" fill="#bb9af7"/>
+      <text class="purple" font-family="monospace" font-size="8">
+        <tspan x="0" y="0">██╗███╗   ██╗</tspan>
+        <tspan x="0" y="10">██║████╗  ██║</tspan>
+        <tspan x="0" y="20">██║██╔██╗ ██║</tspan>
+        <tspan x="0" y="30">██║██║╚██╗██║</tspan>
+        <tspan x="0" y="40">██║██║ ╚████║</tspan>
+        <tspan x="0" y="50">╚═╝╚═╝  ╚═══╝</tspan>
+      </text>
     </g>
+    
+    <!-- Indexed dots spreading outward -->
+    <circle cx="160" cy="30" r="3" fill="#bb9af7" opacity="0.5"/>
+    <circle cx="170" cy="50" r="2" fill="#bb9af7" opacity="0.4"/>
+    <circle cx="155" cy="65" r="2.5" fill="#bb9af7" opacity="0.35"/>
+    <circle cx="-25" cy="35" r="3" fill="#bb9af7" opacity="0.5"/>
+    <circle cx="-30" cy="55" r="2" fill="#bb9af7" opacity="0.4"/>
   </g>
 </svg>
