@@ -13,6 +13,8 @@
  *   state update <field> <value>       Update a STATE.md field
  *   state get [section]                Get STATE.md content or section
  *   state patch --field val ...        Batch update STATE.md fields
+ *   install-info                       Show detected install context
+ *     [--force-global] [--force-project]
  *   resolve-model <agent-type>         Get model for agent based on profile
  *   find-phase <phase>                 Find phase directory by number
  *   commit <message> [--files f1 f2]   Commit planning docs
@@ -4586,6 +4588,59 @@ async function cmdGSDUpdateHistory(cwd, options, raw) {
   }
 }
 
+// ─── Install Detection Commands ───────────────────────────────────────────────
+
+function cmdInstallInfo(cwd, options, raw) {
+  const { forceGlobal, forceProject } = options;
+  
+  try {
+    const { detectInstallLocation, getGlobalInstallPath } = require('../lib/context/install-detector');
+    const { getAllDataPaths, getPlanningPath } = require('../lib/context/path-resolver');
+    
+    const location = detectInstallLocation({
+      cwd,
+      forceGlobal,
+      forceProject,
+      noCache: true // Always detect fresh for info command
+    });
+    
+    const dataPaths = getAllDataPaths({ cwd, forceGlobal, forceProject });
+    
+    const result = {
+      type: location.type,
+      basePath: location.basePath,
+      globalPath: getGlobalInstallPath(),
+      indicators: location.indicators,
+      dataPaths,
+      cwd
+    };
+    
+    if (!raw) {
+      console.log('=== GSI Install Context ===\n');
+      console.log(`Install Type: ${location.type.toUpperCase()}`);
+      console.log(`Base Path: ${location.basePath}`);
+      console.log(`Global Path: ${getGlobalInstallPath()}`);
+      console.log(`Current Directory: ${cwd}`);
+      console.log(`\nDetection Indicators:`);
+      location.indicators.forEach(i => console.log(`  - ${i}`));
+      console.log(`\nData Paths:`);
+      for (const [type, p] of Object.entries(dataPaths)) {
+        if (typeof p === 'string') {
+          console.log(`  ${type}: ${p}`);
+        } else {
+          console.log(`  ${type}: ERROR - ${p.error}`);
+        }
+      }
+      console.log(`\nPlanning Path: ${getPlanningPath({ cwd, forceGlobal, forceProject })}`);
+    } else {
+      output(result, raw);
+    }
+  } catch (error) {
+    console.error(`Error detecting install info: ${error.message}`);
+    process.exit(1);
+  }
+}
+
 // ─── CLI Router ───────────────────────────────────────────────────────────────
 
 async function main() {
@@ -4598,10 +4653,17 @@ async function main() {
   const cwd = process.cwd();
 
   if (!command) {
-    error('Usage: GSI-tools <command> [args] [--raw]\nCommands: state, resolve-model, find-phase, commit, verify-summary, verify, frontmatter, template, generate-slug, current-timestamp, list-todos, verify-path-exists, config-ensure-section, reflection, check-gsd-updates, integrate-gsd-change, gsd-update-history, init');
+    error('Usage: GSI-tools <command> [args] [--raw]\nCommands: state, install-info, resolve-model, find-phase, commit, verify-summary, verify, frontmatter, template, generate-slug, current-timestamp, list-todos, verify-path-exists, config-ensure-section, reflection, check-gsd-updates, integrate-gsd-change, gsd-update-history, init');
   }
 
   switch (command) {
+    case 'install-info': {
+      const forceGlobal = args.includes('--force-global');
+      const forceProject = args.includes('--force-project');
+      cmdInstallInfo(cwd, { forceGlobal, forceProject }, raw);
+      break;
+    }
+
     case 'state': {
       const subcommand = args[1];
       if (subcommand === 'update') {
