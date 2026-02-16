@@ -694,16 +694,113 @@ Edit `.planning/config.json`:
 
 ---
 
+## Thinking Server Selection
+
+### When to Use Thinking Servers
+
+Thinking servers provide cognitive enhancement for complex operations. Use them BEFORE tool selection when facing:
+
+- Multi-step problems requiring decomposition
+- Architectural decisions with tradeoffs
+- Bug investigations needing systematic analysis
+- Fuzzy requirements needing clarification
+
+### Server Selection Decision Tree
+
+```
+Is this a complex problem?
+  |
+  v
+Does it require multi-step decomposition?
+  YES --> Sequential Thinking
+          - Plan execution steps
+          - Verify each step
+          - Support revision
+  |
+  NO
+  v
+Does it require structure/architecture analysis?
+  YES --> Tractatus Thinking
+          - Decompose into propositions
+          - Find multiplicative relationships
+          - Verify logical completeness
+  |
+  NO
+  v
+Is this a bug/investigation?
+  YES --> Debug Thinking
+          - Query similar problems
+          - Create hypothesis/experiment nodes
+          - Track solutions and learnings
+  |
+  NO
+  v
+Skip thinking server - direct tool execution
+```
+
+### Thinking Server Integration with MCP
+
+| Thinking Server | Follow With | Use Case |
+|-----------------|-------------|----------|
+| Sequential | CI/DC tools | Plan steps → Execute with MCP |
+| Tractatus | CG tools | Analyze structure → Query relationships |
+| Debug | DC/CI tools | Investigate → Execute experiments |
+
+### 7-BMAD Circle Mapping
+
+| Circle | Thinking Server | MCP Integration |
+|--------|-----------------|-----------------|
+| Method | Sequential | Plan implementation → DC/CI execute |
+| Mad | Debug | Track integration issues |
+| Model | Tractatus | Analyze architecture → CG verify |
+| Mode | Tractatus | Verify pattern consistency |
+| Mod | Sequential | Assess maintainability |
+| Modd | Tractatus | Analyze extensibility |
+| Methodd | Sequential | Verify documentation completeness |
+
+### Token Budget for Thinking
+
+- **Sequential**: 1-3K tokens for 5-7 thoughts
+- **Tractatus**: 1-2K tokens for 10-20 propositions
+- **Debug**: 1-2K tokens for 3-10 nodes
+
+**Rule:** One thinking session per workflow, batch MCP calls based on thinking output.
+
+### Combined Workflow Pattern
+
+```
+1. Thinking Server (plan/analyze)
+   - Sequential: Multi-step planning
+   - Tractatus: Structure analysis
+   - Debug: Problem investigation
+   |
+   v
+2. MCP Tools (execute)
+   - CG: Relationship discovery
+   - CI: Code search/understanding
+   - DC: File operations
+   |
+   v
+3. Thinking Server (verify)
+   - Verify completion
+   - Capture learnings
+```
+
+---
+
 ## MEMORIZE
 
 **Skills → MCP → Native**
 
 This is the tool priority hierarchy. Follow it always.
 
+**For complex problems: Thinking → MCP → Verify**
+
 ---
 
-*Version: 1.1*
-*Last Updated: 2026-02-12*
+*Version: 1.2*
+*Last Updated: 2026-02-16*
 *Purpose: Enforce MCP tool usage for GSI workflows*
 *Target: 80-90% token savings across all GSI operations*
 *MCP Servers: DC, CI, CG (neo4j://localhost:7687)*
+*Thinking Servers: Sequential, Tractatus, Debug*
