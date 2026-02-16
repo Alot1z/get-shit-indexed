@@ -219,3 +219,79 @@ Application --[Read]--> Load Balancer --[Route]--> Primary/Replicas
 
 *Template created: 2026-02-15*
 *Integration Version: 1.0*
+
+---
+
+## Thinking Phase Integration
+
+This template supports cognitive enhancement through thinking phases:
+
+### Template Metadata
+
+```yaml
+---
+thinking_required: true
+thinking_servers:
+  - debug
+  - sequential
+thinking_phases:
+  - PRE_ANALYSIS
+  - DURING_INVESTIGATION
+  - POST_RESOLUTION
+min_thinking_duration: 3000
+max_thinking_duration: 8000
+---
+```
+
+### Thinking Phase Markers
+
+Add thinking phases at key points:
+
+```markdown
+<thinking_phase phase="PRE_ANALYSIS" server="tractatus" timeout="5000">
+Before analyzing integration:
+- Map component relationships
+- Identify data flow patterns
+- List potential failure points
+</thinking_phase>
+
+<thinking_phase phase="DURING_INVESTIGATION" server="debug" timeout="5000">
+During hypothesis testing:
+- Track each test result
+- Store patterns in debug graph
+- Build knowledge for future analysis
+</thinking_phase>
+
+<thinking_phase phase="POST_RESOLUTION" server="sequential" timeout="3000">
+After resolution:
+- Document what worked
+- Identify improvement opportunities
+- Update monitoring plan
+</thinking_phase>
+```
+
+### Debug-Thinking Storage
+
+Integration analyses are stored in the debug-thinking knowledge graph:
+
+```
+~/.debug-thinking-mcp/
+├── problems/
+│   └── integration-{component-hash}.json
+├── solutions/
+│   └── integration-fix-{hash}.json
+└── observations.jsonl
+```
+
+### Query Past Integrations
+
+```javascript
+mcp__debug-thinking__debug_thinking({
+  action: "query",
+  queryType: "similar-problems",
+  parameters: {
+    pattern: "api integration payment",
+    limit: 5
+  }
+})
+```
