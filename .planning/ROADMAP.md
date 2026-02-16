@@ -19,7 +19,12 @@ Transform Get Shit Indexed (GSI) system to fully leverage three MCP servers—De
 - [ ] **Phase 11: Resources & Links Audit** - Verify all external and internal resources
 - [ ] **Phase 12: Theory & Practice Docs** - Document conceptual model vs actual implementation
 - [ ] **Phase 13: Comprehensive Testing** - End-to-end testing of all GSI functionality
-- [ ] **Phase 23: Package Self-Containment** - Make GSI package fully self-contained with no global dependencies
+- [x] **Phase 14-22: Enhancement Phases** - MCP optimization, thinking enforcement, complexity prediction, prompt enhancer, thinking integration, GSD updates, pattern learning
+- [x] **Phase 23: Package Self-Containment** - Make GSI package fully self-contained with no global dependencies
+- [ ] **Phase 24: Prompt Enhancement Foundation** - Risk assessment and mode selection for prompt enhancement
+- [ ] **Phase 25: Semantic Intervention Engine** - Heretic-API style parallel branching and refusal detection
+- [ ] **Phase 26: Context Optimization Layer** - Hierarchical summarization and vector offloading
+- [ ] **Phase 27: Claude Code SDK Integration** - Native SDK wrapper and PreUserPrompt hook
 
 ## Phase Details
 
@@ -251,8 +256,18 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 11. Resources & Links Audit | 1/1 | Complete ✓ | 2026-02-14 |
 | 12. Theory & Practice Docs | 1/1 | Complete ✓ | 2026-02-14 |
 | 23. Package Self-Containment | 4/4 | Complete ✓ | 2026-02-16 |
+| 24. Prompt Enhancement | 0/4 | Planned | - |
+| 25. Semantic Intervention | 0/4 | Planned | - |
+| 26. Context Optimization | 0/4 | Planned | - |
+| 27. SDK Integration | 0/4 | Planned | - |
 
-**Overall Progress**: 41/58 plans complete (71% - 17 new plans added)
+**Overall Progress**: 41/74 plans complete (55%)
+
+**NEW: Phases 24-27 (Apex Architecture) - 16 plans planned**
+- Phase 24: Prompt Enhancement Foundation (4 plans)
+- Phase 25: Semantic Intervention Engine (4 plans)
+- Phase 26: Context Optimization Layer (4 plans)
+- Phase 27: Claude Code SDK Integration (4 plans)
 
 **Phase 14 (MCP Tool Optimization): 6 plans created - 36 tasks total**
 - Plan 14-01: 6 tasks - read_multiple_files integration
@@ -751,3 +766,164 @@ The thinking infrastructure from Phase 15/17 exists as code but is NOT actually 
 
 **Key Gap Addressed**:
 The global rules files (auto-validation.md, code-review.md, tool-priority.md, README.md) in ~/.claude/rules/ were created during development but never added to the source code package. This means users installing via npm wouldn't get these critical files.
+
+---
+
+## Part 2: Apex Architecture - Advanced Enhancement Layer
+
+### Phase 24: Prompt Enhancement Foundation
+
+**Goal**: Create intelligent prompt enhancement system with risk assessment and mode selection
+
+**Depends on**: Phase 23 (Package Self-Containment)
+
+**Success Criteria**:
+1. Risk assessment engine detects prompt complexity and potential issues
+2. Mode selector chooses enhancement intensity (COMPREHENSIVE, STANDARD, LIGHTWEIGHT, NONE)
+3. Enhancement templates for different prompt types
+4. Single-word prompts ("continue") are skipped
+5. Code snippets and URLs are not enhanced
+
+**Plans**: 4 plans in 2 waves
+
+**Status**: Ready for Planning
+
+**Plans**:
+- [ ] 24-01: Risk Assessment Engine (6 tasks) - Wave 1
+- [ ] 24-02: Mode Selector System (6 tasks) - Wave 1
+- [ ] 24-03: Enhancement Templates (7 tasks) - Wave 2
+- [ ] 24-04: Skip Rules Implementation (5 tasks) - Wave 2
+
+**Enhancement Rules**:
+- Single words ("continue", "yes", "done") → NONE
+- Follow-up messages → Context-dependent (check complexity)
+- Code snippets → NONE
+- URLs → NONE
+- Complex prompts → COMPREHENSIVE with risk assessment
+
+### Phase 25: Semantic Intervention Engine
+
+**Goal**: Implement Heretic-API style semantic intervention with parallel branching and refusal detection
+
+**Depends on**: Phase 24 (Prompt Enhancement Foundation)
+
+**Success Criteria**:
+1. Semantic brancher generates prompt variations
+2. Parallel sampling sends multiple rewrites simultaneously
+3. Soft-refusal detection identifies "I cannot..." responses
+4. Response scoring and merge selects best output
+5. Graceful degradation on API failures
+
+**Plans**: 4 plans in 3 waves
+
+**Status**: Ready for Planning
+
+**Plans**:
+- [ ] 25-01: Semantic Brancher (7 tasks) - Wave 1
+- [ ] 25-02: Parallel Sampling System (7 tasks) - Wave 1
+- [ ] 25-03: Soft-Refusal Detection (6 tasks) - Wave 2
+- [ ] 25-04: Response Scoring & Merge (7 tasks) - Wave 3
+
+**Heretic-API Concepts**:
+- Academic Framing: "In a theoretical context..."
+- Engineering Framing: "For observability pipeline design..."
+- Decomposition: Split intent into safe sub-tasks
+- Self-consistency scoring across branches
+
+### Phase 26: Context Optimization Layer
+
+**Goal**: Implement Context-Window-as-Cache protocol with hierarchical summarization
+
+**Depends on**: Phase 25 (Semantic Intervention Engine)
+
+**Success Criteria**:
+1. Hierarchical summarization (telescope method) working
+2. Vector offloading for large files implemented
+3. Context-window-as-cache protocol active
+4. Local embedding search for code snippets
+5. Large files never fill context window
+
+**Plans**: 4 plans in 2 waves
+
+**Status**: Ready for Planning
+
+**Plans**:
+- [ ] 26-01: Hierarchical Summarization (7 tasks) - Wave 1
+- [ ] 26-02: Vector Offloading (7 tasks) - Wave 1
+- [ ] 26-03: Context-Cache Protocol (6 tasks) - Wave 2
+- [ ] 26-04: Local Embedding Search (6 tasks) - Wave 2
+
+**Telescope Method**:
+- Layer 0 (Top): 1-paragraph abstract
+- Layer 1: Section summaries
+- Layer 2: Chunk-level embeddings
+- Layer 3: Raw text (only when requested)
+
+### Phase 27: Claude Code SDK Integration
+
+**Goal**: Integrate Claude Code SDK and Agent SDK for native tool execution
+
+**Depends on**: Phase 26 (Context Optimization Layer)
+
+**Success Criteria**:
+1. SDK wrapper module created
+2. PreUserPrompt hook integration working
+3. Agent SDK integrated for GSI phases
+4. MCP server alternative via SDK
+5. Wrapper script / MCP server for enhancement
+
+**Plans**: 4 plans in 3 waves
+
+**Status**: Ready for Planning
+
+**Plans**:
+- [ ] 27-01: SDK Wrapper Module (6 tasks) - Wave 1
+- [ ] 27-02: PreUserPrompt Hook (7 tasks) - Wave 1
+- [ ] 27-03: Agent SDK Integration (7 tasks) - Wave 2
+- [ ] 27-04: MCP Server Alternative (6 tasks) - Wave 3
+
+**Integration Options**:
+1. PreUserPrompt hook - Intercept before Claude sees it
+2. Wrapper script - Enhance before invoking Claude
+3. MCP server - Enhancement as MCP tool
+
+---
+
+## Existing Phase Improvement Analysis
+
+### Phase 1-8 Improvements Needed
+
+| Phase | Issue | Improvement |
+|-------|-------|-------------|
+| 1 | CodeGraphContext references remain | Replace all CG with CI tools |
+| 2 | Workflows still reference neo4j | Update workflow comments |
+| 3 | Documentation has outdated CG info | Remove CG from all guides |
+| 7 | Commands still have CG in allowed-tools | Remove from all 26 commands |
+
+### Phase 9-13 Improvements Needed
+
+| Phase | Issue | Improvement |
+|-------|-------|-------------|
+| 9 | get-shit-done/ directory still exists | Complete removal |
+| 10 | Neo4j dependency documented | Update to CI-only |
+| 11 | Some GSD URLs may remain | Verify all URLs |
+| 13 | Brand consistency 87.5% | Increase to 100% |
+
+### Phase 14-23 Improvements Needed
+
+| Phase | Issue | Improvement |
+|-------|-------|-------------|
+| 14 | CG tools planned but not used | Replace with CI equivalents |
+| 15 | Thinking hooks not registered | Connect to Claude settings |
+| 17 | CG dependency in cognitive flow | Use CI for all analysis |
+| 18 | gsd-* agents may still exist | Verify complete rename |
+| 20 | Thinking not invoked during tools | Connect infrastructure |
+| 23 | Path references in some files | Verify all are relative |
+
+### Priority Improvements
+
+1. **HIGH**: Remove all CodeGraphContext references (replaced with CI)
+2. **HIGH**: Connect thinking hooks to actual Claude settings
+3. **MEDIUM**: Clean up duplicate/obsolete directories
+4. **MEDIUM**: Update all documentation for 2-server architecture
+5. **LOW**: Improve test coverage to 100%
