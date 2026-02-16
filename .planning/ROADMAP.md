@@ -654,9 +654,18 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 The thinking infrastructure from Phase 15/17 exists as code but is NOT actually being invoked during tool execution. This phase connects the code to actual Claude tool execution through proper hook registration and thinking orchestrators.
 
 **Extended Plans** (split from original):
-- [ ] 20-02a: Thinking Mode Selector (6 tasks) - Split for granularity
-- [ ] 20-02b: Thinking Orchestrator (7 tasks) - Split for granularity
-- [ ] 20-04a: Command Thinking Wrapper (6 tasks) - Split for granularity
+- [x] 20-02a: Thinking Mode Selector (6 tasks) - Split for granularity ✅
+- [x] 20-02b: Thinking Orchestrator (7 tasks) - Split for granularity ✅
+- [x] 20-04a: Command Thinking Wrapper (6 tasks) - Split for granularity ✅
+
+**Enhancement Plans** (full system integration):
+- [ ] 20-04b: Agent & Command Thinking Integration (6 tasks) - All agents and commands
+- [ ] 20-04c: Reference Thinking Integration (6 tasks) - All reference files
+- [ ] 20-04d: Template Thinking Integration (5 tasks) - All template files
+- [ ] 20-06: Install Location Detection (7 tasks) - Auto-detect global vs project
+- [ ] 20-07: Cross-Feature Enhancement (7 tasks) - Full mutual feature enhancement
+
+**Phase 20 Status**: 6/11 plans complete (55%)
 
 ### Phase 21: GSD Update Integration
 
