@@ -1,9 +1,4 @@
 {
   "mode": "yolo",
-  "executor_model": "sonnet",
-  "verifier_model": "sonnet",
-  "mapper_model": "sonnet",
-  "parallelization": true,
-  "branching_strategy": "phase",
-  "commit_docs": true
+  "enabled": "2026-02-17"
 }
