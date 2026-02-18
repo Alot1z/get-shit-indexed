@@ -259,14 +259,16 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | **38. Claudeception Skills Enhancement** | 0/4 | Planned | - |
 | **39. GSI Command Audits** | 0/2 | Planned | - |
 | **40. /gsi:claudeception Command** | 0/4 | Planned | - |
-| **41. Full System Integration** | 0/3 | Planned | - |
+| **41. GSI Total Project Rectification & Deep Verification** | 0/3 | Planned ← CURRENT | - |
 | **42. Agent Tool Optimization** | 0/1 | Planned | - |
 | **43. External Tool Integration** | 0/1 | Planned | - |
 | **44. Knowledge Flow Integration** | 0/1 | Planned | - |
 | **45. Adaptive Workflow Planning** | 0/1 | Planned | - |
 | **46. Self-Improving Validation** | 0/1 | Planned | - |
+| **47. GSI Master Architecture Rectification** | 0/1 | Planned | - |
+| **48. Full System Integration** | 0/3 | Planned | - |
 
-**Overall Progress**: 102/128 plans complete (80%)
+**Overall Progress**: 102/135 plans complete (76%)
 
 **NEW: Milestone 3 - Claudeception Integration (Phases 37-41) - 17 plans**
 - Phase 37: Workflow Modules Integration (4 plans) - Integrate 4 TypeScript modules
@@ -1051,28 +1053,28 @@ The global rules files (auto-validation.md, code-review.md, tool-priority.md, RE
 - [ ] 40-03: Integrate all workflow modules (8 tasks)
 - [ ] 40-04: Create self-improvement loop (7 tasks)
 
-### Phase 41: Full System Integration
+### Phase 41: GSI Total Project Rectification & Deep Verification
 
-**Goal**: Connect all claudeception components with full cognitive-flow orchestration for unified self-improving system
+**Goal**: Complete total project rectification with comprehensive verification, fixing all accumulated issues, consolidating duplicate code, and ensuring deep system integrity
 
 **Depends on**: Phase 40 (/gsi:claudeception Command)
 
 **Success Criteria**:
-1. All modules connected via cognitive-flow
-2. Pattern extraction → generation → integration pipeline working
-3. Knowledge base drives feature suggestions
-4. Thinking servers enhance all operations
-5. Continuous learning from every workflow
-6. System generates its own improvements
+1. All codebase issues identified and categorized
+2. Duplicate functionality consolidated
+3. All broken references fixed
+4. Deep verification of all modules complete
+5. System integrity validated end-to-end
+6. Technical debt documented and prioritized
 
-**Plans**: 3 plans
+**Plans**: 3 plans (36 tasks total)
 
-**Status**: Planned
+**Status**: Planned ← CURRENT FOCUS
 
 **Plans**:
-- [ ] 41-01: Connect all modules with cognitive-flow (8 tasks)
-- [ ] 41-02: Create pattern-to-code pipeline (7 tasks)
-- [ ] 41-03: Enable continuous self-improvement (7 tasks)
+- [ ] 41-01: Total Codebase Rectification (12 tasks) - Fix audit findings, @-references, paths, hooks
+- [ ] 41-02: Deep Verification & Validation (10 tasks) - Phase verification, command verification, integration checks
+- [ ] 41-03: Technical Debt Documentation & Native CLI Evolution (14 tasks) - Debt cataloging, CLI tool design
 
 ---
 
@@ -1246,3 +1248,151 @@ The global rules files (auto-validation.md, code-review.md, tool-priority.md, RE
 | Rule Generation | Error patterns | New validation rules |
 | Rule Testing | New rules | Accuracy metrics |
 | Rule Deployment | Validated rules | Updated validator config |
+
+### Phase 47: GSI Master Architecture Rectification & Native Evolution
+
+**Goal**: Rectify and consolidate the GSI architecture by removing legacy/unused code, standardizing module interfaces, and enabling native evolution through self-improving capabilities
+
+**Depends on**: Phase 44 (Knowledge Flow Integration), Phase 46 (Self-Improving Validation)
+
+**Success Criteria**:
+1. All modules classified and documented
+2. Duplicate functionality consolidated
+3. Module registry system functional
+4. Legacy modules properly archived
+5. Architecture health metrics available
+
+**Plans**: 1 comprehensive plan
+
+**Status**: Planned
+
+**Plans**:
+- [ ] 47-01: GSI Master Architecture Rectification (10 tasks)
+
+**Architecture Rectification Areas**:
+| Area | Current State | Target State |
+|------|---------------|--------------|
+| Module Organization | Scattered, inconsistent | Unified registry |
+| Integration Modules | Duplicates, unused | Consolidated |
+| Module Interfaces | Varying patterns | Standardized |
+| Legacy Code | Accumulated debt | Archived with docs |
+| Evolution Capability | Manual updates | Native self-improvement |
+
+### Phase 48: Full System Integration
+
+**Goal**: Connect all claudeception components with full cognitive-flow orchestration for unified self-improving system
+
+**Depends on**: Phase 47 (GSI Master Architecture Rectification)
+
+**Success Criteria**:
+1. All modules connected via cognitive-flow
+2. Pattern extraction → generation → integration pipeline working
+3. Knowledge base drives feature suggestions
+4. Thinking servers enhance all operations
+5. Continuous learning from every workflow
+6. System generates its own improvements
+
+**Plans**: 3 plans
+
+**Status**: Planned
+
+**Plans**:
+- [ ] 48-01: Connect all modules with cognitive-flow (8 tasks)
+- [ ] 48-02: Create pattern-to-code pipeline (7 tasks)
+- [ ] 48-03: Enable continuous self-improvement (7 tasks)
+
+### Phase 49: GSI Architecture Overhaul & Native Evolution
+
+**Goal**: CRITICAL rectification - Enforce GSI internal tool usage, implement gsi-explorer agent, absorb external repositories, and consolidate technical debt
+
+**Depends on**: Phase 41 (GSI Total Project Rectification), Phase 47 (GSI Master Architecture Rectification)
+
+**Priority**: CRITICAL - Stabilization Sprint Required
+
+**Diagnosis**:
+- Feature Creep without integration
+- Project fragile, suffering from technical debt
+- GSI tools exist but are underutilized
+- Phases piling up rather than compounding value
+
+**Success Criteria**:
+1. gsi-explorer agent operational using only GSI internal tools
+2. All hooks enforce GSI tool precedence over native tools
+3. At least 3 external repositories researched and integration path defined
+4. Command standardization documented and enforced
+5. prompt-enhancer renamed to gsi-instruction-controller with expanded scope
+6. All duplicate phases resolved (merged or renumbered)
+7. Integration test passes for all active phases
+
+**Plans**: 6 plans, 66 tasks
+
+**Status**: Planned ← URGENT
+
+**Plans**:
+- [ ] 49-01: gsi-explorer Agent Implementation (14 tasks)
+- [ ] 49-02: Tool Precedence Enforcement (12 tasks)
+- [ ] 49-03: External Repository Research & Integration (10 tasks)
+- [ ] 49-04: Command Standardization & Protocol Definition (8 tasks)
+- [ ] 49-05: Architectural Refactor - Instruction Controller (10 tasks)
+- [ ] 49-06: Technical Debt Consolidation (12 tasks)
+
+**External Repositories to Research**:
+- https://github.com/obra/superpowers (semantic-code-search, mcporter)
+- https://github.com/sipeed/picoclaw
+- https://github.com/harlan-zw/mdream
+- https://github.com/microsoft/agent-lightning
+- https://github.com/MIATECHPARTNERS/PromptChains
+
+### Phase 50: Ultimate Integration (20 Repositories)
+
+**Goal**: Complete integration of 20+ external repositories into unified GSI ecosystem
+
+**Depends on**: Phase 49 (GSI Architecture Overhaul)
+
+**Priority**: CRITICAL - Full System Integration
+
+**Layers**:
+1. **Core Engine**: files-to-prompt, semantic-code-search, CodeGraphContext, FastCode
+2. **Agent Framework**: agent-lightning, claude-agent-sdk, ralph-playbook, picobot
+3. **Knowledge System**: txtai, arscontexta, skill-compose
+4. **Workflow Engine**: PromptChains, mdream, taskmaster
+5. **Distribution**: electrobun, superdoc, CXcompress
+6. **Enhancement**: visual-explainer, awesome-sdks, superpowers
+
+**Success Criteria**:
+1. All 20 repositories integrated and functional
+2. Unified CLI with all commands working
+3. Desktop app distributable via electrobun
+4. Context compression achieving 80%+ reduction
+5. Semantic search working across all GSI files
+
+**Plans**: 6 plans, 72 tasks
+
+**Status**: Planned
+
+**Plans**:
+- [ ] 50A: Core Engine Integration (12 tasks)
+- [ ] 50B: Agent Framework Integration (12 tasks)
+- [ ] 50C: Knowledge System Integration (12 tasks)
+- [ ] 50D: Workflow Engine Integration (12 tasks)
+- [ ] 50E: Distribution Layer Integration (12 tasks)
+- [ ] 50F: Enhancement Layer Integration (12 tasks)
+
+---
+
+## Progress Summary
+
+**Overall Progress**: 105/153 plans complete (69%)
+
+**Milestone 1**: Phases 1-8 - COMPLETE ✓
+**Milestone 2**: Phases 9-27 - IN PROGRESS (14/19 phases)
+**Milestone 3**: Phases 28-40 - IN PROGRESS (Claudeception Integration)
+**Milestone 4**: Phases 41-50 - PLANNED (Architecture Rectification, Overhaul, Integration)
+
+**Current Position**: Phase 41
+
+**Known Issues**:
+- Duplicate Phase 28s: `28-apex-architecture`, `28-tdd-integration`
+- Duplicate Phase 37s: Three directories with same number
+- Duplicate Phase 38s: Two directories with same number
+- Duplicate Phase 41s: Old content needs renumbering to Phase 48+
