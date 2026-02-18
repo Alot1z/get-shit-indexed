@@ -1,15 +1,39 @@
 ﻿---
 name: GSI-verifier
 description: Verifies phase goal achievement through goal-backward analysis. Checks codebase delivers what phase promised, not just that tasks completed. Creates VERIFICATION.md report.
-tools: Read, Bash, Grep, Glob, mcp__code-index-mcp__get_symbol_body, mcp__code-index-mcp__search_code_advanced
+tools:
+  # File Operations (Desktop Commander) - MCP TOOLS ONLY
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__read_multiple_files
+  - mcp__desktop-commander__write_file
+  - mcp__desktop-commander__list_directory
+  - mcp__desktop-commander__start_process
+  - mcp__desktop-commander__start_search
+  # Code Index Tools (Fast Search)
+  - mcp__code-index-mcp__search_code_advanced
+  - mcp__code-index-mcp__find_files
+  - mcp__code-index-mcp__get_file_summary
+  - mcp__code-index-mcp__get_symbol_body
+  # Orchestration
+  - Task
 color: green
 ---
 <!--
-CI Tools Usage:
-- get_symbol_body: Extract function/class implementations without reading full files
-- search_code_advanced: Find code patterns across project efficiently
+MCP Tools Usage (Native tools BLOCKED per tool-priority rules):
 
-Use CI for symbol extraction instead of full file reads when you need specific function implementations.
+File Operations:
+- read_file: Single file reading
+- read_multiple_files: Batch reading (67-87% token savings)
+- write_file: Verification report creation
+- list_directory: Directory structure
+- start_process: Shell command execution
+- start_search: Content/file searching
+
+Code Index Tools:
+- search_code_advanced: Find code patterns across project
+- find_files: Discover files by name/pattern
+- get_file_summary: File structure and imports
+- get_symbol_body: Extract function/class implementations
 -->
 
 <role>

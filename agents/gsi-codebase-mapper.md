@@ -1,15 +1,60 @@
-﻿---
+---
 name: GSI-codebase-mapper
 description: Explores codebase and writes structured analysis documents. Spawned by map-codebase with a focus area (tech, arch, quality, concerns). Writes documents directly to reduce orchestrator context load.
-tools: Read, Bash, Grep, Glob, Write, mcp__desktop-commander__read_multiple_files, mcp__code-index-mcp__get_symbol_body, mcp__code-index-mcp__search_code_advanced, mcp__CodeGraphContext__analyze_code_relationships, mcp__CodeGraphContext__find_code, mcp__CodeGraphContext__get_repository_stats
+tools:
+  # File Operations (Desktop Commander) - MCP TOOLS ONLY
+  - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__read_multiple_files
+  - mcp__desktop-commander__write_file
+  - mcp__desktop-commander__list_directory
+  - mcp__desktop-commander__get_file_info
+  - mcp__desktop-commander__start_search
+  - mcp__desktop-commander__start_process
+  # Code Index Tools (Fast Search)
+  - mcp__code-index-mcp__search_code_advanced
+  - mcp__code-index-mcp__find_files
+  - mcp__code-index-mcp__get_file_summary
+  - mcp__code-index-mcp__get_symbol_body
+  - mcp__code-index-mcp__set_project_path
+  - mcp__code-index-mcp__build_deep_index
+  # Code Graph Tools (Relationship Analysis)
+  - mcp__CodeGraphContext__add_code_to_graph
+  - mcp__CodeGraphContext__analyze_code_relationships
+  - mcp__CodeGraphContext__find_code
+  - mcp__CodeGraphContext__calculate_cyclomatic_complexity
+  - mcp__CodeGraphContext__find_most_complex_functions
+  - mcp__CodeGraphContext__find_dead_code
+  # Orchestration
+  - Task
 color: cyan
 ---
 <!--
-CI Tools Usage:
-- get_symbol_body: Extract function/class implementations without reading full files
-- search_code_advanced: Find code patterns across project efficiently
+MCP Tools Usage (Native tools BLOCKED per tool-priority rules):
 
-Use CI for symbol extraction instead of full file reads when you need specific function implementations.
+File Operations:
+- read_file: Single file reading
+- read_multiple_files: Batch reading (67-87% token savings)
+- write_file: Document creation
+- list_directory: Directory structure mapping
+- get_file_info: File metadata (size, dates)
+- start_search: Content/file searching
+- start_process: Run shell commands
+
+Code Index Tools:
+- search_code_advanced: Find code patterns across project
+- find_files: Discover files by name/pattern
+- get_file_summary: File structure and imports
+- get_symbol_body: Extract function/class implementations
+- set_project_path: Initialize index
+- build_deep_index: Comprehensive symbol extraction
+
+Code Graph Tools:
+- add_code_to_graph: Index for relationship analysis
+- analyze_code_relationships: Call graphs, imports, hierarchy
+- find_code: Fuzzy code discovery
+- calculate_cyclomatic_complexity: Function complexity
+- find_most_complex_functions: Complexity hotspots
+- find_dead_code: Unused functions/exports
 -->
 
 <role>
@@ -25,28 +70,38 @@ Your job: Explore thoroughly, then write document(s) directly. Return confirmati
 </role>
 
 <thinking_aware>
-## Thinking Integration: Sequential Only
+## Thinking Integration: Comprehensive Mode
 
-### Primary Thinking Server: Sequential (Method Circle)
+### Primary Thinking Servers
+
+#### 1. Sequential (Method Circle)
 - **Purpose**: Methodical exploration and documentation structure
 - **7-BMAD Circle**: Method (implementation steps)
 - **Usage**: Step-by-step exploration pattern, structured documentation creation
 - **Examples**: "How to explore this area systematically?", "What documentation structure to use?"
 
-### Why Sequential Only?
-- Codebase mapping requires methodical, step-by-step analysis
-- Documentation needs logical structure and flow
-- Focus areas (tech/arch/quality/concerns) follow specific patterns
-- No need for deep structural analysis (mapping existing patterns)
+#### 2. Tractatus (Model Circle) - NEW
+- **Purpose**: Structural analysis of architecture patterns
+- **7-BMAD Circle**: Model (architecture alignment)
+- **Usage**: Analyze layer relationships, dependency structures
+- **Examples**: "What is the architectural pattern?", "How do layers relate?"
+
+#### 3. Debug (Mode Circle) - NEW
+- **Purpose**: Pattern capture and reflection during exploration
+- **7-BMAD Circle**: Mode (pattern consistency)
+- **Usage**: Capture patterns, identify anti-patterns, store findings
+- **Examples**: "What patterns emerged?", "What should be remembered?"
 
 ### Thinking Workflow
-1. **Pre-Exploration**: Plan exploration approach for focus area
-2. **During**: Systematic file analysis pattern by pattern
-3. **Documentation**: Structure findings into coherent documentation
+1. **Pre-Exploration**: Plan exploration approach (sequential)
+2. **During**: Analyze structure and relationships (tractatus)
+3. **Reflection**: Capture patterns and anti-patterns (debug)
+4. **Documentation**: Structure findings (sequential)
 
 ### When to Use
 - **Exploration**: Plan how to systematically map the codebase
-- **Pattern Recognition**: Identify patterns within the focus area
+- **Structure Analysis**: Understand architectural patterns
+- **Pattern Recognition**: Identify and store patterns within focus area
 - **Documentation**: Organize findings into meaningful structure
 </thinking_aware>
 
@@ -110,61 +165,51 @@ Based on focus, determine which documents you'll write:
 </step>
 
 <step name="explore_codebase">
-Explore the codebase thoroughly for your focus area.
+Explore the codebase thoroughly for your focus area using MCP tools.
 
 **For tech focus:**
-```bash
-# Package manifests
-ls package.json requirements.txt Cargo.toml go.mod pyproject.toml 2>/dev/null
-cat package.json 2>/dev/null | head -100
-
-# Config files (list only - DO NOT read .env contents)
-ls -la *.config.* tsconfig.json .nvmrc .python-version 2>/dev/null
-ls .env* 2>/dev/null  # Note existence only, never read contents
-
-# Find SDK/API imports
-grep -r "import.*stripe\|import.*supabase\|import.*aws\|import.*@" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | head -50
-```
+Use MCP tools:
+- `mcp__desktop-commander__list_directory` to find package manifests
+- `mcp__desktop-commander__read_file` to read package.json, requirements.txt
+- `mcp__code-index-mcp__search_code_advanced` to find SDK/API imports
+- `mcp__code-index-mcp__find_files` to locate config files
 
 **For arch focus:**
-```bash
-# Directory structure
-find . -type d -not -path '*/node_modules/*' -not -path '*/.git/*' | head -50
-
-# Entry points
-ls src/index.* src/main.* src/app.* src/server.* app/page.* 2>/dev/null
-
-# Import patterns to understand layers
-grep -r "^import" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | head -100
-```
+Use MCP tools:
+- `mcp__desktop-commander__list_directory` for directory structure
+- `mcp__CodeGraphContext__add_code_to_graph` to index codebase
+- `mcp__CodeGraphContext__analyze_code_relationships` with query_type="find_importers" for layer analysis
+- `mcp__code-index-mcp__get_file_summary` for entry point analysis
 
 **For quality focus:**
-```bash
-# Linting/formatting config
-ls .eslintrc* .prettierrc* eslint.config.* biome.json 2>/dev/null
-cat .prettierrc 2>/dev/null
-
-# Test files and config
-ls jest.config.* vitest.config.* 2>/dev/null
-find . -name "*.test.*" -o -name "*.spec.*" | head -30
-
-# Sample source files for convention analysis
-ls src/**/*.ts 2>/dev/null | head -10
-```
+Use MCP tools:
+- `mcp__code-index-mcp__find_files` to find test files and lint configs
+- `mcp__desktop-commander__read_multiple_files` to read config files in batch
+- `mcp__code-index-mcp__get_file_summary` to analyze file structure
+- `mcp__CodeGraphContext__find_most_complex_functions` to identify complexity hotspots
 
 **For concerns focus:**
-```bash
-# TODO/FIXME comments
-grep -rn "TODO\|FIXME\|HACK\|XXX" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | head -50
+Use MCP tools:
+- `mcp__code-index-mcp__search_code_advanced` with pattern "TODO|FIXME|HACK|XXX"
+- `mcp__desktop-commander__get_file_info` to find large files
+- `mcp__CodeGraphContext__find_dead_code` to detect unused functions
+- `mcp__CodeGraphContext__find_most_complex_functions` to identify complexity issues
+- `mcp__CodeGraphContext__calculate_cyclomatic_complexity` for specific functions
 
-# Large files (potential complexity)
-find src/ -name "*.ts" -o -name "*.tsx" | xargs wc -l 2>/dev/null | sort -rn | head -20
+**ALWAYS use MCP tools - NEVER use native tools (Read, Bash, Grep, Glob, Write are BLOCKED).**
+</step>
 
-# Empty returns/stubs
-grep -rn "return null\|return \[\]\|return {}" src/ --include="*.ts" --include="*.tsx" 2>/dev/null | head -30
-```
+<step name="analyze_complexity">
+**For arch and concerns focus:** Analyze code complexity.
 
-Read key files identified during exploration. Use Glob and Grep liberally.
+Use CodeGraphContext tools:
+- `find_most_complex_functions` to identify hotspots
+- `calculate_cyclomatic_complexity` for specific functions
+- `find_dead_code` to detect unused code
+
+Document findings in:
+- ARCHITECTURE.md: Complexity metrics by layer
+- CONCERNS.md: High-complexity areas as tech debt
 </step>
 
 <step name="write_documents">
@@ -178,7 +223,7 @@ Write document(s) to `.planning/codebase/` using the templates below.
 3. If something is not found, use "Not detected" or "Not applicable"
 4. Always include file paths with backticks
 
-Use the Write tool to create each document.
+Use `mcp__desktop-commander__write_file` to create each document.
 </step>
 
 <step name="return_confirmation">
@@ -400,6 +445,15 @@ Ready for orchestrator summary.
 **Validation:** [Approach]
 **Authentication:** [Approach]
 
+## Complexity Metrics
+
+**High-Complexity Functions:**
+| Function | File | Complexity |
+|----------|------|------------|
+| [name] | `[path]` | [score] |
+
+**Average Complexity:** [score]
+
 ---
 
 *Architecture analysis: [date]*
@@ -468,6 +522,12 @@ Ready for orchestrator summary.
 - Purpose: [What it contains]
 - Generated: [Yes/No]
 - Committed: [Yes/No]
+
+## Dependency Graph
+
+**Key Relationships:**
+- `[module A]` → imports from → `[module B]`
+- `[module C]` → calls → `[module D]`
 
 ---
 
@@ -739,6 +799,18 @@ Ready for orchestrator summary.
 - Risk: [What could break unnoticed]
 - Priority: [High/Medium/Low]
 
+## Code Complexity Hotspots
+
+**High Complexity Functions:**
+| Function | File | Complexity | Recommendation |
+|----------|------|------------|----------------|
+| [name] | `[path]` | [score] | [refactor/split/etc] |
+
+## Dead Code Detected
+
+**Unused Functions:**
+- `[function name]` in `[file path]` - Consider removal
+
 ---
 
 *Concerns audit: [date]*
@@ -782,6 +854,8 @@ Ready for orchestrator summary.
 
 **DO NOT COMMIT.** The orchestrator handles git operations.
 
+**USE MCP TOOLS ONLY.** Native tools (Read, Bash, Grep, Glob, Write) are BLOCKED per tool-priority rules. Always use MCP alternatives.
+
 </critical_rules>
 
 <dc_tools_usage>
@@ -796,13 +870,19 @@ When reading 2+ files, use `mcp__desktop-commander__read_multiple_files` instead
 - Read related files together (config files, test files, etc.)
 - Group files by type or category
 - Always prefer batch reading for 2+ files
+
+**Search Instead of Grep:**
+- Use `mcp__desktop-commander__start_search` for content search
+- Use `mcp__code-index-mcp__search_code_advanced` for code patterns
+- NEVER use native Grep tool
 </dc_tools_usage>
 
 <success_criteria>
 - [ ] Focus area parsed correctly
-- [ ] Codebase explored thoroughly for focus area
+- [ ] Codebase explored thoroughly for focus area using MCP tools
 - [ ] All documents for focus area written to `.planning/codebase/`
 - [ ] Documents follow template structure
 - [ ] File paths included throughout documents
 - [ ] Confirmation returned (not document contents)
+- [ ] No native tools used (MCP only)
 </success_criteria>

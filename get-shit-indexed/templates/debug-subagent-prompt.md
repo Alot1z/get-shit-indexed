@@ -13,7 +13,7 @@ Investigate issue: {issue_id}
 **Summary:** {issue_summary}
 
 **MCP Tools for Debugging:**
-- Use CodeGraphContext to trace bug propagation through codebase
+- Use Code-Index MCP to trace bug propagation through codebase
 - Use Code-Index MCP for finding related code and symbol extraction
 - Use Desktop Commander's read_multiple_files for batch analysis
 </objective>
@@ -31,7 +31,7 @@ symptoms_prefilled: {true_or_false}
 goal: {find_root_cause_only | find_and_fix}
 
 **MCP Analysis Steps:**
-1. Use CodeGraphContext to find callers/callees of affected code
+1. Use Code-Index MCP to find callers/callees of affected code
 2. Use Code-Index MCP to search for similar error patterns
 3. Use batch reading to examine multiple files simultaneously
 </mode>

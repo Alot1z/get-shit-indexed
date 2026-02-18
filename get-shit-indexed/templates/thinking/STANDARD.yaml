@@ -1,0 +1,119 @@
+# STANDARD Thinking Template
+# Use for: Planning operations, multi-step workflows, code analysis
+# Complexity: 7-12
+
+mode: STANDARD
+servers:
+  - sequential
+  - tractatus
+bmad_enabled: true
+timeout: 5000
+max_thoughts: 5
+
+rationale_template: "Planning task requiring step sequencing (Sequential) and structural analysis (Tractatus)"
+
+selection_rules:
+  - command_type: planning
+    keywords:
+      - plan
+      - execute
+      - research
+      - analyze
+      - verify
+  - tool_count: 6-10
+  - process_steps: 4-7
+
+complexity_indicators:
+  min_score: 7
+  max_score: 12
+  factors:
+    - name: planning_keywords
+      keywords:
+        - plan
+        - design
+        - architect
+        - analyze
+      score: 3
+    - name: multi_step
+      condition: "Multiple sequential steps required"
+      score: 2
+    - name: file_modification
+      keywords:
+        - write
+        - edit
+        - create
+        - modify
+      score: 2
+    - name: code_analysis
+      keywords:
+        - analyze
+        - review
+        - understand
+        - investigate
+      score: 2
+
+server_config:
+  sequential:
+    enabled: true
+    priority: 1
+    max_thoughts: 5
+    focus_areas:
+      - step-planning
+      - execution-order
+      - dependency-resolution
+    prompt_template: |
+      Analyze the command for step sequencing and dependencies.
+      Command: {command}
+      Description: {description}
+      Objective: {objective}
+      
+      Provide up to {max_thoughts} thoughts on execution order and dependencies.
+
+  tractatus:
+    enabled: true
+    priority: 2
+    max_thoughts: 5
+    focus_areas:
+      - structural-analysis
+      - logical-dependencies
+      - architecture
+    prompt_template: |
+      Analyze the command for structural relationships and logical dependencies.
+      Command: {command}
+      Description: {description}
+      
+      Provide up to {max_thoughts} thoughts on structure and relationships.
+
+bmad_integration:
+  enabled: true
+  circles:
+    - method  # Implementation correctness
+    - mad     # Integration completeness
+    - model   # Architecture alignment
+    - mode    # Pattern consistency
+
+examples:
+  - command: "gsi plan-phase 20"
+    complexity: 8
+    rationale: "Planning operation requiring step sequencing and structural analysis"
+    thinking_phase:
+      mode: STANDARD
+      servers: [sequential, tractatus]
+      bmad_enabled: true
+      timeout: 7000
+  - command: "gsi execute-phase 20-01"
+    complexity: 10
+    rationale: "Execution requiring dependency resolution and verification"
+    thinking_phase:
+      mode: STANDARD
+      servers: [sequential, tractatus]
+      bmad_enabled: true
+      timeout: 8000
+  - command: "gsi research-phase 21"
+    complexity: 7
+    rationale: "Research requiring analysis and documentation"
+    thinking_phase:
+      mode: STANDARD
+      servers: [sequential, tractatus]
+      bmad_enabled: true
+      timeout: 6000

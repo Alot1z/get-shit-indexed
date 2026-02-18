@@ -7,7 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const statePath = 'C:/github-repos/my-claude-code-repos/get-shit-done-code-index/.planning/STATE.md';
+const statePath = path.join(__dirname, '..', '..', 'STATE.md');
 const stateContent = fs.readFileSync(statePath, 'utf8');
 
 // Update current position

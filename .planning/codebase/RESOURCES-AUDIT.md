@@ -78,10 +78,10 @@
 
 | Reference | Target | Location | Status |
 |-----------|--------|---------|--------|
-| @C:\Users\mose\.claude\get-shit-done\workflows\execute-plan.md | Workflow docs | execute-phase | TBD |
-| @C:\Users\mose\.claude\get-shit-done\workflows\*.md | Multiple workflow files | Various | TBD |
-| @C:\Users\mose\.claude\get-shit-done\references\*.md | Reference docs | Multiple | TBD |
-| @C:\Users\mose\.claude\get-shit-done\templates\*.md | Templates | Multiple | TBD |
+| @~/.claude/get-shit-done\workflows\execute-plan.md | Workflow docs | execute-phase | TBD |
+| @~/.claude/get-shit-done\workflows\*.md | Multiple workflow files | Various | TBD |
+| @~/.claude/get-shit-done\references\*.md | Reference docs | Multiple | TBD |
+| @~/.claude/get-shit-done\templates\*.md | Templates | Multiple | TBD |
 
 **Status:** Need verification of all @-references point to existing files
 

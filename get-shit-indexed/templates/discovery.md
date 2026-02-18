@@ -50,10 +50,9 @@ Output: DISCOVERY.md with recommendation
 
 **Source Priority:**
 1. **Context7 MCP** - For library/framework documentation (current, authoritative)
-2. **CodeGraphContext MCP** - For ecosystem analysis and relationship discovery
+2. **Code-Index MCP** - For ecosystem analysis, code search, and symbol extraction
 3. **Official Docs** - For platform-specific or non-indexed libraries
-4. **Code-Index MCP** - For code search in target repositories
-5. **WebSearch** - For comparisons, trends, community patterns (verify all findings)
+4. **WebSearch** - For comparisons, trends, community patterns (verify all findings)
 
 **Method Circle (Implementation) Thinking:**
 Since discovery is an implementation task, use Sequential thinking for structured research:
@@ -100,8 +99,7 @@ Before completing discovery, verify:
 - [ ] Recent updates/changelogs checked for breaking changes
 - [ ] Alternative approaches considered (not just first solution found)
 - [ ] MCP tools used for batch operations when reading multiple files
-- [ ] CodeGraphContext used for understanding ecosystem relationships
-- [ ] Code-Index MCP used for code search in relevant repositories
+- [ ] Code-Index MCP used for code search and symbol extraction
 
 **Confidence Levels:**
 - HIGH: Context7 or official docs confirm

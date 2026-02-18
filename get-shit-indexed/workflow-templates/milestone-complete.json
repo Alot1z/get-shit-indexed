@@ -1,0 +1,34 @@
+{
+  "name": "milestone-complete",
+  "description": "Complete current milestone and prepare next milestone",
+  "chain": [
+    {
+      "command": "gsi:audit-milestone",
+      "description": "Audit milestone for completeness"
+    },
+    {
+      "command": "gsi:verify-work",
+      "args": "--all",
+      "description": "Verify all phases are complete"
+    },
+    {
+      "command": "gsi:complete-milestone",
+      "description": "Archive current milestone"
+    },
+    {
+      "command": "gsi:new-milestone",
+      "description": "Create next milestone"
+    }
+  ],
+  "checkpoint": "manual",
+  "rollback": true,
+  "dependencies": {
+    "gsi:complete-milestone": ["gsi:verify-work"],
+    "gsi:new-milestone": ["gsi:complete-milestone"]
+  },
+  "metadata": {
+    "category": "milestone",
+    "estimated_duration": "1-2 hours",
+    "use_case": "Use when finishing a milestone and preparing for the next"
+  }
+}

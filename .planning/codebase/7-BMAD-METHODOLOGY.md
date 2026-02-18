@@ -4,7 +4,7 @@
 
 The 7-BMAD (7-Scared Circle Method) quality framework provides comprehensive validation gates for all agent work. This methodology ensures systematic verification across implementation, integration, architecture, patterns, maintainability, extensibility, and documentation.
 
-**Reference:** See `C:\Users\mose\.claude\rules\auto-validation.md` for validation system integration.
+**Reference:** See `~/.claude/rules\auto-validation.md` for validation system integration.
 
 ---
 

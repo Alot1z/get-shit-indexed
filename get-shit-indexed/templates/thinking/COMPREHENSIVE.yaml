@@ -1,0 +1,157 @@
+# COMPREHENSIVE Thinking Template
+# Use for: Complex debugging, architecture design, multi-phase integration
+# Complexity: 13+
+
+mode: COMPREHENSIVE
+servers:
+  - sequential
+  - tractatus
+  - debug
+bmad_enabled: true
+timeout: 9000
+max_thoughts: 10
+
+rationale_template: "Complex operation requiring step sequencing (Sequential), structural analysis (Tractatus), and problem-solving (Debug)"
+
+selection_rules:
+  - command_type: complex
+    keywords:
+      - debug
+      - troubleshoot
+      - integrate
+      - migrate
+      - refactor
+  - tool_count: 11+
+  - process_steps: 8+
+
+complexity_indicators:
+  min_score: 13
+  max_score: 100
+  factors:
+    - name: debug_keywords
+      keywords:
+        - debug
+        - troubleshoot
+        - fix
+        - resolve
+      score: 4
+    - name: complex_integration
+      keywords:
+        - integrate
+        - migrate
+        - refactor
+        - architect
+      score: 4
+    - name: multi_phase
+      condition: "Operation spans multiple phases or components"
+      score: 3
+    - name: critical_path
+      keywords:
+        - critical
+        - breaking
+        - production
+        - urgent
+      score: 3
+    - name: subagent_delegation
+      condition: "Command spawns multiple subagents"
+      score: 3
+
+server_config:
+  sequential:
+    enabled: true
+    priority: 1
+    max_thoughts: 10
+    focus_areas:
+      - complex-planning
+      - multi-step-sequencing
+      - dependency-graphs
+    prompt_template: |
+      Analyze the command for complex multi-step planning.
+      Command: {command}
+      Description: {description}
+      Objective: {objective}
+      Context: {context}
+      
+      Provide up to {max_thoughts} thoughts on execution strategy and dependencies.
+
+  tractatus:
+    enabled: true
+    priority: 2
+    max_thoughts: 10
+    focus_areas:
+      - deep-structural-analysis
+      - logical-foundations
+      - system-architecture
+    prompt_template: |
+      Perform deep structural analysis of the command context.
+      Command: {command}
+      Description: {description}
+      
+      Analyze logical foundations and system architecture implications.
+
+  debug:
+    enabled: true
+    priority: 3
+    max_thoughts: 10
+    focus_areas:
+      - problem-isolation
+      - hypothesis-testing
+      - root-cause-analysis
+    prompt_template: |
+      Analyze for potential issues and problem-solving strategies.
+      Command: {command}
+      Description: {description}
+      Symptoms: {symptoms}
+      
+      Generate hypotheses and verification strategies.
+
+parallel_execution:
+  enabled: true
+  strategy: parallel
+  merge_strategy: consensus
+  timeout_per_server: 5000
+
+bmad_integration:
+  enabled: true
+  circles:
+    - method    # Implementation correctness
+    - mad       # Integration completeness
+    - model     # Architecture alignment
+    - mode      # Pattern consistency
+    - mod       # Maintainability standards
+    - modd      # Extensibility verification
+    - methodd   # Documentation quality
+  verification_gates: true
+
+error_handling:
+  retry_count: 3
+  fallback_mode: STANDARD
+  partial_results: true
+
+examples:
+  - command: "gsi debug --complex \"Production issue\""
+    complexity: 15
+    rationale: "Complex debugging requiring all three thinking servers"
+    thinking_phase:
+      mode: COMPREHENSIVE
+      servers: [sequential, tractatus, debug]
+      bmad_enabled: true
+      timeout: 12000
+      
+  - command: "gsi new-project --comprehensive"
+    complexity: 14
+    rationale: "Comprehensive project setup requiring architecture analysis"
+    thinking_phase:
+      mode: COMPREHENSIVE
+      servers: [sequential, tractatus, debug]
+      bmad_enabled: true
+      timeout: 10000
+      
+  - command: "gsi verify-work 20 --deep"
+    complexity: 13
+    rationale: "Deep verification requiring thorough analysis"
+    thinking_phase:
+      mode: COMPREHENSIVE
+      servers: [sequential, tractatus, debug]
+      bmad_enabled: true
+      timeout: 9000

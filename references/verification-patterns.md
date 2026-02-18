@@ -257,7 +257,7 @@ const symbol = await mcp__code-index-mcp__get_symbol_body({
 
 ```bash
 # Find files with MCP patterns
-grep -r "mcp__\|read_multiple_files\|CodeGraphContext" templates/ references/ | wc -l
+grep -r "mcp__\|read_multiple_files\|code-index-mcp" templates/ references/ | wc -l
 ```
 
 ### Command 2: Verify Token Savings

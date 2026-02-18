@@ -7,7 +7,7 @@
 ## Sync Summary
 
 ### Source → Target
-- **Source:** C:\Users\mose\.claude\get-shit-indexed (local GSI directory with all Phase 1-3 updates)
+- **Source:** ~/.claude/get-shit-indexed (local GSI directory with all Phase 1-3 updates)
 - **Target:** C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index (cloned upstream repository)
 - **Sync Direction:** ONE-WAY (local → clone)
 

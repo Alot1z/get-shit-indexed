@@ -57,7 +57,7 @@ Add thinking phases to gsi-executor agent.
 </task>
 
 <files>
-C:/Users/mose/.claude/agents/gsi-executor.md
+~/.claude/agents/gsi-executor.md
 </files>
 
 <acceptance>
@@ -83,7 +83,7 @@ Add thinking phases to gsi-planner agent.
 </task>
 
 <files>
-C:/Users/mose/.claude/agents/gsi-planner.md
+~/.claude/agents/gsi-planner.md
 </files>
 
 <acceptance>

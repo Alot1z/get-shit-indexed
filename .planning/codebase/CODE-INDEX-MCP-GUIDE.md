@@ -340,10 +340,10 @@ Index tools set up, build, and maintain the code index for fast searches.
 **Example:**
 ```yaml
 mcp__code-index-mcp__set_project_path:
-  path: "C:/github-repos/my-project"
+  path: "<YOUR_PROJECT_PATH>"
 ```
 
-**Output:** "Project path set to C:/github-repos/my-project"
+**Output:** "Project path set to <YOUR_PROJECT_PATH>"
 
 **Gotcha:** Must use absolute paths, not relative
 
@@ -436,7 +436,7 @@ mcp__code-index-mcp__get_settings_info: {}
 **Response structure:**
 ```json
 {
-  "project_path": "C:/github-repos/my-project",
+  "project_path": "<YOUR_PROJECT_PATH>",
   "indexed_files": 123,
   "index_status": "ready",
   "search_tool": "ugrep",
@@ -496,7 +496,7 @@ mcp__code-index-mcp__check_temp_directory: {}
 ```yaml
 # Step 1: Set project path
 mcp__code-index-mcp__set_project_path:
-  path: "C:/github-repos/my-project"
+  path: "<YOUR_PROJECT_PATH>"
 
 # Step 2: Build initial index
 mcp__code-index-mcp__build_deep_index: {}
@@ -726,7 +726,7 @@ mcp__code-index-mcp__search_code_advanced:
 ```yaml
 # Step 1: Set project path
 mcp__code-index-mcp__set_project_path:
-  path: "C:/github-repos/my-project"
+  path: "<YOUR_PROJECT_PATH>"
 
 # Step 2: Build index
 mcp__code-index-mcp__build_deep_index: {}

@@ -8,8 +8,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const settingsPath = path.join(process.env.CLAUDE_HOME || '', 'settings.json');
-const repoPath = 'C:\\github-repos\\my-claude-code-repos\\get-shit-done-code-index';
+const os = require('os');
+const settingsPath = path.join(process.env.CLAUDE_HOME || path.join(os.homedir(), '.claude'), 'settings.json');
+// Note: This script is in .planning/phases/20-thinking-integration-completion/, so go up 4 levels to repo root
+const repoPath = path.join(__dirname, '..', '..', '..', '..');
 
 // Read current settings
 const settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));

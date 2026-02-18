@@ -1,14 +1,14 @@
 ﻿# Sync Strategy: Local to Clone
 
 **Strategy Date:** 2026-02-13T00:33:25Z
-**Source:** C:\Users\mose\.claude\get-shit-indexed (local GSI directory)
+**Source:** ~/.claude/get-shit-indexed (local GSI directory)
 **Target:** C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index (cloned upstream repo)
 
 ## Sync Direction
 
 **ONE-WAY SYNC:** Local → Clone
 
-- **Source:** C:\Users\mose\.claude\get-shit-indexed (contains all Phase 1-3 3-MCP integration updates)
+- **Source:** ~/.claude/get-shit-indexed (contains all Phase 1-3 3-MCP integration updates)
 - **Target:** C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index (upstream repository to be updated)
 
 **Rationale:** The local directory has been the active development environment for Phases 1-3, with all 3-MCP integration work (DC + CI + CG) being done there. The cloned repository needs to receive these updates to become the single source of truth.
@@ -17,7 +17,7 @@
 
 ### Category 1: 3-MCP-Integrated Workflows (HIGH PRIORITY)
 
-**Source:** `C:\Users\mose\.claude\get-shit-indexed\workflows\*.md` (13 files)
+**Source:** `~/.claude/get-shit-indexed\workflows\*.md` (13 files)
 **Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\get-shit-indexed\workflows\`
 
 These files contain the core 3-MCP tool integration:
@@ -34,7 +34,7 @@ These files contain the core 3-MCP tool integration:
 
 ### Category 2: Reference Files with 3-MCP Tool Priority Rules (HIGH PRIORITY)
 
-**Source:** `C:\Users\mose\.claude\get-shit-indexed\references\*.md` (12 files)
+**Source:** `~/.claude/get-shit-indexed\references\*.md` (12 files)
 **Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\get-shit-indexed\references\`
 
 Critical documentation for 3-MCP tool chain:
@@ -48,7 +48,7 @@ Critical documentation for 3-MCP tool chain:
 
 ### Category 3: Research Files (MCP Tool Chain Analysis) (MEDIUM PRIORITY)
 
-**Source:** `C:\Users\mose\.claude\get-shit-indexed\research\**` and `C:\Users\mose\.claude\get-shit-indexed\reseach\**`
+**Source:** `~/.claude/get-shit-indexed\research\**` and `~/.claude/get-shit-indexed\reseach\**`
 **Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\research\`
 
 Documentation of the 3-MCP integration analysis:
@@ -60,7 +60,7 @@ Documentation of the 3-MCP integration analysis:
 
 ### Category 4: Migration History (3-MCP Migration) (MEDIUM PRIORITY)
 
-**Source:** `C:\Users\mose\.claude\get-shit-indexed\implementing-using-code-index-mcp\`
+**Source:** `~/.claude/get-shit-indexed\implementing-using-code-index-mcp\`
 **Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\implementing-using-code-index-mcp\`
 
 Contains the migration history from native tools to 3-MCP tools:
@@ -72,14 +72,14 @@ Contains the migration history from native tools to 3-MCP tools:
 
 ### Category 5: MCP Server Documentation (LOW PRIORITY)
 
-**Source:** `C:\Users\mose\.claude\get-shit-indexed\.planning\codebase\MCP-*.md`
+**Source:** `~/.claude/get-shit-indexed\.planning\codebase\MCP-*.md`
 **Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\.planning\codebase\`
 
 **Status:** Already in clone from Phase 3. Verify consistency.
 
 ### Category 6: Prompts (LOW PRIORITY)
 
-**Source:** `C:\Users\mose\.claude\get-shit-indexed\prompts\thinking-waves.txt`
+**Source:** `~/.claude/get-shit-indexed\prompts\thinking-waves.txt`
 **Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\prompts\`
 
 May contain CG server patterns.

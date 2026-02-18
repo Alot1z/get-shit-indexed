@@ -23,9 +23,9 @@ Every operation must use the optimal tool sequence: discover → understand → 
 - [ ] **MCP-INT-03**: Desktop Commander (DC) fully integrated across all workflows
 - [ ] **MCP-INT-04**: CodeGraphContext (CG) integrated for relationship-aware workflows
 - [ ] **MCP-INT-05**: Tool chain reference guide consolidating all research into unified patterns
-- [ ] **MCP-INT-06**: GSI commands at `C:\Users\mose\.claude\commands\GSI` updated for all 3 MCP servers
+- [ ] **MCP-INT-06**: GSI commands at `~/.claude/commands/GSI` updated for all 3 MCP servers
 - [ ] **MCP-INT-07**: All research files (tool chain analysis) fully integrated into system
-- [ ] **MCP-INT-08**: Cloned upstream repo at `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index` updated
+- [ ] **MCP-INT-08**: Cloned upstream repo at `<YOUR_REPO_PATH>` updated
 - [ ] **MCP-INT-09**: Token optimization rules enforced (80-90% savings via MCP)
 - [ ] **MCP-INT-10**: All 3 thinking servers available and properly configured
 
@@ -39,11 +39,11 @@ Every operation must use the optimal tool sequence: discover → understand → 
 ## Context
 
 **Existing Assets:**
-- `C:\Users\mose\.claude\get-shit-indexed` — Local working directory with existing workflow updates (~95% MCP-integrated)
-- `C:\Users\mose\.claude\commands\GSI` — GSI command definitions
-- `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index` — Cloned upstream repo
-- `C:\Users\mose\.claude\get-shit-indexed\implementing-using-code-index-mcp\` — Research directory with comprehensive analysis
-- `C:\Users\mose\.claude\get-shit-indexed\references\` — Reference guides (questioning.md, ui-brand.md, templates)
+- `~/.claude/get-shit-indexed` — Local working directory with existing workflow updates (~95% MCP-integrated)
+- `~/.claude/commands/GSI` — GSI command definitions
+- `<YOUR_REPO_PATH>` — Cloned upstream repo
+- `~/.claude/get-shit-indexed/implementing-using-code-index-mcp/` — Research directory with comprehensive analysis
+- `~/.claude/get-shit-indexed/references/` — Reference guides (questioning.md, ui-brand.md, templates)
 
 **Research Completed:**
 - **GSI-rewrite.txt** — Complete workflow rewrite with MCP tool patterns

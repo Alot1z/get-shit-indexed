@@ -1,0 +1,33 @@
+{
+  "name": "full-cycle",
+  "description": "Research -> Plan -> Execute -> Verify - Complete development cycle",
+  "chain": [
+    {
+      "command": "gsi:research-phase",
+      "args": "${phase}",
+      "description": "Research phase requirements and context"
+    },
+    {
+      "command": "gsi:plan-phase",
+      "args": "${phase}",
+      "description": "Create detailed execution plan"
+    },
+    {
+      "command": "gsi:execute-phase",
+      "args": "${phase}",
+      "description": "Execute the plan and implement changes"
+    },
+    {
+      "command": "gsi:verify-work",
+      "args": "${phase}",
+      "description": "Verify implementation meets requirements"
+    }
+  ],
+  "checkpoint": "after-each",
+  "rollback": true,
+  "metadata": {
+    "category": "development",
+    "estimated_duration": "2-4 hours",
+    "use_case": "Use for new features or significant changes requiring full analysis"
+  }
+}

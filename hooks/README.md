@@ -29,11 +29,12 @@ This directory contains hook files that extend the GSI (Get Shit Indexed) functi
 **Format:** JSON configuration
 **Location:** `.hooks/hooks.json`
 
-### 5. start-cg-server.ps1
-**Purpose:** Starts the CodeGraphContext Neo4j server
-**Trigger:** On demand or via `start-cg-server` command
-**Uses:** Native PowerShell commands
-**Location:** `.hooks/start-cg-server.ps1`
+### 5. hooks.json
+**Purpose:** Configuration file for hook behavior
+**Format:** JSON configuration
+**Location:** `.hooks/hooks.json`
+
+**Note:** CodeGraphContext Neo4j server startup script removed - Code-Index MCP provides equivalent functionality.
 
 ## MCP Tool Limitations in Hooks
 
@@ -49,7 +50,7 @@ Hook files have a unique constraint: they run **before** MCP tools are initializ
 #### 2. Environment Isolation
 - Hooks run in a separate Node.js process from the agent
 - MCP tools require the full agent environment with server connections
-- No direct access to CI (Code-Index) or CG (CodeGraphContext) servers
+- No direct access to CI (Code-Index) servers
 
 #### 3. Performance Considerations
 - Hooks need to be fast and lightweight
@@ -78,7 +79,7 @@ While hooks cannot use MCP tools directly, they can **recommend** MCP usage to a
 #### mcp-enforcer.js Recommendations
 - **Batch Reading:** Suggests `read_multiple_files` for file operations
 - **Code Search:** Recommends `search_code_advanced` instead of grep
-- **Relationship Analysis:** Points to CodeGraphContext for complex queries
+- **Symbol Analysis:** Points to Code-Index MCP for code structure
 - **Token Savings:** Includes estimates for MCP vs native operations
 
 #### gsi-check-update.js Documentation
@@ -122,7 +123,7 @@ While hooks cannot use MCP tools directly, they can **recommend** MCP usage to a
 | Code Search | Not applicable | `search_code_advanced` (CI, 50% token savings) |
 | Directory Listing | `fs.readdir()` | `list_directory` (DC, 70% token savings) |
 | Process Execution | `child_process` | `start_process` (DC, 60% token savings) |
-| Relationship Analysis | Not applicable | `query` (CG, 40% token savings) |
+| Symbol Analysis | Not applicable | `get_symbol_body` (CI, 85% token savings) |
 
 ### Future Considerations
 
@@ -158,12 +159,7 @@ For agents, here are the MCP tools that should be used instead of native operati
 - `build_deep_index`: Complete symbol indexing
 - `get_file_summary`: Quick file analysis
 
-### CodeGraphContext Tools
-- `query`: Neo4j relationship queries
-- `find_path`: Path analysis between code elements
-- `analyze_impact`: Change impact analysis
-- `visualize`: Graph visualization
-- `get_statistics`: Repository metrics
+**Note:** CodeGraphContext has been removed. Code-Index MCP provides equivalent functionality for code analysis.
 
 ## Conclusion
 

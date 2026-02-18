@@ -14,7 +14,7 @@ const { spawn } = require('child_process');
 // - File reading: mcp__desktop-commander__read_multiple_files (90% token savings)
 // - Process execution: mcp__desktop-commander__start_process
 // - Directory operations: mcp__desktop-commander__list_directory
-// - For relationship analysis: mcp__CodeGraphContext__analyze_code_relationships
+// - For symbol analysis: mcp__code-index-mcp__get_symbol_body
 
 const homeDir = os.homedir();
 const cwd = process.cwd();

@@ -13,9 +13,6 @@
 | **Code-Index MCP** | get_symbol_body | Read+parse | 90% |
 | **Code-Index MCP** | get_file_summary | Read+analyze | 85% |
 | **Code-Index MCP** | search_code_advanced | Grep | 70% |
-| **CodeGraphContext** | analyze_code_relationships | Manual analysis | 80% |
-| **CodeGraphContext** | get_repository_stats | Manual analysis | 90% |
-| **CodeGraphContext** | find_code | Grep | 70% |
 
 **Average token savings: 80-90%** when using MCP tools instead of native alternatives.
 
@@ -306,48 +303,45 @@ mcp__code-index-mcp__find_files: {
 
 ---
 
-## 3. CodeGraphContext Benchmarks
+## 3. Code-Index MCP Advanced Benchmarks
 
-### 3.1 analyze_code_relationships vs Manual Analysis
+### 3.1 get_symbol_body vs Manual Extraction
 
-**Scenario:** Find all callers of a function
+**Scenario:** Extract function implementation without reading full file
 
 | Approach | Input Tokens | Output Tokens | Total |
 |----------|-------------|---------------|-------|
-| Manual (Grep + Read + trace) | ~5,000 | ~12,000 | ~17,000 |
-| CG analyze_code_relationships | ~700 | ~1,500 | ~2,200 |
+| Manual (Read file + parse) | ~5,000 | ~12,000 | ~17,000 |
+| CI get_symbol_body | ~700 | ~1,500 | ~2,200 |
 
 **Token Savings: 75-85%**
 
 **Test Case:**
 ```
 # Native (multi-step process)
-Grep: { pattern: "processPayment", path: "/src" }  # Find usages
-Read: { file_path: "/src/checkout.ts" }           # Trace each
-Read: { file_path: "/src/orders.ts" }             # Trace each
-Read: { file_path: "/src/webhooks.ts" }           # Trace each
-# Manual analysis of call chains
+Read: { file_path: "/src/checkout.ts" }  # Read full file
+# Manual parsing to find function
 
-# CG MCP (single query)
-mcp__CodeGraphContext__analyze_code_relationships: {
-  query_type: "find_callers",
-  target: "processPayment"
+# CI MCP (single query)
+mcp__code-index-mcp__get_symbol_body: {
+  file_path: "/src/checkout.ts",
+  symbol_name: "processPayment"
 }
 ```
 
-**Why CG is more efficient:**
-- Pre-built relationship graph
-- Direct query results
-- No manual tracing needed
+**Why CI is more efficient:**
+- Pre-indexed symbols
+- Direct symbol extraction
+- No manual parsing needed
 
-### 3.2 find_code vs Grep
+### 3.2 search_code_advanced vs Grep
 
 **Scenario:** Find all authentication-related code
 
 | Tool | Input Tokens | Output Tokens | Total |
 |------|-------------|---------------|-------|
 | Grep | ~1,800 | ~3,500 | ~5,300 |
-| CG find_code | ~700 | ~1,200 | ~1,900 |
+| CI search_code_advanced | ~700 | ~1,200 | ~1,900 |
 
 **Token Savings: 60-75%**
 
@@ -360,25 +354,26 @@ Grep: {
   output_mode: "content"
 }
 
-# CG MCP
-mcp__CodeGraphContext__find_code: {
-  query: "authentication"
+# CI MCP
+mcp__code-index-mcp__search_code_advanced: {
+  pattern: "authentication",
+  file_pattern: "*.ts"
 }
 ```
 
-**Why CG is more efficient:**
-- Semantic understanding
-- Fuzzy matching built-in
+**Why CI is more efficient:**
+- Indexed search
+- File pattern filtering
 - Structured results
 
-### 3.3 get_repository_stats vs Manual Analysis
+### 3.3 get_file_summary vs Manual Analysis
 
-**Scenario:** Get overview of repository structure
+**Scenario:** Get overview of file structure
 
 | Approach | Input Tokens | Output Tokens | Total |
 |----------|-------------|---------------|-------|
-| Manual (multiple reads) | ~4,000 | ~10,000 | ~14,000 |
-| CG get_repository_stats | ~500 | ~800 | ~1,300 |
+| Manual (read + analyze) | ~4,000 | ~10,000 | ~14,000 |
+| CI get_file_summary | ~500 | ~800 | ~1,300 |
 
 **Token Savings: 85-95%**
 
@@ -390,38 +385,40 @@ Bash: { command: "cloc /src" }
 Read: { file_path: "/package.json" }
 # Manual aggregation
 
-# CG MCP
-mcp__CodeGraphContext__get_repository_stats: {}
+# CI MCP
+mcp__code-index-mcp__get_file_summary: {
+  file_path: "/src/lib/main.ts"
+}
 ```
 
 **Stats include:**
-- File counts by type
+- File line count
 - Function/class counts
-- Module relationships
+- Import statements
 - Complexity metrics
 
-### 3.4 execute_cypher_query vs Manual Graph Analysis
+### 3.4 Code Search vs Manual Analysis
 
-**Scenario:** Find circular dependencies
+**Scenario:** Find code patterns
 
 | Approach | Input Tokens | Output Tokens | Total |
 |----------|-------------|---------------|-------|
 | Manual analysis | ~6,000 | ~15,000 | ~21,000 |
-| CG execute_cypher_query | ~900 | ~1,500 | ~2,400 |
+| CI search_code_advanced | ~900 | ~1,500 | ~2,400 |
 
 **Token Savings: 80-90%**
 
 **Test Case:**
 ```
 # Native (requires tracing imports manually)
-Grep: { pattern: "^import", path: "/src" }
+Grep: { pattern: "function\\s+\\w+", path: "/src" }
 # Read each file
-# Build dependency graph manually
-# Identify cycles
+# Build pattern analysis manually
 
-# CG MCP
-mcp__CodeGraphContext__execute_cypher_query: {
-  cypher_query: "MATCH (a:Module)-[:IMPORTS*]->(a) RETURN a.name"
+# CI MCP
+mcp__code-index-mcp__search_code_advanced: {
+  pattern: "function",
+  file_pattern: "*.ts"
 }
 
 ---
@@ -513,13 +510,13 @@ cat src/components/Dashboard.tsx
 # Total: ~45,000 tokens
 ```
 
-**CG MCP approach:**
+**CI MCP approach:**
 ```bash
-mcp__CodeGraphContext__analyze_code_relationships: {
-  query_type: "find_callers",
-  target: "useAuth"
+mcp__code-index-mcp__get_symbol_body: {
+  file_path: "/src/hooks/useAuth.ts",
+  symbol_name: "useAuth"
 }
-# Direct graph query - no manual tracing
+# Direct symbol extraction - no manual tracing
 # Total: ~9,000 tokens
 ```
 
@@ -557,20 +554,6 @@ mcp__CodeGraphContext__analyze_code_relationships: {
 - Query complexity (specific queries = more savings)
 - File distribution (scattered files = more savings)
 
-### CodeGraphContext
-
-| Scenario | Best Case | Typical | Worst Case |
-|----------|-----------|---------|------------|
-| **analyze_code_relationships** | 85% | 80% | 70% |
-| **find_code** | 75% | 70% | 60% |
-| **get_repository_stats** | 95% | 90% | 85% |
-| **execute_cypher_query** | 90% | 85% | 80% |
-
-**Why variance occurs:**
-- Graph completeness (complete data = more savings)
-- Query optimization (optimizable queries = more savings)
-- Repository size (larger repos = more savings)
-
 ---
 
 ## 4. Performance Recommendations
@@ -601,18 +584,6 @@ mcp__CodeGraphContext__analyze_code_relationships: {
 - Pre-index large repositories for best performance
 - Combine multiple queries into batch operations
 
-#### CodeGraphContext (CG)
-**Best for:**
-- Relationship analysis
-- Dependency tracking
-- Refactoring assistance
-- Architecture analysis
-
-**Optimization Tips:**
-- Build graph before complex analysis
-- Use Cypher for specialized queries
-- Cache frequently accessed relationships
-
 ### Implementation Strategy
 
 #### Phase 1: Critical Path
@@ -622,8 +593,7 @@ mcp__CodeGraphContext__analyze_code_relationships: {
 
 #### Phase 2: Optimization
 1. **Add CI indexing** for large projects
-2. **Implement CG graph** for relationship tracking
-3. **Create tool chains** combining DC + CI + CG
+2. **Create tool chains** combining DC + CI
 
 #### Phase 3: Advanced
 1. **Implement caching** for frequently used operations

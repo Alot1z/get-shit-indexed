@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "quick",
+  "displayName": "Quick Thinking Profile",
+  "description": "Lightweight thinking configuration for simple, fast operations",
+  "mode": "LIGHTWEIGHT",
+  "servers": ["sequential"],
+  "bmad_enabled": false,
+  "baseTimeout": 2000,
+  "maxThoughts": 3,
+  "complexityThreshold": {
+    "min": 3,
+    "max": 6
+  },
+  "useCases": [
+    "Simple display operations",
+    "Status checks",
+    "Quick lookups",
+    "Single-step operations",
+    "Non-critical path operations"
+  ],
+  "serverConfig": {
+    "sequential": {
+      "enabled": true,
+      "priority": 1,
+      "maxThoughts": 3,
+      "focusAreas": ["step-ordering", "basic-planning"]
+    },
+    "tractatus": {
+      "enabled": false,
+      "priority": 2
+    },
+    "debug": {
+      "enabled": false,
+      "priority": 3
+    }
+  },
+  "examples": [
+    {
+      "command": "gsi state get",
+      "description": "Display state information"
+    },
+    {
+      "command": "gsi progress",
+      "description": "Show progress bar"
+    },
+    {
+      "command": "gsi list-todos",
+      "description": "List pending todos"
+    }
+  ]
+}

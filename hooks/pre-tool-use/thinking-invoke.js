@@ -43,9 +43,9 @@ const TOOL_CATEGORIES = {
     'plan-phase', 'map-codebase'
   ],
   
-  // Relationship operations -> Tractatus thinking
+  // Relationship operations -> Tractatus thinking (using Code-Index)
   relationship: [
-    'mcp__CodeGraphContext__*'
+    'mcp__code-index-mcp__get_symbol_body'
   ],
   
   // Everything else -> No thinking needed

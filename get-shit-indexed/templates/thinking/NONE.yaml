@@ -1,0 +1,49 @@
+# NONE Thinking Template
+# Use for: Simple display commands, status checks, quick lookups
+# Complexity: 0-2
+
+mode: NONE
+servers: []
+bmad_enabled: false
+timeout: 0
+max_thoughts: 0
+
+rationale_template: "Simple operation requiring no thinking assistance"
+
+selection_rules:
+  - command_type: display
+    keywords:
+      - show
+      - display
+      - list
+      - get
+      - status
+      - help
+  - tool_count: 0-2
+  - process_steps: 0-1
+
+complexity_indicators:
+  max_score: 2
+  factors:
+    - name: simple_keywords
+      keywords:
+        - quick
+        - simple
+        - display
+        - status
+        - list
+      score: -2
+    - name: no_execution_tools
+      condition: "No Bash, process, or execute tools"
+      score: -1
+
+examples:
+  - command: "gsi help"
+    complexity: 0
+    rationale: "Display command reference"
+  - command: "gsi progress"
+    complexity: 1
+    rationale: "Display progress bar"
+  - command: "gsi state get"
+    complexity: 1
+    rationale: "Display state information"

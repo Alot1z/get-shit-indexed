@@ -7,7 +7,7 @@
 
 **Verification:**
 ```bash
-node -e "const s=JSON.parse(require('fs').readFileSync('C:/Users/mose/.claude/settings.json')); console.log('preToolUse hooks:', s.hooks.preToolUse.length); console.log('postToolUse hooks:', s.hooks.postToolUse.length);"
+node -e "const s=JSON.parse(require('fs').readFileSync(process.env.CLAUDE_CONFIG_DIR || require('os').homedir() + '/.claude' + '/settings.json')); console.log('preToolUse hooks:', s.hooks.preToolUse.length); console.log('postToolUse hooks:', s.hooks.postToolUse.length);"
 ```
 
 **Result:**
@@ -53,8 +53,8 @@ node -c hooks/post-tool-use/reflection-capture.js
    ```
 
 3. **Check for hook logs:**
-   - C:\Users\mose\.claude\logs\thinking-invoke-hook.log
-   - C:\Users\mose\.claude\logs\reflection-capture-hook.log
+   - ~/.claude/logs/thinking-invoke-hook.log
+   - ~/.claude/logs/reflection-capture-hook.log
 
 4. **Expected behavior:**
    - thinking-invoke.js should log tool categorization

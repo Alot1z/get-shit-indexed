@@ -10,7 +10,7 @@ completed: 2026-02-16
 
 ## Summary
 
-Replaced all hardcoded absolute paths (like `@C:\Users\mose\.claude\rules\`) with relative package references that work on any system after installation.
+Replaced all hardcoded absolute paths (like `@~/.claude/rules\`) with relative package references that work on any system after installation.
 
 ## Files Modified
 
@@ -24,8 +24,8 @@ Replaced all hardcoded absolute paths (like `@C:\Users\mose\.claude\rules\`) wit
 
 | Before | After |
 |--------|-------|
-| `@C:\Users\mose\.claude\rules\auto-validation.md` | `@~/.claude/get-shit-indexed/references/rules/auto-validation.md` |
-| `@C:\Users\mose\.claude\rules\code-review.md` | `@~/.claude/get-shit-indexed/references/rules/code-review.md` |
+| `@~/.claude/rules\auto-validation.md` | `@~/.claude/get-shit-indexed/references/rules/auto-validation.md` |
+| `@~/.claude/rules\code-review.md` | `@~/.claude/get-shit-indexed/references/rules/code-review.md` |
 
 ## Verification
 

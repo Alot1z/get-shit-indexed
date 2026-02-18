@@ -52,7 +52,6 @@ GSI integrates **3 operational MCP servers** + **3 thinking MCP servers**:
 |--------|---------|---------------|---------------|
 | **Desktop Commander** | File/process operations | 80-90% | `read_file`, `write_file`, `start_process` |
 | **Code-Index MCP** | Code search & symbols | 80% | `search_code_advanced`, `find_files`, `get_symbol_body` |
-| **CodeGraphContext** | Relationship analysis | 85% | `analyze_code_relationships`, `find_callers`, `query` |
 
 ### Thinking Servers
 
@@ -74,7 +73,7 @@ Every workflow follows this priority:
 
 **Golden Pattern:**
 ```
-CodeGraphContext (discover) → Code-Index (understand) → Desktop Commander (act)
+Code-Index (discover) → Code-Index (understand) → Desktop Commander (act)
 ```
 
 ---
@@ -131,7 +130,7 @@ GSI validates all work against the **7-BMAD quality circles**:
 |---------|--------------|----------|
 | File operations | Native Bash/Read/Write | Desktop Commander MCP |
 | Code search | Native Grep/Glob | Code-Index MCP |
-| Relationship analysis | Manual | CodeGraphContext MCP |
+| Symbol analysis | Manual | Code-Index MCP |
 | Thinking tools | None integrated | 3 thinking servers |
 | Token efficiency | Baseline | 80-90% savings |
 | Quality validation | Manual | Auto-validation (7-BMAD) |
@@ -245,8 +244,7 @@ The system:
 GSI System Architecture
 ├── MCP Servers
 │   ├── Desktop Commander (DC) — File & process operations
-│   ├── Code-Index (CI) — Code search & symbol navigation
-│   └── CodeGraphContext (CG) — Relationship analysis
+│   └── Code-Index (CI) — Code search & symbol navigation
 ├── Thinking Servers
 │   ├── Sequential — Multi-step decomposition
 │   ├── Tractatus — Logical structure analysis

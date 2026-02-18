@@ -148,12 +148,11 @@ This document records the transformation from "Get Shit Done" (GSD) to "Get Shit
 
 ## New Features (GSI-Specific)
 
-### 3-MCP Integration
-This fork includes enhanced integration with three MCP servers:
+### 2-MCP Integration
+This fork includes enhanced integration with two MCP servers:
 
 1. **Desktop Commander (DC)** - File operations, process management
 2. **Code Index MCP (CI)** - Code search, symbol navigation
-3. **CodeGraphContext (CG)** - Code relationships, dependency analysis
 
 ### Thinking Server Integration
 - Sequential thinking for multi-step problem decomposition

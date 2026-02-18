@@ -1,0 +1,28 @@
+{
+  "name": "quick-fix",
+  "description": "Plan -> Execute -> Verify - Quick fix cycle skipping research",
+  "chain": [
+    {
+      "command": "gsi:plan-phase",
+      "args": "${phase} --skip-research",
+      "description": "Create execution plan (research skipped)"
+    },
+    {
+      "command": "gsi:execute-phase",
+      "args": "${phase}",
+      "description": "Execute the fix"
+    },
+    {
+      "command": "gsi:verify-work",
+      "args": "${phase}",
+      "description": "Verify the fix works correctly"
+    }
+  ],
+  "checkpoint": "before-execute",
+  "rollback": true,
+  "metadata": {
+    "category": "bugfix",
+    "estimated_duration": "30-60 minutes",
+    "use_case": "Use for simple fixes where requirements are already known"
+  }
+}

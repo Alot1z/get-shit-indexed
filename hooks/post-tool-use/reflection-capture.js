@@ -54,7 +54,7 @@ function shouldCaptureReflection(toolInvocation) {
   // 3. Thinking-enabled tools (code search, analysis)
   const thinkingEnabledTools = [
     'mcp__code-index-mcp__search_code_advanced',
-    'mcp__CodeGraphContext__analyze_code_relationships',
+    'mcp__code-index-mcp__get_symbol_body',
     'mcp__sequential-thinking__sequentialthinking',
     'mcp__tractatus-thinking__tractatus_thinking',
     'mcp__debug-thinking__debug_thinking'

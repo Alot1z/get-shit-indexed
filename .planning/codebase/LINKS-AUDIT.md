@@ -144,10 +144,10 @@
 
 | Reference | Source | Target | Status |
 |-----------|-------|--------|--------|
-| @C:\Users\mose\.claude\get-shit-done\workflows\execute-plan.md | execute-phase | Workflow | NEEDS_VERIFY |
-| @C:\Users\mose\.claude\get-shit-done\workflows\update.md | workflows | Workflow | NEEDS_VERIFY |
-| @C:\Users\mose\.claude\get-shit-done\references\*.md | Various | Reference docs | NEEDS_VERIFY |
-| @C:\Users\mose\.claude\get-shit-done\templates\*.md | Various | Templates | NEEDS_VERIFY |
+| @~/.claude/get-shit-done\workflows\execute-plan.md | execute-phase | Workflow | NEEDS_VERIFY |
+| @~/.claude/get-shit-done\workflows\update.md | workflows | Workflow | NEEDS_VERIFY |
+| @~/.claude/get-shit-done\references\*.md | Various | Reference docs | NEEDS_VERIFY |
+| @~/.claude/get-shit-done\templates\*.md | Various | Templates | NEEDS_VERIFY |
 
 **Action Required:** Verify all @-paths resolve to existing files
 

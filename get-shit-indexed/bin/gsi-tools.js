@@ -98,6 +98,26 @@
  *   template fill verification         Create pre-filled VERIFICATION.md
  *     --phase N [--fields '{json}']
  *
+ * Thinking Orchestrator Operations:
+ *   thinking analyze <command>         Analyze command complexity
+ *     [--json]
+ *   thinking config <command>          Generate optimal thinking config
+ *     [--profile <name>] [--timeout <ms>]
+ *     [--bmad] [--no-bmad]
+ *   thinking servers                   List available thinking servers
+ *     [--json]
+ *   thinking test                      Test thinking server connections
+ *     [--server <name>] [--timeout <ms>]
+ *   thinking apply-all                 Apply thinking_phase to all GSI commands
+ *     [--commands-dir <path>] [--backup-dir <path>]
+ *     [--dry-run] [--force]
+ *   thinking validate                  Validate thinking_phase configurations
+ *     [--commands-dir <path>] [--strict]
+ *   thinking rollback                  Rollback thinking_phase changes
+ *     [--backup-dir <path>]
+ *   thinking factors                   Show complexity factor documentation
+ *     [--json]
+ *
  * State Progression:
  *   state advance-plan                 Increment plan counter
  *   state record-metric --phase N      Record execution metrics
@@ -125,6 +145,91 @@
  *   init milestone-op                  All context for milestone operations
  *   init map-codebase                  All context for map-codebase workflow
  *   init progress                      All context for progress workflow
+ *
+ * Patch Manager Operations:
+ *   patch backup                       Backup local modifications before update
+ *     [--patches-dir <path>]
+ *   patch restore                      Restore backed-up modifications after update
+ *     [--patches-dir <path>]
+ *   patch status                       Show status of local modifications backup
+ *     [--patches-dir <path>]
+ *   patch diff                         Show diff between backup and current files
+ *     [--patches-dir <path>]
+ *
+ * Workflow Chainer Operations:
+ *   workflow run <template>            Run a workflow template
+ *     [--vars '{json}'] [--yolo]
+ *     [--failure-strategy stop|continue|rollback]
+ *     [--templates-dir <path>] [--state-dir <path>]
+ *   workflow list                      List available workflow templates
+ *     [--templates-dir <path>]
+ *   workflow status [name]             Show workflow status (all or specific)
+ *     [--state-dir <path>]
+ *   workflow pause <name>              Pause a running workflow
+ *     [--state-dir <path>]
+ *   workflow resume <name>             Resume a paused workflow
+ *     [--state-dir <path>]
+ *   workflow rollback <name>           Rollback workflow to last checkpoint
+ *     [--state-dir <path>]
+ *
+ * Pattern Discovery Operations (Phase 38-03):
+ *   workflow discover                  Mine patterns from command history
+ *     [--min-frequency N] [--min-quality N]
+ *     [--min-success-rate N] [--min/max-length N]
+ *     [--state-dir <path>]
+ *   workflow recommend                 Get workflow recommendations
+ *     [--phase N] [--recent-commands cmd1,cmd2]
+ *     [--goal "..."] [--state-dir <path>]
+ *   workflow optimize <name>           Optimize a workflow
+ *     [--state-dir <path>]
+ *   workflow analyze                   Analyze all workflows and patterns
+ *     [--state-dir <path>]
+ *   workflow export <pattern-id>       Export pattern as template
+ *     [--output <path>] [--state-dir <path>]
+ *
+ * Knowledge Base Operations:
+ *   knowledge extract <path>           Extract patterns from source files
+ *     [--category <category>] [--knowledge-dir <path>]
+ *   knowledge search <query>           Search knowledge base for patterns
+ *     [--category <category>] [--limit N] [--knowledge-dir <path>]
+ *   knowledge generate-skill <id>      Generate skill from pattern
+ *     [--knowledge-dir <path>]
+ *   knowledge list                     List all patterns in knowledge base
+ *     [--category <category>] [--limit N] [--knowledge-dir <path>]
+ *   knowledge stats                    Show knowledge base statistics
+ *     [--knowledge-dir <path>]
+ *
+ * Multi-Type Artifact Generation (Phase 38-01):
+ *   knowledge generate-all <id>        Generate ALL artifact types from pattern
+ *     [--knowledge-dir <path>]
+ *   knowledge generate <id> <type>     Generate specific artifact type
+ *     [--knowledge-dir <path>]
+ *   knowledge artifact-types           List available artifact types
+ *   knowledge extract-generate <path>  Extract and generate artifacts in one op
+ *     [--types type1,type2] [--category <cat>] [--knowledge-dir <path>]
+ *   knowledge batch-generate <ids>     Generate artifacts for multiple patterns
+ *     --types type1,type2 [--knowledge-dir <path>]
+ *
+ * Shorthand Commands (single artifact type):
+ *   knowledge agent <id>               Generate agent from pattern
+ *   knowledge feature <id>             Generate feature spec from pattern
+ *   knowledge idea <id>                Generate idea doc from pattern
+ *   knowledge logic <id>               Generate logic module from pattern
+ *   knowledge function <id>            Generate function from pattern
+ *   knowledge improvement <id>         Generate improvement suggestions
+ *
+ * Artifact Types: SKILL, AGENT, LOGIC, FUNCTION, FEATURE, IMPROVEMENT, IDEA
+ *
+ * Cognitive Flow Operations (Phase 38-04):
+ *   cognitive flow <operation>         Execute with cognitive flow enhancement
+ *     [--timeout N] [--phase PHASE] [--file PATH]
+ *   cognitive status                   Show cognitive system status
+ *   cognitive learn [operation]        Trigger learning capture
+ *     [--phase PHASE]
+ *   cognitive optimize                 Optimize cognitive settings
+ *     [--reset-stats]
+ *
+ * Cognitive Phases: PREPARE, EXECUTE, REFLECT, LEARN
  */
 
 const fs = require('fs');
@@ -4409,15 +4514,2115 @@ async function cmdPatternReport(cwd, reportType, raw) {
   }
 }
 
+// ─── Thinking Orchestrator Commands ─────────────────────────────────────────────
+
+/**
+ * Analyze command complexity and return recommended thinking configuration
+ */
+async function cmdThinkingAnalyze(cwd, commandDesc, options, raw) {
+  try {
+    // Dynamically import ThinkingOrchestrator (ES Module)
+    const { ThinkingOrchestrator } = await import('../lib/workflow-modules/thinking-orchestrator.js');
+    const orchestrator = new ThinkingOrchestrator();
+    
+    // Parse command description for analysis
+    const analysis = orchestrator.analyzeCommand({
+      description: commandDesc || '',
+      allowedTools: options.tools ? options.tools.split(',') : [],
+      process: options.process || ''
+    });
+    
+    const result = {
+      command: commandDesc,
+      complexity: analysis.mode === 'NONE' ? 0 : 
+                  analysis.mode === 'LIGHTWEIGHT' ? 4 :
+                  analysis.mode === 'STANDARD' ? 10 : 15,
+      mode: analysis.mode,
+      servers: analysis.servers,
+      bmad_enabled: analysis.bmad_enabled,
+      timeout: analysis.timeout,
+      rationale: analysis.rationale
+    };
+    
+    if (raw) {
+      console.log(`Complexity: ${result.complexity}`);
+      console.log(`Mode: ${result.mode}`);
+      console.log(`Servers: ${result.servers.join(', ')}`);
+      console.log(`BMAD: ${result.bmad_enabled ? 'enabled' : 'disabled'}`);
+      console.log(`Timeout: ${result.timeout}ms`);
+      console.log(`Rationale: ${result.rationale}`);
+    } else {
+      output(result, options.json ? false : raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    if (raw) {
+      console.error(`Analysis failed: ${err.message}`);
+      process.exit(1);
+    } else {
+      output(result, raw);
+    }
+  }
+}
+
+/**
+ * Generate optimal thinking configuration for a command
+ */
+async function cmdThinkingConfig(cwd, commandDesc, options, raw) {
+  try {
+    // Dynamically import ThinkingOrchestrator (ES Module)
+    const { ThinkingOrchestrator } = await import('../lib/workflow-modules/thinking-orchestrator.js');
+    const orchestrator = new ThinkingOrchestrator();
+    
+    // Load profile if specified
+    let profile = null;
+    if (options.profile) {
+      const profilePath = path.join(__dirname, '..', 'profiles', `${options.profile}.json`);
+      if (fs.existsSync(profilePath)) {
+        profile = JSON.parse(fs.readFileSync(profilePath, 'utf-8'));
+      }
+    }
+    
+    // Analyze command or use profile
+    let config;
+    if (profile) {
+      config = {
+        mode: profile.mode,
+        servers: profile.servers,
+        bmad_enabled: options.bmad !== undefined ? options.bmad : profile.bmad_enabled,
+        timeout: options.timeout || profile.baseTimeout,
+        rationale: `Using ${options.profile} profile: ${profile.description}`
+      };
+    } else {
+      config = orchestrator.analyzeCommand({
+        description: commandDesc || '',
+        allowedTools: options.tools ? options.tools.split(',') : [],
+        process: options.process || ''
+      });
+      
+      // Apply overrides
+      if (options.timeout) {
+        config.timeout = parseInt(options.timeout, 10);
+      }
+      if (options.bmad !== undefined) {
+        config.bmad_enabled = options.bmad;
+      }
+    }
+    
+    // Generate frontmatter-style config
+    const frontmatter = `thinking_phase:
+  mode: ${config.mode}
+  servers:
+${config.servers.map(s => `    - ${s}`).join('\n')}
+  bmad_enabled: ${config.bmad_enabled}
+  timeout: ${config.timeout}
+  rationale: "${config.rationale}"`;
+    
+    const result = {
+      command: commandDesc,
+      profile: options.profile || 'auto-detected',
+      config: config,
+      frontmatter: frontmatter
+    };
+    
+    if (raw) {
+      console.log(frontmatter);
+    } else {
+      output(result, options.json ? false : raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    if (raw) {
+      console.error(`Config generation failed: ${err.message}`);
+      process.exit(1);
+    } else {
+      output(result, raw);
+    }
+  }
+}
+
+/**
+ * List available thinking servers
+ */
+async function cmdThinkingServers(cwd, options, raw) {
+  const servers = [
+    {
+      name: 'sequential',
+      endpoint: 'mcp__sequential-thinking__sequentialthinking',
+      description: 'Sequential step planning and execution order',
+      defaultMaxThoughts: 5
+    },
+    {
+      name: 'tractatus',
+      endpoint: 'mcp__tractatusthinking__tractatus_thinking',
+      description: 'Structural analysis, relationships, and logical dependencies',
+      defaultMaxThoughts: 5
+    },
+    {
+      name: 'debug',
+      endpoint: 'mcp__debug-thinking__debug_thinking',
+      description: 'Problem detection, hypothesis generation, and solution verification',
+      defaultMaxThoughts: 5
+    }
+  ];
+  
+  const result = {
+    count: servers.length,
+    servers: servers
+  };
+  
+  if (raw || !options.json) {
+    console.log('Available Thinking Servers:');
+    for (const server of servers) {
+      console.log(`- ${server.name}: ${server.endpoint}`);
+      console.log(`  Description: ${server.description}`);
+    }
+  } else {
+    output(result, false);
+  }
+}
+
+/**
+ * Test thinking server connections
+ */
+async function cmdThinkingTest(cwd, options, raw) {
+  const { ThinkingOrchestrator } = await import('../lib/workflow-modules/thinking-orchestrator.js');
+  const orchestrator = new ThinkingOrchestrator();
+  
+  const servers = options.server ? [options.server] : ['sequential', 'tractatus', 'debug'];
+  const timeout = options.timeout || 5000;
+  
+  const results = [];
+  
+  for (const server of servers) {
+    const startTime = Date.now();
+    
+    try {
+      // Create a minimal test context
+      const testConfig = {
+        mode: 'LIGHTWEIGHT',
+        servers: [server],
+        bmad_enabled: false,
+        timeout: timeout,
+        rationale: 'Connection test'
+      };
+      
+      const testContext = {
+        command: 'test',
+        description: 'Testing server connection'
+      };
+      
+      // Attempt to invoke the thinking server
+      const thinkingResults = await orchestrator.think(testConfig, testContext);
+      const duration = Date.now() - startTime;
+      
+      const serverResult = thinkingResults.get(server);
+      
+      results.push({
+        server: server,
+        status: serverResult && serverResult.success ? 'connected' : 'error',
+        duration: duration,
+        thoughts: serverResult ? serverResult.thoughts.length : 0,
+        error: serverResult ? serverResult.error : null
+      });
+    } catch (err) {
+      results.push({
+        server: server,
+        status: 'error',
+        duration: Date.now() - startTime,
+        thoughts: 0,
+        error: err.message
+      });
+    }
+  }
+  
+  const result = {
+    success: results.every(r => r.status === 'connected'),
+    tested: servers.length,
+    results: results
+  };
+  
+  if (raw || !options.json) {
+    console.log('Thinking Server Connection Test Results:');
+    for (const r of results) {
+      const status = r.status === 'connected' ? '✓' : '✗';
+      console.log(`${status} ${r.server}: ${r.status} (${r.duration}ms)`);
+      if (r.error) {
+        console.log(`  Error: ${r.error}`);
+      }
+    }
+  } else {
+    output(result, false);
+  }
+}
+
+/**
+ * Apply thinking_phase to all GSI commands in a directory
+ * Auto-generates and applies optimal thinking configurations
+ */
+async function cmdThinkingApplyAll(cwd, options, raw) {
+  const { ThinkingOrchestrator } = await import('../lib/workflow-modules/thinking-orchestrator.js');
+  const orchestrator = new ThinkingOrchestrator();
+  
+  const commandsDir = options.commandsDir || path.join(cwd, 'commands', 'gsi');
+  const backupDir = options.backupDir || path.join(cwd, '.planning', 'thinking-backups');
+  const dryRun = options.dryRun || false;
+  const force = options.force || false;
+  
+  // Ensure backup directory exists
+  if (!dryRun && !fs.existsSync(backupDir)) {
+    fs.mkdirSync(backupDir, { recursive: true });
+  }
+  
+  // Scan for command files
+  const commandFiles = [];
+  try {
+    const files = fs.readdirSync(commandsDir).filter(f => f.endsWith('.md'));
+    for (const file of files) {
+      commandFiles.push(path.join(commandsDir, file));
+    }
+  } catch (err) {
+    const result = { success: false, error: `Failed to read commands directory: ${err.message}` };
+    output(result, raw);
+    return;
+  }
+  
+  const results = {
+    scanned: commandFiles.length,
+    processed: 0,
+    skipped: 0,
+    updated: 0,
+    errors: 0,
+    backups: [],
+    changes: []
+  };
+  
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  
+  for (const filePath of commandFiles) {
+    try {
+      const content = fs.readFileSync(filePath, 'utf-8');
+      const fm = extractFrontmatter(content);
+      
+      // Skip if already has thinking_phase and not forcing
+      if (fm.thinking_phase && !force) {
+        results.skipped++;
+        results.changes.push({
+          file: path.basename(filePath),
+          action: 'skipped',
+          reason: 'Already has thinking_phase'
+        });
+        continue;
+      }
+      
+      // Extract command info for analysis
+      const description = fm.description || fm.name || '';
+      const allowedTools = fm['allowed-tools'] || [];
+      
+      // Extract process from content (between <process> tags)
+      const processMatch = content.match(/<process>([\s\S]*?)<\/process>/);
+      const process = processMatch ? processMatch[1] : '';
+      
+      // Extract objective
+      const objectiveMatch = content.match(/<objective>([\s\S]*?)<\/objective>/);
+      const objective = objectiveMatch ? objectiveMatch[1] : '';
+      
+      // Analyze and generate config
+      const config = orchestrator.analyzeCommand({
+        description,
+        allowedTools,
+        process,
+        objective
+      });
+      
+      // Validate the config
+      const validation = orchestrator.validateConfig(config);
+      if (!validation.valid) {
+        results.errors++;
+        results.changes.push({
+          file: path.basename(filePath),
+          action: 'error',
+          reason: validation.errors.join('; ')
+        });
+        continue;
+      }
+      
+      // Generate frontmatter string
+      const thinkingFrontmatter = orchestrator.generateFrontmatter(config);
+      
+      // Create backup if not dry run
+      if (!dryRun) {
+        const backupPath = path.join(backupDir, `${path.basename(filePath)}.${timestamp}.bak`);
+        fs.writeFileSync(backupPath, content, 'utf-8');
+        results.backups.push(backupPath);
+      }
+      
+      // Determine new content
+      let newContent;
+      if (fm.thinking_phase) {
+        // Replace existing thinking_phase
+        const thinkingBlockMatch = content.match(/thinking_phase:[\s\S]*?(?=\n[a-z_]+:|\n---|\n\n)/);
+        if (thinkingBlockMatch) {
+          newContent = content.replace(thinkingBlockMatch[0], thinkingFrontmatter);
+        } else {
+          // Fallback: insert after frontmatter
+          newContent = spliceFrontmatter(content, { ...fm, thinking_phase: config });
+        }
+      } else {
+        // Add thinking_phase to frontmatter
+        const newFm = { ...fm, thinking_phase: config };
+        newContent = spliceFrontmatter(content, newFm);
+      }
+      
+      // Write if not dry run
+      if (!dryRun) {
+        fs.writeFileSync(filePath, newContent, 'utf-8');
+      }
+      
+      results.updated++;
+      results.processed++;
+      results.changes.push({
+        file: path.basename(filePath),
+        action: fm.thinking_phase ? 'updated' : 'added',
+        mode: config.mode,
+        servers: config.servers,
+        rationale: config.rationale
+      });
+      
+    } catch (err) {
+      results.errors++;
+      results.changes.push({
+        file: path.basename(filePath),
+        action: 'error',
+        reason: err.message
+      });
+    }
+  }
+  
+  // Save backup metadata
+  if (!dryRun && results.backups.length > 0) {
+    const metaPath = path.join(backupDir, `apply-all-${timestamp}.json`);
+    fs.writeFileSync(metaPath, JSON.stringify({
+      timestamp,
+      commandsDir,
+      results: {
+        scanned: results.scanned,
+        processed: results.processed,
+        updated: results.updated,
+        skipped: results.skipped,
+        errors: results.errors
+      },
+      backups: results.backups,
+      changes: results.changes
+    }, null, 2), 'utf-8');
+  }
+  
+  const finalResult = {
+    success: results.errors === 0,
+    dry_run: dryRun,
+    ...results
+  };
+  
+  if (raw || !options.json) {
+    console.log('=== Thinking Phase Apply-All Results ===\n');
+    console.log(`Mode: ${dryRun ? 'DRY RUN (no changes made)' : 'LIVE'}`);
+    console.log(`Commands scanned: ${results.scanned}`);
+    console.log(`Processed: ${results.processed}`);
+    console.log(`Updated: ${results.updated}`);
+    console.log(`Skipped (already had config): ${results.skipped}`);
+    console.log(`Errors: ${results.errors}`);
+    
+    if (results.changes.length > 0) {
+      console.log('\nChanges:');
+      for (const change of results.changes) {
+        if (change.action === 'skipped') {
+          console.log(`  [SKIP] ${change.file}: ${change.reason}`);
+        } else if (change.action === 'error') {
+          console.log(`  [ERROR] ${change.file}: ${change.reason}`);
+        } else {
+          console.log(`  [${change.action.toUpperCase()}] ${change.file}: ${change.mode} (${change.servers.join(', ')})`);
+        }
+      }
+    }
+    
+    if (!dryRun && results.backups.length > 0) {
+      console.log(`\nBackups saved to: ${backupDir}`);
+    }
+  } else {
+    output(finalResult, false);
+  }
+}
+
+/**
+ * Validate thinking_phase configurations in command files
+ */
+async function cmdThinkingValidate(cwd, options, raw) {
+  const { ThinkingOrchestrator } = await import('../lib/workflow-modules/thinking-orchestrator.js');
+  const orchestrator = new ThinkingOrchestrator();
+  
+  const commandsDir = options.commandsDir || path.join(cwd, 'commands', 'gsi');
+  const strictMode = options.strict || false;
+  
+  // Scan for command files
+  const commandFiles = [];
+  try {
+    const files = fs.readdirSync(commandsDir).filter(f => f.endsWith('.md'));
+    for (const file of files) {
+      commandFiles.push(path.join(commandsDir, file));
+    }
+  } catch (err) {
+    const result = { success: false, error: `Failed to read commands directory: ${err.message}` };
+    output(result, raw);
+    return;
+  }
+  
+  const results = {
+    scanned: commandFiles.length,
+    valid: 0,
+    invalid: 0,
+    missing: 0,
+    warnings: 0,
+    files: []
+  };
+  
+  for (const filePath of commandFiles) {
+    try {
+      const content = fs.readFileSync(filePath, 'utf-8');
+      const fm = extractFrontmatter(content);
+      
+      const fileResult = {
+        file: path.basename(filePath),
+        status: 'valid',
+        errors: [],
+        warnings: []
+      };
+      
+      // Check if thinking_phase exists
+      if (!fm.thinking_phase) {
+        fileResult.status = 'missing';
+        fileResult.warnings.push('No thinking_phase configuration found');
+        results.missing++;
+        results.files.push(fileResult);
+        continue;
+      }
+      
+      // Parse thinking_phase configuration
+      const config = {
+        mode: fm.thinking_phase.mode || 'NONE',
+        servers: fm.thinking_phase.servers || [],
+        bmad_enabled: fm.thinking_phase.bmad_enabled || false,
+        timeout: fm.thinking_phase.timeout || 0,
+        rationale: fm.thinking_phase.rationale || ''
+      };
+      
+      // Validate
+      const validation = orchestrator.validateConfig(config);
+      
+      if (!validation.valid) {
+        fileResult.status = 'invalid';
+        fileResult.errors = validation.errors;
+        results.invalid++;
+      } else {
+        results.valid++;
+      }
+      
+      if (validation.warnings.length > 0) {
+        fileResult.warnings = validation.warnings;
+        results.warnings++;
+        
+        // In strict mode, warnings become errors
+        if (strictMode && fileResult.status === 'valid') {
+          fileResult.status = 'warning';
+        }
+      }
+      
+      results.files.push(fileResult);
+      
+    } catch (err) {
+      results.invalid++;
+      results.files.push({
+        file: path.basename(filePath),
+        status: 'error',
+        errors: [err.message],
+        warnings: []
+      });
+    }
+  }
+  
+  const finalResult = {
+    success: results.invalid === 0 && (!strictMode || results.warnings === 0),
+    strict_mode: strictMode,
+    ...results,
+    summary: {
+      total: results.scanned,
+      valid: `${results.valid} (${Math.round(results.valid / results.scanned * 100)}%)`,
+      invalid: results.invalid,
+      missing: results.missing,
+      with_warnings: results.warnings
+    }
+  };
+  
+  if (raw || !options.json) {
+    console.log('=== Thinking Phase Validation Results ===\n');
+    console.log(`Strict Mode: ${strictMode ? 'ON' : 'off'}`);
+    console.log(`Files scanned: ${results.scanned}`);
+    console.log(`Valid: ${results.valid}`);
+    console.log(`Invalid: ${results.invalid}`);
+    console.log(`Missing: ${results.missing}`);
+    console.log(`With warnings: ${results.warnings}`);
+    
+    if (results.invalid > 0 || results.missing > 0 || results.warnings > 0) {
+      console.log('\nDetails:');
+      for (const f of results.files) {
+        if (f.status !== 'valid') {
+          console.log(`\n  [${f.status.toUpperCase()}] ${f.file}`);
+          if (f.errors.length > 0) {
+            f.errors.forEach(e => console.log(`    ERROR: ${e}`));
+          }
+          if (f.warnings.length > 0) {
+            f.warnings.forEach(w => console.log(`    WARNING: ${w}`));
+          }
+        }
+      }
+    }
+    
+    console.log(`\n${finalResult.success ? '✓ All validations passed' : '✗ Validation failed'}`);
+  } else {
+    output(finalResult, false);
+  }
+}
+
+/**
+ * Rollback thinking_phase changes from a backup
+ */
+async function cmdThinkingRollback(cwd, options, raw) {
+  const backupDir = options.backupDir || path.join(cwd, '.planning', 'thinking-backups');
+  const commandsDir = options.commandsDir || path.join(cwd, 'commands', 'gsi');
+  
+  // Find the most recent apply-all backup metadata
+  let backupMeta = null;
+  let backupMetaPath = null;
+  
+  try {
+    const files = fs.readdirSync(backupDir)
+      .filter(f => f.startsWith('apply-all-') && f.endsWith('.json'))
+      .sort()
+      .reverse();
+    
+    if (files.length === 0) {
+      const result = { success: false, error: 'No backup found to rollback' };
+      output(result, raw);
+      return;
+    }
+    
+    // Use the most recent backup
+    backupMetaPath = path.join(backupDir, files[0]);
+    backupMeta = JSON.parse(fs.readFileSync(backupMetaPath, 'utf-8'));
+    
+  } catch (err) {
+    const result = { success: false, error: `Failed to find backup: ${err.message}` };
+    output(result, raw);
+    return;
+  }
+  
+  const results = {
+    restored: 0,
+    failed: 0,
+    files: []
+  };
+  
+  // Restore each backup file
+  for (const backupPath of backupMeta.backups) {
+    try {
+      const backupFileName = path.basename(backupPath);
+      // Extract original filename (remove timestamp and .bak)
+      const originalName = backupFileName.replace(/\.\d{4}-\d{2}-\d{2}T[\d\-]+Z\.bak$/, '');
+      const targetPath = path.join(commandsDir, originalName);
+      
+      if (!fs.existsSync(backupPath)) {
+        results.failed++;
+        results.files.push({
+          backup: backupFileName,
+          target: originalName,
+          status: 'error',
+          reason: 'Backup file not found'
+        });
+        continue;
+      }
+      
+      // Restore the file
+      const backupContent = fs.readFileSync(backupPath, 'utf-8');
+      fs.writeFileSync(targetPath, backupContent, 'utf-8');
+      
+      results.restored++;
+      results.files.push({
+        backup: backupFileName,
+        target: originalName,
+        status: 'restored'
+      });
+      
+    } catch (err) {
+      results.failed++;
+      results.files.push({
+        backup: path.basename(backupPath),
+        target: 'unknown',
+        status: 'error',
+        reason: err.message
+      });
+    }
+  }
+  
+  const finalResult = {
+    success: results.failed === 0,
+    backup_timestamp: backupMeta.timestamp,
+    ...results
+  };
+  
+  if (raw || !options.json) {
+    console.log('=== Thinking Phase Rollback Results ===\n');
+    console.log(`Backup timestamp: ${backupMeta.timestamp}`);
+    console.log(`Restored: ${results.restored}`);
+    console.log(`Failed: ${results.failed}`);
+    
+    if (results.files.length > 0) {
+      console.log('\nFiles:');
+      for (const f of results.files) {
+        const status = f.status === 'restored' ? '✓' : '✗';
+        console.log(`  ${status} ${f.target}: ${f.status}`);
+        if (f.reason) {
+          console.log(`    Reason: ${f.reason}`);
+        }
+      }
+    }
+  } else {
+    output(finalResult, false);
+  }
+}
+
+/**
+ * Show complexity analysis factors documentation
+ */
+async function cmdThinkingFactors(cwd, options, raw) {
+  const { ThinkingOrchestrator } = await import('../lib/workflow-modules/thinking-orchestrator.js');
+  const orchestrator = new ThinkingOrchestrator();
+  
+  const factors = orchestrator.getComplexityFactorDescriptions();
+  const thresholds = orchestrator.getModeThresholds();
+  
+  const result = {
+    factors,
+    thresholds
+  };
+  
+  if (raw || !options.json) {
+    console.log('=== Thinking Complexity Factors (25 total) ===\n');
+    
+    // Group by category
+    const categories = {};
+    for (const [name, info] of Object.entries(factors)) {
+      if (!categories[info.category]) {
+        categories[info.category] = [];
+      }
+      categories[info.category].push({ name, ...info });
+    }
+    
+    for (const [category, items] of Object.entries(categories)) {
+      console.log(`\n## ${category} Factors (${items.length})`);
+      for (const item of items) {
+        console.log(`  - ${item.name}: ${item.description} (range: ${item.range})`);
+      }
+    }
+    
+    console.log('\n=== Mode Thresholds ===\n');
+    for (const [mode, info] of Object.entries(thresholds)) {
+      console.log(`${mode}: score ${info.min}-${info.max}`);
+      console.log(`  ${info.description}`);
+    }
+  } else {
+    output(result, false);
+  }
+}
+
+// ─── Patch Manager Commands ─────────────────────────────────────────────────────
+
+/**
+ * Backup local modifications before GSI package update
+ */
+async function cmdPatchBackup(cwd, options, raw) {
+  const patchesDir = options.patchesDir || path.join(process.env.USERPROFILE || process.env.HOME || '', '.claude', 'GSI-local-patches');
+  
+  try {
+    // Dynamically import PatchManager (ES Module)
+    const { PatchManager } = await import('../lib/workflow-modules/patch-manager.js');
+    const manager = new PatchManager(patchesDir);
+    
+    console.log('Backing up local modifications...');
+    const metadata = await manager.backup();
+    
+    const result = {
+      success: true,
+      version: metadata.version,
+      timestamp: metadata.timestamp,
+      files_backed_up: metadata.files.length,
+      patches: metadata.patches.map(p => ({
+        file: p.file,
+        type: p.type,
+        description: p.description
+      })),
+      backup_location: patchesDir
+    };
+    
+    if (raw) {
+      console.log(`Backed up ${metadata.files.length} files from version ${metadata.version}`);
+      console.log(`Backup location: ${patchesDir}`);
+    } else {
+      output(result, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    if (raw) {
+      console.error(`Backup failed: ${err.message}`);
+      process.exit(1);
+    } else {
+      output(result, raw);
+    }
+  }
+}
+
+/**
+ * Restore backed-up modifications after GSI package update
+ */
+async function cmdPatchRestore(cwd, options, raw) {
+  const patchesDir = options.patchesDir || path.join(process.env.USERPROFILE || process.env.HOME || '', '.claude', 'GSI-local-patches');
+  
+  try {
+    // Dynamically import PatchManager (ES Module)
+    const { PatchManager } = await import('../lib/workflow-modules/patch-manager.js');
+    const manager = new PatchManager(patchesDir);
+    
+    console.log('Restoring local modifications...');
+    const results = await manager.restore();
+    
+    const mergedFiles = [];
+    const conflictedFiles = [];
+    
+    for (const [filePath, mergeResult] of results) {
+      if (mergeResult.success) {
+        mergedFiles.push(filePath);
+      } else {
+        conflictedFiles.push({
+          file: filePath,
+          conflicts: mergeResult.conflicts
+        });
+      }
+    }
+    
+    const result = {
+      success: conflictedFiles.length === 0,
+      files_restored: mergedFiles.length,
+      files_with_conflicts: conflictedFiles.length,
+      merged_files: mergedFiles,
+      conflicted_files: conflictedFiles,
+      backup_location: patchesDir
+    };
+    
+    if (raw) {
+      console.log(`Restored ${mergedFiles.length} files`);
+      if (conflictedFiles.length > 0) {
+        console.log(`Conflicts in ${conflictedFiles.length} files:`);
+        conflictedFiles.forEach(f => console.log(`  - ${f.file}`));
+      }
+    } else {
+      output(result, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    if (raw) {
+      console.error(`Restore failed: ${err.message}`);
+      process.exit(1);
+    } else {
+      output(result, raw);
+    }
+  }
+}
+
+/**
+ * Show status of local modifications
+ */
+async function cmdPatchStatus(cwd, options, raw) {
+  const patchesDir = options.patchesDir || path.join(process.env.USERPROFILE || process.env.HOME || '', '.claude', 'GSI-local-patches');
+  const metadataPath = path.join(patchesDir, 'backup-meta.json');
+  
+  try {
+    // Check if backup exists
+    if (!fs.existsSync(metadataPath)) {
+      const result = {
+        has_backup: false,
+        message: 'No backup found. Run "gsi patch backup" first.'
+      };
+      output(result, raw);
+      return;
+    }
+    
+    // Read backup metadata
+    const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'));
+    
+    const result = {
+      has_backup: true,
+      backup_version: metadata.version,
+      backup_timestamp: metadata.timestamp,
+      files_count: metadata.files.length,
+      patches: metadata.patches,
+      backup_location: patchesDir
+    };
+    
+    if (raw) {
+      console.log(`Backup exists for version ${metadata.version}`);
+      console.log(`Created: ${metadata.timestamp}`);
+      console.log(`Files: ${metadata.files.length}`);
+      console.log(`Location: ${patchesDir}`);
+    } else {
+      output(result, raw);
+    }
+  } catch (err) {
+    const result = { has_backup: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Show diff between backup and current files
+ */
+async function cmdPatchDiff(cwd, options, raw) {
+  const patchesDir = options.patchesDir || path.join(process.env.USERPROFILE || process.env.HOME || '', '.claude', 'GSI-local-patches');
+  const metadataPath = path.join(patchesDir, 'backup-meta.json');
+  const gsiInstallDir = detectGSIInstallDir();
+  
+  try {
+    // Check if backup exists
+    if (!fs.existsSync(metadataPath)) {
+      const result = {
+        has_backup: false,
+        message: 'No backup found. Run "gsi patch backup" first.'
+      };
+      output(result, raw);
+      return;
+    }
+    
+    const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'));
+    const diffs = [];
+    
+    for (const file of metadata.files) {
+      const backupPath = path.join(patchesDir, file.path);
+      const currentPath = path.join(gsiInstallDir, file.path);
+      
+      if (!fs.existsSync(backupPath) || !fs.existsSync(currentPath)) {
+        continue;
+      }
+      
+      const backupContent = fs.readFileSync(backupPath, 'utf-8');
+      const currentContent = fs.readFileSync(currentPath, 'utf-8');
+      
+      const backupHash = createHash('sha256').update(backupContent).digest('hex');
+      const currentHash = createHash('sha256').update(currentContent).digest('hex');
+      
+      if (backupHash !== currentHash) {
+        diffs.push({
+          file: file.path,
+          backup_hash: backupHash.substring(0, 8),
+          current_hash: currentHash.substring(0, 8),
+          modified_since_backup: true
+        });
+      }
+    }
+    
+    const result = {
+      backup_version: metadata.version,
+      backup_timestamp: metadata.timestamp,
+      files_checked: metadata.files.length,
+      files_different: diffs.length,
+      diffs
+    };
+    
+    if (raw) {
+      if (diffs.length === 0) {
+        console.log('No differences found between backup and current files.');
+      } else {
+        console.log(`Found ${diffs.length} files with differences:`);
+        diffs.forEach(d => console.log(`  - ${d.file}`));
+      }
+    } else {
+      output(result, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Detect GSI installation directory
+ */
+function detectGSIInstallDir() {
+  // Check for global installation
+  const globalPath = path.join(
+    process.env.APPDATA || '',
+    'npm',
+    'node_modules',
+    'get-shit-indexed-cc'
+  );
+  if (fs.existsSync(globalPath)) {
+    return globalPath;
+  }
+
+  // Check for local installation
+  const localPath = path.join(process.cwd(), 'node_modules', 'get-shit-indexed-cc');
+  if (fs.existsSync(localPath)) {
+    return localPath;
+  }
+
+  // Return current directory as fallback
+  return process.cwd();
+}
+
+/**
+ * Create hash helper for diff command
+ */
+function createHash(algorithm) {
+  const crypto = require('crypto');
+  return crypto.createHash(algorithm);
+}
+
+// ─── Workflow Chainer Commands ───────────────────────────────────────────────────
+
+/**
+ * Run a workflow chain
+ */
+async function cmdWorkflowRun(cwd, templateName, variables, options, raw) {
+  const { WorkflowChainer } = require('../lib/workflow-modules/index.js');
+  
+  if (!templateName) {
+    error('Template name required. Usage: gsi workflow run <template>');
+  }
+  
+  const stateDir = options.stateDir || path.join(cwd, '.planning');
+  const chainer = new WorkflowChainer(stateDir);
+  
+  // Load custom templates if templatesDir specified
+  if (options.templatesDir) {
+    const templatesPath = path.join(options.templatesDir, `${templateName}.json`);
+    if (fs.existsSync(templatesPath)) {
+      const templateDef = JSON.parse(fs.readFileSync(templatesPath, 'utf-8'));
+      chainer.createChain(templateDef);
+    }
+  }
+  
+  try {
+    const result = await chainer.run(templateName, variables, {
+      failureStrategy: options.failureStrategy,
+      yoloMode: options.yolo
+    });
+    
+    if (raw) {
+      console.log(`Workflow ${templateName}: ${result.success ? 'SUCCESS' : 'FAILED'}`);
+      console.log(`Completed steps: ${result.completedSteps.length}`);
+      console.log(`Duration: ${result.duration}ms`);
+      if (result.error) {
+        console.log(`Error: ${result.error}`);
+      }
+    }
+    
+    output(result, raw);
+  } catch (err) {
+    const result = { success: false, error: err.message, template: templateName };
+    output(result, raw);
+  }
+}
+
+/**
+ * List available workflow templates
+ */
+async function cmdWorkflowList(cwd, options, raw) {
+  const { WorkflowChainer } = require('../lib/workflow-modules/index.js');
+  
+  const stateDir = options.stateDir || path.join(cwd, '.planning');
+  const chainer = new WorkflowChainer(stateDir);
+  
+  // Load custom templates from templates directory
+  if (options.templatesDir && fs.existsSync(options.templatesDir)) {
+    const templateFiles = fs.readdirSync(options.templatesDir).filter(f => f.endsWith('.json'));
+    for (const file of templateFiles) {
+      try {
+        const templatePath = path.join(options.templatesDir, file);
+        const templateDef = JSON.parse(fs.readFileSync(templatePath, 'utf-8'));
+        chainer.createChain(templateDef);
+      } catch (e) {
+        // Skip invalid template files
+      }
+    }
+  }
+  
+  const templates = chainer.listTemplates();
+  
+  const result = {
+    count: templates.length,
+    templates: templates.map(t => ({
+      name: t.name,
+      description: t.description,
+      steps: t.chain.length,
+      parallel_groups: t.parallel?.length || 0,
+      checkpoint_strategy: t.checkpoint,
+      rollback_enabled: t.rollback
+    }))
+  };
+  
+  if (raw) {
+    console.log('Available workflow templates:');
+    templates.forEach(t => {
+      console.log(`  - ${t.name}: ${t.description}`);
+      console.log(`    Steps: ${t.chain.length}, Checkpoint: ${t.checkpoint}`);
+    });
+  }
+  
+  output(result, raw);
+}
+
+/**
+ * Get workflow status
+ */
+async function cmdWorkflowStatus(cwd, workflowName, options, raw) {
+  const { WorkflowChainer } = require('../lib/workflow-modules/index.js');
+  
+  const stateDir = options.stateDir || path.join(cwd, '.planning');
+  const chainer = new WorkflowChainer(stateDir);
+  
+  try {
+    const status = chainer.getStatus(workflowName || undefined);
+    
+    if (raw) {
+      if (Array.isArray(status)) {
+        console.log(`Active workflows: ${status.length}`);
+        status.forEach(s => {
+          console.log(`  - ${s.chain}: ${s.status}`);
+          console.log(`    Completed: ${s.completed.length}, Pending: ${s.pending.length}`);
+        });
+      } else {
+        console.log(`Workflow: ${status.chain}`);
+        console.log(`Status: ${status.status}`);
+        console.log(`Started: ${status.startTime}`);
+        console.log(`Completed: ${status.completed.length}`);
+        console.log(`Pending: ${status.pending.length}`);
+        if (status.current) {
+          console.log(`Current: ${status.current}`);
+        }
+        if (status.checkpoint) {
+          console.log(`Last checkpoint: ${status.checkpoint.timestamp}`);
+        }
+      }
+    }
+    
+    output(status, raw);
+  } catch (err) {
+    const result = { error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Pause a running workflow
+ */
+async function cmdWorkflowPause(cwd, workflowName, options, raw) {
+  const { WorkflowChainer } = require('../lib/workflow-modules/index.js');
+  
+  if (!workflowName) {
+    error('Workflow name required. Usage: gsi workflow pause <name>');
+  }
+  
+  const stateDir = options.stateDir || path.join(cwd, '.planning');
+  const chainer = new WorkflowChainer(stateDir);
+  
+  try {
+    await chainer.pause(workflowName);
+    const result = { success: true, workflow: workflowName, status: 'paused' };
+    
+    if (raw) {
+      console.log(`Workflow '${workflowName}' paused.`);
+    }
+    
+    output(result, raw);
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Resume a paused workflow
+ */
+async function cmdWorkflowResume(cwd, workflowName, options, raw) {
+  const { WorkflowChainer } = require('../lib/workflow-modules/index.js');
+  
+  if (!workflowName) {
+    error('Workflow name required. Usage: gsi workflow resume <name>');
+  }
+  
+  const stateDir = options.stateDir || path.join(cwd, '.planning');
+  const chainer = new WorkflowChainer(stateDir);
+  
+  try {
+    const result = await chainer.resume(workflowName);
+    result.workflow = workflowName;
+    
+    if (raw) {
+      console.log(`Workflow '${workflowName}' resumed.`);
+      console.log(`Status: ${result.success ? 'SUCCESS' : 'FAILED'}`);
+    }
+    
+    output(result, raw);
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Rollback a workflow to last checkpoint
+ */
+async function cmdWorkflowRollback(cwd, workflowName, options, raw) {
+  const { WorkflowChainer } = require('../lib/workflow-modules/index.js');
+  
+  if (!workflowName) {
+    error('Workflow name required. Usage: gsi workflow rollback <name>');
+  }
+  
+  const stateDir = options.stateDir || path.join(cwd, '.planning');
+  const chainer = new WorkflowChainer(stateDir);
+  
+  try {
+    await chainer.rollback(workflowName);
+    const result = { success: true, workflow: workflowName, status: 'rolled_back' };
+    
+    if (raw) {
+      console.log(`Workflow '${workflowName}' rolled back to last checkpoint.`);
+    }
+    
+    output(result, raw);
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+// ─── Pattern Discovery Commands (Phase 38-03) ───────────────────────────────────
+
+/**
+ * Mine patterns from command history
+ */
+async function cmdWorkflowDiscover(cwd, options, raw) {
+  const { PatternMiner } = await import('../lib/workflow-modules/pattern-miner.js');
+  
+  const stateDir = options.stateDir || path.join(cwd, '.planning');
+  const miner = new PatternMiner(stateDir);
+  
+  const miningOptions = {
+    minFrequency: options.minFrequency || 2,
+    minSuccessRate: options.minSuccessRate || 0.5,
+    minLength: options.minLength || 2,
+    maxLength: options.maxLength || 10
+  };
+  
+  try {
+    console.log('Mining patterns from command history...');
+    const patterns = miner.minePatterns(miningOptions);
+    
+    // Generate templates for high-quality patterns
+    const minQuality = options.minQuality || 50;
+    const templatesGenerated = [];
+    
+    for (const pattern of patterns) {
+      if (pattern.qualityScore >= minQuality) {
+        const template = miner.generateTemplate(pattern.id);
+        if (template) {
+          const templatePath = miner.saveTemplate(template);
+          templatesGenerated.push({ pattern_id: pattern.id, template_path: templatePath });
+        }
+      }
+    }
+    
+    const result = {
+      success: true,
+      patterns_discovered: patterns.length,
+      templates_generated: templatesGenerated.length,
+      patterns: patterns.map(p => ({
+        id: p.id,
+        name: p.name,
+        sequence: p.sequence,
+        frequency: p.frequency,
+        success_rate: Math.round(p.successRate * 100),
+        quality_score: Math.round(p.qualityScore),
+        avg_duration_ms: Math.round(p.avgDuration)
+      })),
+      templates: templatesGenerated
+    };
+    
+    if (raw) {
+      console.log(`Discovered ${patterns.length} patterns`);
+      console.log(`Generated ${templatesGenerated.length} templates (quality >= ${minQuality})`);
+      console.log('\nTop patterns:');
+      patterns.slice(0, 5).forEach(p => {
+        console.log(`  - ${p.name}: freq=${p.frequency}, success=${Math.round(p.successRate * 100)}%, quality=${Math.round(p.qualityScore)}`);
+      });
+    } else {
+      output(result, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Get workflow recommendations based on current context
+ */
+async function cmdWorkflowRecommend(cwd, options, raw) {
+  const { PatternMiner } = await import('../lib/workflow-modules/pattern-miner.js');
+  
+  const stateDir = options.stateDir || path.join(cwd, '.planning');
+  const miner = new PatternMiner(stateDir);
+  
+  const context = {
+    currentPhase: options.phase,
+    recentCommands: options.recentCommands ? options.recentCommands.split(',') : [],
+    workflowGoal: options.goal
+  };
+  
+  try {
+    const recommendations = miner.getRecommendations(context);
+    
+    const result = {
+      success: true,
+      context,
+      recommendations_count: recommendations.length,
+      recommendations: recommendations.map(r => ({
+        pattern_id: r.pattern.id,
+        pattern_name: r.pattern.name,
+        relevance_score: Math.round(r.relevanceScore * 100),
+        reason: r.reason,
+        suggested_variables: r.suggestedVariables,
+        sequence: r.pattern.sequence
+      }))
+    };
+    
+    if (raw) {
+      if (recommendations.length === 0) {
+        console.log('No recommendations found for the current context.');
+        console.log('Try running some commands first or use "gsi workflow discover" to mine patterns.');
+      } else {
+        console.log(`Found ${recommendations.length} recommendations:\n`);
+        recommendations.forEach((r, i) => {
+          console.log(`${i + 1}. ${r.pattern.name} (${Math.round(r.relevanceScore * 100)}% relevant)`);
+          console.log(`   ${r.reason}`);
+          console.log(`   Sequence: ${r.pattern.sequence.join(' -> ')}`);
+          if (Object.keys(r.suggestedVariables).length > 0) {
+            console.log(`   Suggested vars: ${JSON.stringify(r.suggestedVariables)}`);
+          }
+          console.log('');
+        });
+      }
+    } else {
+      output(result, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Optimize a workflow by analyzing for improvements
+ */
+async function cmdWorkflowOptimize(cwd, workflowName, options, raw) {
+  const { PatternMiner } = await import('../lib/workflow-modules/pattern-miner.js');
+  
+  if (!workflowName) {
+    error('Workflow name required. Usage: gsi workflow optimize <name>');
+  }
+  
+  const stateDir = options.stateDir || path.join(cwd, '.planning');
+  const miner = new PatternMiner(stateDir);
+  
+  try {
+    const optimizations = miner.analyzeOptimizations(workflowName);
+    
+    // Group by type
+    const grouped = {
+      parallel: optimizations.filter(o => o.type === 'parallel'),
+      skip: optimizations.filter(o => o.type === 'skip'),
+      reorder: optimizations.filter(o => o.type === 'reorder'),
+      merge: optimizations.filter(o => o.type === 'merge')
+    };
+    
+    const totalTimeSavings = optimizations.reduce((sum, o) => sum + o.estimatedTimeSavings, 0);
+    
+    const result = {
+      success: true,
+      workflow: workflowName,
+      total_optimizations: optimizations.length,
+      estimated_time_savings_ms: Math.round(totalTimeSavings),
+      by_type: {
+        parallel: grouped.parallel.length,
+        skip: grouped.skip.length,
+        reorder: grouped.reorder.length,
+        merge: grouped.merge.length
+      },
+      optimizations: optimizations.map(o => ({
+        type: o.type,
+        steps: o.steps,
+        description: o.description,
+        estimated_savings_ms: Math.round(o.estimatedTimeSavings),
+        risk_level: o.riskLevel
+      }))
+    };
+    
+    if (raw) {
+      console.log(`Optimization analysis for '${workflowName}':`);
+      console.log(`Total optimizations found: ${optimizations.length}`);
+      console.log(`Estimated time savings: ${Math.round(totalTimeSavings / 1000)}s\n`);
+      
+      if (grouped.parallel.length > 0) {
+        console.log('Parallel opportunities:');
+        grouped.parallel.forEach(o => {
+          console.log(`  - ${o.description}`);
+          console.log(`    Savings: ${Math.round(o.estimatedTimeSavings / 1000)}s, Risk: ${o.riskLevel}`);
+        });
+        console.log('');
+      }
+      
+      if (grouped.skip.length > 0) {
+        console.log('Redundant steps to skip:');
+        grouped.skip.forEach(o => {
+          console.log(`  - ${o.description}`);
+        });
+        console.log('');
+      }
+      
+      if (grouped.reorder.length > 0) {
+        console.log('Reorder suggestions:');
+        grouped.reorder.forEach(o => {
+          console.log(`  - ${o.description}`);
+        });
+        console.log('');
+      }
+      
+      if (grouped.merge.length > 0) {
+        console.log('Merge opportunities:');
+        grouped.merge.forEach(o => {
+          console.log(`  - ${o.description}`);
+        });
+      }
+    } else {
+      output(result, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Analyze all workflows and patterns
+ */
+async function cmdWorkflowAnalyze(cwd, options, raw) {
+  const { PatternMiner } = await import('../lib/workflow-modules/pattern-miner.js');
+  
+  const stateDir = options.stateDir || path.join(cwd, '.planning');
+  const miner = new PatternMiner(stateDir);
+  
+  try {
+    const analysis = miner.analyzeWorkflows();
+    const stats = miner.getStats();
+    
+    const result = {
+      success: true,
+      stats: {
+        total_executions: stats.totalExecutions,
+        total_sequences: stats.totalSequences,
+        successful_executions: stats.successfulExecutions,
+        failed_executions: stats.failedExecutions,
+        avg_execution_time_ms: Math.round(stats.avgExecutionTime),
+        patterns_discovered: stats.patternsDiscovered,
+        most_used_commands: stats.mostUsedCommands.slice(0, 10)
+      },
+      patterns: {
+        total: analysis.patterns.length,
+        top_patterns: analysis.topPatterns.map(p => ({
+          id: p.id,
+          name: p.name,
+          quality_score: Math.round(p.qualityScore),
+          frequency: p.frequency,
+          success_rate: Math.round(p.successRate * 100)
+        }))
+      },
+      optimization_opportunities: analysis.optimizationOpportunities,
+      recommendations_count: analysis.recommendations.length
+    };
+    
+    if (raw) {
+      console.log('=== Workflow Analysis ===\n');
+      console.log('Statistics:');
+      console.log(`  Total executions: ${stats.totalExecutions}`);
+      console.log(`  Total sequences: ${stats.totalSequences}`);
+      console.log(`  Success rate: ${stats.totalExecutions > 0 ? Math.round(stats.successfulExecutions / stats.totalExecutions * 100) : 0}%`);
+      console.log(`  Avg execution time: ${Math.round(stats.avgExecutionTime)}ms`);
+      console.log(`  Patterns discovered: ${stats.patternsDiscovered}\n`);
+      
+      console.log('Most used commands:');
+      stats.mostUsedCommands.slice(0, 5).forEach(c => {
+        console.log(`  - ${c.command}: ${c.count} times`);
+      });
+      
+      console.log('\nTop patterns by quality:');
+      analysis.topPatterns.slice(0, 5).forEach(p => {
+        console.log(`  - ${p.name}: quality=${Math.round(p.qualityScore)}, freq=${p.frequency}`);
+      });
+      
+      console.log(`\nOptimization opportunities: ${analysis.optimizationOpportunities}`);
+    } else {
+      output(result, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Export a pattern as a workflow template
+ */
+async function cmdWorkflowExport(cwd, patternId, options, raw) {
+  const { PatternMiner } = await import('../lib/workflow-modules/pattern-miner.js');
+  
+  if (!patternId) {
+    error('Pattern ID required. Usage: gsi workflow export <pattern-id>');
+  }
+  
+  const stateDir = options.stateDir || path.join(cwd, '.planning');
+  const miner = new PatternMiner(stateDir);
+  
+  const outputPath = options.output;
+  
+  try {
+    // Get pattern
+    const pattern = miner.getPattern(patternId);
+    if (!pattern) {
+      const result = { success: false, error: `Pattern not found: ${patternId}` };
+      output(result, raw);
+      return;
+    }
+    
+    // Generate template
+    const template = miner.generateTemplate(patternId);
+    if (!template) {
+      const result = { success: false, error: 'Failed to generate template from pattern' };
+      output(result, raw);
+      return;
+    }
+    
+    // Save template
+    const templatePath = miner.saveTemplate(template);
+    
+    // Also export to stdout or file if output specified
+    const templateJson = JSON.stringify(template, null, 2);
+    
+    if (outputPath) {
+      fs.writeFileSync(outputPath, templateJson);
+    }
+    
+    const result = {
+      success: true,
+      pattern_id: patternId,
+      template_name: template.name,
+      template_path: templatePath,
+      output_path: outputPath || null,
+      template: template
+    };
+    
+    if (raw) {
+      console.log(`Exported pattern '${patternId}' as template '${template.name}'`);
+      console.log(`Template saved to: ${templatePath}`);
+      if (outputPath) {
+        console.log(`Also exported to: ${outputPath}`);
+      }
+      console.log('\nTemplate JSON:');
+      console.log(templateJson);
+    } else {
+      output(result, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+// ─── Knowledge Base Commands ───────────────────────────────────────────────────
+
+/**
+ * Extract patterns from source files
+ */
+async function cmdKnowledgeExtract(cwd, sourcePath, options, raw) {
+  const { KnowledgeBase } = await import('../lib/workflow-modules/knowledge-base.js');
+  
+  const knowledgeDir = options.knowledgeDir || path.join(cwd, '.planning', 'knowledge');
+  const kb = new KnowledgeBase(knowledgeDir);
+  
+  if (!sourcePath) {
+    error('Source path required. Usage: gsi knowledge extract <path> [--category <category>]');
+  }
+  
+  try {
+    const result = await kb.extract(sourcePath, options.category);
+    
+    if (raw) {
+      console.log(`Extracted ${result.patternsExtracted.length} patterns from ${result.patternsFound} files`);
+      console.log(`Templates: ${result.templatesGenerated.length}`);
+      console.log(`Best Practices: ${result.bestPractices.length}`);
+    } else {
+      output({
+        success: true,
+        files_scanned: result.patternsFound,
+        patterns_extracted: result.patternsExtracted.length,
+        templates_generated: result.templatesGenerated.length,
+        best_practices: result.bestPractices.length,
+        patterns: result.patternsExtracted.map(p => ({
+          id: p.id,
+          name: p.name,
+          category: p.category
+        }))
+      }, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Search knowledge base for patterns
+ */
+async function cmdKnowledgeSearch(cwd, query, options, raw) {
+  const { KnowledgeBase } = await import('../lib/workflow-modules/knowledge-base.js');
+  
+  const knowledgeDir = options.knowledgeDir || path.join(cwd, '.planning', 'knowledge');
+  const kb = new KnowledgeBase(knowledgeDir);
+  
+  if (!query) {
+    error('Search query required. Usage: gsi knowledge search <query> [--category <category>] [--limit N]');
+  }
+  
+  try {
+    const results = kb.search(query, options.category);
+    const limited = results.slice(0, options.limit || 20);
+    
+    if (raw) {
+      console.log(`Found ${results.length} patterns (showing ${limited.length}):`);
+      limited.forEach(p => {
+        console.log(`\n[${p.id}] ${p.name}`);
+        console.log(`  Category: ${p.category}`);
+        console.log(`  Effectiveness: ${(p.effectiveness * 100).toFixed(0)}%`);
+        console.log(`  ${p.description}`);
+      });
+    } else {
+      output({
+        success: true,
+        query: query,
+        total_matches: results.length,
+        returned: limited.length,
+        patterns: limited.map(p => ({
+          id: p.id,
+          name: p.name,
+          category: p.category,
+          description: p.description,
+          effectiveness: p.effectiveness,
+          uses: p.uses
+        }))
+      }, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Generate a skill from a pattern
+ */
+async function cmdKnowledgeGenerateSkill(cwd, patternId, options, raw) {
+  const { KnowledgeBase } = await import('../lib/workflow-modules/knowledge-base.js');
+  
+  const knowledgeDir = options.knowledgeDir || path.join(cwd, '.planning', 'knowledge');
+  const kb = new KnowledgeBase(knowledgeDir);
+  
+  if (!patternId) {
+    error('Pattern ID required. Usage: gsi knowledge generate-skill <pattern-id>');
+  }
+  
+  try {
+    const skillPath = await kb.generateSkill(patternId);
+    
+    if (raw) {
+      console.log(`Skill generated: ${skillPath}`);
+    } else {
+      output({
+        success: true,
+        pattern_id: patternId,
+        skill_path: skillPath
+      }, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * List all patterns in the knowledge base
+ */
+async function cmdKnowledgeList(cwd, options, raw) {
+  const { KnowledgeBase } = await import('../lib/workflow-modules/knowledge-base.js');
+  const fs = require('fs');
+  
+  const knowledgeDir = options.knowledgeDir || path.join(cwd, '.planning', 'knowledge');
+  const patternsDir = path.join(knowledgeDir, 'patterns');
+  const kb = new KnowledgeBase(knowledgeDir);
+  
+  try {
+    const patterns = [];
+    
+    if (fs.existsSync(patternsDir)) {
+      const categories = fs.readdirSync(patternsDir, { withFileTypes: true })
+        .filter(d => d.isDirectory())
+        .map(d => d.name);
+      
+      for (const category of categories) {
+        const categoryDir = path.join(patternsDir, category);
+        const files = fs.readdirSync(categoryDir).filter(f => f.endsWith('.json'));
+        
+        for (const file of files) {
+          try {
+            const pattern = JSON.parse(fs.readFileSync(path.join(categoryDir, file), 'utf-8'));
+            patterns.push({
+              id: pattern.id,
+              name: pattern.name,
+              category: pattern.category,
+              effectiveness: pattern.effectiveness,
+              uses: pattern.uses
+            });
+          } catch (e) {
+            // Skip malformed files
+          }
+        }
+      }
+    }
+    
+    // Filter by category if specified
+    const filtered = options.category 
+      ? patterns.filter(p => p.category === options.category)
+      : patterns;
+    
+    // Sort by effectiveness
+    filtered.sort((a, b) => b.effectiveness - a.effectiveness);
+    
+    // Apply limit
+    const limited = filtered.slice(0, options.limit || 50);
+    
+    if (raw) {
+      console.log(`Knowledge Base: ${filtered.length} patterns`);
+      limited.forEach(p => {
+        console.log(`  [${p.category}] ${p.id}: ${p.name} (${(p.effectiveness * 100).toFixed(0)}%)`);
+      });
+    } else {
+      output({
+        success: true,
+        total: filtered.length,
+        returned: limited.length,
+        patterns: limited
+      }, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Show knowledge base statistics
+ */
+async function cmdKnowledgeStats(cwd, options, raw) {
+  const { KnowledgeBase } = await import('../lib/workflow-modules/knowledge-base.js');
+  const fs = require('fs');
+  
+  const knowledgeDir = options.knowledgeDir || path.join(cwd, '.planning', 'knowledge');
+  const patternsDir = path.join(knowledgeDir, 'patterns');
+  const templatesDir = path.join(knowledgeDir, 'templates');
+  const practicesDir = path.join(knowledgeDir, 'best-practices');
+  const indexFile = path.join(knowledgeDir, 'index.json');
+  
+  try {
+    const stats = {
+      knowledge_dir: knowledgeDir,
+      exists: fs.existsSync(knowledgeDir),
+      patterns: { total: 0, by_category: {} },
+      templates: { total: 0 },
+      best_practices: { total: 0 },
+      artifacts: { total: 0, by_type: {} },
+      index: null
+    };
+    
+    // Count patterns by category
+    if (fs.existsSync(patternsDir)) {
+      const categories = fs.readdirSync(patternsDir, { withFileTypes: true })
+        .filter(d => d.isDirectory())
+        .map(d => d.name);
+      
+      for (const category of categories) {
+        const categoryDir = path.join(patternsDir, category);
+        const files = fs.readdirSync(categoryDir).filter(f => f.endsWith('.json'));
+        stats.patterns.by_category[category] = files.length;
+        stats.patterns.total += files.length;
+      }
+    }
+    
+    // Count templates
+    if (fs.existsSync(templatesDir)) {
+      stats.templates.total = fs.readdirSync(templatesDir).filter(f => f.endsWith('.json')).length;
+    }
+    
+    // Count best practices
+    if (fs.existsSync(practicesDir)) {
+      stats.best_practices.total = fs.readdirSync(practicesDir).filter(f => f.endsWith('.md')).length;
+    }
+    
+    // Count generated artifacts by type
+    const artifactTypes = ['skills', 'agents', 'logic', 'functions', 'features', 'improvements', 'ideas'];
+    for (const type of artifactTypes) {
+      const typeDir = path.join(knowledgeDir, type);
+      if (fs.existsSync(typeDir)) {
+        const count = fs.readdirSync(typeDir).length;
+        stats.artifacts.by_type[type] = count;
+        stats.artifacts.total += count;
+      }
+    }
+    
+    // Load index if exists
+    if (fs.existsSync(indexFile)) {
+      stats.index = JSON.parse(fs.readFileSync(indexFile, 'utf-8'));
+    }
+    
+    if (raw) {
+      console.log('=== Knowledge Base Statistics ===');
+      console.log(`Directory: ${stats.knowledge_dir}`);
+      console.log(`Exists: ${stats.exists}`);
+      console.log(`\nPatterns: ${stats.patterns.total}`);
+      for (const [cat, count] of Object.entries(stats.patterns.by_category)) {
+        console.log(`  ${cat}: ${count}`);
+      }
+      console.log(`\nTemplates: ${stats.templates.total}`);
+      console.log(`Best Practices: ${stats.best_practices.total}`);
+      console.log(`\nGenerated Artifacts: ${stats.artifacts.total}`);
+      for (const [type, count] of Object.entries(stats.artifacts.by_type)) {
+        console.log(`  ${type}: ${count}`);
+      }
+      if (stats.index) {
+        console.log(`\nLast Updated: ${stats.index.lastUpdated}`);
+      }
+    } else {
+      output(stats, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+// ─── Multi-Type Artifact Generation Commands (Phase 38-01) ────────────────────
+
+/**
+ * Generate all artifact types from a pattern
+ */
+async function cmdKnowledgeGenerateAll(cwd, patternId, options, raw) {
+  const { KnowledgeBase } = await import('../lib/workflow-modules/knowledge-base.js');
+  
+  const knowledgeDir = options.knowledgeDir || path.join(cwd, '.planning', 'knowledge');
+  const kb = new KnowledgeBase(knowledgeDir);
+  
+  if (!patternId) {
+    error('Pattern ID required. Usage: gsi knowledge generate-all <pattern-id>');
+  }
+  
+  try {
+    const result = await kb.generateAllArtifacts(patternId);
+    
+    if (raw) {
+      console.log(`Generated ${result.artifacts.length} artifacts for pattern ${patternId}:`);
+      result.artifacts.forEach(a => {
+        console.log(`  - ${a.type}: ${a.file_path}`);
+      });
+      if (result.errors.length > 0) {
+        console.log('\nErrors:');
+        result.errors.forEach(e => console.log(`  - ${e}`));
+      }
+    } else {
+      output({
+        success: result.success,
+        pattern_id: patternId,
+        artifacts_generated: result.artifacts.length,
+        artifacts: result.artifacts.map(a => ({
+          type: a.type,
+          id: a.id,
+          name: a.name,
+          file_path: a.file_path
+        })),
+        errors: result.errors
+      }, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Generate a specific artifact type from a pattern
+ */
+async function cmdKnowledgeGenerateArtifact(cwd, patternId, artifactType, options, raw) {
+  const { KnowledgeBase } = await import('../lib/workflow-modules/knowledge-base.js');
+  
+  const knowledgeDir = options.knowledgeDir || path.join(cwd, '.planning', 'knowledge');
+  const kb = new KnowledgeBase(knowledgeDir);
+  
+  if (!patternId) {
+    error('Pattern ID required. Usage: gsi knowledge generate <pattern-id> <type>');
+  }
+  
+  if (!artifactType) {
+    error('Artifact type required. Available types: skill, agent, logic, function, feature, improvement, idea');
+  }
+  
+  // Normalize type to uppercase
+  const type = artifactType.toUpperCase();
+  const validTypes = ['SKILL', 'AGENT', 'LOGIC', 'FUNCTION', 'FEATURE', 'IMPROVEMENT', 'IDEA'];
+  
+  if (!validTypes.includes(type)) {
+    error(`Invalid artifact type: ${artifactType}. Valid types: ${validTypes.map(t => t.toLowerCase()).join(', ')}`);
+  }
+  
+  try {
+    const artifact = await kb.generateArtifact(patternId, type);
+    
+    if (raw) {
+      console.log(`Generated ${type} artifact:`);
+      console.log(`  ID: ${artifact.id}`);
+      console.log(`  Name: ${artifact.name}`);
+      console.log(`  Path: ${artifact.file_path}`);
+    } else {
+      output({
+        success: true,
+        type: artifact.type,
+        id: artifact.id,
+        name: artifact.name,
+        description: artifact.description,
+        file_path: artifact.file_path,
+        created_at: artifact.created_at,
+        metadata: artifact.metadata
+      }, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * List available artifact types
+ */
+async function cmdKnowledgeArtifactTypes(cwd, options, raw) {
+  const types = [
+    { type: 'SKILL', description: 'Claude Code skill for reuse' },
+    { type: 'AGENT', description: 'GSI agent definition with thinking config' },
+    { type: 'LOGIC', description: 'TypeScript logic module with interfaces' },
+    { type: 'FUNCTION', description: 'Reusable TypeScript function' },
+    { type: 'FEATURE', description: 'Feature specification document' },
+    { type: 'IMPROVEMENT', description: 'Improvement suggestions with rationale' },
+    { type: 'IDEA', description: 'Visionary idea and concept proposal' }
+  ];
+  
+  if (raw) {
+    console.log('Available Artifact Types:');
+    types.forEach(t => {
+      console.log(`  ${t.type.toLowerCase()}: ${t.description}`);
+    });
+  } else {
+    output({ types }, raw);
+  }
+}
+
+/**
+ * Extract patterns and generate artifacts in one operation
+ */
+async function cmdKnowledgeExtractGenerate(cwd, sourcePath, options, raw) {
+  const { KnowledgeBase } = await import('../lib/workflow-modules/knowledge-base.js');
+  
+  const knowledgeDir = options.knowledgeDir || path.join(cwd, '.planning', 'knowledge');
+  const kb = new KnowledgeBase(knowledgeDir);
+  
+  if (!sourcePath) {
+    error('Source path required. Usage: gsi knowledge extract-generate <path> [--types type1,type2]');
+  }
+  
+  // Parse artifact types if specified
+  let artifactTypes = null;
+  if (options.types) {
+    artifactTypes = options.types.split(',').map(t => t.trim().toUpperCase());
+  }
+  
+  try {
+    const result = await kb.extractAndGenerate(sourcePath, options.category, artifactTypes);
+    
+    // Count total artifacts
+    let totalArtifacts = 0;
+    result.generations.forEach(g => totalArtifacts += g.artifacts.length);
+    
+    if (raw) {
+      console.log(`Extracted ${result.extraction.patternsExtracted.length} patterns`);
+      console.log(`Generated ${totalArtifacts} artifacts`);
+      
+      result.generations.forEach(g => {
+        console.log(`\nPattern: ${g.pattern?.id || 'unknown'}`);
+        g.artifacts.forEach(a => {
+          console.log(`  - ${a.type}: ${a.file_path}`);
+        });
+      });
+    } else {
+      output({
+        success: true,
+        extraction: {
+          files_scanned: result.extraction.patternsFound,
+          patterns_extracted: result.extraction.patternsExtracted.length,
+          patterns: result.extraction.patternsExtracted.map(p => ({
+            id: p.id,
+            name: p.name,
+            category: p.category
+          }))
+        },
+        generation: {
+          total_artifacts: totalArtifacts,
+          patterns_processed: result.generations.length,
+          generations: result.generations.map(g => ({
+            pattern_id: g.pattern?.id,
+            artifacts: g.artifacts.map(a => ({
+              type: a.type,
+              file_path: a.file_path
+            })),
+            success: g.success,
+            errors: g.errors
+          }))
+        }
+      }, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Batch generate artifacts for multiple patterns
+ */
+async function cmdKnowledgeBatchGenerate(cwd, patternIds, options, raw) {
+  const { KnowledgeBase } = await import('../lib/workflow-modules/knowledge-base.js');
+  
+  const knowledgeDir = options.knowledgeDir || path.join(cwd, '.planning', 'knowledge');
+  const kb = new KnowledgeBase(knowledgeDir);
+  
+  if (!patternIds || patternIds.length === 0) {
+    error('Pattern IDs required. Usage: gsi knowledge batch-generate <id1,id2,...> --types type1,type2');
+  }
+  
+  // Parse types
+  const types = options.types 
+    ? options.types.split(',').map(t => t.trim().toUpperCase())
+    : ['SKILL', 'AGENT', 'FEATURE', 'IDEA'];
+  
+  try {
+    const results = await kb.batchGenerate(patternIds, types);
+    
+    // Aggregate stats
+    let totalArtifacts = 0;
+    let successCount = 0;
+    let failCount = 0;
+    
+    results.forEach((result, id) => {
+      totalArtifacts += result.artifacts.length;
+      if (result.success) successCount++;
+      else failCount++;
+    });
+    
+    if (raw) {
+      console.log(`Batch generation complete:`);
+      console.log(`  Patterns: ${results.size}`);
+      console.log(`  Successful: ${successCount}`);
+      console.log(`  Failed: ${failCount}`);
+      console.log(`  Total artifacts: ${totalArtifacts}`);
+      
+      results.forEach((result, id) => {
+        console.log(`\n${id}: ${result.success ? 'SUCCESS' : 'FAILED'}`);
+        result.artifacts.forEach(a => {
+          console.log(`  - ${a.type}: ${a.file_path}`);
+        });
+        if (result.errors.length > 0) {
+          result.errors.forEach(e => console.log(`  ERROR: ${e}`));
+        }
+      });
+    } else {
+      const output_results = {};
+      results.forEach((result, id) => {
+        output_results[id] = {
+          success: result.success,
+          artifacts: result.artifacts.map(a => ({
+            type: a.type,
+            file_path: a.file_path
+          })),
+          errors: result.errors
+        };
+      });
+      
+      output({
+        success: failCount === 0,
+        summary: {
+          total_patterns: results.size,
+          successful: successCount,
+          failed: failCount,
+          total_artifacts: totalArtifacts
+        },
+        types_generated: types,
+        results: output_results
+      }, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
 // ─── GSD Integration Commands ───────────────────────────────────────────────────
 
 async function cmdCheckGSDUpdates(cwd, options, raw) {
-  const { hasUpdateAvailable } = require('../lib/gsd-integration/version-checker');
-  const { downloadGSDPackage, cleanupDownload } = require('../lib/gsd-integration/downloader');
-  const { analyzeChanges } = require('../lib/gsd-integration/change-analyzer');
-  const { categorizeChanges, assessChanges } = require('../lib/gsd-integration/change-analyzer');
-  const { suggestIntegrations, generateIntegrationPlan } = require('../lib/gsd-integration/suggester');
-  const { recordUpdate } = require('../lib/gsd-integration/tracker');
+  const { hasUpdateAvailable } = require('../lib/gsi-integration/version-checker');
+  const { downloadGSDPackage, cleanupDownload } = require('../lib/gsi-integration/downloader');
+  const { analyzeChanges } = require('../lib/gsi-integration/change-analyzer');
+  const { categorizeChanges, assessChanges } = require('../lib/gsi-integration/change-analyzer');
+  const { suggestIntegrations, generateIntegrationPlan } = require('../lib/gsi-integration/suggester');
+  const { recordUpdate } = require('../lib/gsi-integration/tracker');
 
   try {
     console.log('Checking for GSD updates...');
@@ -4505,11 +6710,11 @@ async function cmdCheckGSDUpdates(cwd, options, raw) {
 }
 
 function cmdIntegrateGSDChange(cwd, changeId, raw) {
-  const { getUpdateHistory } = require('../lib/gsd-integration/tracker');
-  const { recordIntegration } = require('../lib/gsd-integration/tracker');
-  const { downloadGSDPackage, cleanupDownload } = require('../lib/gsd-integration/downloader');
-  const { analyzeChanges, categorizeChanges, assessChanges } = require('../lib/gsd-integration/change-analyzer');
-  const { suggestIntegrations, createMergeStrategy } = require('../lib/gsd-integration/suggester');
+  const { getUpdateHistory } = require('../lib/gsi-integration/tracker');
+  const { recordIntegration } = require('../lib/gsi-integration/tracker');
+  const { downloadGSDPackage, cleanupDownload } = require('../lib/gsi-integration/downloader');
+  const { analyzeChanges, categorizeChanges, assessChanges } = require('../lib/gsi-integration/change-analyzer');
+  const { suggestIntegrations, createMergeStrategy } = require('../lib/gsi-integration/suggester');
   const fs = require('fs').promises;
   const path = require('path');
 
@@ -4542,7 +6747,7 @@ function cmdIntegrateGSDChange(cwd, changeId, raw) {
 }
 
 async function cmdGSDUpdateHistory(cwd, options, raw) {
-  const { getUpdateHistory, getIntegratedChanges, getDeferredChanges, getIntegrationStats } = require('../lib/gsd-integration/tracker');
+  const { getUpdateHistory, getIntegratedChanges, getDeferredChanges, getIntegrationStats } = require('../lib/gsi-integration/tracker');
 
   try {
     const history = await getUpdateHistory(20);
@@ -5091,8 +7296,582 @@ async function main() {
       break;
     }
 
+    case 'thinking': {
+      const subcommand = args[1];
+      const jsonFlag = args.includes('--json');
+      const profileIdx = args.indexOf('--profile');
+      const timeoutIdx = args.indexOf('--timeout');
+      const serverIdx = args.indexOf('--server');
+      const toolsIdx = args.indexOf('--tools');
+      const processIdx = args.indexOf('--process');
+      const commandsDirIdx = args.indexOf('--commands-dir');
+      const backupDirIdx = args.indexOf('--backup-dir');
+      
+      const thinkingOptions = {
+        json: jsonFlag,
+        profile: profileIdx !== -1 ? args[profileIdx + 1] : null,
+        timeout: timeoutIdx !== -1 ? args[timeoutIdx + 1] : null,
+        server: serverIdx !== -1 ? args[serverIdx + 1] : null,
+        tools: toolsIdx !== -1 ? args[toolsIdx + 1] : null,
+        process: processIdx !== -1 ? args[processIdx + 1] : null,
+        bmad: args.includes('--bmad') ? true : (args.includes('--no-bmad') ? false : undefined),
+        commandsDir: commandsDirIdx !== -1 ? args[commandsDirIdx + 1] : null,
+        backupDir: backupDirIdx !== -1 ? args[backupDirIdx + 1] : null,
+        dryRun: args.includes('--dry-run'),
+        force: args.includes('--force'),
+        strict: args.includes('--strict')
+      };
+      
+      if (subcommand === 'analyze') {
+        const commandDesc = args.slice(2).find(a => !a.startsWith('--')) || '';
+        await cmdThinkingAnalyze(cwd, commandDesc, thinkingOptions, raw);
+      } else if (subcommand === 'config') {
+        const commandDesc = args.slice(2).find(a => !a.startsWith('--')) || '';
+        await cmdThinkingConfig(cwd, commandDesc, thinkingOptions, raw);
+      } else if (subcommand === 'servers') {
+        await cmdThinkingServers(cwd, thinkingOptions, raw);
+      } else if (subcommand === 'test') {
+        await cmdThinkingTest(cwd, thinkingOptions, raw);
+      } else if (subcommand === 'apply-all') {
+        await cmdThinkingApplyAll(cwd, thinkingOptions, raw);
+      } else if (subcommand === 'validate') {
+        await cmdThinkingValidate(cwd, thinkingOptions, raw);
+      } else if (subcommand === 'rollback') {
+        await cmdThinkingRollback(cwd, thinkingOptions, raw);
+      } else if (subcommand === 'factors') {
+        await cmdThinkingFactors(cwd, thinkingOptions, raw);
+      } else {
+        error('Unknown thinking subcommand. Available: analyze, config, servers, test, apply-all, validate, rollback, factors');
+      }
+      break;
+    }
+
+    case 'patch': {
+      const subcommand = args[1];
+      const patchesDirIdx = args.indexOf('--patches-dir');
+      const patchesDir = patchesDirIdx !== -1 ? args[patchesDirIdx + 1] : null;
+      
+      if (subcommand === 'backup') {
+        await cmdPatchBackup(cwd, { patchesDir }, raw);
+      } else if (subcommand === 'restore') {
+        await cmdPatchRestore(cwd, { patchesDir }, raw);
+      } else if (subcommand === 'status') {
+        await cmdPatchStatus(cwd, { patchesDir }, raw);
+      } else if (subcommand === 'diff') {
+        await cmdPatchDiff(cwd, { patchesDir }, raw);
+      } else {
+        error('Unknown patch subcommand. Available: backup, restore, status, diff');
+      }
+      break;
+    }
+
+    case 'workflow': {
+      const subcommand = args[1];
+      const templatesDirIdx = args.indexOf('--templates-dir');
+      const templatesDir = templatesDirIdx !== -1 ? args[templatesDirIdx + 1] : null;
+      const stateDirIdx = args.indexOf('--state-dir');
+      const stateDir = stateDirIdx !== -1 ? args[stateDirIdx + 1] : null;
+      const yoloIdx = args.indexOf('--yolo');
+      const failureIdx = args.indexOf('--failure-strategy');
+      
+      // Pattern discovery options
+      const minFreqIdx = args.indexOf('--min-frequency');
+      const minSuccessIdx = args.indexOf('--min-success-rate');
+      const minLenIdx = args.indexOf('--min-length');
+      const maxLenIdx = args.indexOf('--max-length');
+      const minQualityIdx = args.indexOf('--min-quality');
+      const phaseIdx = args.indexOf('--phase');
+      const recentIdx = args.indexOf('--recent-commands');
+      const goalIdx = args.indexOf('--goal');
+      const outputIdx = args.indexOf('--output');
+      
+      const workflowOptions = {
+        templatesDir,
+        stateDir,
+        yolo: yoloIdx !== -1,
+        failureStrategy: failureIdx !== -1 ? args[failureIdx + 1] : 'stop-on-error',
+        // Pattern discovery options
+        minFrequency: minFreqIdx !== -1 ? parseInt(args[minFreqIdx + 1], 10) : 2,
+        minSuccessRate: minSuccessIdx !== -1 ? parseFloat(args[minSuccessIdx + 1]) : 0.5,
+        minLength: minLenIdx !== -1 ? parseInt(args[minLenIdx + 1], 10) : 2,
+        maxLength: maxLenIdx !== -1 ? parseInt(args[maxLenIdx + 1], 10) : 10,
+        minQuality: minQualityIdx !== -1 ? parseInt(args[minQualityIdx + 1], 10) : 50,
+        phase: phaseIdx !== -1 ? args[phaseIdx + 1] : null,
+        recentCommands: recentIdx !== -1 ? args[recentIdx + 1] : null,
+        goal: goalIdx !== -1 ? args[goalIdx + 1] : null,
+        output: outputIdx !== -1 ? args[outputIdx + 1] : null
+      };
+      
+      if (subcommand === 'run') {
+        const templateName = args[2];
+        const varsIdx = args.indexOf('--vars');
+        const vars = varsIdx !== -1 ? JSON.parse(args[varsIdx + 1]) : {};
+        await cmdWorkflowRun(cwd, templateName, vars, workflowOptions, raw);
+      } else if (subcommand === 'list') {
+        await cmdWorkflowList(cwd, workflowOptions, raw);
+      } else if (subcommand === 'status') {
+        const workflowName = args[2];
+        await cmdWorkflowStatus(cwd, workflowName, workflowOptions, raw);
+      } else if (subcommand === 'pause') {
+        const workflowName = args[2];
+        await cmdWorkflowPause(cwd, workflowName, workflowOptions, raw);
+      } else if (subcommand === 'resume') {
+        const workflowName = args[2];
+        await cmdWorkflowResume(cwd, workflowName, workflowOptions, raw);
+      } else if (subcommand === 'rollback') {
+        const workflowName = args[2];
+        await cmdWorkflowRollback(cwd, workflowName, workflowOptions, raw);
+      } else if (subcommand === 'discover') {
+        // Phase 38-03: Mine patterns from history
+        await cmdWorkflowDiscover(cwd, workflowOptions, raw);
+      } else if (subcommand === 'recommend') {
+        // Phase 38-03: Get workflow recommendations
+        await cmdWorkflowRecommend(cwd, workflowOptions, raw);
+      } else if (subcommand === 'optimize') {
+        // Phase 38-03: Optimize a workflow
+        const workflowName = args[2];
+        await cmdWorkflowOptimize(cwd, workflowName, workflowOptions, raw);
+      } else if (subcommand === 'analyze') {
+        // Phase 38-03: Analyze all workflows
+        await cmdWorkflowAnalyze(cwd, workflowOptions, raw);
+      } else if (subcommand === 'export') {
+        // Phase 38-03: Export pattern as template
+        const patternId = args[2];
+        await cmdWorkflowExport(cwd, patternId, workflowOptions, raw);
+      } else {
+        error(`Unknown workflow subcommand. Available:
+  run <template> - Run a workflow template
+  list - List available templates
+  status [name] - Show workflow status
+  pause <name> - Pause a running workflow
+  resume <name> - Resume a paused workflow
+  rollback <name> - Rollback to last checkpoint
+  discover - Mine patterns from history (Phase 38-03)
+  recommend - Get workflow recommendations (Phase 38-03)
+  optimize <name> - Optimize a workflow (Phase 38-03)
+  analyze - Analyze all workflows (Phase 38-03)
+  export <pattern-id> - Export pattern as template (Phase 38-03)`);
+      }
+      break;
+    }
+
+    case 'knowledge': {
+      const subcommand = args[1];
+      const knowledgeDirIdx = args.indexOf('--knowledge-dir');
+      const knowledgeDir = knowledgeDirIdx !== -1 ? args[knowledgeDirIdx + 1] : null;
+      const categoryIdx = args.indexOf('--category');
+      const category = categoryIdx !== -1 ? args[categoryIdx + 1] : null;
+      const limitIdx = args.indexOf('--limit');
+      const limit = limitIdx !== -1 ? parseInt(args[limitIdx + 1], 10) : 20;
+      const typesIdx = args.indexOf('--types');
+      const types = typesIdx !== -1 ? args[typesIdx + 1] : null;
+      
+      const knowledgeOptions = {
+        knowledgeDir,
+        category,
+        limit,
+        types
+      };
+      
+      if (subcommand === 'extract') {
+        const sourcePath = args[2];
+        cmdKnowledgeExtract(cwd, sourcePath, knowledgeOptions, raw);
+      } else if (subcommand === 'search') {
+        const query = args.slice(2).find(a => !a.startsWith('--')) || '';
+        cmdKnowledgeSearch(cwd, query, knowledgeOptions, raw);
+      } else if (subcommand === 'generate-skill') {
+        const patternId = args[2];
+        cmdKnowledgeGenerateSkill(cwd, patternId, knowledgeOptions, raw);
+      } else if (subcommand === 'list') {
+        cmdKnowledgeList(cwd, knowledgeOptions, raw);
+      } else if (subcommand === 'stats') {
+        cmdKnowledgeStats(cwd, knowledgeOptions, raw);
+      } else if (subcommand === 'generate-all') {
+        // Generate all artifact types from a pattern
+        const patternId = args[2];
+        cmdKnowledgeGenerateAll(cwd, patternId, knowledgeOptions, raw);
+      } else if (subcommand === 'generate') {
+        // Generate specific artifact type: gsi knowledge generate <pattern-id> <type>
+        const patternId = args[2];
+        const artifactType = args[3];
+        cmdKnowledgeGenerateArtifact(cwd, patternId, artifactType, knowledgeOptions, raw);
+      } else if (subcommand === 'artifact-types') {
+        // List available artifact types
+        cmdKnowledgeArtifactTypes(cwd, knowledgeOptions, raw);
+      } else if (subcommand === 'extract-generate') {
+        // Extract and generate in one operation
+        const sourcePath = args[2];
+        cmdKnowledgeExtractGenerate(cwd, sourcePath, knowledgeOptions, raw);
+      } else if (subcommand === 'batch-generate') {
+        // Batch generate for multiple patterns
+        const idsArg = args[2];
+        const patternIds = idsArg ? idsArg.split(',') : [];
+        cmdKnowledgeBatchGenerate(cwd, patternIds, knowledgeOptions, raw);
+      } else if (subcommand === 'agent') {
+        // Shorthand: generate agent
+        const patternId = args[2];
+        cmdKnowledgeGenerateArtifact(cwd, patternId, 'AGENT', knowledgeOptions, raw);
+      } else if (subcommand === 'feature') {
+        // Shorthand: generate feature
+        const patternId = args[2];
+        cmdKnowledgeGenerateArtifact(cwd, patternId, 'FEATURE', knowledgeOptions, raw);
+      } else if (subcommand === 'idea') {
+        // Shorthand: generate idea
+        const patternId = args[2];
+        cmdKnowledgeGenerateArtifact(cwd, patternId, 'IDEA', knowledgeOptions, raw);
+      } else if (subcommand === 'logic') {
+        // Shorthand: generate logic
+        const patternId = args[2];
+        cmdKnowledgeGenerateArtifact(cwd, patternId, 'LOGIC', knowledgeOptions, raw);
+      } else if (subcommand === 'function') {
+        // Shorthand: generate function
+        const patternId = args[2];
+        cmdKnowledgeGenerateArtifact(cwd, patternId, 'FUNCTION', knowledgeOptions, raw);
+      } else if (subcommand === 'improvement') {
+        // Shorthand: generate improvement
+        const patternId = args[2];
+        cmdKnowledgeGenerateArtifact(cwd, patternId, 'IMPROVEMENT', knowledgeOptions, raw);
+      } else {
+        error(`Unknown knowledge subcommand. Available: 
+  extract <path> - Extract patterns from source files
+  search <query> - Search knowledge base
+  generate-skill <id> - Generate skill from pattern
+  list - List all patterns
+  stats - Show knowledge base statistics
+  generate-all <id> - Generate all artifact types from pattern
+  generate <id> <type> - Generate specific artifact type
+  artifact-types - List available artifact types
+  extract-generate <path> - Extract and generate in one operation
+  batch-generate <ids> - Batch generate for multiple patterns
+  agent <id> - Generate agent from pattern
+  feature <id> - Generate feature from pattern
+  idea <id> - Generate idea from pattern
+  logic <id> - Generate logic from pattern
+  function <id> - Generate function from pattern
+  improvement <id> - Generate improvement from pattern`);
+      }
+      break;
+    }
+
+    case 'cognitive': {
+      const subcommand = args[1];
+      const timeoutIdx = args.indexOf('--timeout');
+      const phaseIdx = args.indexOf('--phase');
+      const fileIdx = args.indexOf('--file');
+      const resetIdx = args.indexOf('--reset-stats');
+      
+      const cognitiveOptions = {
+        timeout: timeoutIdx !== -1 ? parseInt(args[timeoutIdx + 1], 10) : 10000,
+        phase: phaseIdx !== -1 ? args[phaseIdx + 1] : null,
+        file: fileIdx !== -1 ? args[fileIdx + 1] : null,
+        resetStats: resetIdx !== -1
+      };
+      
+      if (subcommand === 'flow') {
+        const operation = args[2];
+        await cmdCognitiveFlow(cwd, operation, cognitiveOptions, raw);
+      } else if (subcommand === 'status') {
+        await cmdCognitiveStatus(cwd, cognitiveOptions, raw);
+      } else if (subcommand === 'learn') {
+        const operation = args[2];
+        await cmdCognitiveLearn(cwd, operation, cognitiveOptions, raw);
+      } else if (subcommand === 'optimize') {
+        await cmdCognitiveOptimize(cwd, cognitiveOptions, raw);
+      } else {
+        error(`Unknown cognitive subcommand. Available:
+  flow <operation> - Execute with cognitive flow
+    [--timeout N] [--phase PHASE] [--file PATH]
+  status - Show cognitive system status
+  learn [operation] - Trigger learning capture
+    [--phase PHASE]
+  optimize - Optimize cognitive settings
+    [--reset-stats]`);
+      }
+      break;
+    }
+
     default:
       error(`Unknown command: ${command}`);
+  }
+}
+
+// ─── Cognitive Flow Commands (Phase 38-04) ─────────────────────────────────────
+
+/**
+ * Execute an operation with cognitive flow
+ */
+async function cmdCognitiveFlow(cwd, operation, options, raw) {
+  try {
+    const { getOrchestrator, CognitivePhase } = await import('../lib/cognitive-flow/index.js');
+    
+    if (!operation) {
+      error('Operation required. Usage: gsi cognitive flow <operation> [--file PATH] [--phase PHASE]');
+    }
+    
+    const orchestrator = getOrchestrator();
+    
+    // Build context
+    const phase = options.phase ? CognitivePhase[options.phase.toUpperCase()] : CognitivePhase.PREPARE;
+    const targetPath = options.file ? path.resolve(cwd, options.file) : null;
+    
+    const result = await orchestrator.quickExecute(operation, {}, {
+      targetPath,
+      timeout: options.timeout
+    });
+    
+    // Set phase after creation
+    result.phase = phase;
+    
+    if (raw) {
+      console.log(`Cognitive Flow: ${operation}`);
+      console.log(`Status: ${result.success ? 'SUCCESS' : (result.degraded ? 'DEGRADED' : 'FAILED')}`);
+      console.log(`Duration: ${result.duration}ms`);
+      console.log(`Tokens: ${result.totalTokens}`);
+      console.log(`\nPhases executed: ${result.phases.size}`);
+      
+      for (const [phaseName, phaseResult] of result.phases) {
+        console.log(`\n${phaseName}:`);
+        console.log(`  Status: ${phaseResult.success ? 'OK' : 'FAILED'}`);
+        console.log(`  Duration: ${phaseResult.duration}ms`);
+        console.log(`  Thinking results: ${phaseResult.thinkingResults.length}`);
+        console.log(`  Tool results: ${phaseResult.toolResults.length}`);
+        if (phaseResult.insights.length > 0) {
+          console.log(`  Insights: ${phaseResult.insights.length}`);
+        }
+      }
+      
+      if (result.errors.length > 0) {
+        console.log(`\nErrors:`);
+        result.errors.forEach(e => console.log(`  - ${e}`));
+      }
+    } else {
+      output({
+        success: result.success,
+        operation: result.operation,
+        duration: result.duration,
+        tokens: result.totalTokens,
+        degraded: result.degraded,
+        phases: Array.from(result.phases.entries()).map(([name, pr]) => ({
+          phase: name,
+          success: pr.success,
+          duration: pr.duration,
+          insights: pr.insights.length,
+          learnings: pr.learnings.length
+        })),
+        insights: result.insights,
+        errors: result.errors
+      }, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Show cognitive system status
+ */
+async function cmdCognitiveStatus(cwd, options, raw) {
+  try {
+    const { getOrchestrator } = await import('../lib/cognitive-flow/index.js');
+    
+    const orchestrator = getOrchestrator();
+    const status = orchestrator.getStatus();
+    
+    if (raw) {
+      console.log('=== Cognitive System Status ===\n');
+      
+      console.log('Server Pool:');
+      console.log(`  Total calls: ${status.serverPool.totalCalls}`);
+      console.log(`  Avg latency: ${Math.round(status.serverPool.avgLatency)}ms`);
+      
+      for (const [server, stats] of status.serverPool.serverStats) {
+        console.log(`\n  ${server}:`);
+        console.log(`    Calls: ${stats.calls}`);
+        console.log(`    Avg latency: ${Math.round(stats.avgLatency)}ms`);
+        console.log(`    Errors: ${stats.errors}`);
+        console.log(`    Availability: ${stats.availability}%`);
+      }
+      
+      console.log('\nTool Optimizer:');
+      console.log(`  Total calls: ${status.toolOptimizer.totalCalls}`);
+      console.log(`  Tokens used: ${status.toolOptimizer.totalTokensUsed}`);
+      console.log(`  Tokens saved: ${status.toolOptimizer.totalTokensSaved}`);
+      
+      console.log('\nFlow Status:');
+      console.log(`  Active flows: ${status.activeFlows}`);
+      console.log(`  Learning buffer: ${status.learningBufferSize}`);
+      
+      console.log('\nConfiguration:');
+      console.log(`  Enabled phases: ${status.config.enabledPhases.join(', ')}`);
+      console.log(`  Learning: ${status.config.learningEnabled ? 'ON' : 'OFF'}`);
+      console.log(`  Parallel tools: ${status.config.parallelTools ? 'ON' : 'OFF'}`);
+      console.log(`  BMAD enhancement: ${status.config.bmadEnhancement ? 'ON' : 'OFF'}`);
+    } else {
+      output({
+        success: true,
+        serverPool: {
+          totalCalls: status.serverPool.totalCalls,
+          avgLatency: Math.round(status.serverPool.avgLatency),
+          servers: Object.fromEntries(status.serverPool.serverStats)
+        },
+        toolOptimizer: {
+          totalCalls: status.toolOptimizer.totalCalls,
+          tokensUsed: status.toolOptimizer.totalTokensUsed,
+          tokensSaved: status.toolOptimizer.totalTokensSaved
+        },
+        activeFlows: status.activeFlows,
+        learningBufferSize: status.learningBufferSize,
+        config: {
+          enabledPhases: status.config.enabledPhases,
+          learningEnabled: status.config.learningEnabled,
+          parallelTools: status.config.parallelTools
+        }
+      }, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Trigger learning capture
+ */
+async function cmdCognitiveLearn(cwd, operation, options, raw) {
+  try {
+    const { getOrchestrator, CognitivePhase } = await import('../lib/cognitive-flow/index.js');
+    
+    const orchestrator = getOrchestrator();
+    
+    // Create a minimal learning context
+    const operationName = operation || 'manual-capture';
+    const phase = options.phase ? CognitivePhase[options.phase.toUpperCase()] : CognitivePhase.LEARN;
+    
+    // Execute a quick flow to trigger learning
+    const result = await orchestrator.quickExecute(operationName, { capture: true }, {
+      timeout: 5000
+    });
+    
+    if (raw) {
+      console.log(`Learning capture triggered for: ${operationName}`);
+      console.log(`Learnings captured: ${result.learnings.length}`);
+      if (result.learnings.length > 0) {
+        console.log('\nCaptured learnings:');
+        result.learnings.forEach((l, i) => console.log(`  ${i + 1}. ${l}`));
+      }
+      console.log(`\nInsights: ${result.insights.length}`);
+      console.log(`Duration: ${result.duration}ms`);
+    } else {
+      output({
+        success: result.success,
+        operation: operationName,
+        learnings: result.learnings,
+        insights: result.insights,
+        duration: result.duration
+      }, raw);
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
+  }
+}
+
+/**
+ * Optimize cognitive settings
+ */
+async function cmdCognitiveOptimize(cwd, options, raw) {
+  try {
+    const { getOrchestrator } = await import('../lib/cognitive-flow/index.js');
+    
+    const orchestrator = getOrchestrator();
+    
+    if (options.resetStats) {
+      // Reset statistics
+      const status = orchestrator.getStatus();
+      
+      if (raw) {
+        console.log('Cognitive statistics reset.');
+        console.log('Previous stats:');
+        console.log(`  Server calls: ${status.serverPool.totalCalls}`);
+        console.log(`  Tool calls: ${status.toolOptimizer.totalCalls}`);
+        console.log(`  Tokens saved: ${status.toolOptimizer.totalTokensSaved}`);
+      }
+      
+      output({
+        success: true,
+        action: 'reset-stats',
+        previousStats: {
+          serverCalls: status.serverPool.totalCalls,
+          toolCalls: status.toolOptimizer.totalCalls,
+          tokensSaved: status.toolOptimizer.totalTokensSaved
+        }
+      }, raw);
+    } else {
+      // Show optimization recommendations
+      const status = orchestrator.getStatus();
+      const recommendations = [];
+      
+      // Check server health
+      for (const [server, stats] of status.serverPool.serverStats) {
+        if (stats.errors > 5) {
+          recommendations.push({
+            type: 'server-health',
+            server,
+            message: `Server ${server} has high error count (${stats.errors}). Consider checking MCP server status.`
+          });
+        }
+        if (stats.availability < 90) {
+          recommendations.push({
+            type: 'availability',
+            server,
+            message: `Server ${server} availability is low (${stats.availability}%). Check server health.`
+          });
+        }
+      }
+      
+      // Check token efficiency
+      const tokenEfficiency = status.toolOptimizer.totalTokensSaved / 
+        Math.max(1, status.toolOptimizer.totalTokensUsed) * 100;
+      
+      if (tokenEfficiency < 50) {
+        recommendations.push({
+          type: 'token-efficiency',
+          message: `Token efficiency is ${Math.round(tokenEfficiency)}%. Consider using more MCP tools for better savings.`
+        });
+      }
+      
+      if (raw) {
+        console.log('=== Cognitive Optimization Analysis ===\n');
+        
+        if (recommendations.length === 0) {
+          console.log('No optimization issues detected. System is running optimally.');
+        } else {
+          console.log(`Found ${recommendations.length} optimization opportunities:\n`);
+          recommendations.forEach((r, i) => {
+            console.log(`${i + 1}. [${r.type}] ${r.message}`);
+          });
+        }
+        
+        console.log('\nCurrent efficiency:');
+        console.log(`  Token savings: ${Math.round(tokenEfficiency)}%`);
+        console.log(`  Active flows: ${status.activeFlows}`);
+        console.log(`  Learning buffer: ${status.learningBufferSize}`);
+      } else {
+        output({
+          success: true,
+          recommendations,
+          efficiency: {
+            tokenSavings: Math.round(tokenEfficiency),
+            activeFlows: status.activeFlows,
+            learningBuffer: status.learningBufferSize
+          }
+        }, raw);
+      }
+    }
+  } catch (err) {
+    const result = { success: false, error: err.message };
+    output(result, raw);
   }
 }
 

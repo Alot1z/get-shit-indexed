@@ -28,9 +28,9 @@
 
 | File | Changes Made |
 |------|--------------|
-| validation-gates.md | Updated @C:\Users\mose\.claude\rules\ → @~/.claude/get-shit-indexed/references/rules/ |
-| validation-workflow.md | Updated @C:\Users\mose\.claude\rules\ → @~/.claude/get-shit-indexed/references/rules/ |
-| code-review-workflow.md | Updated @C:\Users\mose\.claude\rules\ → @~/.claude/get-shit-indexed/references/rules/ |
+| validation-gates.md | Updated @~/.claude/rules\ → @~/.claude/get-shit-indexed/references/rules/ |
+| validation-workflow.md | Updated @~/.claude/rules\ → @~/.claude/get-shit-indexed/references/rules/ |
+| code-review-workflow.md | Updated @~/.claude/rules\ → @~/.claude/get-shit-indexed/references/rules/ |
 
 ## Path Scan Results
 

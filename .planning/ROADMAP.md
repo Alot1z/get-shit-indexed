@@ -2,17 +2,17 @@
 
 ## Overview
 
-Transform Get Shit Indexed (GSI) system to fully leverage three MCP servers—Desktop Commander (DC), Code-Index MCP (CI), and CodeGraphContext (CG)—replacing native bash commands with MCP equivalents. This journey begins with foundational MCP integration, moves through workflow updates, consolidates research into unified documentation, synchronizes repositories, integrates thinking servers, and concludes with quality verification systems.
+Transform Get Shit Indexed (GSI) system to fully leverage two MCP servers—Desktop Commander (DC) and Code-Index MCP (CI)—replacing native bash commands with MCP equivalents. This journey begins with foundational MCP integration, moves through workflow updates, consolidates research into unified documentation, synchronizes repositories, integrates thinking servers, and concludes with quality verification systems.
 
 ## Phases
 
-- [x] **Phase 1: MCP Foundation** - Establish all three MCP servers with golden pattern implementation
+- [x] **Phase 1: MCP Foundation** - Establish MCP servers with golden pattern implementation
 - [x] **Phase 2: Workflow Integration** - Update all GSI workflows to use MCP tools instead of native commands
 - [x] **Phase 3: Documentation Consolidation** - Consolidate research into unified reference guides with Mermaid diagrams
 - [x] **Phase 4: Repository Synchronization** - Sync local changes to cloned upstream repo
 - [x] **Phase 5: Thinking Server Integration** - Integrate all three thinking servers with 7-BMAD methodology
 - [x] **Phase 6: Quality & Verification** - Implement auto-validation, code review, and verification systems
-- [x] **Phase 7: Command Layer Updates** - Update GSI command definitions for all 3 MCP servers
+- [x] **Phase 7: Command Layer Updates** - Update GSI command definitions for MCP servers
 - [x] **Phase 8: Advanced Workflow Features** - Implement parallel orchestration, model profiles, and YOLO mode
 - [ ] **Phase 9: Repository Renovation** - GSI terminal logo, global keyword replacement, documentation overhaul
 - [ ] **Phase 10: MCP & Tools Audit** - Complete MCP server and tools audit with documentation
@@ -21,7 +21,7 @@ Transform Get Shit Indexed (GSI) system to fully leverage three MCP servers—De
 - [ ] **Phase 13: Comprehensive Testing** - End-to-end testing of all GSI functionality
 - [x] **Phase 14-22: Enhancement Phases** - MCP optimization, thinking enforcement, complexity prediction, prompt enhancer, thinking integration, GSD updates, pattern learning
 - [x] **Phase 23: Package Self-Containment** - Make GSI package fully self-contained with no global dependencies
-- [ ] **Phase 24: Prompt Enhancement Foundation** - Risk assessment and mode selection for prompt enhancement
+- [x] **Phase 24: Prompt Enhancement Foundation** - Risk assessment and mode selection for prompt enhancement
 - [ ] **Phase 25: Semantic Intervention Engine** - Heretic-API style parallel branching and refusal detection
 - [ ] **Phase 26: Context Optimization Layer** - Hierarchical summarization and vector offloading
 - [ ] **Phase 27: Claude Code SDK Integration** - Native SDK wrapper and PreUserPrompt hook
@@ -30,7 +30,7 @@ Transform Get Shit Indexed (GSI) system to fully leverage three MCP servers—De
 
 ### Phase 1: MCP Foundation
 
-**Goal**: All three MCP servers (DC, CI, CG) are available, configured, and working with golden pattern established
+**Goal**: MCP servers (DC, CI) are available, configured, and working with golden pattern established
 
 **Depends on**: Nothing (first phase)
 
@@ -39,20 +39,19 @@ Transform Get Shit Indexed (GSI) system to fully leverage three MCP servers—De
 **Success Criteria** (what must be TRUE):
 1. Desktop Commander (DC) MCP server is connected and responsive for all file/process operations
 2. Code-Index MCP (CI) server is connected and responsive for code search/symbol navigation
-3. CodeGraphContext (CG) server is connected and responsive for relationship analysis (neo4j://localhost:7687)
-4. Golden pattern (CG discover → CI understand → CI understand → DC act → DC verify → CI verify) works end-to-end
-5. All MCP tools show 80-90% token savings compared to native equivalents
+3. Golden pattern (CI discover → CI understand → DC act → DC verify → CI verify) works end-to-end
+4. All MCP tools show 80-90% token savings compared to native equivalents
 
-**Plans**: 3 plans (REDO - CG server now available at neo4j://localhost:7687)
+**Plans**: 3 plans
 
-**Status**: Plans created, ready for execution
+**Status**: Complete ✓ (2025-02-11)
 
-**Completed**: N/A
+**Completed**: 2025-02-11
 
 **Plans**:
-- [ ] 01-01: Verify and configure all three MCP servers (DC, CI, CG) - 9 tasks with CG at neo4j://localhost:7687
-- [ ] 01-02: Implement golden pattern with discover-understand-act-verify tool chain - 10 tasks with CG integration
-- [ ] 01-03: Establish tool priority rules enforcing MCP > Native across system - 10 tasks complete with all 3 servers
+- [x] 01-01: Verify and configure MCP servers (DC, CI) - 9 tasks
+- [x] 01-02: Implement golden pattern with discover-understand-act-verify tool chain - 10 tasks
+- [x] 01-03: Establish tool priority rules enforcing MCP > Native across system - 10 tasks
 
 ### Phase 2: Workflow Integration
 
@@ -89,7 +88,7 @@ Transform Get Shit Indexed (GSI) system to fully leverage three MCP servers—De
 
 **Success Criteria** (what must be TRUE):
 1. CODE-INDEX-MCP-GUIDE.md exists with complete Code-Index server usage patterns
-2. TOOL-PRIORITY-RULES.md enhanced with CodeGraphContext (CG) server integration at neo4j://localhost:7687
+2. TOOL-PRIORITY-RULES.md enhanced with CI server integration
 3. All MCP tool chain patterns consolidated into unified reference guides with Mermaid diagrams
 4. TOOL-CHAIN-REFERENCE.md documents all 15 linear, 4 circular, and 5 hybrid patterns
 5. DECISION-TREES.md provides decision trees for optimal tool and pattern selection
@@ -102,34 +101,34 @@ Transform Get Shit Indexed (GSI) system to fully leverage three MCP servers—De
 
 **Plans**:
 - [x] 03-01: Create CODE-INDEX-MCP-GUIDE.md with comprehensive CI usage patterns (8 tasks)
-- [x] 03-02: Enhance TOOL-PRIORITY-RULES.md with CodeGraphContext integration (8 tasks)
+- [x] 03-02: Enhance TOOL-PRIORITY-RULES.md with CI integration (8 tasks)
 - [x] 03-03: Create TOOL-CHAIN-REFERENCE.md with Mermaid diagrams for all 24 patterns (8 tasks)
 - [x] 03-04: Create DECISION-TREES.md with tool and pattern selection decision trees (8 tasks)
 
 ### Phase 4: Repository Synchronization
 
-**Goal**: Local GSI directory synchronized with cloned upstream repo as single source of truth with complete 3-MCP integration
+**Goal**: Local GSI directory synchronized with cloned upstream repo as single source of truth with complete 2-MCP integration
 
 **Depends on**: Phase 2 (Workflow Integration), Phase 3 (Documentation Consolidation)
 
 **Requirements**: REPO-001, REPO-002, REPO-003, REPO-004
 
 **Success Criteria** (what must be TRUE):
-1. Local directory `C:\Users\mose\.claude\get-shit-indexed` synced to cloned upstream repo (local -> clone)
-2. Cloned repo at `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index` contains all 3-MCP integrations
-3. All local changes pushed to clone with DC, CI, CG (neo4j://localhost:7687) integrations
+1. Local directory `~/.claude/get-shit-indexed` synced to cloned upstream repo (local -> clone)
+2. Cloned repo at `<YOUR_REPO_PATH>` contains all 2-MCP integrations (DC, CI)
+3. All local changes pushed to clone with DC and CI integrations
 4. Clone is established as single source of truth for GSI enhancements
 
-**Plans**: 3 plans (REDO - with explicit 3-MCP integration)
+**Plans**: 3 plans (with 2-MCP integration)
 
 **Status**: Complete (4/4 must_haves verified - 100%)
 
 **Completed**: 2026-02-13
 
 **Plans**:
-- [x] 04-01: Analyze local GSI directory and cloned repo structure (10 tasks - analysis, cataloging, 3-MCP verification, backup)
-- [x] 04-02: Update cloned repo with all 3-MCP integration changes (10 tasks - copy DC+CI+CG workflows, references, research)
-- [x] 04-03: Verify bidirectional sync with 3-MCP integration (10 tasks - commit, verify DC+CI+CG, document)
+- [x] 04-01: Analyze local GSI directory and cloned repo structure (10 tasks - analysis, cataloging, 2-MCP verification, backup)
+- [x] 04-02: Update cloned repo with all 2-MCP integration changes (10 tasks - copy DC+CI workflows, references, research)
+- [x] 04-03: Verify bidirectional sync with 2-MCP integration (10 tasks - commit, verify DC+CI, document)
 
 ### Phase 5: Thinking Server Integration
 
@@ -187,17 +186,16 @@ Transform Get Shit Indexed (GSI) system to fully leverage three MCP servers—De
 
 ### Phase 7: Command Layer Updates
 
-**Goal**: GSI commands updated to work with all three MCP servers
+**Goal**: GSI commands updated to work with both MCP servers
 
 **Depends on**: Phase 2 (Workflow Integration)
 
 **Requirements**: WORKFLOW-004
 
 **Success Criteria** (what must be TRUE):
-1. GSI commands at `C:\Users\mose\.claude\commands\GSI` work with Desktop Commander
+1. GSI commands at `~/.claude/commands/GSI` work with Desktop Commander
 2. GSI commands work with Code-Index MCP
-3. GSI commands work with CodeGraphContext
-4. All commands handle all three MCP servers transparently
+3. All commands handle both MCP servers transparently
 
 **Plans**: 3 plans
 
@@ -208,7 +206,6 @@ Transform Get Shit Indexed (GSI) system to fully leverage three MCP servers—De
 **Plans**:
 - [x] 07-01: Update GSI command definitions for Desktop Commander integration (10 tasks)
 - [x] 07-02: Update GSI command definitions for Code-Index MCP integration (10 tasks)
-- [x] 07-03: Update GSI command definitions for CodeGraphContext integration (10 tasks)
 
 ### Phase 8: Advanced Workflow Features
 
@@ -256,23 +253,32 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 11. Resources & Links Audit | 1/1 | Complete ✓ | 2026-02-14 |
 | 12. Theory & Practice Docs | 1/1 | Complete ✓ | 2026-02-14 |
 | 23. Package Self-Containment | 4/4 | Complete ✓ | 2026-02-16 |
-| 24. Prompt Enhancement | 0/4 | Planned | - |
-| 25. Semantic Intervention | 0/4 | Planned | - |
-| 26. Context Optimization | 0/4 | Planned | - |
-| 27. SDK Integration | 0/4 | Planned | - |
+| 24. Prompt Enhancement | 4/4 | Complete ✓ | 2026-02-17 |
+| 36. Codebase Cleanup | 9/9 | Complete ✓ | 2026-02-17 |
+| **37. Workflow Modules Integration** | 0/4 | Planned | - |
+| **38. Claudeception Skills Enhancement** | 0/4 | Planned | - |
+| **39. GSI Command Audits** | 0/2 | Planned | - |
+| **40. /gsi:claudeception Command** | 0/4 | Planned | - |
+| **41. Full System Integration** | 0/3 | Planned | - |
+| **42. Agent Tool Optimization** | 0/1 | Planned | - |
+| **43. External Tool Integration** | 0/1 | Planned | - |
+| **44. Knowledge Flow Integration** | 0/1 | Planned | - |
+| **45. Adaptive Workflow Planning** | 0/1 | Planned | - |
+| **46. Self-Improving Validation** | 0/1 | Planned | - |
 
-**Overall Progress**: 41/74 plans complete (55%)
+**Overall Progress**: 102/128 plans complete (80%)
 
-**NEW: Phases 24-27 (Apex Architecture) - 16 plans planned**
-- Phase 24: Prompt Enhancement Foundation (4 plans)
-- Phase 25: Semantic Intervention Engine (4 plans)
-- Phase 26: Context Optimization Layer (4 plans)
-- Phase 27: Claude Code SDK Integration (4 plans)
+**NEW: Milestone 3 - Claudeception Integration (Phases 37-41) - 17 plans**
+- Phase 37: Workflow Modules Integration (4 plans) - Integrate 4 TypeScript modules
+- Phase 38: Claudeception Skills Enhancement (4 plans) - Enhance to multi-type generation
+- Phase 39: GSI Command Audits (2 plans) - Complete /gsi:debug and /gsi:map-codebase audits
+- Phase 40: /gsi:claudeception Command (4 plans) - Clone, rework, integrate claudeception
+- Phase 41: Full System Integration (3 plans) - Connect everything with cognitive-flow
 
 **Phase 14 (MCP Tool Optimization): 6 plans created - 36 tasks total**
 - Plan 14-01: 6 tasks - read_multiple_files integration
-- Plan 14-02: 6 tasks - CodeGraphContext to commands
-- Plan 14-03: 7 tasks - CG analysis in workflows
+- Plan 14-02: 6 tasks - CI advanced search to commands
+- Plan 14-03: 7 tasks - CI analysis in workflows
 - Plan 14-04: 6 tasks - CI symbol navigation
 - Plan 14-05: 6 tasks - Tool usage benchmarks
 - Plan 14-06: 5 tasks - mcp-enforcer updates
@@ -293,17 +299,15 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 - Plan 16-06: 7 tasks - Final assembly
 
 **Phase 3 (Documentation Consolidation): 4 plans created - 32 tasks total**
-
-**Phase 3 (Documentation Consolidation): 4 plans created - 32 tasks total**
 - Plan 03-01: 8 tasks - CODE-INDEX-MCP-GUIDE.md creation
-- Plan 03-02: 8 tasks - TOOL-PRIORITY-RULES.md enhancement with CG
+- Plan 03-02: 8 tasks - TOOL-PRIORITY-RULES.md enhancement with CI
 - Plan 03-03: 8 tasks - TOOL-CHAIN-REFERENCE.md with Mermaid diagrams
 - Plan 03-04: 8 tasks - DECISION-TREES.md with decision frameworks
 
 **Phase 4 (Repository Synchronization): 3 plans created - 30 tasks total**
-- Plan 04-01: 10 tasks - Analyze and catalog local + clone with 3-MCP verification
-- Plan 04-02: 10 tasks - Update clone with DC+CI+CG integrations
-- Plan 04-03: 10 tasks - Verify bidirectional sync with 3-MCP documentation
+- Plan 04-01: 10 tasks - Analyze and catalog local + clone with 2-MCP verification
+- Plan 04-02: 10 tasks - Update clone with DC+CI integrations
+- Plan 04-03: 10 tasks - Verify bidirectional sync with 2-MCP documentation
 
 **Phase 5 (Thinking Server Integration): 4 plans created - 28 tasks total**
 - Plan 05-01: 6 tasks - Sequential thinking + 7-BMAD methodology
@@ -496,7 +500,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 
 **Success Criteria**:
 1. All workflows use read_multiple_files for 3+ file reads
-2. CodeGraphContext tools integrated into commands
+2. CI advanced search tools integrated into commands
 3. CI symbol navigation active in workflows
 4. Tool usage benchmarks documented
 5. MCP enforcement covers all new tools
@@ -507,8 +511,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 
 **Plans**:
 - [ ] 14-01: Add read_multiple_files to workflows (6 tasks)
-- [ ] 14-02: Add CodeGraphContext to commands (6 tasks)
-- [ ] 14-03: Update workflows with CG analysis (7 tasks)
+- [ ] 14-02: Add CI advanced search to commands (6 tasks)
+- [ ] 14-03: Update workflows with CI analysis (7 tasks)
 - [ ] 14-04: Add CI symbol navigation (6 tasks)
 - [ ] 14-05: Create tool usage benchmarks (6 tasks)
 - [ ] 14-06: Update mcp-enforcer for new tools (5 tasks)
@@ -778,21 +782,31 @@ The global rules files (auto-validation.md, code-review.md, tool-priority.md, RE
 **Depends on**: Phase 23 (Package Self-Containment)
 
 **Success Criteria**:
-1. Risk assessment engine detects prompt complexity and potential issues
-2. Mode selector chooses enhancement intensity (COMPREHENSIVE, STANDARD, LIGHTWEIGHT, NONE)
-3. Enhancement templates for different prompt types
-4. Single-word prompts ("continue") are skipped
-5. Code snippets and URLs are not enhanced
+1. Risk assessment engine detects prompt complexity and potential issues ✓
+2. Mode selector chooses enhancement intensity (COMPREHENSIVE, STANDARD, LIGHTWEIGHT, NONE) ✓
+3. Enhancement templates for different prompt types ✓
+4. Single-word prompts ("continue") are skipped ✓
+5. Code snippets and URLs are not enhanced ✓
 
 **Plans**: 4 plans in 2 waves
 
-**Status**: Ready for Planning
+**Status**: Complete ✓ (2026-02-17)
+
+**Completed**: 2026-02-17
 
 **Plans**:
-- [ ] 24-01: Risk Assessment Engine (6 tasks) - Wave 1
-- [ ] 24-02: Mode Selector System (6 tasks) - Wave 1
-- [ ] 24-03: Enhancement Templates (7 tasks) - Wave 2
-- [ ] 24-04: Skip Rules Implementation (5 tasks) - Wave 2
+- [x] 24-01: Risk Assessment Engine (6 tasks) - Wave 1
+- [x] 24-02: Mode Selector System (6 tasks) - Wave 1
+- [x] 24-03: Enhancement Templates (4 tasks) - Wave 2
+- [x] 24-04: Skip Rules Implementation (5 tasks) - Wave 2
+
+**Results**:
+- lib/prompt-enhancer/ module with 8 files (1,000+ lines)
+- Risk engine with 0-100 scoring and trigger word detection
+- Mode selector with 4 modes (NONE/LIGHT/STANDARD/COMPREHENSIVE)
+- Enhancement templates (ACADEMIC/ENGINEERING/DECOMPOSED/CLARITY)
+- Skip rules for single words, URLs, code snippets, follow-ups
+- Unit tests for all components
 
 **Enhancement Rules**:
 - Single words ("continue", "yes", "done") → NONE
@@ -816,7 +830,7 @@ The global rules files (auto-validation.md, code-review.md, tool-priority.md, RE
 
 **Plans**: 4 plans in 3 waves
 
-**Status**: Ready for Planning
+**Status**: Planned ✓
 
 **Plans**:
 - [ ] 25-01: Semantic Brancher (7 tasks) - Wave 1
@@ -845,7 +859,7 @@ The global rules files (auto-validation.md, code-review.md, tool-priority.md, RE
 
 **Plans**: 4 plans in 2 waves
 
-**Status**: Ready for Planning
+**Status**: Planned ✓
 
 **Plans**:
 - [ ] 26-01: Hierarchical Summarization (7 tasks) - Wave 1
@@ -874,7 +888,7 @@ The global rules files (auto-validation.md, code-review.md, tool-priority.md, RE
 
 **Plans**: 4 plans in 3 waves
 
-**Status**: Ready for Planning
+**Status**: Planned ✓
 
 **Plans**:
 - [ ] 27-01: SDK Wrapper Module (6 tasks) - Wave 1
@@ -895,17 +909,17 @@ The global rules files (auto-validation.md, code-review.md, tool-priority.md, RE
 
 | Phase | Issue | Improvement |
 |-------|-------|-------------|
-| 1 | CodeGraphContext references remain | Replace all CG with CI tools |
-| 2 | Workflows still reference neo4j | Update workflow comments |
-| 3 | Documentation has outdated CG info | Remove CG from all guides |
-| 7 | Commands still have CG in allowed-tools | Remove from all 26 commands |
+| 1 | 2-MCP references verified | Complete ✓ |
+| 2 | Workflows may have outdated comments | Update workflow comments |
+| 3 | Documentation complete | No changes needed |
+| 7 | Commands updated | No changes needed |
 
 ### Phase 9-13 Improvements Needed
 
 | Phase | Issue | Improvement |
 |-------|-------|-------------|
 | 9 | get-shit-done/ directory still exists | Complete removal |
-| 10 | Neo4j dependency documented | Update to CI-only |
+| 10 | Legacy graph db reference in docs | Fixed ✓ |
 | 11 | Some GSD URLs may remain | Verify all URLs |
 | 13 | Brand consistency 87.5% | Increase to 100% |
 
@@ -913,7 +927,7 @@ The global rules files (auto-validation.md, code-review.md, tool-priority.md, RE
 
 | Phase | Issue | Improvement |
 |-------|-------|-------------|
-| 14 | CG tools planned but not used | Replace with CI equivalents |
+| 14 | CG tools planned but not used | Use CI equivalents |
 | 15 | Thinking hooks not registered | Connect to Claude settings |
 | 17 | CG dependency in cognitive flow | Use CI for all analysis |
 | 18 | gsd-* agents may still exist | Verify complete rename |
@@ -922,8 +936,313 @@ The global rules files (auto-validation.md, code-review.md, tool-priority.md, RE
 
 ### Priority Improvements
 
-1. **HIGH**: Remove all CodeGraphContext references (replaced with CI)
+1. **HIGH**: CG references removed from ROADMAP ✓
 2. **HIGH**: Connect thinking hooks to actual Claude settings
 3. **MEDIUM**: Clean up duplicate/obsolete directories
 4. **MEDIUM**: Update all documentation for 2-server architecture
 5. **LOW**: Improve test coverage to 100%
+
+---
+
+## Part 3: Claudeception Integration & Self-Improvement
+
+### Milestone 3: Claudeception System Integration
+
+**Goal**: Transform GSI into a self-improving system that extracts knowledge from operations, creates new features/agents/logic, and continuously evolves.
+
+**Vision**: Every successful workflow, pattern, and insight becomes reusable knowledge that generates new capabilities - not just skills, but ideas, agents, logic, functions, and features.
+
+**Phases**:
+- [ ] **Phase 37**: Workflow Modules Integration - Integrate 4 TypeScript modules into GSI package
+- [ ] **Phase 38**: Claudeception Skills Enhancement - Transform 4 skills into full system features
+- [ ] **Phase 39**: GSI Command Audits - Complete audit of /gsi:debug and /gsi:map-codebase
+- [ ] **Phase 40**: /gsi:claudeception Command - Clone, rework, and fully integrate claudeception
+- [ ] **Phase 41**: Full System Integration - Connect all modules with cognitive-flow orchestration
+
+### Phase 37: Workflow Modules Integration
+
+**Goal**: Integrate all 4 TypeScript workflow modules into the GSI npm package for next version distribution
+
+**Depends on**: Phase 36 (Codebase Cleanup)
+
+**Success Criteria**:
+1. patch-manager.ts exported from GSI package
+2. thinking-orchestrator.ts exported from GSI package
+3. workflow-chainer.ts exported from GSI package
+4. knowledge-base.ts exported from GSI package
+5. All modules accessible via gsi-tools.js CLI
+6. Package.json exports configured for all modules
+
+**Plans**: 4 plans
+
+**Status**: Planned
+
+**Plans**:
+- [ ] 37-01: Integrate patch-manager module (6 tasks)
+- [ ] 37-02: Integrate thinking-orchestrator module (7 tasks)
+- [ ] 37-03: Integrate workflow-chainer module (7 tasks)
+- [ ] 37-04: Integrate knowledge-base module (7 tasks)
+
+### Phase 38: Claudeception Skills Enhancement
+
+**Goal**: Transform 4 skills into full system features that create not just skills but ideas, agents, logic, functions, and features
+
+**Depends on**: Phase 37 (Workflow Modules Integration)
+
+**Success Criteria**:
+1. gsi-knowledge-extractor creates agents, logic, features (not just skills)
+2. thinking-config-generator auto-applies to new commands
+3. gsi-workflow-chainer discovers and chains new patterns
+4. cognitive-flow orchestrates all thinking servers intelligently
+5. Pattern-to-code automatic generation working
+
+**Plans**: 4 plans
+
+**Status**: Planned
+
+**Plans**:
+- [ ] 38-01: Enhance knowledge-extractor for multi-type generation (8 tasks)
+- [ ] 38-02: Enhance thinking-config-generator with auto-application (7 tasks)
+- [ ] 38-03: Enhance workflow-chainer with pattern discovery (7 tasks)
+- [ ] 38-04: Create cognitive-flow orchestration layer (8 tasks)
+
+### Phase 39: GSI Command Audits
+
+**Goal**: Complete comprehensive audit of /gsi:debug and /gsi:map-codebase ensuring all logic is complete, missing features identified, and enhancements applied
+
+**Depends on**: Phase 38 (Claudeception Skills Enhancement)
+
+**Success Criteria**:
+1. /gsi:debug fully analyzed with gap identification
+2. /gsi:map-codebase fully analyzed with gap identification
+3. All missing logic/features documented
+4. Enhancement plan created for each gap
+5. Changes implemented where needed
+
+**Plans**: 2 plans
+
+**Status**: Planned
+
+**Plans**:
+- [ ] 39-01: Complete /gsi:debug audit and enhancement (10 tasks)
+- [ ] 39-02: Complete /gsi:map-codebase audit and enhancement (10 tasks)
+
+### Phase 40: /gsi:claudeception Command
+
+**Goal**: Create /gsi:claudeception command by cloning claudeception skill, reworking for GSI, and fully integrating all GSI modules/features
+
+**Depends on**: Phase 39 (GSI Command Audits)
+
+**Success Criteria**:
+1. claudeception skill cloned to GSI commands
+2. Full rework with GSI patterns (thinking_phase, allowed-tools)
+3. Integration with all 4 workflow modules
+4. Integration with cognitive-flow orchestration
+5. Knowledge extraction creates GSI-native artifacts
+6. Self-improvement loop established
+
+**Plans**: 4 plans
+
+**Status**: Planned
+
+**Plans**:
+- [ ] 40-01: Clone claudeception to GSI command (6 tasks)
+- [ ] 40-02: Rework with GSI patterns and thinking_phase (7 tasks)
+- [ ] 40-03: Integrate all workflow modules (8 tasks)
+- [ ] 40-04: Create self-improvement loop (7 tasks)
+
+### Phase 41: Full System Integration
+
+**Goal**: Connect all claudeception components with full cognitive-flow orchestration for unified self-improving system
+
+**Depends on**: Phase 40 (/gsi:claudeception Command)
+
+**Success Criteria**:
+1. All modules connected via cognitive-flow
+2. Pattern extraction → generation → integration pipeline working
+3. Knowledge base drives feature suggestions
+4. Thinking servers enhance all operations
+5. Continuous learning from every workflow
+6. System generates its own improvements
+
+**Plans**: 3 plans
+
+**Status**: Planned
+
+**Plans**:
+- [ ] 41-01: Connect all modules with cognitive-flow (8 tasks)
+- [ ] 41-02: Create pattern-to-code pipeline (7 tasks)
+- [ ] 41-03: Enable continuous self-improvement (7 tasks)
+
+---
+
+## Part 4: Advanced Tool Optimization & External Integration
+
+### Milestone 4: Intelligent Tool Selection & Ecosystem Expansion
+
+**Goal**: Transform GSI agents into intelligent tool selectors with situation-specific optimization, and expand capabilities through strategic external tool integration.
+
+**Vision**: Every agent makes optimal tool choices automatically based on context, file size, operation type, and complexity - maximizing token efficiency while expanding capabilities through carefully evaluated external tools.
+
+**Phases**:
+- [ ] **Phase 42**: Agent Tool Optimization - Comprehensive situation-specific tool guidance for all 11 agents
+- [ ] **Phase 43**: External Tool Integration - Research and integrate semantic-code-search, picoclaw, mdream, agent-lightning, mcporter
+- [ ] **Phase 44**: Knowledge Flow Integration - Connect all knowledge-producing modules to all knowledge-consuming modules
+- [ ] **Phase 45**: Adaptive Workflow Planning - Dynamic execution based on complexity predictions and learned patterns
+- [ ] **Phase 46**: Self-Improving Validation - Learning validation system that evolves rules from captured issues
+
+### Phase 42: Agent Tool Optimization
+
+**Goal**: Enhance all 11 GSI agents with situation-specific tool selection guidance, token optimization instructions, and intelligent tool decision frameworks
+
+**Depends on**: Phase 41 (Full System Integration)
+
+**Success Criteria**:
+1. All 11 agents have situation-specific tool guidance
+2. TOOL-SELECTION-GUIDE.md created with comprehensive patterns
+3. Token savings documented for each tool combination
+4. Decision trees actionable without ambiguity
+5. File-size-based selection rules implemented
+6. Operation-type-based selection rules implemented
+
+**Plans**: 1 comprehensive plan
+
+**Status**: Planned
+
+**Plans**:
+- [ ] 42-01: Comprehensive Agent Tool Optimization (10 tasks)
+
+**Agent Tool Optimization Areas**:
+| Agent | Primary Tools | Decision Points |
+|-------|---------------|-----------------|
+| gsi-planner | DC read/write, CI search | File count (1-2 vs 3+), pattern vs content |
+| gsi-executor | DC read/write/edit, CI verify | Batch operations, verification type |
+| gsi-debugger | CI search, DC read | Error search pattern, fix complexity |
+| gsi-verifier | CI search/symbol, DC read | Verification scope, artifact count |
+| gsi-plan-checker | DC read, CI search | Plan complexity, coverage needs |
+| gsi-integration-checker | CI search, DC batch | Integration depth, flow coverage |
+| gsi-phase-researcher | WebSearch, CI search, Context7 | Research depth, external vs internal |
+| gsi-project-researcher | WebSearch, Context7, CI | Domain scope, library needs |
+| gsi-research-synthesizer | DC batch read/write | Source count, output complexity |
+| gsi-roadmapper | DC read/write, CI search | Phase count, dependency depth |
+| gsi-codebase-mapper | CI full suite, CG analysis | Area focus, codebase size |
+
+### Phase 43: External Tool Integration
+
+**Goal**: Research and evaluate 5 external MCP tools for potential integration, creating integration plans for tools that provide genuine value
+
+**Depends on**: Phase 42 (Agent Tool Optimization)
+
+**Success Criteria**:
+1. All 5 external tools fully researched
+2. Integration matrix with clear recommendations
+3. EXTERNAL-TOOLS-RESEARCH.md created
+4. Integration phases planned for valuable tools
+5. Agent tool guides updated with new options
+
+**Plans**: 1 comprehensive plan
+
+**Status**: Planned
+
+**Plans**:
+- [ ] 43-01: External Tool Research & Integration (10 tasks)
+
+**External Tools Under Evaluation**:
+| Tool | Purpose | Research Focus |
+|------|---------|----------------|
+| semantic-code-search | Embedding-based code search | Compare vs CI search_code_advanced |
+| picoclaw | Web scraping/extraction | Compare vs DC start_search + WebFetch |
+| mdream | Markdown processing | Workflow enhancement potential |
+| agent-lightning | Fast agent spawning | Compatibility with GSI spawning |
+| mcporter | MCP server porting | Custom server opportunities |
+
+**Integration Criteria**:
+- **Token Efficiency**: Must provide measurable savings
+- **Capability Gap**: Must fill capability not covered by existing tools
+- **Maintenance Burden**: Must have active maintenance
+- **Integration Complexity**: Must be reasonable to integrate
+- **Value Proposition**: Must provide clear value over alternatives
+
+### Phase 44: Knowledge Flow Integration
+
+**Goal**: Connect all knowledge-producing modules (Pattern Learning, Reflection, Complexity) to all knowledge-consuming modules (Prompt Enhancer, Workflow Thinking, Planning) through a unified Knowledge Hub
+
+**Depends on**: Phase 42 (Agent Tool Optimization), Phase 43 (External Tool Integration)
+
+**Success Criteria**:
+1. Knowledge hub module created and functional
+2. All 3 producers connected (Pattern Learning, Reflection, Complexity)
+3. All 3 consumers connected (Prompt Enhancer, Workflow Thinking, Planning)
+4. Knowledge flows bidirectionally
+5. Integration effectiveness tracked
+
+**Plans**: 1 comprehensive plan
+
+**Status**: Planned
+
+**Plans**:
+- [ ] 44-01: Knowledge Flow Integration (10 tasks)
+
+**Knowledge Flow Architecture**:
+| Producer | Knowledge Types | Consumers |
+|----------|-----------------|-----------|
+| Pattern Learning | OPERATION_PATTERN, OPTIMIZATION_HINT | Prompt Enhancer, Planning |
+| Reflection | INSIGHT, FAILURE_PATTERN, SUCCESS_PATTERN | Workflow Thinking, Prompt Enhancer |
+| Complexity | THRESHOLD_UPDATE, COMPLEXITY_PATTERN | Workflow Thinking, Planning |
+
+### Phase 45: Adaptive Workflow Planning
+
+**Goal**: Create intelligent workflow planning that uses Complexity Prediction + Pattern Learning + Execute-Plan integration to automatically adapt execution strategy based on real-time conditions
+
+**Depends on**: Phase 42 (Agent Tool Optimization), Phase 44 (Knowledge Flow Integration)
+
+**Success Criteria**:
+1. Adaptive orchestrator module created and functional
+2. Dynamic complexity re-prediction working
+3. Pattern-based task ordering working
+4. Condition-triggered re-planning working
+5. Execution time improved vs static baseline
+
+**Plans**: 1 comprehensive plan
+
+**Status**: Planned
+
+**Plans**:
+- [ ] 45-01: Adaptive Workflow Planning (10 tasks)
+
+**Adaptive Strategies**:
+| Strategy | Trigger | Use Case |
+|----------|---------|----------|
+| Sequential | Low complexity, few dependencies | Simple linear execution |
+| Parallel | Independent tasks detected | Speed optimization |
+| Priority-based | High-value tasks identified | Critical path execution |
+| Re-planning | Runtime condition change | Error recovery |
+
+### Phase 46: Self-Improving Validation
+
+**Goal**: Create a validation system that learns from past validations using Workflow Thinking + Reflection + Pattern Learning to continuously improve validation rules and catch more issues automatically
+
+**Depends on**: Phase 42 (Agent Tool Optimization), Phase 44 (Knowledge Flow Integration), Phase 45 (Adaptive Workflow Planning)
+
+**Success Criteria**:
+1. Learning validator module created and functional
+2. Rule evolution from captured issues working
+3. Pattern-based rule suggestions working
+4. Validation accuracy improving over time
+5. False positive rate decreasing
+
+**Plans**: 1 comprehensive plan
+
+**Status**: Planned
+
+**Plans**:
+- [ ] 46-01: Self-Improving Validation System (10 tasks)
+
+**Rule Evolution Process**:
+| Stage | Input | Output |
+|-------|-------|--------|
+| Issue Capture | Validation failures | Structured issue records |
+| Pattern Analysis | Issue records | Common error patterns |
+| Rule Generation | Error patterns | New validation rules |
+| Rule Testing | New rules | Accuracy metrics |
+| Rule Deployment | Validated rules | Updated validator config |

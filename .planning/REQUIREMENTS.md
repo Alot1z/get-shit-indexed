@@ -21,7 +21,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **WORKFLOW-001**: All 13 GSI workflow files updated with MCP tool usage instead of native bash commands
 - [ ] **WORKFLOW-002**: map-codebase.md fully MCP-integrated with wave-based agent spawning
 - [ ] **WORKFLOW-003**: `<code_index_mcp>` headers added to workflows for declarative MCP usage
-- [ ] **WORKFLOW-004**: GSI commands at `C:\Users\mose\.claude\commands\GSI` updated for all 3 MCP servers
+- [ ] **WORKFLOW-004**: GSI commands at `~/.claude/commands\GSI` updated for all 3 MCP servers
 - [ ] **WORKFLOW-005**: Parallel agent orchestration with rate limiting and staggered spawning
 - [ ] **WORKFLOW-006**: Configurable model profiles (quality/balanced/budget) working across agents
 - [ ] **WORKFLOW-007**: YOLO mode (auto-approve) for frictionless execution
@@ -36,8 +36,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Repository Synchronization
 
-- [ ] **REPO-001**: Local directory `C:\Users\mose\.claude\get-shit-indexed` synced to cloned upstream repo
-- [ ] **REPO-002`: `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index` updated with all 3-MCP integrations
+- [ ] **REPO-001**: Local directory `~/.claude/get-shit-indexed` synced to cloned upstream repo
+- [ ] **REPO-002**: `<YOUR_REPO_PATH>` updated with all 3-MCP integrations
 - [ ] **REPO-003**: All local changes pushed to clone maintaining bidirectional sync
 - [ ] **REPO-004**: Clone established as single source of truth for GSI enhancements
 

@@ -10,7 +10,7 @@
 
 | Category | Files Affected | Severity | Priority |
 |----------|----------------|----------|----------|
-| CodeGraphContext References | 106 | HIGH | P1 |
+| ~~CodeGraphContext References~~ | ~~106~~ | ~~HIGH~~ | ~~P1 (COMPLETED)~~ |
 | GSD → GSI Branding | 54 | MEDIUM | P2 |
 | Broken @-References | 79 | HIGH | P1 |
 | Hardcoded User Paths | 13 | HIGH | P1 |
@@ -22,14 +22,16 @@
 
 ---
 
-## Category 1: CodeGraphContext References (106 files)
+## Category 1: CodeGraphContext References (COMPLETED)
 
-**Issue**: CodeGraphContext (CG) server is no longer used but referenced in 106 files.
+**Issue**: CodeGraphContext (CG) server references have been removed.
 
-**Impact**: 
-- Documentation is misleading
-- Developers may try to use unavailable tools
-- Decision trees point to non-existent options
+**Status**: COMPLETED - Phase 36-01
+
+**Resolution**: All CG references replaced with Code-Index MCP (CI) equivalents:
+- `CodeGraphContext` → `Code-Index MCP`
+- `mcp__CodeGraphContext__*` → `mcp__code-index-mcp__*`
+- `neo4j://localhost:7687` → removed
 
 **Affected Areas**:
 ```
@@ -284,7 +286,7 @@ Need to verify sensitive files are ignored:
 ## Recommended Fix Order
 
 ### Phase 36A: Critical Fixes (P1)
-1. Remove all CodeGraphContext references (106 files)
+1. ~~Remove all CodeGraphContext references (106 files)~~ **COMPLETED**
 2. Fix broken @-references (79 files)
 3. Remove hardcoded user paths (13 files)
 
@@ -330,7 +332,7 @@ By severity:
   LOW:                    8 issues
 
 By category:
-  CodeGraphContext:       106 files
+  CodeGraphContext:       0 files (COMPLETED - Phase 36-01)
   @-References:           79 files
   GSD Branding:           54 files
   Hardcoded Paths:        13 files

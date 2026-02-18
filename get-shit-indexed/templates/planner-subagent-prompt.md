@@ -32,8 +32,7 @@ Template for spawning GSI-planner agent. The agent contains all planning experti
 @.planning/phases/{phase_dir}/{phase}-UAT.md
 
 **MCP Tool Priority:**
-- Use CodeGraphContext (CG) for relationship analysis before planning
-- Use Code-Index MCP (CI) for code search and symbol navigation
+- Use Code-Index MCP (CI) for code search, symbol extraction, and file analysis
 - Use Desktop Commander's `read_multiple_files` for batch file reading
 - Follow tool hierarchy: Skills > MCP > Native
 

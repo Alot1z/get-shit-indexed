@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "comprehensive",
+  "displayName": "Comprehensive Thinking Profile",
+  "description": "Full thinking configuration for complex operations requiring deep analysis",
+  "mode": "COMPREHENSIVE",
+  "servers": ["sequential", "tractatus", "debug"],
+  "bmad_enabled": true,
+  "baseTimeout": 9000,
+  "maxThoughts": 10,
+  "complexityThreshold": {
+    "min": 13,
+    "max": 100
+  },
+  "useCases": [
+    "Complex debugging",
+    "Architecture design",
+    "Multi-phase integration",
+    "Critical path operations",
+    "Cross-cutting concerns"
+  ],
+  "serverConfig": {
+    "sequential": {
+      "enabled": true,
+      "priority": 1,
+      "maxThoughts": 10,
+      "focusAreas": ["complex-planning", "multi-step-sequencing", "dependency-graphs"]
+    },
+    "tractatus": {
+      "enabled": true,
+      "priority": 2,
+      "maxThoughts": 10,
+      "focusAreas": ["deep-structural-analysis", "logical-foundations", "system-architecture"]
+    },
+    "debug": {
+      "enabled": true,
+      "priority": 3,
+      "maxThoughts": 10,
+      "focusAreas": ["problem-isolation", "hypothesis-testing", "root-cause-analysis"]
+    }
+  },
+  "parallelExecution": {
+    "enabled": true,
+    "strategy": "parallel",
+    "mergeStrategy": "consensus"
+  },
+  "examples": [
+    {
+      "command": "gsi debug --complex",
+      "description": "Debug complex multi-component issue"
+    },
+    {
+      "command": "gsi new-project --comprehensive",
+      "description": "Start comprehensive project setup"
+    },
+    {
+      "command": "gsi verify-work 20 --deep",
+      "description": "Deep verification of phase work"
+    }
+  ]
+}

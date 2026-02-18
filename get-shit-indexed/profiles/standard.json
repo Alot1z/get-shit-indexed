@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "standard",
+  "displayName": "Standard Thinking Profile",
+  "description": "Standard thinking configuration for typical planning and execution operations",
+  "mode": "STANDARD",
+  "servers": ["sequential", "tractatus"],
+  "bmad_enabled": true,
+  "baseTimeout": 5000,
+  "maxThoughts": 5,
+  "complexityThreshold": {
+    "min": 7,
+    "max": 12
+  },
+  "useCases": [
+    "Planning operations",
+    "Phase execution",
+    "Code analysis",
+    "Multi-step workflows",
+    "Research tasks"
+  ],
+  "serverConfig": {
+    "sequential": {
+      "enabled": true,
+      "priority": 1,
+      "maxThoughts": 5,
+      "focusAreas": ["step-planning", "execution-order", "dependency-resolution"]
+    },
+    "tractatus": {
+      "enabled": true,
+      "priority": 2,
+      "maxThoughts": 5,
+      "focusAreas": ["structural-analysis", "logical-dependencies", "architecture"]
+    },
+    "debug": {
+      "enabled": false,
+      "priority": 3
+    }
+  },
+  "examples": [
+    {
+      "command": "gsi plan-phase 20",
+      "description": "Plan a phase with dependencies"
+    },
+    {
+      "command": "gsi execute-phase 20-01",
+      "description": "Execute a phase plan"
+    },
+    {
+      "command": "gsi research-phase 21",
+      "description": "Research phase requirements"
+    }
+  ]
+}

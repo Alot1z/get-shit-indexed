@@ -124,10 +124,10 @@
 
 | Reference | Target Path | Status | Notes |
 |-----------|-------------|--------|-------|
-| @execute-plan.md | C:\Users\mose\.claude\get-shit-done\workflows\execute-plan.md | VERIFIED | Exists |
-| @update.md | C:\Users\mose\.claude\get-shit-done\workflows\update.md | VERIFIED | Exists |
-| @transition.md | C:\Users\mose\.claude\get-shit-done\workflows\transition.md | VERIFIED | Exists |
-| @*.md | C:\Users\mose\.claude\get-shit-done\workflows\* | VERIFIED | Multiple exist |
+| @execute-plan.md | ~/.claude/get-shit-done\workflows\execute-plan.md | VERIFIED | Exists |
+| @update.md | ~/.claude/get-shit-done\workflows\update.md | VERIFIED | Exists |
+| @transition.md | ~/.claude/get-shit-done\workflows\transition.md | VERIFIED | Exists |
+| @*.md | ~/.claude/get-shit-done\workflows\* | VERIFIED | Multiple exist |
 
 **Result:** All workflow @-references verified
 
@@ -135,9 +135,9 @@
 
 | Reference | Target Path | Status | Notes |
 |-----------|-------------|--------|-------|
-| @checkpoints.md | C:\Users\mose\.claude\get-shit-done\references\checkpoints.md | VERIFIED | Exists |
-| @verification-patterns.md | C:\Users\mose\.claude\get-shit-done\references\verification-patterns.md | VERIFIED | Exists |
-| @*.md | C:\Users\mose\.claude\get-shit-done\references\* | VERIFIED | Multiple exist |
+| @checkpoints.md | ~/.claude/get-shit-done\references\checkpoints.md | VERIFIED | Exists |
+| @verification-patterns.md | ~/.claude/get-shit-done\references\verification-patterns.md | VERIFIED | Exists |
+| @*.md | ~/.claude/get-shit-done\references\* | VERIFIED | Multiple exist |
 
 **Result:** All reference @-references verified
 
@@ -145,9 +145,9 @@
 
 | Reference | Target Path | Status | Notes |
 |-----------|-------------|--------|-------|
-| @user-setup.md | C:\Users\mose\.claude\get-shit-done\templates\user-setup.md | VERIFIED | Exists |
-| @phase-prompt.md | C:\Users\mose\.claude\get-shit-done\templates\phase-prompt.md | VERIFIED | Exists |
-| @*.md | C:\Users\mose\.claude\get-shit-done\templates\* | VERIFIED | Multiple exist |
+| @user-setup.md | ~/.claude/get-shit-done\templates\user-setup.md | VERIFIED | Exists |
+| @phase-prompt.md | ~/.claude/get-shit-done\templates\phase-prompt.md | VERIFIED | Exists |
+| @*.md | ~/.claude/get-shit-done\templates\* | VERIFIED | Multiple exist |
 
 **Result:** All template @-references verified
 

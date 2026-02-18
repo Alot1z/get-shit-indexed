@@ -1,0 +1,70 @@
+# LIGHTWEIGHT Thinking Template
+# Use for: Quick operations, single-step modifications, simple queries
+# Complexity: 3-6
+
+mode: LIGHTWEIGHT
+servers:
+  - sequential
+bmad_enabled: false
+timeout: 2000
+max_thoughts: 3
+
+rationale_template: "Quick operation requiring basic step planning (Sequential)"
+
+selection_rules:
+  - command_type: simple_operation
+    keywords:
+      - add
+      - update
+      - remove
+      - set
+      - toggle
+  - tool_count: 3-5
+  - process_steps: 2-3
+
+complexity_indicators:
+  min_score: 3
+  max_score: 6
+  factors:
+    - name: simple_modification
+      keywords:
+        - add
+        - update
+        - remove
+        - modify
+      score: 2
+    - name: single_target
+      condition: "Operation targets single file or entity"
+      score: 1
+    - name: quick_keywords
+      keywords:
+        - quick
+        - simple
+        - fast
+      score: -1
+
+server_config:
+  sequential:
+    enabled: true
+    priority: 1
+    max_thoughts: 3
+    focus_areas:
+      - step-ordering
+      - basic-planning
+    prompt_template: |
+      Analyze the command for basic step sequencing.
+      Command: {command}
+      Description: {description}
+      
+      Provide up to {max_thoughts} thoughts on execution order.
+
+examples:
+  - command: "gsi add-phase 25 \"New feature\""
+    complexity: 4
+    rationale: "Single operation to add a new phase"
+  - command: "gsi set-profile quick"
+    complexity: 3
+    rationale: "Quick configuration change"
+  - command: "gsi add-todo \"Fix bug\""
+    complexity: 3
+    rationale: "Single todo item creation"

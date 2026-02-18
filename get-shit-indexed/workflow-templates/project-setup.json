@@ -1,0 +1,46 @@
+{
+  "name": "project-setup",
+  "description": "Initialize new project with all phases and initial configuration",
+  "chain": [
+    {
+      "command": "gsi:new-project",
+      "description": "Initialize project structure and configuration"
+    },
+    {
+      "command": "gsi:map-codebase",
+      "description": "Analyze and document existing codebase"
+    },
+    {
+      "command": "gsi:add-phase",
+      "args": "\"Foundation\"",
+      "description": "Create first foundation phase"
+    },
+    {
+      "command": "gsi:plan-phase",
+      "args": "01",
+      "description": "Plan foundation phase implementation"
+    }
+  ],
+  "parallel": [
+    {
+      "name": "status-check",
+      "steps": [
+        {
+          "command": "gsi:check-todos",
+          "description": "Check todo status"
+        },
+        {
+          "command": "gsi:progress",
+          "description": "Show project progress"
+        }
+      ]
+    }
+  ],
+  "checkpoint": "after-phase",
+  "rollback": false,
+  "metadata": {
+    "category": "setup",
+    "estimated_duration": "1-2 hours",
+    "use_case": "Use when starting a new GSI-managed project"
+  }
+}

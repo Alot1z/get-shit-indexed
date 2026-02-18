@@ -24,7 +24,7 @@ Copied all 4 global rules files from `~/.claude/rules/` to the source code repos
 ## Changes Made
 
 ### Path Updates
-- Updated `auto-validation-config.json` path from `C:\Users\mose\.claude\rules\` to `~/.claude/get-shit-indexed/references/rules/`
+- Updated `auto-validation-config.json` path from `~/.claude/rules\` to `~/.claude/get-shit-indexed/references/rules/`
 - Updated code-review.md location reference to package-relative path
 
 ### Content Preserved

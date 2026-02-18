@@ -83,9 +83,9 @@ files: 4
 
 5. **Internal Reference Verification**
    - Verified 25+ @-file references exist
-   - Confirmed workflow paths (C:\Users\mose\.claude\get-shit-done\workflows)
-   - Validated reference docs (C:\Users\mose\.claude\get-shit-done\references)
-   - Checked template references (C:\Users\mose\.claude\get-shit-done\templates)
+   - Confirmed workflow paths (~/.claude/get-shit-done\workflows)
+   - Validated reference docs (~/.claude/get-shit-done\references)
+   - Checked template references (~/.claude/get-shit-done\templates)
 
 6. **Link Health Report**
    - Created LINK-HEALTH-REPORT.md

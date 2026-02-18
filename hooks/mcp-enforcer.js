@@ -29,10 +29,10 @@ const BLOCKED_TOOLS = {
   
   // Search operations
   // CODE SEARCH: Use search_code_advanced (indexed, fast)
-  // RELATIONSHIP ANALYSIS: Use CodeGraphContext tools
+  // SYMBOL ANALYSIS: Use Code-Index MCP tools
   'Grep': {
     replacement: 'mcp__code-index-mcp__search_code_advanced',
-    relationshipAlt: 'mcp__CodeGraphContext__analyze_code_relationships',
+    symbolAlt: 'mcp__code-index-mcp__get_symbol_body',
     savings: '50-70%'
   },
   'Glob': {
@@ -69,13 +69,11 @@ function buildRecommendation(toolName, toolConfig, additionalInfo = '') {
     message += `   🎯 Best for: Multiple related files in same operation\n`;
   }
   
-  // CodeGraphContext alternative for relationship analysis
-  if (toolConfig.relationshipAlt) {
-    message += `\n🔗 RELATIONSHIP ANALYSIS:\n`;
-    message += `   Use ${toolConfig.relationshipAlt}\n`;
-    message += `   Query types: find_callers, find_callees, class_hierarchy\n`;
-    message += `   Requires: Neo4j at localhost:7687 (start-cg-server.ps1)\n`;
-    message += `   🎯 Best for: Code dependencies, impact analysis, refactoring\n`;
+  // Symbol analysis alternative for relationship analysis
+  if (toolConfig.symbolAlt) {
+    message += `\n🔗 SYMBOL ANALYSIS:\n`;
+    message += `   Use ${toolConfig.symbolAlt}\n`;
+    message += `   🎯 Best for: Function/class extraction, code structure analysis\n`;
   }
   
   // Token savings
@@ -94,9 +92,9 @@ function buildRecommendation(toolName, toolConfig, additionalInfo = '') {
     message += `       pattern: "function name",\n`;
     message += `       file_pattern: "*.js"\n`;
     message += `     })\n`;
-    message += `   • Relationships: ${toolConfig.relationshipAlt}({\n`;
-    message += `       query_type: "find_callers",\n`;
-    message += `       target: "function_name"\n`;
+    message += `   • Symbol extraction: ${toolConfig.symbolAlt}({\n`;
+    message += `       file_path: "/src/file.js",\n`;
+    message += `       symbol_name: "function_name"\n`;
     message += `     })\n`;
   }
   
@@ -153,7 +151,7 @@ process.stdin.on('end', () => {
           { 
             pattern: /\bgrep\s+/i, 
             replacement: 'mcp__code-index-mcp__search_code_advanced',
-            tip: 'For relationships: use CodeGraphContext tools',
+            tip: 'For symbols: use Code-Index get_symbol_body',
             savings: '50-70%'
           },
           { 

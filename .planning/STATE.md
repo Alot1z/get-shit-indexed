@@ -4,17 +4,34 @@
 
 See: .planning/PROJECT.md (updated 2025-02-11)
 
-**Core value:** Token-efficient, reliable GSI workflows that leverage all three MCP servers (DC + CI + CG) using proven tool chain patterns.
-**Current focus:** Phase 19 (Prompt Enhancer) - 4 plans created, ready for execution
+**Core value:** Token-efficient, reliable GSI workflows that leverage MCP servers (DC + CI) using proven tool chain patterns.
+**Current focus:** Milestone 4 - Intelligent Tool Selection & Ecosystem Expansion
 
 ## Current Position
 
-Phase: 22 of 22 (Advanced Pattern Learning)
-Plan: 1 of 1 (22-01 complete)
-Status: COMPLETE - All phases completed
-Last activity: 2026-02-16 — Completed Phase 20-07 Cross-Feature Enhancement System
+Milestone: 4 (Intelligent Tool Selection & Ecosystem Expansion)
+Phase: 42 of 46 (Agent Tool Optimization)
+Plan: 0 of 5 (42-01 through 46-01 pending)
+Status: MILESTONE EXPANDED - 5 phases with 5 plans created
+Last activity: 2026-02-18 — Expanded Milestone 4 with Phases 44-46 for knowledge flow, adaptive workflows, and self-improving validation
 
-Progress: [███████████████████] 100% (93/90 plans across all phases)
+Progress: [████████████░░░░░] 80% (102/128 plans across all milestones)
+
+**Milestone 4 Expanded:** Intelligent Tool Selection & Ecosystem Expansion
+- Phase 42: Agent Tool Optimization (1 plan) - Situation-specific tool guidance for all 11 agents
+- Phase 43: External Tool Integration (1 plan) - Research semantic-code-search, picoclaw, mdream, agent-lightning, mcporter
+- Phase 44: Knowledge Flow Integration (1 plan) - Connect all knowledge-producing modules to consumers via Knowledge Hub
+- Phase 45: Adaptive Workflow Planning (1 plan) - Dynamic execution based on complexity and patterns
+- Phase 46: Self-Improving Validation (1 plan) - Learning validation system that evolves rules
+
+**Milestone 3 Phases (37-41):** Claudeception Integration & Self-Improvement
+- Phase 37: Workflow Modules Integration (4 plans)
+- Phase 38: Claudeception Skills Enhancement (4 plans)
+- Phase 39: GSI Command Audits (2 plans)
+- Phase 40: /gsi:claudeception Command (4 plans)
+- Phase 41: Full System Integration (3 plans)
+
+**Phase 36 Completed:** Codebase cleanup - removed CodeGraphContext from active code, fixed @-references, verified modules and workflows
 
 **Phase 20-07 Added:** Cross-Feature Enhancement System connecting all features for mutual benefit
 

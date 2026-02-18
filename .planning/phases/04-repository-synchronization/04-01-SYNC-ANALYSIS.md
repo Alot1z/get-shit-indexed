@@ -1,7 +1,7 @@
 ﻿# Sync Analysis: Local vs Clone Repository
 
 **Analysis Date:** 2026-02-13T00:33:25Z
-**Source:** C:\Users\mose\.claude\get-shit-indexed (local GSI directory)
+**Source:** ~/.claude/get-shit-indexed (local GSI directory)
 **Target:** C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index (cloned upstream repo)
 
 ## Executive Summary
@@ -13,7 +13,7 @@ This document provides a comprehensive comparison between the local GSI director
 ## Local GSI Directory Structure
 
 ```
-C:\Users\mose\.claude\get-shit-indexed\
+~/.claude/get-shit-indexed\
 ├── .planning/
 │   ├── codebase/           (7 files)
 │   ├── config.json

@@ -1,6 +1,6 @@
 ﻿# Sync Manifest: Local to Clone
 
-**Source:** C:\Users\mose\.claude\get-shit-indexed (local GSI directory)
+**Source:** ~/.claude/get-shit-indexed (local GSI directory)
 **Target:** C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index (cloned upstream repo)
 **Manifest Date:** 2026-02-13T00:33:25Z
 
@@ -14,7 +14,7 @@ Legend:
 
 ## Workflows (3-MCP Integrated)
 
-**Source:** `C:\Users\mose\.claude\get-shit-indexed\workflows\`
+**Source:** `~/.claude/get-shit-indexed\workflows\`
 **Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\get-shit-indexed\workflows\`
 
 ### Core Workflows (Part 1)
@@ -40,7 +40,7 @@ Legend:
 
 ## References (3-MCP Tool Priority)
 
-**Source:** `C:\Users\mose\.claude\get-shit-indexed\references\`
+**Source:** `~/.claude/get-shit-indexed\references\`
 **Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\get-shit-indexed\references\`
 
 ### 3-MCP Core Documentation (HIGH PRIORITY)
@@ -65,7 +65,7 @@ Legend:
 
 ## Research (MCP Tool Chain Analysis)
 
-**Source:** `C:\Users\mose\.claude\get-shit-indexed\research\**` and `C:\Users\mose\.claude\get-shit-indexed\reseach\**`
+**Source:** `~/.claude/get-shit-indexed\research\**` and `~/.claude/get-shit-indexed\reseach\**`
 **Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\research\`
 
 ### MCP Tool Chain Analysis
@@ -83,7 +83,7 @@ Legend:
 
 ## Migration History (3-MCP Migration)
 
-**Source:** `C:\Users\mose\.claude\get-shit-indexed\implementing-using-code-index-mcp\`
+**Source:** `~/.claude/get-shit-indexed\implementing-using-code-index-mcp\`
 **Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\implementing-using-code-index-mcp\`
 
 ### Migration Documentation
@@ -103,7 +103,7 @@ Legend:
 
 ## Prompts
 
-**Source:** `C:\Users\mose\.claude\get-shit-indexed\prompts\`
+**Source:** `~/.claude/get-shit-indexed\prompts\`
 **Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\prompts\`
 
 ### Prompt Files
@@ -113,7 +113,7 @@ Legend:
 
 ## Planning Codebase (3-MCP Documentation)
 
-**Source:** `C:\Users\mose\.claude\get-shit-indexed\.planning\codebase\`
+**Source:** `~/.claude/get-shit-indexed\.planning\codebase\`
 **Target:** `C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index\.planning\codebase\`
 
 ### MCP Server Documentation (VERIFY - may already exist from Phase 3)

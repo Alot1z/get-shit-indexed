@@ -120,7 +120,7 @@
 | set_project_path | Set base path for indexing | ✅ Available |
 
 ### Configuration
-- **Settings Directory:** C:\Users\mose\AppData\Local\Temp\code_indexer
+- **Settings Directory:** `$env:LOCALAPPDATA\Temp\code_indexer` (or `$TMP/code_indexer` on Unix)
 - **Project Path:** Not set (auto-detected)
 - **File Watcher:** Not configured
 - **Search Tools:** Auto-detected
