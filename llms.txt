@@ -1,0 +1,213 @@
+# GSI - Get Shit Indexed
+
+> Version: 1.27.0 | Token-efficient development system for Claude Code
+
+## What is GSI?
+
+GSI (Get Shit Indexed) is a token-efficient, spec-driven development system that achieves 80-98% token savings through MCP tools and skill compression. Originally "get-shit-done" (GSD), it provides a comprehensive workflow for Claude Code projects.
+
+## Core Value Proposition
+
+- **80-98% Token Savings**: MCP tools over native tools
+- **7-BMAD Quality Framework**: 7-circle validation system
+- **Golden Pattern**: Optimal tool selection sequence
+- **50 Phases Completed**: Production-ready system
+- **20 Repositories Integrated**: Comprehensive capability
+
+## MCP Server Ecosystem
+
+### Primary Servers
+
+| Server | Purpose | Token Savings |
+|--------|---------|---------------|
+| desktop-commander (DC) | File/process operations | 71% |
+| code-index-mcp (CI) | Code search/symbols | 80% |
+| CodeGraphContext (CG) | Relationship analysis | 85% |
+
+### Thinking Servers
+
+| Server | Purpose |
+|--------|---------|
+| sequential-thinking | Multi-step decomposition |
+| tractatus-thinking | Logical structure analysis |
+| debug-thinking | Problem-solving graph |
+
+## Tool Priority (CRITICAL)
+
+```
+PRIORITY: Skills > MCP > Native
+
+1. Skills FIRST - 90% token savings
+2. MCP Tools SECOND - 70% token savings
+3. Native Tools LAST - 0% savings (fallback only)
+```
+
+### Blocked Native Tools
+
+| Native | MCP Replacement |
+|--------|-----------------|
+| Read | mcp__desktop-commander__read_file |
+| Write | mcp__desktop-commander__write_file |
+| Edit | mcp__desktop-commander__edit_block |
+| Bash | mcp__desktop-commander__start_process |
+| Grep | mcp__code-index-mcp__search_code_advanced |
+| Glob | mcp__code-index-mcp__find_files |
+
+## Golden Pattern
+
+```
+CG.discover → CI.understand → CI.deep_search → DC.act → DC.verify → CI.verify
+```
+
+### Enhanced 7-BMAD Pattern
+
+1. **Vision (Circle 1)**: CG.discover → CI.understand
+2. **Research (Circle 2)**: CI.deep_search → CI.get_symbol_body
+3. **Structure (Circle 3)**: CG.build_graph → CG.query_relationships
+4. **Design (Circle 4)**: CI.search → DC.read → DC.design
+5. **Build (Circle 5)**: DC.write → DC.edit → CI.refresh_index
+6. **Validate (Circle 6)**: CG.analyze_impact → CI.test_search → Debug.graph
+7. **Integrate (Circle 7)**: DC.commit → CG.validate → CI.verify_index
+
+## Key Commands
+
+| Command | Purpose |
+|---------|---------|
+| `/gsi:progress` | Check project status, route to next action |
+| `/gsi:execute-phase N` | Execute all plans in phase N |
+| `/gsi:discuss-phase N` | Gather context through adaptive interview |
+| `/gsi:plan-phase N` | Create detailed phase plan |
+| `/gsi:research-phase N` | Research phase requirements |
+| `/gsi:verify-work` | Verify work against requirements |
+| `/gsi:yolo` | Auto-approve execution mode |
+| `/gsi:debug` | Systematic debugging with persistence |
+| `/gsi:quick` | Quick task execution |
+
+## Architecture Overview
+
+```
+Layer 7: Commands (33 .md files)
+Layer 6: Workflows (30 .md files)
+Layer 5: Agents (12 personalities)
+Layer 4: Hooks (15 .js files)
+Layer 3: Library (236 .js/.ts files)
+Layer 2: MCP Servers (DC + CI + CG + Thinking)
+Layer 1: Planning (.planning/ directory)
+```
+
+## Integrated Repositories (Phase 50)
+
+### Core Engine Layer
+- files-to-prompt → CXML conversion
+- semantic-code-search → Semantic search
+- CodeGraphContext → Graph relationships
+- FastCode → Optimized operations
+
+### Agent Framework Layer
+- agent-lightning → Fast agent spawning
+- claude-agent-sdk → SDK wrapper
+- ralph-playbook → Playbook execution
+- picobot → Minimal agent
+
+### Knowledge System Layer
+- txtai → Embeddings
+- arscontexta → Context compression
+- skill-compose → Skill composition
+
+### Workflow Engine Layer
+- PromptChains → Chain execution
+- mdream → Markdown processing
+- taskmaster → Task orchestration
+
+### Distribution Layer
+- electrobun → Binary packaging
+- superdoc → Document generation
+- cxcompress → Context compression
+
+### Enhancement Layer
+- visual-explainer → Diagrams
+- awesome-sdks → SDK discovery
+- superpowers → Capability enhancement
+
+## 7-BMAD Quality Framework
+
+| Circle | Name | Validation |
+|--------|------|------------|
+| 1 | Method | Implementation correctness |
+| 2 | Mad | Integration completeness |
+| 3 | Model | Architecture alignment |
+| 4 | Mode | Pattern consistency |
+| 5 | Mod | Maintainability standards |
+| 6 | Modd | Extensibility verification |
+| 7 | Methodd | Documentation quality |
+
+## Project Statistics
+
+| Metric | Count |
+|--------|-------|
+| Total Files | 466 |
+| JavaScript Files | 178 |
+| TypeScript Files | 58 |
+| Markdown Files | 172 |
+| Commands | 33 |
+| Workflows | 30 |
+| Agents | 12 |
+| Hooks | 15 |
+| Tests | 56 |
+| Phases Completed | 50 |
+| Integrated Repos | 20 |
+
+## Key File Paths
+
+| Purpose | Path |
+|---------|------|
+| Roadmap | `.planning/ROADMAP.md` |
+| State | `.planning/STATE.md` |
+| Complete Mapping | `.planning/GSI-COMPLETE-MAPPING.md` |
+| Commands | `commands/gsi/` |
+| Workflows | `get-shit-indexed/workflows/` |
+| Agents | `agents/` |
+| Hooks | `hooks/` |
+| Library | `lib/` |
+| Tests | `tests/` |
+
+## Context Transfer Prompt
+
+For new Claude sessions, use:
+
+```
+You are continuing work on GSI (Get Shit Indexed).
+
+Key Context:
+- Version: 1.27.0, 50 phases completed
+- Token savings: 80-98%
+- Tool Priority: Skills > MCP > Native
+- Golden Pattern: CG.discover → CI.understand → DC.act → DC.verify
+
+Key Files:
+- ROADMAP: .planning/ROADMAP.md
+- STATE: .planning/STATE.md
+- Mapping: .planning/GSI-COMPLETE-MAPPING.md
+
+Current Focus: Phase 51 CLI/MCP Conversion
+```
+
+## Next Steps
+
+1. **Phase 51**: CLI/MCP Conversion for 98% token savings
+2. **Phases 25-27**: Complete incomplete phases
+3. **Test Coverage**: Increase to 90%+
+4. **Type Safety**: Convert remaining .js to .ts
+
+## Version History
+
+| Version | Date | Key Changes |
+|---------|------|-------------|
+| 1.27.0 | 2026-02-19 | BOM fixes, comprehensive mapping |
+| 1.26.0 | 2026-02-18 | Phase 50 integration complete |
+| 1.25.0 | 2026-02-17 | 20 repositories integrated |
+
+---
+
+*Generated by GSI v1.27.0*
+*Documentation: .planning/GSI-COMPLETE-MAPPING.md*
