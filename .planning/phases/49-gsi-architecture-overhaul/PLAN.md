@@ -124,12 +124,35 @@ gsi-tools init plan-phase <ID> --include roadmap,research   # Plan with dependen
 
 ## Plans
 
+### Core Plans (49-01 to 49-06)
+
 - **49-01**: gsi-explorer Agent Implementation (14 tasks)
 - **49-02**: Tool Precedence Enforcement (12 tasks)
-- **49-03**: External Repository Research & Integration (10 tasks)
+- **49-03**: External Repository Research & Integration (12 tasks)
 - **49-04**: Command Standardization & Protocol Definition (8 tasks)
-- **49-05**: Architectural Refactor - Instruction Controller (10 tasks)
+- **49-05**: Architectural Refactor - prompt-enhancer (10 tasks)
 - **49-06**: Technical Debt Consolidation (12 tasks)
+
+### Sub-Phases (Integration of Phases 20, 25-48)
+
+The following sub-phases integrate 17 incomplete/planned phases into Phase 49:
+
+| Sub-Phase | Integrates | Focus Area | Priority |
+|-----------|-----------|------------|----------|
+| **49-A** | 20, 25, 26 | Cognitive Enhancement | HIGH |
+| **49-B** | 27, 29 | SDK & Installation | HIGH |
+| **49-C** | 28, 30, 31 | Documentation & Performance | MEDIUM |
+| **49-D** | 32, 33 | Error Recovery & Plugins | HIGH |
+| **49-E** | 34, 35 | CI/CD & Release | MEDIUM |
+| **49-F** | 37, 38 | Workflow & Claudeception | HIGH |
+| **49-G** | 39, 40, 41 | GSI Command & Rectification | HIGH |
+| **49-H** | 42-47 | Tool Optimization & Architecture | HIGH |
+
+**Sub-Phase Tasks**: ~120 additional tasks integrated from incomplete phases
+
+**Claudeception Integration**: Sub-Phase 49-F includes full `/gsi:claudeception` command implementation with auto-extraction hooks.
+
+See `SUB-PHASES.md` for detailed integration mapping.
 
 ## Success Criteria
 
@@ -149,6 +172,28 @@ gsi-tools init plan-phase <ID> --include roadmap,research   # Plan with dependen
 - Phase 41 (GSI Total Project Rectification)
 - Phase 47 (GSI Master Architecture Rectification)
 
-## Estimated Tasks: 66
+## Estimated Tasks: 186 (66 core + 120 sub-phase)
 
 ## Priority: CRITICAL - Stabilization Sprint Required
+
+## Files in This Phase
+
+```
+49-gsi-architecture-overhaul/
+├── PLAN.md              # This file
+├── SUB-PHASES.md        # Sub-phase integration mapping
+├── 49-01-PLAN.md        # gsi-explorer Agent
+├── 49-02-PLAN.md        # Tool Precedence
+├── 49-03-PLAN.md        # External Repositories
+├── 49-04-PLAN.md        # Command Standardization
+├── 49-05-PLAN.md        # prompt-enhancer Refactor
+├── 49-06-PLAN.md        # Technical Debt
+├── 49-A-PLAN.md         # Cognitive Enhancement (20,25,26)
+├── 49-B-PLAN.md         # SDK & Installation (27,29)
+├── 49-C-PLAN.md         # Documentation & Performance (28,30,31)
+├── 49-D-PLAN.md         # Error Recovery & Plugins (32,33)
+├── 49-E-PLAN.md         # CI/CD & Release (34,35)
+├── 49-F-PLAN.md         # Workflow & Claudeception (37,38)
+├── 49-G-PLAN.md         # GSI Command & Rectification (39,40,41)
+└── 49-H-PLAN.md         # Tool Optimization & Architecture (42-47)
+```
