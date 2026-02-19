@@ -1,4 +1,4 @@
-﻿---
+---
 phase: 07-command-layer-updates
 plan: 02
 subsystem: command-layer

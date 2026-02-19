@@ -1,4 +1,4 @@
-﻿# Git Planning Commit
+# Git Planning Commit
 
 Commit planning artifacts using the GSI-tools CLI, which automatically checks `commit_docs` config and gitignore status.
 

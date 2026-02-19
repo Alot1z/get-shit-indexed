@@ -1,4 +1,4 @@
-﻿<thinking>auto</thinking>
+<thinking>auto</thinking>
 
 <code_index_mcp>
 desktop_commander:

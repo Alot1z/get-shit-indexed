@@ -1,4 +1,4 @@
-﻿# YOLO Mode Reference
+# YOLO Mode Reference
 
 Documentation for YOLO (You Only Live Once) mode - frictionless execution without checkpoint confirmations.
 

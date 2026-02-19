@@ -1,4 +1,4 @@
-﻿---
+---
 phase: 02-workflow-integration
 plan: 02
 subsystem: workflow-automation

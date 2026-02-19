@@ -1,4 +1,4 @@
-﻿---
+---
 phase: 05-thinking-server-integration
 plan: 03
 subsystem: workflow-integration

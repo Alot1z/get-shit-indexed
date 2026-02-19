@@ -1,4 +1,4 @@
-﻿# Model Profile Resolution
+# Model Profile Resolution
 
 Resolve model profile once at the start of orchestration, then use it for all Task spawns.
 

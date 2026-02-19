@@ -1,4 +1,4 @@
-﻿# GSI Tool Priority Rules
+# GSI Tool Priority Rules
 
 ## CRITICAL RULE: MCP Tools Over Native Tools
 

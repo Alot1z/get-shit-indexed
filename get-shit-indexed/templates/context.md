@@ -1,4 +1,4 @@
-﻿# Phase Context Template
+# Phase Context Template
 
 Template for `.planning/phases/XX-name/{phase}-CONTEXT.md` - captures implementation decisions for a phase.
 

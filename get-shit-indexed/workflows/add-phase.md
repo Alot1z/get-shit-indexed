@@ -1,4 +1,4 @@
-﻿<thinking>auto</thinking>
+<thinking>auto</thinking>
 
 <purpose>
 Add a new integer phase to the end of the current milestone in the roadmap. Automatically calculates the next phase number, creates the phase directory, and updates the roadmap structure.

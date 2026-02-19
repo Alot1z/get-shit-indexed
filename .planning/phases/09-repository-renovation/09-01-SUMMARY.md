@@ -1,4 +1,4 @@
-﻿---
+---
 phase: 09-repository-renovation
 plan: 01
 subsystem: branding

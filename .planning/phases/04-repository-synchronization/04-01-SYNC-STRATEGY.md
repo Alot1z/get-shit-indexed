@@ -1,4 +1,4 @@
-﻿# Sync Strategy: Local to Clone
+# Sync Strategy: Local to Clone
 
 **Strategy Date:** 2026-02-13T00:33:25Z
 **Source:** ~/.claude/get-shit-indexed (local GSI directory)

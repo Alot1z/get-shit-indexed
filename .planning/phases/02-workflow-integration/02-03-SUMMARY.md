@@ -1,4 +1,4 @@
-﻿# Phase 2 Plan 3: Declarative MCP Tool Headers for Workflows
+# Phase 2 Plan 3: Declarative MCP Tool Headers for Workflows
 
 **Summary:** Added `<code_index_mcp>` headers to all 27 GSI workflow files, specifying MCP tool usage declaratively with desktop_commander and code_index tools at appropriate priority levels.
 

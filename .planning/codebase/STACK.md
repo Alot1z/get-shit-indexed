@@ -1,4 +1,4 @@
-﻿# Technology Stack
+# Technology Stack
 
 **Analysis Date:** 2025-02-11
 

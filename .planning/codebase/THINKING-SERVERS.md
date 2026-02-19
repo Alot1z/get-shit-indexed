@@ -1,4 +1,4 @@
-﻿# Thinking Servers Catalog
+# Thinking Servers Catalog
 
 ## Overview
 

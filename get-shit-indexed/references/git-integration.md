@@ -1,4 +1,4 @@
-﻿<overview>
+<overview>
 Git integration for GSI framework.
 </overview>
 

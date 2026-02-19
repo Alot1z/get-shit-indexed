@@ -1,4 +1,4 @@
-﻿# Architecture
+# Architecture
 
 **Analysis Date:** 2026-02-11
 

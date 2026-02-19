@@ -1,4 +1,4 @@
-﻿<thinking>auto</thinking>
+<thinking>auto</thinking>
 
 <purpose>
 Display the complete GSI command reference. Output ONLY the reference content. Do NOT add project-specific analysis, git status, next-step suggestions, or any commentary beyond the reference.

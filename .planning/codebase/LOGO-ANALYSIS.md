@@ -1,4 +1,4 @@
-﻿# GSI Terminal Logo Analysis
+# GSI Terminal Logo Analysis
 
 ## Source
 https://raw.githubusercontent.com/Alot1z/get-shit-indexed/main/assets/terminal.svg

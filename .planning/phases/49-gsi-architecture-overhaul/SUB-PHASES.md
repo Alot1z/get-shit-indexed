@@ -22,6 +22,7 @@ This document maps incomplete phases from Phases 25-48 into Phase 49 sub-phases,
 | 49-G | 39, 40, 41 | GSI Command & Rectification | HIGH |
 | 49-H | 42-47 | Tool Optimization & Architecture | HIGH |
 | 49-I | NEW | Historical Knowledge Extraction | HIGH |
+| 49-J | NEW (Electrobun) | Desktop Packaging | HIGH |
 
 ---
 
@@ -208,6 +209,34 @@ This document maps incomplete phases from Phases 25-48 into Phase 49 sub-phases,
 
 ---
 
+### 49-J: Electrobun Desktop Packaging
+**Source**: NEW (from Electrobun research)
+**Objective**: Cross-platform desktop application for GSI
+
+**Decision**: Electrobun over Electron
+- **Bundle Size**: 14MB vs 150MB (10.4x smaller)
+- **Runtime**: Bun (native TypeScript)
+- **Updates**: Built-in delta patches (~5MB)
+
+**Tasks**:
+- Initialize Electrobun project structure
+- Create gsi-integration layer (RPC bridge)
+- Build dashboard, phases, thinking server views
+- Implement auto-update mechanism
+- Create application menu and system tray
+- Set up CI/CD for multi-platform builds
+- Publish to GitHub Releases
+
+**Deliverables**:
+- `gsi-explorer` desktop app (Windows, macOS, Linux)
+- ~14MB bundle per platform
+- Delta updates via bsdiff
+- Shared codebase with CLI
+
+**Detailed Plan**: See `ELECTROBUN-PACKAGING-PLAN.md`
+
+---
+
 ## Execution Order
 
 ```
@@ -223,7 +252,8 @@ Wave 2: Core Systems
 
 Wave 3: Documentation & Deployment
 ├── 49-C: Documentation & Performance (MEDIUM)
-└── 49-E: CI/CD & Release (MEDIUM)
+├── 49-E: CI/CD & Release (MEDIUM)
+└── 49-J: Electrobun Desktop (HIGH)
 ```
 
 ---
@@ -240,6 +270,7 @@ Each sub-phase will have its own plan file:
 - `49-G-PLAN.md` - GSI Command & Rectification
 - `49-H-PLAN.md` - Tool Optimization & Architecture
 - `49-I-PLAN.md` - Historical Knowledge Extraction
+- `ELECTROBUN-PACKAGING-PLAN.md` - Desktop Application Packaging
 
 ## Extracted Knowledge Location
 
@@ -272,10 +303,10 @@ The `/gsi:claudeception` command is integrated into Sub-Phase 49-F and 49-G:
 | Metric | Value |
 |--------|-------|
 | Integrated Phases | 17 |
-| Sub-Phases Created | 9 |
-| High Priority Sub-Phases | 6 |
+| Sub-Phases Created | 10 |
+| High Priority Sub-Phases | 7 |
 | Medium Priority Sub-Phases | 3 |
-| Total Tasks Integrated | ~110 |
+| Total Tasks Integrated | ~134 |
 | Conversation History Analyzed | 326MB (50,048 lines) |
 
 ---

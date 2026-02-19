@@ -1,4 +1,4 @@
-﻿<planning_config>
+<planning_config>
 
 Configuration options for `.planning/` directory behavior.
 

@@ -1,4 +1,4 @@
-﻿# Codebase Structure
+# Codebase Structure
 
 **Analysis Date:** 2026-02-11
 

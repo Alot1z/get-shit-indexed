@@ -1,4 +1,4 @@
-﻿# Wave Configuration Tuning Guide
+# Wave Configuration Tuning Guide
 
 Guide for optimizing wave-based spawning parameters for different environments and use cases.
 

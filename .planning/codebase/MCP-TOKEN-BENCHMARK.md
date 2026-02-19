@@ -1,4 +1,4 @@
-﻿# MCP Token Efficiency Benchmark
+# MCP Token Efficiency Benchmark
 
 **Generated:** 2026-02-11T18:30:00Z
 **Purpose:** Compare token efficiency between MCP tools and native Claude Code tools.

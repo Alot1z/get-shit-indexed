@@ -1,4 +1,4 @@
-﻿# Golden Pattern: CG discover → CI understand → CI understand → DC act → DC verify → CI verify
+# Golden Pattern: CG discover → CI understand → CI understand → DC act → DC verify → CI verify
 
 **Created:** 2026-02-11
 **Purpose:** Proven tool chain pattern for token-efficient, reliable GSI workflows using all three MCP servers

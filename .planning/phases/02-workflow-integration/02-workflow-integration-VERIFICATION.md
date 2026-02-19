@@ -1,4 +1,4 @@
-﻿---
+---
 phase: 02-workflow-integration
 verified: 2026-02-11T20:00:00Z
 status: passed

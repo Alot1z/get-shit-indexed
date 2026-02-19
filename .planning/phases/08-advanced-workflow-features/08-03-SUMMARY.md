@@ -1,4 +1,4 @@
-﻿---
+---
 phase: 08-advanced-workflow-features
 plan: 03
 subsystem: yolo-mode

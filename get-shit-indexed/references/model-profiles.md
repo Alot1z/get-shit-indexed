@@ -1,4 +1,4 @@
-﻿# Model Profiles
+# Model Profiles
 
 Model profiles control which Claude model each GSI agent uses. This allows balancing quality vs token spend.
 

@@ -1,4 +1,4 @@
-﻿<thinking>auto</thinking>
+<thinking>auto</thinking>
 
 <purpose>
 Check project progress, summarize recent work and what's ahead, then intelligently route to next action — either executing an existing plan or creating a next one. Provides situational awareness before continuing work.

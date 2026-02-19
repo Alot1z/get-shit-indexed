@@ -1,4 +1,4 @@
-﻿# External Integrations
+# External Integrations
 
 **Analysis Date:** 2025-02-11
 

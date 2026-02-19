@@ -1,4 +1,4 @@
-﻿# Wave Verification and Testing
+# Wave Verification and Testing
 
 Documentation for wave-based spawning system that prevents API rate limits through testing and validation.
 

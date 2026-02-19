@@ -1,4 +1,4 @@
-﻿# GSI to GSI Replacement Manifest
+# GSI to GSI Replacement Manifest
 
 **Date**: 2026-02-13
 **Phase**: 09-repository-renovation

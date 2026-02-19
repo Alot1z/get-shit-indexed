@@ -1,4 +1,4 @@
-﻿# Sync Manifest: Local to Clone
+# Sync Manifest: Local to Clone
 
 **Source:** ~/.claude/get-shit-indexed (local GSI directory)
 **Target:** C:\github-repos\my-claude-code-repos\get-shit-indexed-code-index (cloned upstream repo)

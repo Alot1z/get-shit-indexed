@@ -1,4 +1,4 @@
-﻿# MCP Server Connectivity Status
+# MCP Server Connectivity Status
 
 **Generated:** 2026-02-11T18:22:29Z
 **Purpose:** Verify all three MCP servers are properly configured, connected, and responsive for use in GSI workflows.

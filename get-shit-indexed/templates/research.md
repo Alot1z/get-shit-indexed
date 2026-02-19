@@ -1,4 +1,4 @@
-﻿# Research Template
+# Research Template
 
 Template for `.planning/phases/XX-name/{phase}-RESEARCH.md` - comprehensive ecosystem research before planning.
 

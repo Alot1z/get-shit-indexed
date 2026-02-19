@@ -1,4 +1,4 @@
-﻿# Phase Prompt Template
+# Phase Prompt Template
 
 > **Note:** Planning methodology is in `agents/GSI-planner.md`.
 > This template defines the PLAN.md output format that the agent produces.

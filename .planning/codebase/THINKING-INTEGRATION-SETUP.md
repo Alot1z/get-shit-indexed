@@ -1,4 +1,4 @@
-﻿# Thinking Integration Setup
+# Thinking Integration Setup
 
 ## Overview
 

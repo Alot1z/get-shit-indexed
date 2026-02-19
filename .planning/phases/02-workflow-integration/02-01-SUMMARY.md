@@ -1,4 +1,4 @@
-﻿---
+---
 phase: 02-workflow-integration
 plan: 01
 subsystem: MCP Tool Migration

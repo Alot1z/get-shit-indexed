@@ -1,4 +1,4 @@
-﻿# Sync Prerequisites: Local to Clone
+# Sync Prerequisites: Local to Clone
 
 **Document Date:** 2026-02-13T00:33:25Z
 **For:** Plan 04-02 (Repository Sync Execution)

@@ -1,4 +1,4 @@
-﻿# Agent Tracking Reference
+# Agent Tracking Reference
 
 Documentation for agent tracking protocol used across GSI workflows for monitoring parallel agent execution and resume capability.
 
