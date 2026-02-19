@@ -1,0 +1,387 @@
+{
+  "total_lines": 126812,
+  "total_size_mb": 323,
+  "created_date": "2026-02-19",
+  "version": "1.0",
+  "description": "Hierarchical chunk map for GSI chat history enabling zero-token queries and progressive loading",
+  
+  "levels": {
+    "0_abstract": {
+      "lines": "1-100",
+      "purpose": "quick overview",
+      "description": "First 100 lines providing project abstract with key metrics and overview"
+    },
+    "1_sections": [
+      {
+        "id": "1_sec_0001",
+        "name": "Foundation Phases (1-8)",
+        "lines": "101-10000",
+        "start_line": 101,
+        "end_line": 10000,
+        "description": "Milestone 1 - MCP integration, workflows, quality gates",
+        "phases": ["Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6", "Phase 7", "Phase 8"],
+        "size_mb": 25.3
+      },
+      {
+        "id": "1_sec_1001", 
+        "name": "Refinement Phases (9-13)",
+        "lines": "10001-20000",
+        "start_line": 10001,
+        "end_line": 20000,
+        "description": "Milestone 2 - Branding, audit, testing",
+        "phases": ["Phase 9", "Phase 10", "Phase 11", "Phase 12", "Phase 13"],
+        "size_mb": 25.3
+      },
+      {
+        "id": "1_sec_2001",
+        "name": "Enhancement Phases (14-24)",
+        "lines": "20001-30000",
+        "start_line": 20001,
+        "end_line": 30000,
+        "description": "Tool optimization, thinking enforcement, patterns",
+        "phases": ["Phase 14", "Phase 15", "Phase 16", "Phase 17", "Phase 18", "Phase 19", "Phase 20", "Phase 21", "Phase 22", "Phase 23", "Phase 24"],
+        "size_mb": 25.3
+      },
+      {
+        "id": "1_sec_3001",
+        "name": "Apex Phases (25-27)",
+        "lines": "30001-40000",
+        "start_line": 30001,
+        "end_line": 40000,
+        "description": "Semantic intervention, context optimization, SDK",
+        "phases": ["Phase 25", "Phase 26", "Phase 27"],
+        "size_mb": 25.3
+      },
+      {
+        "id": "1_sec_4001",
+        "name": "Codebase Cleanup (36)",
+        "lines": "40001-50000",
+        "start_line": 40001,
+        "end_line": 50000,
+        "description": "Phase 36 - Codebase Cleanup",
+        "phases": ["Phase 36"],
+        "size_mb": 25.3
+      },
+      {
+        "id": "1_sec_5001",
+        "name": "Claudeception Phases (37-41)",
+        "lines": "50001-60000",
+        "start_line": 50001,
+        "end_line": 60000,
+        "description": "Workflow modules, skills enhancement, rectification",
+        "phases": ["Phase 37", "Phase 38", "Phase 39", "Phase 40", "Phase 41"],
+        "size_mb": 25.3
+      },
+      {
+        "id": "1_sec_6001",
+        "name": "Tool Optimization (42-46)",
+        "lines": "60001-70000",
+        "start_line": 60001,
+        "end_line": 70000,
+        "description": "Adaptive workflows, self-improving validation",
+        "phases": ["Phase 42", "Phase 43", "Phase 44", "Phase 45", "Phase 46"],
+        "size_mb": 25.3
+      },
+      {
+        "id": "1_sec_7001",
+        "name": "Master Architecture (47-49)",
+        "lines": "70001-80000",
+        "start_line": 70001,
+        "end_line": 80000,
+        "description": "Architecture overhaul, full integration, optimization",
+        "phases": ["Phase 47", "Phase 48", "Phase 49"],
+        "size_mb": 25.3
+      },
+      {
+        "id": "1_sec_8001",
+        "name": "Additional Content",
+        "lines": "80001-126812",
+        "start_line": 80001,
+        "end_line": 126812,
+        "description": "Additional chat history and context",
+        "phases": [],
+        "size_mb": 102.7
+      }
+    ],
+    "2_chunks": [
+      {
+        "id": "2_chunk_0001",
+        "parent_sec": "1_sec_0001",
+        "name": "Phase 1-8 Foundation",
+        "lines": "101-2000",
+        "start_line": 101,
+        "end_line": 2000,
+        "description": "Early planning and MCP foundation setup",
+        "chunk_size": "1.9 MB"
+      },
+      {
+        "id": "2_chunk_0002",
+        "parent_sec": "1_sec_0001", 
+        "name": "Phase 1-8 Workflow Integration",
+        "lines": "2001-3000",
+        "start_line": 2001,
+        "end_line": 3000,
+        "description": "MCP server integration and workflow development",
+        "chunk_size": "1.9 MB"
+      },
+      {
+        "id": "2_chunk_0003",
+        "parent_sec": "1_sec_0001",
+        "name": "Phase 1-8 Completion",
+        "lines": "3001-10000",
+        "start_line": 3001,
+        "end_line": 10000,
+        "description": "Quality gates and verification completion",
+        "chunk_size": "7.0 MB"
+      },
+      {
+        "id": "2_chunk_1001",
+        "parent_sec": "1_sec_1001",
+        "name": "Phase 9-13 Initial Refinement",
+        "lines": "10001-15000", 
+        "start_line": 10001,
+        "end_line": 15000,
+        "description": "Early refinement and documentation",
+        "chunk_size": "5.0 MB"
+      },
+      {
+        "id": "2_chunk_1002",
+        "parent_sec": "1_sec_1001",
+        "name": "Phase 9-13 Completion",
+        "lines": "15001-20000",
+        "start_line": 15001,
+        "end_line": 20000,
+        "description": "Testing and audit completion",
+        "chunk_size": "5.0 MB"
+      },
+      {
+        "id": "2_chunk_2001",
+        "parent_sec": "1_sec_2001",
+        "name": "Phase 14-17 Tool Optimization",
+        "lines": "20001-25000",
+        "start_line": 20001,
+        "end_line": 25000,
+        "description": "MCP tool optimization and priority enforcement",
+        "chunk_size": "5.0 MB"
+      },
+      {
+        "id": "2_chunk_2002",
+        "parent_sec": "1_sec_2001",
+        "name": "Phase 18-20 Enhancement",
+        "lines": "25001-30000",
+        "start_line": 25001,
+        "end_line": 30000,
+        "description": "Pattern learning and thinking enforcement",
+        "chunk_size": "5.0 MB"
+      },
+      {
+        "id": "2_chunk_3001",
+        "parent_sec": "1_sec_3001",
+        "name": "Phase 25-27 Development",
+        "lines": "30001-35000",
+        "start_line": 30001,
+        "end_line": 35000,
+        "description": "Semantic intervention and context optimization",
+        "chunk_size": "5.0 MB"
+      },
+      {
+        "id": "2_chunk_3002",
+        "parent_sec": "1_sec_3001",
+        "name": "Phase 25-27 SDK Integration",
+        "lines": "35001-40000",
+        "start_line": 35001,
+        "end_line": 40000,
+        "description": "SDK development and integration",
+        "chunk_size": "5.0 MB"
+      },
+      {
+        "id": "2_chunk_4001",
+        "parent_sec": "1_sec_4001",
+        "name": "Phase 36 Codebase Cleanup",
+        "lines": "40001-50000",
+        "start_line": 40001,
+        "end_line": 50000,
+        "description": "Comprehensive codebase cleanup and optimization",
+        "chunk_size": "10.0 MB"
+      },
+      {
+        "id": "2_chunk_5001",
+        "parent_sec": "1_sec_5001",
+        "name": "Phase 37-41 Claudeception",
+        "lines": "50001-55000",
+        "start_line": 50001,
+        "end_line": 55000,
+        "description": "Workflow chainer and skills enhancement",
+        "chunk_size": "5.0 MB"
+      },
+      {
+        "id": "2_chunk_5002",
+        "parent_sec": "1_sec_5001",
+        "name": "Phase 37-41 Rectification",
+        "lines": "55001-60000",
+        "start_line": 55001,
+        "end_line": 60000,
+        "description": "Total system rectification and validation",
+        "chunk_size": "5.0 MB"
+      },
+      {
+        "id": "2_chunk_6001",
+        "parent_sec": "1_sec_6001",
+        "name": "Phase 42-46 Optimization",
+        "lines": "60001-65000",
+        "start_line": 60001,
+        "end_line": 65000,
+        "description": "Tool optimization and adaptive workflows",
+        "chunk_size": "5.0 MB"
+      },
+      {
+        "id": "2_chunk_6002",
+        "parent_sec": "1_sec_6001",
+        "name": "Phase 42-46 Validation",
+        "lines": "65001-70000",
+        "start_line": 65001,
+        "end_line": 70000,
+        "description": "Self-improving validation system",
+        "chunk_size": "5.0 MB"
+      },
+      {
+        "id": "2_chunk_7001",
+        "parent_sec": "1_sec_7001",
+        "name": "Phase 47-49 Architecture",
+        "lines": "70001-75000",
+        "start_line": 70001,
+        "end_line": 75000,
+        "description": "Architecture overhaul and integration",
+        "chunk_size": "5.0 MB"
+      },
+      {
+        "id": "2_chunk_7002",
+        "parent_sec": "1_sec_7001",
+        "name": "Phase 47-49 Completion",
+        "lines": "75001-80000",
+        "start_line": 75001,
+        "end_line": 80000,
+        "description": "Final integration and optimization",
+        "chunk_size": "5.0 MB"
+      },
+      {
+        "id": "2_chunk_8001",
+        "parent_sec": "1_sec_8001",
+        "name": "Additional Content Part 1",
+        "lines": "80001-90000",
+        "start_line": 80001,
+        "end_line": 90000,
+        "description": "Additional chat history and context",
+        "chunk_size": "10.1 MB"
+      },
+      {
+        "id": "2_chunk_8002",
+        "parent_sec": "1_sec_8001",
+        "name": "Additional Content Part 2",
+        "lines": "90001-100000",
+        "start_line": 90001,
+        "end_line": 100000,
+        "description": "Additional chat history and context",
+        "chunk_size": "10.1 MB"
+      },
+      {
+        "id": "2_chunk_8003",
+        "parent_sec": "1_sec_8001",
+        "name": "Additional Content Part 3",
+        "lines": "100001-110000",
+        "start_line": 100001,
+        "end_line": 110000,
+        "description": "Additional chat history and context",
+        "chunk_size": "10.1 MB"
+      },
+      {
+        "id": "2_chunk_8004",
+        "parent_sec": "1_sec_8001",
+        "name": "Additional Content Part 4",
+        "lines": "110001-120000",
+        "start_line": 110001,
+        "end_line": 120000,
+        "description": "Additional chat history and context",
+        "chunk_size": "10.1 MB"
+      },
+      {
+        "id": "2_chunk_8005",
+        "parent_sec": "1_sec_8001",
+        "name": "Additional Content Part 5",
+        "lines": "120001-126812",
+        "start_line": 120001,
+        "end_line": 126812,
+        "description": "Final chat history entries",
+        "chunk_size": "6.9 MB"
+      }
+    ]
+  },
+
+  "phase_locations": {
+    "Phase 1": {"start_line": 101, "end_line": 2500, "section": "1_sec_0001", "chunk": "2_chunk_0001"},
+    "Phase 2": {"start_line": 2501, "end_line": 3000, "section": "1_sec_0001", "chunk": "2_chunk_0002"},
+    "Phase 3": {"start_line": 3001, "end_line": 4000, "section": "1_sec_0001", "chunk": "2_chunk_0002"},
+    "Phase 4": {"start_line": 4001, "end_line": 5000, "section": "1_sec_0001", "chunk": "2_chunk_0002"},
+    "Phase 5": {"start_line": 5001, "end_line": 6000, "section": "1_sec_0001", "chunk": "2_chunk_0002"},
+    "Phase 6": {"start_line": 6001, "end_line": 7000, "section": "1_sec_0001", "chunk": "2_chunk_0002"},
+    "Phase 7": {"start_line": 7001, "end_line": 8000, "section": "1_sec_0001", "chunk": "2_chunk_0002"},
+    "Phase 8": {"start_line": 8001, "end_line": 10000, "section": "1_sec_0001", "chunk": "2_chunk_0003"},
+    "Phase 9": {"start_line": 10001, "end_line": 12000, "section": "1_sec_1001", "chunk": "2_chunk_1001"},
+    "Phase 10": {"start_line": 12001, "end_line": 14000, "section": "1_sec_1001", "chunk": "2_chunk_1001"},
+    "Phase 11": {"start_line": 14001, "end_line": 16000, "section": "1_sec_1001", "chunk": "2_chunk_1001"},
+    "Phase 12": {"start_line": 16001, "end_line": 18000, "section": "1_sec_1001", "chunk": "2_chunk_1001"},
+    "Phase 13": {"start_line": 18001, "end_line": 20000, "section": "1_sec_1001", "chunk": "2_chunk_1002"},
+    "Phase 14": {"start_line": 20001, "end_line": 22000, "section": "1_sec_2001", "chunk": "2_chunk_2001"},
+    "Phase 15": {"start_line": 22001, "end_line": 24000, "section": "1_sec_2001", "chunk": "2_chunk_2001"},
+    "Phase 16": {"start_line": 24001, "end_line": 26000, "section": "1_sec_2001", "chunk": "2_chunk_2001"},
+    "Phase 17": {"start_line": 26001, "end_line": 28000, "section": "1_sec_2001", "chunk": "2_chunk_2001"},
+    "Phase 18": {"start_line": 28001, "end_line": 29000, "section": "1_sec_2001", "chunk": "2_chunk_2001"},
+    "Phase 19": {"start_line": 29001, "end_line": 30000, "section": "1_sec_2001", "chunk": "2_chunk_2002"},
+    "Phase 20": {"start_line": 30001, "end_line": 31000, "section": "1_sec_2001", "chunk": "2_chunk_2002"},
+    "Phase 21": {"start_line": 31001, "end_line": 32000, "section": "1_sec_2001", "chunk": "2_chunk_2002"},
+    "Phase 22": {"start_line": 32001, "end_line": 33000, "section": "1_sec_2001", "chunk": "2_chunk_2002"},
+    "Phase 23": {"start_line": 33001, "end_line": 34000, "section": "1_sec_2001", "chunk": "2_chunk_2002"},
+    "Phase 24": {"start_line": 34001, "end_line": 35000, "section": "1_sec_2001", "chunk": "2_chunk_2002"},
+    "Phase 25": {"start_line": 35001, "end_line": 36500, "section": "1_sec_3001", "chunk": "2_chunk_3001"},
+    "Phase 26": {"start_line": 36501, "end_line": 38000, "section": "1_sec_3001", "chunk": "2_chunk_3001"},
+    "Phase 27": {"start_line": 38001, "end_line": 39000, "section": "1_sec_3001", "chunk": "2_chunk_3001"},
+    "Phase 36": {"start_line": 40001, "end_line": 50000, "section": "1_sec_4001", "chunk": "2_chunk_4001"},
+    "Phase 37": {"start_line": 50001, "end_line": 52000, "section": "1_sec_5001", "chunk": "2_chunk_5001"},
+    "Phase 38": {"start_line": 52001, "end_line": 54000, "section": "1_sec_5001", "chunk": "2_chunk_5001"},
+    "Phase 39": {"start_line": 54001, "end_line": 56000, "section": "1_sec_5001", "chunk": "2_chunk_5001"},
+    "Phase 40": {"start_line": 56001, "end_line": 58000, "section": "1_sec_5001", "chunk": "2_chunk_5002"},
+    "Phase 41": {"start_line": 58001, "end_line": 60000, "section": "1_sec_5001", "chunk": "2_chunk_5002"},
+    "Phase 42": {"start_line": 60001, "end_line": 62000, "section": "1_sec_6001", "chunk": "2_chunk_6001"},
+    "Phase 43": {"start_line": 62001, "end_line": 64000, "section": "1_sec_6001", "chunk": "2_chunk_6001"},
+    "Phase 44": {"start_line": 64001, "end_line": 66000, "section": "1_sec_6001", "chunk": "2_chunk_6001"},
+    "Phase 45": {"start_line": 66001, "end_line": 68000, "section": "1_sec_6001", "chunk": "2_chunk_6002"},
+    "Phase 46": {"start_line": 68001, "end_line": 70000, "section": "1_sec_6001", "chunk": "2_chunk_6002"},
+    "Phase 47": {"start_line": 70001, "end_line": 72500, "section": "1_sec_7001", "chunk": "2_chunk_7001"},
+    "Phase 48": {"start_line": 72501, "end_line": 75000, "section": "1_sec_7001", "chunk": "2_chunk_7001"},
+    "Phase 49": {"start_line": 75001, "end_line": 78000, "section": "1_sec_7001", "chunk": "2_chunk_7002"},
+    "Phase 49-A": {"start_line": 75001, "end_line": 76000, "section": "1_sec_7001", "chunk": "2_chunk_7002"},
+    "Phase 49-B": {"start_line": 76001, "end_line": 77000, "section": "1_sec_7001", "chunk": "2_chunk_7002"},
+    "Phase 49-C": {"start_line": 77001, "end_line": 78000, "section": "1_sec_7001", "chunk": "2_chunk_7002"}
+  },
+
+  "query_patterns": {
+    "fast_overview": "Load level 0 (100 lines) for project overview",
+    "section_analysis": "Load level 1 section (10k lines) for milestone analysis", 
+    "detailed_phase": "Load level 2 chunk (1k lines) for specific phase details",
+    "full_context": "Load entire file for comprehensive search"
+  },
+
+  "token_savings": {
+    "level_0_only": "99.9% savings (vs full file)",
+    "section_plus_abstract": "99% savings (vs full file)",
+    "chunk_plus_abstract": "99.5% savings (vs full file)",
+    "full_query": "0% savings (baseline)"
+  },
+
+  "usage_guide": {
+    "symbol_table_lookup": "Use SYMBOL-TABLE.json for exact phase matches",
+    "semantic_index_lookup": "Use SEMANTIC-INDEX.cxml for topic-based queries",
+    "progressive_loading": "Load chunks progressively based on query depth",
+    "memory_efficient": "Never load entire file - use chunk loading pattern"
+  }
+}
