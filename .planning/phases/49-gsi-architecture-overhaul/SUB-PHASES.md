@@ -21,6 +21,7 @@ This document maps incomplete phases from Phases 25-48 into Phase 49 sub-phases,
 | 49-F | 37 (pending), 38 | Workflow & Claudeception | HIGH |
 | 49-G | 39, 40, 41 | GSI Command & Rectification | HIGH |
 | 49-H | 42-47 | Tool Optimization & Architecture | HIGH |
+| 49-I | NEW | Historical Knowledge Extraction | HIGH |
 
 ---
 
@@ -188,6 +189,25 @@ This document maps incomplete phases from Phases 25-48 into Phase 49 sub-phases,
 
 ---
 
+### 49-I: Historical Knowledge Extraction
+**Source**: NEW (from 326MB conversation history)
+**Objective**: Extract all discussed phases, plans, features from past conversations
+
+**Tasks**:
+- Parse conversation history (50k+ lines)
+- Extract all phase discussions
+- Document feature decisions
+- Map technical choices
+- Create knowledge base document
+
+**Deliverables**:
+- EXTRACTED-KNOWLEDGE.md
+- Phase inventory complete
+- Feature decision log
+- Technical debt identified
+
+---
+
 ## Execution Order
 
 ```
@@ -219,6 +239,12 @@ Each sub-phase will have its own plan file:
 - `49-F-PLAN.md` - Workflow & Claudeception Integration
 - `49-G-PLAN.md` - GSI Command & Rectification
 - `49-H-PLAN.md` - Tool Optimization & Architecture
+- `49-I-PLAN.md` - Historical Knowledge Extraction
+
+## Extracted Knowledge Location
+
+Knowledge extracted from 326MB of conversation history is stored at:
+- `.planning/chats/extracted/EXTRACTED-KNOWLEDGE.md`
 
 ---
 
@@ -246,10 +272,11 @@ The `/gsi:claudeception` command is integrated into Sub-Phase 49-F and 49-G:
 | Metric | Value |
 |--------|-------|
 | Integrated Phases | 17 |
-| Sub-Phases Created | 8 |
-| High Priority Sub-Phases | 5 |
+| Sub-Phases Created | 9 |
+| High Priority Sub-Phases | 6 |
 | Medium Priority Sub-Phases | 3 |
-| Total Tasks Integrated | ~100 |
+| Total Tasks Integrated | ~110 |
+| Conversation History Analyzed | 326MB (50,048 lines) |
 
 ---
 
