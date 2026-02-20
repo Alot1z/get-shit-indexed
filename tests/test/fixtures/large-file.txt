@@ -1,0 +1,22 @@
+This is a large test file for benchmarking file operations.
+It contains repeated content to simulate a larger file.
+This is a large test file for benchmarking file operations.
+It contains repeated content to simulate a larger file.
+This is a large test file for benchmarking file operations.
+It contains repeated content to simulate a larger file.
+This is a large test file for benchmarking file operations.
+It contains repeated content to simulate a larger file.
+This is a large test file for benchmarking file operations.
+It contains repeated content to simulate a larger file.
+This is a large test file for benchmarking file operations.
+It contains repeated content to simulate a larger file.
+This is a large test file for benchmarking file operations.
+It contains repeated content to simulate a larger file.
+This is a large test file for benchmarking file operations.
+It contains repeated content to simulate a larger file.
+This is a large test file for benchmarking file operations.
+It contains repeated content to simulate a larger file.
+This is a large test file for benchmarking file operations.
+It contains repeated content to simulate a larger file.
+This is a large test file for benchmarking file operations.
+It contains repeated content to simulate a larger file.

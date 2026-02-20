@@ -1,4 +1,4 @@
-﻿# Plan Phase Workflow
+# Plan Phase Workflow
 
 <tool_requirements>
 **MANDATORY: Use MCP tools instead of native tools for all operations.**

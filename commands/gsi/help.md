@@ -1,6 +1,12 @@
-﻿---
+---
 name: gsi:help
 description: Show available GSI commands and usage guide
+thinking_phase:
+  mode: NONE
+  servers: []
+  bmad_enabled: false
+  timeout: 0
+  rationale: "Simple display command requiring no cognitive enhancement"
 allowed-tools:
   - mcp__desktop-commander__read_file
 ---

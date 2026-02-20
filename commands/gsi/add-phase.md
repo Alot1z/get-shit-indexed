@@ -1,7 +1,13 @@
-﻿---
+---
 name: gsi:add-phase
 description: Add phase to end of current milestone in roadmap
 argument-hint: <description>
+thinking_phase:
+  mode: STANDARD
+  servers: [sequential, debug]
+  bmad_enabled: true
+  timeout: 8000
+  rationale: "Phase addition requiring roadmap integration planning (Sequential) and state tracking (Debug)"
 allowed-tools:
   - mcp__desktop-commander__read_file
   - mcp__desktop-commander__write_file

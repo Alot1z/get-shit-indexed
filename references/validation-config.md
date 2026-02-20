@@ -1,4 +1,4 @@
-﻿# Validation Configuration Specification
+# Validation Configuration Specification
 
 ## Overview
 

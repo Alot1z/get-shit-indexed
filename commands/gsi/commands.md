@@ -302,7 +302,7 @@ Ask: "Would this actually help someone who hits this problem in six months?" If 
 <context>
 @.planning/STATE.md
 @.planning/ROADMAP.md
-@C:/Users/mose/.claude/gsi-knowledge/
+@lib/knowledge-base/
 </context>
 
 <process>

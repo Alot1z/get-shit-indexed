@@ -1,4 +1,4 @@
-﻿---
+---
 name: gsi:join-discord
 description: Join the GSI Discord community
 allowed-tools:

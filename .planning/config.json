@@ -1,4 +1,6 @@
 {
   "mode": "yolo",
-  "enabled": "2026-02-17"
+  "yolo_enabled": true,
+  "auto_approve": true,
+  "skip_checkpoints": true
 }

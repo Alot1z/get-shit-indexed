@@ -1,4 +1,4 @@
-﻿# Agent Completion Signal Format
+# Agent Completion Signal Format
 
 ## Overview
 

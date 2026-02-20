@@ -1,4 +1,4 @@
-﻿---
+---
 name: gsi:new-project
 description: Initialize a new project with deep context gathering and PROJECT.md
 argument-hint: "[--auto]"

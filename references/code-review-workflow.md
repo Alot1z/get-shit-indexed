@@ -1,4 +1,4 @@
-﻿# Code Review Workflow
+# Code Review Workflow
 
 ## Overview
 

@@ -1,4 +1,4 @@
-﻿---
+---
 name: set-profile
 description: Switch between model quality profiles (quality/balanced/budget)
 color: cyan

@@ -1,4 +1,4 @@
-﻿---
+---
 name: gsi:update
 description: Update GSI to latest version with changelog display
 allowed-tools:

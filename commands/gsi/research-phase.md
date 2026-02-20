@@ -1,4 +1,4 @@
-﻿---
+---
 name: gsi:research-phase
 description: Research how to implement a phase (standalone - usually use /gsi:plan-phase instead)
 argument-hint: "[phase]"

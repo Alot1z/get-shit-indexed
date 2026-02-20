@@ -1,7 +1,13 @@
-﻿---
+---
 name: gsi:insert-phase
 description: Insert urgent work as decimal phase (e.g., 72.1) between existing phases
 argument-hint: <after> <description>
+thinking_phase:
+  mode: STANDARD
+  servers: [sequential, debug]
+  bmad_enabled: true
+  timeout: 8000
+  rationale: "Phase insertion requiring roadmap restructuring (Sequential) and state tracking (Debug)"
 allowed-tools:
   - mcp__desktop-commander__read_file
   - mcp__desktop-commander__write_file

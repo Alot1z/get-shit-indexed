@@ -1,7 +1,13 @@
-﻿---
+---
 name: gsi:add-todo
 description: Capture idea or task as todo from current conversation context
 argument-hint: [optional description]
+thinking_phase:
+  mode: LIGHTWEIGHT
+  servers: [sequential]
+  bmad_enabled: false
+  timeout: 3000
+  rationale: "Todo capture requiring minimal cognitive overhead"
 allowed-tools:
   - mcp__desktop-commander__read_file
   - mcp__desktop-commander__write_file

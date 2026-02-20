@@ -2,6 +2,13 @@
   "preSession": ["start-cg-server.ps1"],
   "postSession": [],
   "pretooluse": {
+    "mcp-enforcer": {
+      "enabled": true,
+      "trigger": "Read|Write|Edit|Grep|Glob|Bash",
+      "priority": 0,
+      "module": "hooks/pre-tool-use/mcp-enforcer.js",
+      "description": "Blocks native tools when MCP alternatives exist. Enforces tool precedence hierarchy for 80-90% token savings."
+    },
     "bash-redirect": {
       "enabled": true,
       "trigger": "Bash|bash",

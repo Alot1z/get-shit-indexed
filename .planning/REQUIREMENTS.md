@@ -1,4 +1,4 @@
-﻿# Requirements: MCP-Enhanced GSI
+# Requirements: MCP-Enhanced GSI
 
 **Defined:** 2025-02-11
 **Core Value:** Token-efficient, reliable GSI workflows that leverage all three MCP servers (DC + CI + CG) using proven tool chain patterns.

@@ -1,13 +1,22 @@
-﻿---
+---
+name: gsi:reapply-patches
 description: Reapply local modifications after a GSI update
+thinking_phase:
+  mode: STANDARD
+  servers: [sequential, debug]
+  bmad_enabled: true
+  timeout: 10000
+  rationale: "Patch reapplication requiring systematic comparison (Sequential) and conflict detection (Debug)"
 allowed-tools:
   - mcp__desktop-commander__read_file
+  - mcp__desktop-commander__read_multiple_files
   - mcp__desktop-commander__write_file
   - mcp__desktop-commander__edit_block
   - mcp__desktop-commander__list_directory
   - mcp__code-index-mcp__search_code_advanced
   - mcp__code-index-mcp__find_files
   - Task
+  - AskUserQuestion
 ---
 
 <purpose>
@@ -18,14 +27,18 @@ After a GSI update wipes and reinstalls files, this command merges user's previo
 
 ## Step 1: Detect backed-up patches
 
-Check for local patches directory:
+Check for local patches directory (lowercase gsi):
 
 ```bash
 # Global install
-PATCHES_DIR="${HOME}/.claude/GSI-local-patches"
+PATCHES_DIR="${HOME}/.claude/gsi-local-patches"
+# Legacy uppercase fallback
+if [ ! -d "$PATCHES_DIR" ]; then
+  PATCHES_DIR="${HOME}/.claude/GSI-local-patches"
+fi
 # Local install fallback
 if [ ! -d "$PATCHES_DIR" ]; then
-  PATCHES_DIR="./.claude/GSI-local-patches"
+  PATCHES_DIR="./.claude/gsi-local-patches"
 fi
 ```
 
@@ -59,18 +72,17 @@ Exit.
 
 For each file in `backup-meta.json`:
 
-1. **Read the backed-up version** (user's modified copy from `GSI-local-patches/`)
-2. **Read the newly installed version** (current file after update)
-3. **Compare and merge:**
+1. **Read both versions** using `read_multiple_files` for efficiency
+2. **Compare versions:**
+   - If new file has `thinking_phase` AND backed-up has `thinking_phase`: Compare content
+   - If new file missing `thinking_phase` BUT backed-up has it: MERGE (add thinking_phase)
+   - If new file already has all user modifications: SKIP
 
-   - If the new file is identical to the backed-up file: skip (modification was incorporated upstream)
-   - If the new file differs: identify the user's modifications and apply them to the new version
-
-   **Merge strategy:**
-   - Read both versions fully
-   - Identify sections the user added or modified (look for additions, not just differences from path replacement)
-   - Apply user's additions/modifications to the new version
-   - If a section the user modified was also changed upstream: flag as conflict, show both versions, ask user which to keep
+3. **Merge strategy for thinking_phase:**
+   - Take current version as base (has newest features, tilde paths)
+   - Add `thinking_phase` frontmatter from backed-up version
+   - Keep any new tools/sections from current version
+   - Preserve `~/.claude/` tilde paths over full paths
 
 4. **Write merged result** to the installed location
 5. **Report status:**
@@ -78,20 +90,18 @@ For each file in `backup-meta.json`:
    - `Skipped` — modification already in upstream
    - `Conflict` — user chose resolution
 
-## Step 4: Update manifest
+## Step 4: Version comparison
 
-After reapplying, regenerate the file manifest so future updates correctly detect these as user modifications:
-
-```bash
-# The manifest will be regenerated on next /gsi:update
-# For now, just note which files were modified
-```
+Detect version jump:
+- v1.23.0 → v1.27.1 = 4 minor versions
+- Large jumps may have significant upstream changes
+- Consider re-examining all modifications for compatibility
 
 ## Step 5: Cleanup option
 
 Ask user:
-- "Keep patch backups for reference?" → preserve `GSI-local-patches/`
-- "Clean up patch backups?" → remove `GSI-local-patches/` directory
+- "Keep patch backups for reference?" → preserve `gsi-local-patches/`
+- "Clean up patch backups?" → remove `gsi-local-patches/` directory
 
 ## Step 6: Report
 
@@ -112,6 +122,6 @@ Ask user:
 <success_criteria>
 - [ ] All backed-up patches processed
 - [ ] User modifications merged into new version
-- [ ] Conflicts resolved with user input
+- [ ] New version features preserved (tilde paths, new tools)
 - [ ] Status reported for each file
 </success_criteria>

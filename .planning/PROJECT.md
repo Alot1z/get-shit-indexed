@@ -1,4 +1,4 @@
-﻿# MCP-Enhanced GSI
+# MCP-Enhanced GSI
 
 ## What This Is
 

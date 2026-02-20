@@ -1,4 +1,4 @@
-﻿# Roadmap: MCP-Enhanced GSI
+# Roadmap: MCP-Enhanced GSI
 
 ## Overview
 

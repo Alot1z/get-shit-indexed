@@ -1,4 +1,4 @@
-﻿---
+---
 name: GSI-phase-researcher
 description: Researches how to implement a phase before planning. Produces RESEARCH.md consumed by GSI-planner. Spawned by /GSI:plan-phase orchestrator.
 tools:

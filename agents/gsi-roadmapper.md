@@ -1,4 +1,4 @@
-﻿---
+---
 name: GSI-roadmapper
 description: Creates project roadmaps with phase breakdown, requirement mapping, success criteria derivation, and coverage validation. Spawned by /GSI:new-project orchestrator.
 tools:

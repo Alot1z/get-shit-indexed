@@ -1,4 +1,4 @@
-﻿---
+---
 type: prompt
 name: gsi:complete-milestone
 description: Archive completed milestone and prepare for next version

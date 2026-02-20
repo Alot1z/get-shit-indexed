@@ -1,4 +1,4 @@
-﻿---
+---
 name: gsi:plan-milestone-gaps
 description: Create phases to close all gaps identified by milestone audit
 allowed-tools:

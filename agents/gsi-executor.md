@@ -1,4 +1,4 @@
-﻿---
+---
 name: GSI-executor
 description: Executes GSI plans with atomic commits, deviation handling, checkpoint protocols, and state management. Spawned by execute-phase orchestrator or execute-plan command.
 tools:

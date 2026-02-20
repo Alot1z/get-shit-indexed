@@ -1,4 +1,4 @@
-﻿---
+---
 name: gsi:check-todos
 description: List pending todos and select one to work on
 argument-hint: [area filter]

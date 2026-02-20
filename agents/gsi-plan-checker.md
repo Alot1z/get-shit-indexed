@@ -1,4 +1,4 @@
-﻿---
+---
 name: GSI-plan-checker
 description: Verifies plans will achieve phase goal before execution. Goal-backward analysis of plan quality. Spawned by /GSI:plan-phase orchestrator.
 tools:

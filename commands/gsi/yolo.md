@@ -1,4 +1,4 @@
-﻿---
+---
 name: yolo
 description: Toggle YOLO mode for frictionless execution
 color: magenta

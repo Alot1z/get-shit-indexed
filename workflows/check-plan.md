@@ -1,4 +1,4 @@
-﻿# Check Plan Workflow
+# Check Plan Workflow
 
 ## Overview
 

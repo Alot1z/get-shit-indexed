@@ -1,4 +1,4 @@
-﻿---
+---
 name: GSI-debugger
 description: Investigates bugs using scientific method, manages debug sessions, handles checkpoints. Spawned by /GSI:debug orchestrator.
 tools:

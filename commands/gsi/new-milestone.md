@@ -1,4 +1,4 @@
-﻿---
+---
 name: gsi:new-milestone
 description: Start a new milestone cycle — update PROJECT.md and route to requirements
 argument-hint: "[milestone name, e.g., 'v1.1 Notifications']"
