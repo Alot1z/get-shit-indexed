@@ -1403,6 +1403,28 @@ function install(isGlobal, runtime = 'claude') {
     } else {
       failures.push('command/GSI-*');
     }
+
+    // Copy consolidated commands from commands/consolidated/
+    // These are mega-commands that combine multiple individual commands
+    const consolidatedSrc = path.join(src, 'commands', 'consolidated');
+    if (fs.existsSync(consolidatedSrc)) {
+      const consolidatedFiles = fs.readdirSync(consolidatedSrc).filter(f => f.endsWith('.md'));
+      let consolidatedCount = 0;
+      for (const file of consolidatedFiles) {
+        let content = fs.readFileSync(path.join(consolidatedSrc, file), 'utf8');
+        // Replace ~/.claude/ path references with opencode paths
+        content = content.replace(/~\/\.claude\//g, pathPrefix);
+        content = processAttribution(content, getCommitAttribution(runtime));
+        content = convertClaudeToOpencodeFrontmatter(content);
+        // Write with GSI- prefix for opencode (e.g., gsi-go.md -> GSI-go.md)
+        const opencodeName = file.startsWith('gsi-') ? 'GSI-' + file.slice(4) : file;
+        fs.writeFileSync(path.join(commandDir, opencodeName), content);
+        consolidatedCount++;
+      }
+      if (consolidatedCount > 0) {
+        console.log(`  ${green}✓${reset} Installed ${consolidatedCount} consolidated commands`);
+      }
+    }
   } else {
     // Claude Code & Gemini: nested structure in commands/ directory
     const commandsDir = path.join(targetDir, 'commands');
@@ -1433,6 +1455,29 @@ function install(isGlobal, runtime = 'claude') {
     }
     if (verifyInstalled(GSDDest, 'commands/gsd')) {
       console.log(`  ${green}✓${reset} Installed commands/gsd (backward compatibility)`);
+    }
+
+    // Copy consolidated commands from commands/consolidated/
+    // These are mega-commands that combine multiple individual commands
+    const consolidatedSrc = path.join(src, 'commands', 'consolidated');
+    if (fs.existsSync(consolidatedSrc)) {
+      const consolidatedDest = path.join(commandsDir, 'gsi');
+      const consolidatedFiles = fs.readdirSync(consolidatedSrc).filter(f => f.endsWith('.md'));
+      let consolidatedCount = 0;
+      for (const file of consolidatedFiles) {
+        let content = fs.readFileSync(path.join(consolidatedSrc, file), 'utf8');
+        // Replace ~/.claude/ path references
+        content = content.replace(/~\/\.claude\//g, pathPrefix);
+        content = processAttribution(content, getCommitAttribution(runtime));
+        if (isGemini) {
+          content = stripSubTags(content);
+        }
+        fs.writeFileSync(path.join(consolidatedDest, file), content);
+        consolidatedCount++;
+      }
+      if (consolidatedCount > 0) {
+        console.log(`  ${green}✓${reset} Installed ${consolidatedCount} consolidated commands (go, status, check, pause, quick)`);
+      }
     }
   }
 
@@ -1476,6 +1521,8 @@ function install(isGlobal, runtime = 'claude') {
     // Copy new agents
     const agentEntries = fs.readdirSync(agentsSrc, { withFileTypes: true });
     for (const entry of agentEntries) {
+      // Skip consolidated subdirectory (handled separately below)
+      if (entry.isDirectory() && entry.name === 'consolidated') continue;
       if (entry.isFile() && entry.name.endsWith('.md')) {
         let content = fs.readFileSync(path.join(agentsSrc, entry.name), 'utf8');
         // Always replace ~/.claude/ as it is the source of truth in the repo
@@ -1491,6 +1538,27 @@ function install(isGlobal, runtime = 'claude') {
         fs.writeFileSync(path.join(agentsDest, entry.name), content);
       }
     }
+
+    // Copy consolidated agents from agents/consolidated/
+    const consolidatedAgentsSrc = path.join(agentsSrc, 'consolidated');
+    if (fs.existsSync(consolidatedAgentsSrc)) {
+      const consolidatedAgentFiles = fs.readdirSync(consolidatedAgentsSrc).filter(f => f.endsWith('.md'));
+      for (const file of consolidatedAgentFiles) {
+        let content = fs.readFileSync(path.join(consolidatedAgentsSrc, file), 'utf8');
+        content = content.replace(/~\/\.claude\//g, pathPrefix);
+        content = processAttribution(content, getCommitAttribution(runtime));
+        if (isOpencode) {
+          content = convertClaudeToOpencodeFrontmatter(content);
+        } else if (isGemini) {
+          content = convertClaudeToGeminiAgent(content);
+        }
+        fs.writeFileSync(path.join(agentsDest, file), content);
+      }
+      if (consolidatedAgentFiles.length > 0) {
+        console.log(`  ${green}✓${reset} Installed ${consolidatedAgentFiles.length} consolidated agents (orchestrator, context-manager)`);
+      }
+    }
+
     if (verifyInstalled(agentsDest, 'agents')) {
       console.log(`  ${green}✓${reset} Installed agents`);
     } else {

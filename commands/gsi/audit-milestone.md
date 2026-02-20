@@ -10,6 +10,11 @@ allowed-tools:
   - mcp__code-index-mcp__get_file_summary
   - Task
 ---
+
+> ⚠️ **DEPRECATED**: This command is now part of `/gsi:check` (GSI Check).
+> Use `/gsi:check --milestone` for unified milestone auditing.
+> This command remains for backward compatibility.
+
 <objective>
 Verify milestone achieved its definition of done. Check requirements coverage, cross-phase integration, and end-to-end flows.
 

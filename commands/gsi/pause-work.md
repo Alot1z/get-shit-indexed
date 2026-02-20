@@ -12,6 +12,10 @@ allowed-tools:
   - Task
 ---
 
+> ⚠️ **DEPRECATED**: This command is now part of `/gsi:pause` (GSI Pause).
+> Use `/gsi:pause` for unified work pause with handoff creation.
+> This command remains for backward compatibility.
+
 <objective>
 Create `.continue-here.md` handoff file to preserve complete work state across sessions.
 

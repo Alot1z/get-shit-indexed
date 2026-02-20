@@ -100,3 +100,7 @@ lerna-debug.log*
 # Lock files (keep package-lock.json, ignore others)
 # pnpm-lock.yaml
 # yarn.lock
+
+# Large generated files
+.planning/all-plans.md
+.planning/chats/chats.cxml

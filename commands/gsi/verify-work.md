@@ -13,6 +13,10 @@ allowed-tools:
   - Task
 ---
 
+> ⚠️ **DEPRECATED**: This command is now part of `/gsi:check` (GSI Check).
+> Use `/gsi:check [phase]` for unified verification and auditing.
+> This command remains for backward compatibility.
+
 <!--
 CI Tools Usage:
 - search_code_advanced: Find code patterns across project

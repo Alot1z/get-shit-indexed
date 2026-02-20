@@ -27,6 +27,10 @@ allowed-tools:
   - AskUserQuestion
 ---
 
+> ⚠️ **DEPRECATED**: This command is now part of `/gsi:go` (GSI Mega Workflow).
+> Use `/gsi:go` for unified phase execution with auto-detection.
+> This command remains for backward compatibility.
+
 <!--
 Golden Pattern Tool Usage:
 - CI understand: Code-Index for code search and symbol extraction

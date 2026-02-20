@@ -7,6 +7,10 @@ allowed-tools:
   - mcp__desktop-commander__edit_block
 ---
 
+> ⚠️ **Note**: Settings VIEW is now part of `/gsi:status` (GSI Status).
+> Use `/gsi:status --settings` to view current configuration.
+> This command remains for interactive settings modification.
+
 <objective>
 Interactive configuration of GSI workflow agents and model profile via multi-question prompt.
 

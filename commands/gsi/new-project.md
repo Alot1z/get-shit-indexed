@@ -13,6 +13,11 @@ allowed-tools:
   - mcp__code-index-mcp__get_symbol_body
   - Task
 ---
+
+> ⚠️ **DEPRECATED**: This command is now part of `/gsi:go` (GSI Mega Workflow).
+> Use `/gsi:go` for unified project initialization with auto-detection.
+> This command remains for backward compatibility.
+
 <context>
 **Flags:**
 - `--auto` — Automatic mode. After config questions, runs research → requirements → roadmap without further interaction. Expects idea document via @ reference.

@@ -7,6 +7,10 @@ allowed-tools:
   - mcp__code-index-mcp__find_files
 ---
 
+> ⚠️ **DEPRECATED**: This command is now part of `/gsi:status` (GSI Status).
+> Use `/gsi:status` for unified progress checking and settings view.
+> This command remains for backward compatibility.
+
 <!--
 CI Tools Usage:
 - search_code_advanced: Find patterns across planning files
