@@ -106,14 +106,14 @@ function getGlobalDir(runtime, explicitDir = null) {
   return path.join(os.homedir(), '.claude');
 }
 
-const purple = '\x1b[38;5;183m';  // Tokyo Night purple (for I)
+const purple = '\x1b[38;5;183m';  // Tokyo Night purple (for S)
 const banner = '\n' +
-  cyan + '   ██████╗ ' + purple + '███████╗' + cyan + '██████╗\n' +
-  cyan + '  ██╔════╝ ' + purple + '██╔════╝' + cyan + '██╔══██╗\n' +
-  cyan + '  ██║  ███╗' + purple + '███████╗' + cyan + '██║  ██║\n' +
-  cyan + '  ██║   ██║' + purple + '╚════██║' + cyan + '██║  ██║\n' +
-  cyan + '  ╚██████╔╝' + purple + '███████║' + cyan + '██████╔╝\n' +
-  cyan + '   ╚═════╝ ' + purple + '╚══════╝' + cyan + '╚═════╝' + reset + '\n' +
+  cyan + '   ██████╗ ' + purple + '███████╗' + cyan + '  █████╗\n' +
+  cyan + '  ██╔════╝ ' + purple + '██╔════╝' + cyan + '    ██╔╝\n' +
+  cyan + '  ██║  ███╗' + purple + '███████╗' + cyan + '    ██║\n' +
+  cyan + '  ██║   ██║' + purple + '╚════██║' + cyan + '    ██║\n' +
+  cyan + '  ╚██████╔╝' + purple + '███████║' + cyan + '    ██║\n' +
+  cyan + '   ╚═════╝ ' + purple + '╚══════╝' + cyan + '  █████╝\n' +
   '\n' +
   '  Get Shit Indexed ' + dim + 'v' + pkg.version + reset + '\n' +
   '  A meta-prompting, context engineering and spec-driven\n' +
