@@ -754,7 +754,6 @@ allowed-tools:
   # Other tools
   - Task
   - AskUserQuestion
-  - Bash
 thinking_phase:
   mode: COMPREHENSIVE
   servers: [debug, sequential, tractatus]
