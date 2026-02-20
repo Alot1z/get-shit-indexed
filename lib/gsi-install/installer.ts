@@ -76,6 +76,7 @@ export interface UninstallResult {
   filesRemoved: string[];
   hooksRemoved: string[];
   errors: string[];
+  warnings: string[];
   duration: number;
 }
 
@@ -199,6 +200,7 @@ export class Installer extends EventEmitter {
       filesRemoved: [],
       hooksRemoved: [],
       errors: [],
+      warnings: [],
       duration: 0,
     };
 
@@ -206,9 +208,9 @@ export class Installer extends EventEmitter {
       // Unregister hooks
       if (!options.dryRun) {
         const hookResult = await this.hookRegistrar.unregisterAll(configDir, runtime);
-        result.hooksRemoved = hookResult.removed;
+        result.hooksRemoved = hookResult.removed || [];
         if (hookResult.errors.length > 0) {
-          result.warnings?.push(...hookResult.errors);
+          result.warnings.push(...hookResult.errors);
         }
       }
 

@@ -26,6 +26,8 @@ export interface HookConfig {
 export interface HookResult {
   /** Successfully registered hooks */
   registered: string[];
+  /** Successfully removed hooks (for unregister operations) */
+  removed?: string[];
   /** Failed registrations */
   failed: string[];
   /** Errors */
@@ -141,9 +143,10 @@ export class HookRegistrar extends EventEmitter {
 
     // Clean up empty hook objects
     if (settings.hooks) {
-      for (const event of Object.keys(settings.hooks)) {
-        if (Array.isArray(settings.hooks[event]) && settings.hooks[event].length === 0) {
-          delete settings.hooks[event];
+      const hooksObj = settings.hooks as Record<string, unknown[]>;
+      for (const event of Object.keys(hooksObj)) {
+        if (Array.isArray(hooksObj[event]) && hooksObj[event].length === 0) {
+          delete hooksObj[event];
         }
       }
       if (Object.keys(settings.hooks).length === 0) {
@@ -155,7 +158,7 @@ export class HookRegistrar extends EventEmitter {
     this.saveSettings(settingsPath, settings);
 
     // Rename result.registered to removed for clarity
-    (result as { removed: string[] }).removed = result.registered;
+    result.removed = result.registered;
     result.registered = [];
 
     return result;

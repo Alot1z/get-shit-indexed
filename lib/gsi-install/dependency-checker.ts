@@ -79,7 +79,7 @@ const OPTIONAL_DEPENDENCIES = [
 /**
  * Check if an MCP server is available
  */
-async function checkMCPServer(serverName: string): Promise<{ available: boolean; version?: string }> {
+async function checkMCPServer(_serverName: string): Promise<{ available: boolean; version?: string }> {
   // In a real implementation, this would check MCP server availability
   // For now, return a placeholder
   return { available: false };
@@ -195,7 +195,7 @@ export class DependencyChecker extends EventEmitter {
    */
   private executeCommand(command: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      childProcess.exec(command, { timeout: 5000 }, (error, stdout, stderr) => {
+      childProcess.exec(command, { timeout: 5000 }, (error, stdout, _stderr) => {
         if (error) {
           reject(error);
         } else {

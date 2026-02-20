@@ -216,7 +216,7 @@ export class AuthManager extends EventEmitter {
       const authTag = Buffer.from(stored.authTag, 'hex');
 
       const decipher = crypto.createDecipheriv(algorithm, this.encryptionKey, iv);
-      decipher.setAuthTag(authTag);
+      (decipher as crypto.DecipherGCM).setAuthTag(authTag);
 
       let decrypted = decipher.update(stored.encrypted, 'hex', 'utf8');
       decrypted += decipher.final('utf8');

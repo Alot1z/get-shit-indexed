@@ -76,7 +76,7 @@ export type CapabilityType =
  * Provides direct access to Claude Code API without MCP overhead.
  */
 export class DirectAPI extends EventEmitter {
-  private config: Required<APIConfig>;
+  private _config: Required<APIConfig>;
   private available: boolean = false;
   private capabilities: Set<CapabilityType> = new Set();
   private requestCount: number = 0;
@@ -84,7 +84,7 @@ export class DirectAPI extends EventEmitter {
 
   constructor(config: APIConfig = {}) {
     super();
-    this.config = {
+    this._config = {
       timeout: config.timeout ?? 30000,
       baseUrl: config.baseUrl ?? 'https://api.anthropic.com',
       apiVersion: config.apiVersion ?? '2024-01-01',
@@ -180,7 +180,7 @@ export class DirectAPI extends EventEmitter {
    */
   async *executeStream(
     prompt: string,
-    options: RequestOptions = {}
+    _options: RequestOptions = {}
   ): AsyncGenerator<APIResponse> {
     if (!this.available || !this.capabilities.has('streaming')) {
       yield {
@@ -257,6 +257,13 @@ export class DirectAPI extends EventEmitter {
       status: 'success',
       duration: 0,
     };
+  }
+
+  /**
+   * Get configuration
+   */
+  getConfig(): Required<APIConfig> {
+    return this._config;
   }
 
   /**

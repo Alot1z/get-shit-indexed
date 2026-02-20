@@ -103,7 +103,6 @@ export class ClaudeCodeSDK extends EventEmitter {
       this.errorHandler.recordError({
         type: 'initialization',
         message: error instanceof Error ? error.message : 'Unknown error',
-        timestamp: new Date().toISOString(),
       });
     }
 
@@ -207,7 +206,6 @@ export class ClaudeCodeSDK extends EventEmitter {
         this.errorHandler.recordError({
           type: 'execution',
           message: error instanceof Error ? error.message : 'Unknown error',
-          timestamp: new Date().toISOString(),
           operation: 'executePrompt',
         });
 
